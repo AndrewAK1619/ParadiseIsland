@@ -1,0 +1,28 @@
+<div class="container" style="margin: 20px auto 20px auto;">
+	<div class="row justify-content-center">
+		<div class="card text-center col-sm-11">
+			<div class="card-body">
+				<div class="alert alert-success" ng-if="ctrl.userRegister.id">
+					<h3>
+						<strong>Success!</strong>
+						<p>You have successfully created your account !</p>
+					</h3>
+					<button type="button" class="btn btn-primary"
+						title="Return to home page">
+						<a ng-href="#!" class="text-white"> Return to home page </a>
+					</button>
+				</div>
+				<div class="alert alert-danger" ng-if="!ctrl.userRegister.id">
+					<h3>
+						<strong>Failed!</strong>
+						<p>An attempt to register failed !</p>
+					</h3>
+					<button type="button" class="btn btn-primary"
+						title="Return to home page">
+						<a ng-href="#!/account/register" class="text-white"> Return to register page </a>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="form">
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Nazwisko" ng-model="lastName">
+                    <button class="btn btn-primary mx-1" ng-click="ctrl.search(lastName)">Szukaj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-hover tableTextWhite">
+                <thead class="test">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Imię</th>
+                        <th scope="col">Nazwisko</th>
+                        <th scope="col">Pesel</th>
+                        <th scope="col" class="text-center">Akcja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in ctrl.users">
+                        <th scope="row">{{user.id}}</th>
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.pesel}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-primary" title="Edytuj">
+                                <a ng-href="#!user-edit/{{user.id}}" class="text-white">
+                                    <i class="fas fa-user-edit"></i>
+                                </a>
+                            </button>
+                            <button class="btn btn-sm btn-warning" title="Zarządzaj wyposażeniem">
+                                <a ng-href="#!user-assets/{{user.id}}" class="text-white">
+                                    <i class="fas fa-wrench"></i>
+                                </a>
+                            </button>
+                            <button class="btn btn-sm btn-danger" title="Usuń">
+                                <i class="fas fa-user-minus"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary mb-3" ng-href="#!user-add">Dodaj użytkownika</a>
+    </div>
+</div>
