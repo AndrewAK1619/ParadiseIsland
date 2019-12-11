@@ -34,10 +34,26 @@ public class UserService {
                 .collect(Collectors.toList());
     }
     
+    List<UserDto> findByLastName(String lastName) {
+        return userRepository.findAllByLastNameContainingIgnoreCase(lastName)
+                .stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
+    }
+    
     UserDto save(UserDto user) {
         Optional<User> userByPesel = userRepository.findByPesel(user.getPesel());
         userByPesel.ifPresent(u -> {
             throw new DuplicatePeselException();
+        });
+        return mapAndSaveUser(user);
+    }
+    
+    UserDto update(UserDto user) {
+        Optional<User> userByPesel = userRepository.findByPesel(user.getPesel());
+        userByPesel.ifPresent(u -> {
+            if(!u.getId().equals(user.getId()))
+                throw new DuplicatePeselException();
         });
         return mapAndSaveUser(user);
     }

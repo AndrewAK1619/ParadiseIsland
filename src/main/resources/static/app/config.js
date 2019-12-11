@@ -26,6 +26,16 @@ angular.module('app')
             controller: 'UserListController',
             controllerAs: 'ctrl'
         })
+        .when('/user-edit/:userId', {
+            templateUrl: 'app/components/users/edit/userEdit.html',
+            controller: 'userEditController',
+            controllerAs: 'ctrl'
+        })
+        .when('/user-add', {
+            templateUrl: 'app/components/users/edit/userEdit.html',
+            controller: 'userEditController',
+            controllerAs: 'ctrl'
+        })
         .when('/', {
             templateUrl: 'app/components/home/homePage/home.html',
             controller: 'HomeController',
