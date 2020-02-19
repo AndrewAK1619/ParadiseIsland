@@ -1,0 +1,61 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<div class="form">
+				<div class="input-group mb-2 mr-sm-2">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-search"></i>
+						</div>
+					</div>
+					<input type="text" class="form-control" id="searchInput"
+						placeholder="Category" ng-model="roomCategoryName">
+					<button class="btn btn-primary mx-1"
+						ng-click="ctrl.search(roomCategoryName)">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<table class="table table-hover tableTextWhite">
+				<thead class="test">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Number Of Single Beds</th>
+						<th scope="col">Number Of Double Beds</th>
+						<th scope="col">Price</th>
+						<th scope="col">Category</th>
+						<th scope="col" class="text-center">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="room in ctrl.room">
+						<th scope="row">{{room.id}}</th>
+						<td>{{room.numberOfSingleBeds}}</td>
+						<td>{{room.numberOfDoubleBeds}}</td>
+						<td>{{room.roomPrice}}</td>
+						<td>{{room.roomCategory}}</td>
+						<td class="text-center">
+							<button class="btn btn-sm btn-primary" title="Edit">
+								<a ng-href="#!/hotels/rooms-edit/{{room.id}}" class="text-white"> <i
+									class="fas fa-user-edit"></i>
+								</a>
+							</button>
+							<button class="btn btn-sm btn-warning" title="...">
+								<a ng-href="#!" class="text-white"> <i class="fas fa-wrench"></i>
+								</a>
+							</button>
+							<button class="btn btn-sm btn-danger" title="Delete">
+								<i class="fas fa-user-minus"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary mb-3" ng-href="#!/hotels/rooms-add">Add room</a>
+	</div>
+</div>

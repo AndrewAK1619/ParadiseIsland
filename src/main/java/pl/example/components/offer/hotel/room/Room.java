@@ -1,0 +1,109 @@
+package pl.example.components.offer.hotel.room;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import pl.example.components.offer.hotel.room.category.RoomCategory;
+
+@Entity
+@Table(name = "rooms")
+public class Room implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_room", nullable = false)
+	private Long id;
+	@NotNull
+	@Column(name = "number_of_single_beds", nullable = false)
+	private int numberOfSingleBeds;
+	@NotNull
+	@Column(name = "number_of_double_beds", nullable = false)
+	private int numberOfDoubleBeds;
+	@NotNull
+	@Column(name = "room_price", nullable = false)
+	private int roomPrice;
+//    @ManyToOne
+//    @JoinColumn(name = "hotel_id")
+//    private Hotel hotel;
+	@ManyToOne
+    @JoinColumn(name = "room_category")
+    private RoomCategory roomCategory;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public int getNumberOfSingleBeds() {
+		return numberOfSingleBeds;
+	}
+	public void setNumberOfSingleBeds(int numberOfSingleBeds) {
+		this.numberOfSingleBeds = numberOfSingleBeds;
+	}
+	public int getNumberOfDoubleBeds() {
+		return numberOfDoubleBeds;
+	}
+	public void setNumberOfDoubleBeds(int numberOfDoubleBeds) {
+		this.numberOfDoubleBeds = numberOfDoubleBeds;
+	}
+	public int getRoomPrice() {
+		return roomPrice;
+	}
+	public void setRoomPrice(int roomPrice) {
+		this.roomPrice = roomPrice;
+	}
+	public RoomCategory getRoomCategory() {
+		return roomCategory;
+	}
+	public void setRoomCategory(RoomCategory roomCategory) {
+		this.roomCategory = roomCategory;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + numberOfDoubleBeds;
+		result = prime * result + numberOfSingleBeds;
+		result = prime * result + roomPrice;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Room other = (Room) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (numberOfDoubleBeds != other.numberOfDoubleBeds)
+			return false;
+		if (numberOfSingleBeds != other.numberOfSingleBeds)
+			return false;
+		if (roomPrice != other.roomPrice)
+			return false;
+		return true;
+	}
+}

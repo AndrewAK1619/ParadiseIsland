@@ -1,10 +1,13 @@
 package pl.example.components.user;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -12,16 +15,22 @@ import javax.validation.constraints.Pattern;
 import pl.example.components.user.User;
 
 @Entity
-public class User {
+@Table(name = "users")
+public class User implements Serializable  {
+	private static final long serialVersionUID = 1L;
 	
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
     private Long id;
     @NotEmpty
+    @Column(name="first_name", nullable=false)
     private String firstName;
     @NotEmpty
+    @Column(name="last_name", nullable=false)
     private String lastName;
     @NotEmpty
+    @Column(name="mobile_phone", nullable=false)
     @Pattern(regexp="(?<!\\w)(\\(?(\\+|00)?48\\)?)?[ -]?\\d{3}[ -]?\\d{3}[ -]?\\d{3}(?!\\w)")
     private String mobilePhone;
     @Email
@@ -31,6 +40,7 @@ public class User {
     private String pesel;
 	@NotEmpty
 	private String password;
+	private String details;
 	
 	public Long getId() {
 		return id;
@@ -74,11 +84,18 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getDetails() {
+		return details;
+	}
+	public void setDetails(String details) {
+		this.details = details;
+	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((details == null) ? 0 : details.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -98,6 +115,11 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (details == null) {
+			if (other.details != null)
+				return false;
+		} else if (!details.equals(other.details))
+			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -135,4 +157,6 @@ public class User {
 			return false;
 		return true;
 	}
+	
+	
 }

@@ -9,6 +9,7 @@ public class UserDto {
     private String email;
     private String pesel;
 	private String password;
+	private String details;
 	
 	public Long getId() {
 		return id;
@@ -52,5 +53,10 @@ public class UserDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public String getDetails() {
+		return details;
+	}
+	public void setDetails(String details) {
+		this.details = details;
+	}
 }

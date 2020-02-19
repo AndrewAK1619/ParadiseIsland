@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row tableTextWhite">
+        <div class="mx-auto">
+            <h2 ng-if="ctrl.roomCategory.id">Edit room</h2>
+            <h2 ng-if="!ctrl.roomCategory.id">New room</h2>
+        </div>
+    </div>
+    <div class="row" ng-if="ctrl.msg">
+        <div class="mx-auto">
+            <p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+        </div>
+    </div>
+    <div class="row tableTextWhite">
+        <form class="mx-auto col-10 col-md-6">
+            <p>Id: {{ctrl.room.id}}</p>
+            <div class="form-group">
+                <label for="numberOfSingleBedsInput">Number Of Single Beds:</label>
+                <input type="text" class="form-control" id="numberOfSingleBedsInput" placeholder="Number Of Single Beds" ng-model="ctrl.room.numberOfSingleBeds">
+            </div>
+            <div class="form-group">
+                <label for="numberOfDoubleBedsInput">Number Of Double Beds:</label>
+                <input type="text" class="form-control" id="numberOfDoubleBedsInput" placeholder="Number Of Double Beds" ng-model="ctrl.room.numberOfDoubleBeds">
+            </div>
+            <div class="form-group">
+                <label for="roomPriceInput">Room Price:</label>
+                <input type="text" class="form-control" id="roomPrice" placeholder="Room Price" ng-model="ctrl.room.roomPrice">
+            </div>
+            <div class="form-group">
+                <label for="roomCategorySelect">Category:</label>
+                <select class="form-control" id="roomCategorySelect" ng-model="ctrl.room.roomCategory">
+                    <option ng-repeat="roomCategory in ctrl.roomCategoriesNames" ng-selected="category === ctrl.room.roomCategory">{{roomCategory}}</option>
+                </select>
+            </div>
+		    <div class="row" ng-if="ctrl.msg">
+		        <div class="mx-auto">
+		            <p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+		        </div>
+		    </div>
+            <div class="form-group mb-3">
+                <button ng-if="!ctrl.room.id" type="submit" class="btn btn-primary" ng-click="ctrl.saveRoom()">Save</button>
+                <button ng-if="ctrl.room.id" type="submit" class="btn btn-primary" ng-click="ctrl.updateRoom()">Update</button>
+            </div>
+        </form>
+    </div>
+</div>

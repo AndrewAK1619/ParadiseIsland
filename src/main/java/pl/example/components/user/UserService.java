@@ -28,14 +28,14 @@ public class UserService {
     }
     
     List<UserDto> findAll() {
-        return userRepository.findAll()
+        return userRepository.findAllByOrderByIdAsc()
                 .stream()
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());
     }
     
     List<UserDto> findByLastName(String lastName) {
-        return userRepository.findAllByLastNameContainingIgnoreCase(lastName)
+        return userRepository.findAllByLastNameContainingIgnoreCaseOrderByIdAsc(lastName)
                 .stream()
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());

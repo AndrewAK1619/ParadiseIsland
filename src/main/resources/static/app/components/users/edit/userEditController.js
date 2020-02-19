@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('userEditController', function($routeParams, $location, $timeout, UserService, User) {
+    .controller('UserEditController', function($routeParams, $location, $timeout, UserService, User) {
         const vm = this;
         const userId = $routeParams.userId;
         
@@ -12,7 +12,7 @@ angular.module('app')
             $location.path(`/user-edit/${vm.user.id}`);
         };
         const errorCallback = err => {
-            vm.msg=`Błąd zapisu: ${err.data.message}`;
+            vm.msg=`Data write error: ${err.data.message}`;
         };
 
         vm.saveUser = () => {
@@ -21,7 +21,7 @@ angular.module('app')
                 .catch(errorCallback);
         };
 
-        const updateCallback = response => vm.msg='Zapisano zmiany';
+        const updateCallback = response => vm.msg='Changes saved';
         vm.updateUser = () => {
             UserService.update(vm.user)
                 .then(updateCallback)

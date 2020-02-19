@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Paradise Island - best trip offers!</title>
+    
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
     <!-- Bootstrap -->
@@ -21,16 +22,24 @@
     <script src="app/index.js"></script>
     <script src="app/config.js"></script>
 
-    <script src="app/services/loginServices.js"></script>
-    <script src="app/services/registerServices.js"></script>
-	<script src="app/services/userServices.js"></script>
+    <script src="app/services/users/loginServices.js"></script>
+    <script src="app/services/users/registerServices.js"></script>
+	<script src="app/services/users/userServices.js"></script>
+	<script src="app/services/hotels/roomCategoryServices.js"></script>
+	<script src="app/services/hotels/roomService.js"></script>
+	<script src="app/services/hotels/hotelServices.js"></script>
 
     <script src="app/components/home/homePage/homeController.js"></script>
     <script src="app/components/account/login/loginController.js"></script>
     <script src="app/components/account/registration/registerController.js"></script>
     <script src="app/components/users/list/userListController.js"></script>
     <script src="app/components/users/edit/userEditController.js"></script>
-
+    <script src="app/components/offer/hotel/room/category/list/roomCategoryListController.js"></script>
+    <script src="app/components/offer/hotel/room/category/edit/roomCategoryEditController.js"></script>
+    <script src="app/components/offer/hotel/room/list/roomListController.js"></script>
+    <script src="app/components/offer/hotel/room/edit/roomEditController.js"></script>
+    <script src="app/components/offer/hotel/list/hotelListController.js"></script>
+    
 </head>
 <body>
 
@@ -80,6 +89,9 @@
 			            </a>
 			            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 			            	<a class="dropdown-item" href="#!users">Show Users</a>
+			            	<a class="dropdown-item" href="#!hotels">Show Hotels</a>
+			            	<a class="dropdown-item" href="#!hotels/rooms">Show Rooms</a>
+			            	<a class="dropdown-item" href="#!hotels/rooms/categories">Show Room Categories</a>
 			           		<div class="dropdown-divider"></div>
 			           		<h2 class="dropdown-header">-- ADMIN PANEL --</h2>
 			            	<a class="dropdown-item" href="#">Example 1</a>
@@ -107,6 +119,8 @@
     </main>
 
 	<div ng-view></div>
+
+
 
 </body>
 </html>

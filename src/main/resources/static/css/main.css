@@ -93,3 +93,8 @@ body {
 .test {
 	background: rgba(0,0,0,0.4);
 }
+
+.warn {
+	font-size: 27px;
+	font-weight: bold;
+}

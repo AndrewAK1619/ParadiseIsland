@@ -28,12 +28,47 @@ angular.module('app')
         })
         .when('/user-edit/:userId', {
             templateUrl: 'app/components/users/edit/userEdit.html',
-            controller: 'userEditController',
+            controller: 'UserEditController',
             controllerAs: 'ctrl'
         })
         .when('/user-add', {
             templateUrl: 'app/components/users/edit/userEdit.html',
-            controller: 'userEditController',
+            controller: 'UserEditController',
+            controllerAs: 'ctrl'
+        })
+        .when('/hotels', {
+            templateUrl: 'app/components/offer/hotel/list/hotelList.html',
+            controller: 'HotelListController',
+            controllerAs: 'ctrl'
+        })
+        .when('/hotels/rooms', {
+            templateUrl: 'app/components/offer/hotel/room/list/roomList.html',
+            controller: 'RoomListController',
+            controllerAs: 'ctrl'
+        })
+		.when('/hotels/rooms-edit/:roomId', {
+		    templateUrl: 'app/components/offer/hotel/room/edit/roomEdit.html',
+		    controller: 'RoomEditController',
+		    controllerAs: 'ctrl'
+		})
+		.when('/hotels/rooms-add', {
+		    templateUrl: 'app/components/offer/hotel/room/edit/roomEdit.html',
+		    controller: 'RoomEditController',
+		    controllerAs: 'ctrl'
+		})
+        .when('/hotels/rooms/categories', {
+            templateUrl: 'app/components/offer/hotel/room/category/list/roomCategoryList.html',
+            controller: 'RoomCategoryListController',
+            controllerAs: 'ctrl'
+        })
+        .when('/hotels/rooms/categories-edit/:roomCategoryId', {
+            templateUrl: 'app/components/offer/hotel/room/category/edit/roomCategoryEdit.html',
+            controller: 'RoomCategoryEditController',
+            controllerAs: 'ctrl'
+        })
+        .when('/hotels/rooms/categories-add', {
+            templateUrl: 'app/components/offer/hotel/room/category/edit/roomCategoryEdit.html',
+            controller: 'RoomCategoryEditController',
             controllerAs: 'ctrl'
         })
         .when('/', {

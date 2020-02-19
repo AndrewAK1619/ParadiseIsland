@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<UserDto> save(@RequestBody UserDto user) {
         if(user.getId() != null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The object being saved cannot be overwritten with an existing ID");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saving object can't have setted id");
         UserDto savedUser = userService.save(user);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -61,7 +61,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto user) {
         if(!id.equals(user.getId()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The object being updated must have an id that matches the id in the resource path");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The updated object must have an id in accordance with the id in the resource path");
         UserDto updatedUser = userService.update(user);
         return ResponseEntity.ok(updatedUser);
     }
