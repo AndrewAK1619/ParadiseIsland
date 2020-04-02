@@ -22,10 +22,14 @@
 		            <p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
 		        </div>
 		    </div>
-            <div class="form-group mb-3">
-                <button ng-if="!ctrl.roomCategory.id" type="submit" class="btn btn-primary" ng-click="ctrl.saveRoomCategory()">Save</button>
-                <button ng-if="ctrl.roomCategory.id" type="submit" class="btn btn-primary" ng-click="ctrl.updateRoomCategory()">Update</button>
+            <div class="form-group mb-5">
+                <button ng-if="!ctrl.roomCategory.id" type="submit" class="btn btn-success" ng-click="ctrl.saveRoomCategory()">Save</button>
+                <button ng-if="ctrl.roomCategory.id" type="submit" class="btn btn-success" ng-click="ctrl.updateRoomCategory()">Update</button>
             </div>
+            <div class="row">
+				<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels/rooms/categories">Categories</a>
+				<a ng-if="ctrl.roomCategory.id" class="btn btn-primary mb-3 mx-auto" ng-href="#!hotels/rooms/categories-add">Add another category</a>
+			</div>
         </form>
     </div>
 </div>

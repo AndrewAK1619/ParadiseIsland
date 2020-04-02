@@ -1,0 +1,33 @@
+#upload {
+    opacity: 0;
+}
+
+#upload-label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+}
+
+#image-label {
+    position: absolute;
+    top: -20px;
+    left: 1rem;
+    transform: translateY(-50%);
+}
+
+#imageResult {
+	max-width: 200px;
+    max-height: 200px;
+}
+
+.image-area {
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+    width: 250px;
+    height: 240px;
+}
+
+.image-area img {
+    z-index: 2;
+}

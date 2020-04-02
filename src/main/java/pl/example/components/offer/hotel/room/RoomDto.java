@@ -7,6 +7,7 @@ public class RoomDto {
 	private int numberOfDoubleBeds;
 	private int roomPrice;
 	private String roomCategory;
+	private Long mainImageId;
 	
 	public Long getId() {
 		return id;
@@ -37,5 +38,11 @@ public class RoomDto {
 	}
 	public void setRoomCategory(String roomCategory) {
 		this.roomCategory = roomCategory;
+	}
+	public Long getMainImageId() {
+		return mainImageId;
+	}
+	public void setMainImageId(Long mainImageId) {
+		this.mainImageId = mainImageId;
 	}
 }

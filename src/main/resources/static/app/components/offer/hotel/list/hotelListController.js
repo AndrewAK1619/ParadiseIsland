@@ -1,4 +1,5 @@
 angular.module('app')
-.controller('HotelListController', function ($scope, $http) {
-
+.controller('HotelListController', function () {
+	const vm = this;
+	
 });

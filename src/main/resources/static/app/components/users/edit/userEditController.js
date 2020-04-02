@@ -16,13 +16,18 @@ angular.module('app')
         };
 
         vm.saveUser = () => {
-            UserService.save(vm.user)
+        	UserService.save(vm.user)
                 .then(saveCallback)
                 .catch(errorCallback);
         };
 
         const updateCallback = response => vm.msg='Changes saved';
         vm.updateUser = () => {
+        	const formData = new FormData();
+    		formData.append('id', 4);
+    		formData.append('file', 'troll');
+    		formData.append('user', JSON.stringify(vm.user));
+        	
             UserService.update(vm.user)
                 .then(updateCallback)
                 .catch(errorCallback);

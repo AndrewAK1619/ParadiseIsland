@@ -17,7 +17,7 @@ public class RoomCategory implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_room_category", nullable = false)
+	@Column(name = "room_category_id", nullable = false)
 	private Long id;
 	@NotEmpty
 	@Column(nullable = false, unique = true)
@@ -26,15 +26,12 @@ public class RoomCategory implements Serializable {
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -47,7 +44,6 @@ public class RoomCategory implements Serializable {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -1,15 +1,28 @@
 angular.module('app')
 .constant('ROOM_ENDPOINT', '/hotels/rooms/:id')
-.factory('Room', function($resource, ROOM_ENDPOINT) {
+.constant('DEFAULT_IMAGE', '/hotels/rooms/defaultImg')
+.factory('Room', function($resource, ROOM_ENDPOINT, DEFAULT_IMAGE) {
     return $resource(ROOM_ENDPOINT, { id: '@_id' }, {
-        update: {
-            method: 'PUT'
+    	uploadFileAndRoom: {
+            method: 'POST',
+			transformRequest: angular.identity,
+			headers: {'Content-Type': undefined}
+	    },
+    	updateFileAndRoom: {
+            method: 'PUT',
+			transformRequest: angular.identity,
+			headers: {'Content-type': undefined}
+        },
+        getDefaultImage: {
+        	method: 'GET',
+            url: DEFAULT_IMAGE
         }
     });
 })
-.service('RoomService', function(Room) {
+.service('RoomService', function (Room) {
     this.getAll = params => Room.query(params);
     this.get = index => Room.get({id: index});
-    this.save = Room => Room.$save();
-    this.update = Room => Room.$update({id: Room.id})
+	this.uploadFileAndRoom = formData => Room.uploadFileAndRoom(formData);
+	this.updateFileAndRoom = formData => Room.updateFileAndRoom({id: formData.getAll('idRoom')[0]}, formData);
+    this.getDefaultImage = () => Room.getDefaultImage();
 });

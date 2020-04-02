@@ -1,6 +1,7 @@
 package pl.example.components.offer.hotel.room;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import pl.example.components.offer.hotel.room.category.RoomCategory;
+import pl.example.components.offer.hotel.room.image.RoomImage;
 
 @Entity
 @Table(name = "rooms")
@@ -22,7 +24,7 @@ public class Room implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_room", nullable = false)
+	@Column(name = "room_id", nullable = false)
 	private Long id;
 	@NotNull
 	@Column(name = "number_of_single_beds", nullable = false)
@@ -33,12 +35,12 @@ public class Room implements Serializable {
 	@NotNull
 	@Column(name = "room_price", nullable = false)
 	private int roomPrice;
-//    @ManyToOne
-//    @JoinColumn(name = "hotel_id")
-//    private Hotel hotel;
 	@ManyToOne
     @JoinColumn(name = "room_category")
     private RoomCategory roomCategory;
+    @OneToMany
+    @JoinColumn(name = "room_id", referencedColumnName="room_id")
+    private List<RoomImage> roomImages;
 	
 	public Long getId() {
 		return id;
@@ -69,6 +71,12 @@ public class Room implements Serializable {
 	}
 	public void setRoomCategory(RoomCategory roomCategory) {
 		this.roomCategory = roomCategory;
+	}
+	public List<RoomImage> getRoomImages() {
+		return roomImages;
+	}
+	public void setRoomImages(List<RoomImage> roomImages) {
+		this.roomImages = roomImages;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

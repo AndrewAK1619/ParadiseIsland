@@ -21,7 +21,7 @@ public class User implements Serializable  {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
+    @Column(name = "user_id")
     private Long id;
     @NotEmpty
     @Column(name="first_name", nullable=false)
@@ -105,7 +105,6 @@ public class User implements Serializable  {
 		result = prime * result + ((pesel == null) ? 0 : pesel.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -157,6 +156,4 @@ public class User implements Serializable  {
 			return false;
 		return true;
 	}
-	
-	
 }

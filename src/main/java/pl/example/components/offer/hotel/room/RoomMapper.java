@@ -1,5 +1,7 @@
 package pl.example.components.offer.hotel.room;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +9,22 @@ import org.springframework.stereotype.Service;
 
 import pl.example.components.offer.hotel.room.category.RoomCategory;
 import pl.example.components.offer.hotel.room.category.RoomCategoryRepository;
+import pl.example.components.offer.hotel.room.image.RoomImage;
+import pl.example.components.offer.hotel.room.image.RoomImageRepository;
 
 @Service
 public class RoomMapper {
 
+	RoomRepository roomRepository;
 	RoomCategoryRepository roomCategoryRepository;
+	RoomImageRepository roomImageRepository;
 
 	@Autowired
-	public RoomMapper(RoomCategoryRepository roomCategoryRepository) {
+	public RoomMapper(RoomCategoryRepository roomCategoryRepository, RoomImageRepository roomImageRepository,
+			RoomRepository roomRepository) {
 		this.roomCategoryRepository = roomCategoryRepository;
+		this.roomImageRepository = roomImageRepository;
+		this.roomRepository = roomRepository;
 	}
 
 	RoomDto toDto(Room room) {
@@ -38,6 +47,34 @@ public class RoomMapper {
 		entity.setRoomPrice(roomDto.getRoomPrice());
 		Optional<RoomCategory> roomCategory = roomCategoryRepository.findByName(roomDto.getRoomCategory());
 		roomCategory.ifPresent(entity::setRoomCategory);
+
+		List<RoomImage> roomImeges = addCorrectRoomImageList(roomDto);
+
+		entity.setRoomImages(roomImeges);
 		return entity;
+	}
+	
+	private List<RoomImage> addCorrectRoomImageList(RoomDto roomDto) {
+		List<RoomImage> roomImeges = new ArrayList<>();
+		if (roomDto.getId() != null && roomDto.getMainImageId() != null) {
+			roomImeges = getRoomImageFromRoom(roomDto, roomImeges);
+			roomImeges.stream().forEach(roomImg -> roomImg.setMainImage(false));
+		} else if (roomDto.getId() != null && roomDto.getMainImageId() == null) {
+			roomImeges = getRoomImageFromRoom(roomDto, roomImeges);
+		}
+		if (roomDto.getMainImageId() != null) {
+			Optional<RoomImage> mainRoomImage = roomImageRepository.findById(roomDto.getMainImageId());
+			if (mainRoomImage.isPresent())
+				roomImeges.add(mainRoomImage.get());
+		}
+		return roomImeges;
+	}
+	
+	private List<RoomImage> getRoomImageFromRoom(RoomDto roomDto, List<RoomImage> roomImeges) {
+		Optional<Room> roomBeforeUpdated = roomRepository.findById(roomDto.getId());
+		if (roomBeforeUpdated.isPresent()) {
+			roomImeges = roomBeforeUpdated.get().getRoomImages();
+		}
+		return roomImeges;
 	}
 }
