@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,14 +42,33 @@ public class RoomController {
 		this.roomService = roomService;
 		this.roomImageService = roomImageService;
 	}
-
+	
 	@GetMapping("")
-	public List<RoomDto> findAll(@RequestParam(required = false) String roomCategoryName) {
+	public ResponseEntity<MultiValueMap<String, Object>> findAll(@RequestParam(required = false) String roomCategoryName) {
+		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
+		List<RoomDto> roomDtoList;
+		
 		if (roomCategoryName != null) {
-			return roomService.findAllByRoomCategory(roomCategoryName);
+			roomDtoList = roomService.findAllByRoomCategory(roomCategoryName);
 		} else {
-			return roomService.findAll();
+			roomDtoList = roomService.findAll();
 		}
+		List<byte[]> mainImgList = roomDtoList.stream()
+					.map(roomDto -> {
+						try {
+							return roomService.getMainImageInByteFromRoom(roomDto.getId());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+								"Downloading object failed");
+					})
+					.collect(Collectors.toList());
+		
+		formData.add("roomList", roomDtoList);
+		formData.add("fileList", mainImgList);
+		
+		return ResponseEntity.ok(formData);
 	}
 	
 	@PostMapping("")

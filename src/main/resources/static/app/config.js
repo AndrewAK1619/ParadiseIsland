@@ -75,8 +75,8 @@ angular.module('app')
             templateUrl: 'app/components/home/homePage/home.html',
             controller: 'HomeController',
             controllerAs: 'ctrl'
-        })
-        .otherwise({
-            redirectTo: '/'
         });
+//        .otherwise({
+//            redirectTo: '/'
+//        });
 });

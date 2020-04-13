@@ -2,7 +2,7 @@ angular.module('app')
     .controller('RoomEditController', function($routeParams, $location, $timeout, RoomService, RoomCategoryService, Room) {
         const vm = this;
         const roomId = $routeParams.roomId;
-
+        
         const setRoomAndTopImg = result => {
         	vm.roomArray = result.room;
         	vm.fileArray = result.file;

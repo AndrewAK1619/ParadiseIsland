@@ -16,43 +16,51 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-12">
-			<table class="table table-hover tableTextWhite">
-				<thead class="test">
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Number Of Single Beds</th>
-						<th scope="col">Number Of Double Beds</th>
-						<th scope="col">Price</th>
-						<th scope="col">Category</th>
-						<th scope="col" class="text-center">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="room in ctrl.room">
-						<th scope="row">{{room.id}}</th>
-						<td>{{room.numberOfSingleBeds}}</td>
-						<td>{{room.numberOfDoubleBeds}}</td>
-						<td>{{room.roomPrice}}</td>
-						<td>{{room.roomCategory}}</td>
-						<td class="text-center">
-							<button class="btn btn-sm btn-primary" title="Edit">
+	<div class="card border-dark mb-3" ng-repeat="room in ctrl.room">
+		<div class="row no-gutters">
+			<div class="col-md-4 text-center bg-secondary">
+				<img id="imageListResult" ng-src="data:image/jpeg;base64,{{room.imgSrc}}" class="card-img img-fluid" alt="...">
+			</div>
+			<div class="col-md-8">
+				<ul class="list-group list-group-horizontal" style="height: 100%;">
+					<li class="list-group-item w-100">
+						<div class="card-body">
+							<div class="items col-12 clearfix">
+				               <div class="info-block block-info clearfix">
+				                    <div class="square-box">
+				                        <span class="glyphicon glyphicon-user glyphicon-lg"></span>
+				                    </div>
+									<div class="row">
+										<div class="col-sm-3 font-weight-bold text-size-16"># {{room.id}}</div>
+										<div class="w-100 mb-3"></div>
+										<div class="col text-size-16">Number Of Single Beds: <strong>{{room.numberOfSingleBeds}}</strong></div>
+										<div class="col text-size-16">Number Of Double Beds: <strong>{{room.numberOfDoubleBeds}}</strong></div>
+										<div class="w-100 mb-3"></div>
+										<div class="col text-size-16">Price: <strong>{{room.roomPrice}}</strong></div>
+										<div class="col text-size-16">Category: <strong>{{room.roomCategory}}</strong></div>
+									</div>
+				                </div>
+				            </div>
+						</div>
+					</li>
+					<li class="list-group-item-dark p-2" style="display: flex; align-items: center;">
+						<div class="btn-group-vertical">
+							<button class="btn btn-sm btn-primary mb-3" title="Edit">
 								<a ng-href="#!/hotels/rooms-edit/{{room.id}}" class="text-white"> <i
 									class="fas fa-edit"></i>
 								</a>
 							</button>
-							<button class="btn btn-sm btn-warning" title="...">
+							<button class="btn btn-sm btn-warning mb-3" title="...">
 								<a ng-href="#!" class="text-white"> <i class="fas fa-history"></i>
 								</a>
 							</button>
 							<button class="btn btn-sm btn-danger" title="Delete">
 								<i class="fas fa-trash-alt"></i>
 							</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+						</div>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div class="row">

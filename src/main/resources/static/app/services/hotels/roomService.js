@@ -16,11 +16,17 @@ angular.module('app')
         getDefaultImage: {
         	method: 'GET',
             url: DEFAULT_IMAGE
+        },
+        getAllRoomsAndMainImg: {
+        	method: 'GET',
+			transformRequest: angular.identity,
+			headers: {'Content-type': undefined},
+            url: ROOM_ENDPOINT
         }
     });
 })
 .service('RoomService', function (Room) {
-    this.getAll = params => Room.query(params);
+    this.getAllRoomsAndMainImg = params => Room.getAllRoomsAndMainImg(params);
     this.get = index => Room.get({id: index});
 	this.uploadFileAndRoom = formData => Room.uploadFileAndRoom(formData);
 	this.updateFileAndRoom = formData => Room.updateFileAndRoom({id: formData.getAll('idRoom')[0]}, formData);

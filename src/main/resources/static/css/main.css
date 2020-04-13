@@ -98,3 +98,14 @@ body {
 	font-size: 27px;
 	font-weight: bold;
 }
+
+
+.text-size-16 {
+	font-size: 16px;
+}
+
+#imageListResult {
+    height: auto; 
+    width: auto; 
+    max-height: 250px;
+}
