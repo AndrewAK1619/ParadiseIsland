@@ -1,59 +1,69 @@
 <div class="container">
-    <div class="row tableTextWhite">
-        <div class="mx-auto">
-            <h2 ng-if="ctrl.user.id">Edit user</h2>
-            <h2 ng-if="!ctrl.user.id">New user</h2>
-        </div>
-    </div>
-    <div class="row" ng-if="ctrl.msg">
-        <div class="mx-auto">
-            <p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
-        </div>
-    </div>
-    <div class="row tableTextWhite">
-        <form class="mx-auto col-10 col-md-6">
-            <p>Id: {{ctrl.user.id}}</p>
-            <div class="form-group">
-                <label for="firstNameInput">Name:</label>
-                <input type="text" class="form-control" id="firstNameInput" placeholder="First name" ng-model="ctrl.user.firstName">
-            </div>
-            <div class="form-group">
-                <label for="lastNameInput">Surname:</label>
-                <input type="text" class="form-control" id="lastNameInput" placeholder="Surname" ng-model="ctrl.user.lastName">
-            </div>
-            <div class="form-group">
-                <label for="mobilePhoneInput">Mobile phone:</label>
-                <input type="text" class="form-control" id="peselInput" placeholder="Mobile phone" ng-model="ctrl.user.mobilePhone">
-            </div>
-            <div class="form-group">
-                <label for="emailInput">Email address:</label>
-                <input type="text" class="form-control" id="emailInput" placeholder="Email address" ng-model="ctrl.user.email">
-            </div>
-            <div class="form-group">
-                <label for="peselInput">Pesel:</label>
-                <input type="text" class="form-control" id="peselInput" placeholder="Pesel" ng-model="ctrl.user.pesel">
-            </div>
-            <div ng-if="!ctrl.user.id" class="form-group">
-                <label for="passwordInput">Password:</label>
-                <input type="text" class="form-control" id="passwordInput" placeholder="Password" ng-model="ctrl.user.password">
-            </div>
-            <div class="form-group">
-                <label for="detailsInput">Details:</label>
-                <input type="text" class="form-control" id="detailsInput" placeholder="Details" ng-model="ctrl.user.details">
-            </div>
-		    <div class="row" ng-if="ctrl.msg">
-		        <div class="mx-auto">
-		            <p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
-		        </div>
-		    </div>
-            <div class="form-group mb-5">
-                <button ng-if="!ctrl.user.id" type="submit" class="btn btn-success" ng-click="ctrl.saveUser()">Save</button>
-                <button ng-if="ctrl.user.id" type="submit" class="btn btn-success" ng-click="ctrl.updateUser()">Update</button>
-            </div>
-            <div class="row">
-				<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/users">Users</a>
-				<a ng-if="ctrl.user.id" class="btn btn-primary mb-3 mx-auto" ng-href="#!/user-add">Add another user</a>
+	<div class="row tableTextWhite">
+		<div class="mx-auto">
+			<h2 ng-if="ctrl.user.id">Edit user</h2>
+			<h2 ng-if="!ctrl.user.id">New user</h2>
+		</div>
+	</div>
+	<div class="row" ng-if="ctrl.msg">
+		<div class="mx-auto">
+			<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+		</div>
+	</div>
+	<div class="row tableTextWhite">
+		<form class="mx-auto col-10 col-md-6">
+			<p>Id: {{ctrl.user.id}}</p>
+			<div class="form-group">
+				<label for="firstNameInput">Name:</label>
+				<input type="text" class="form-control" id="firstNameInput"
+					placeholder="First name" ng-model="ctrl.user.firstName">
 			</div>
-        </form>
-    </div>
+			<div class="form-group">
+				<label for="lastNameInput">Surname:</label>
+				<input type="text" class="form-control" id="lastNameInput"
+					placeholder="Surname" ng-model="ctrl.user.lastName">
+			</div>
+			<div class="form-group">
+				<label for="mobilePhoneInput">Mobile phone:</label>
+				<input type="text" class="form-control" id="peselInput"
+					placeholder="Mobile phone" ng-model="ctrl.user.mobilePhone">
+			</div>
+			<div class="form-group">
+				<label for="emailInput">Email address:</label>
+				<input type="text" class="form-control" id="emailInput"
+					placeholder="Email address" ng-model="ctrl.user.email">
+			</div>
+			<div class="form-group">
+				<label for="peselInput">Pesel:</label>
+				<input type="text" class="form-control" id="peselInput"
+					placeholder="Pesel" ng-model="ctrl.user.pesel">
+			</div>
+			<div ng-if="!ctrl.user.id" class="form-group">
+				<label for="passwordInput">Password:</label>
+				<input type="text" class="form-control" id="passwordInput"
+					placeholder="Password" ng-model="ctrl.user.password">
+			</div>
+			<div class="form-group">
+				<label for="detailsInput">Details:</label>
+				<input type="text" class="form-control" id="detailsInput"
+					placeholder="Details" ng-model="ctrl.user.details">
+			</div>
+			<div class="row" ng-if="ctrl.msg">
+				<div class="mx-auto">
+					<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+				</div>
+			</div>
+			<div class="form-group mb-5">
+				<button ng-if="!ctrl.user.id" type="submit" class="btn btn-success"
+					ng-click="ctrl.saveUser()">Save</button>
+				<button ng-if="ctrl.user.id" type="submit" class="btn btn-success"
+					ng-click="ctrl.updateUser()">Update</button>
+			</div>
+			<div class="row">
+				<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/users">Users</a>
+				<a ng-if="ctrl.user.id" class="btn btn-primary mb-3 mx-auto"
+					ng-href="#!/user-add">Add another user</a>
+			</div>
+		</form>
+	</div>
 </div>

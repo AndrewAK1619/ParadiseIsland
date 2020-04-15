@@ -10,8 +10,9 @@
 					</div>
 					<input type="text" class="form-control" id="searchInput"
 						placeholder="Room Category Name" ng-model="name">
-					<button class="btn btn-primary mx-1"
-						ng-click="ctrl.search(name)">Search</button>
+					<button class="btn btn-primary mx-1" ng-click="ctrl.search(name)">
+						Search
+					</button>
 				</div>
 			</div>
 		</div>
@@ -32,12 +33,14 @@
 						<td>{{roomCategory.name}}</td>
 						<td class="text-center">
 							<button class="btn btn-sm btn-primary" title="Edit">
-								<a ng-href="#!hotels/rooms/categories-edit/{{roomCategory.id}}" class="text-white"> <i
-									class="fas fa-edit"></i>
+								<a ng-href="#!hotels/rooms/categories-edit/{{roomCategory.id}}"
+									class="text-white">
+									<i class="fas fa-edit"></i>
 								</a>
 							</button>
 							<button class="btn btn-sm btn-warning" title="...">
-								<a ng-href="#!" class="text-white"> <i class="fas fa-history"></i>
+								<a ng-href="#!" class="text-white">
+									<i class="fas fa-history"></i>
 								</a>
 							</button>
 							<button class="btn btn-sm btn-danger" title="Delete">
@@ -50,7 +53,8 @@
 		</div>
 	</div>
 	<div class="row">
-		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels/rooms/categories-add">Add new category</a>
+		<a class="btn btn-primary mb-3 mx-auto"
+			ng-href="#!/hotels/rooms/categories-add">Add new category</a>
 		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels/rooms">Rooms</a>
 	</div>
 </div>

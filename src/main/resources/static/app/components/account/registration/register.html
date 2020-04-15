@@ -1,75 +1,100 @@
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md-6">
-				<div class="card registerbox">
-					<header class="card-header">
-						<div class="form-row">
-							<div class="col form-group">
-								<h4 class="card-title mt-2">Sign up</h4>
-							</div>
-							<div class="col form-group">
-								<img src="img/logo.png" alt="Logo" class="logo center-img">
-							</div>
-							<div class="col form-group">
-								<a href="#!account/login" class="float-right btn btn-outline-primary mt-1">Log in</a>
-							</div>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<div class="card registerbox">
+				<header class="card-header">
+					<div class="form-row">
+						<div class="col form-group">
+							<h4 class="card-title mt-2">Sign up</h4>
 						</div>
-					</header>
+						<div class="col form-group">
+							<img src="img/logo.png" alt="Logo" class="logo center-img">
+						</div>
+						<div class="col form-group">
+							<a href="#!account/login"
+								class="float-right btn btn-outline-primary mt-1">
+								Log in
+							</a>
+						</div>
+					</div>
+				</header>
 				<article class="card-body">
 					<div class="row" ng-if="ctrl.msg">
-				        <div class="mx-auto">
-				            <p class="text-danger">{{ctrl.msg}}</p>
-				        </div>
-				    </div>
+						<div class="mx-auto">
+							<p class="text-danger">{{ctrl.msg}}</p>
+						</div>
+					</div>
 					<form>
 						<div class="form-row">
 							<div class="col form-group">
-								<label>First name </label>   
-								<input type="text" class="form-control" placeholder="First name" ng-model="ctrl.userRegister.firstName">
+								<label>First name </label>
+								<input type="text" class="form-control" placeholder="First name"
+									ng-model="ctrl.userRegister.firstName">
 							</div>
 							<div class="col form-group">
 								<label>Last name</label>
-								<input type="text" class="form-control" placeholder="Surname" ng-model="ctrl.userRegister.lastName">
+								<input type="text" class="form-control" placeholder="Surname"
+									ng-model="ctrl.userRegister.lastName">
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Mobile phone</label>
-							<input type="text" class="form-control" placeholder="Mobile phone" ng-model="ctrl.userRegister.mobilePhone">
-							<small class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+							<input type="text" class="form-control"
+								placeholder="Mobile phone"
+								ng-model="ctrl.userRegister.mobilePhone">
+							<small class="form-text text-muted">
+								We'll never share your phone number with anyone else.
+							</small>
 						</div>
 						<div class="form-group">
 							<label>Email address</label>
-							<input type="email" class="form-control" placeholder="Email address" ng-model="ctrl.userRegister.email">
-							<small class="form-text text-muted">We'll never share your email with anyone else.</small>
+							<input type="email" class="form-control"
+								placeholder="Email address" ng-model="ctrl.userRegister.email">
+							<small class="form-text text-muted">
+								We'll never share your email with anyone else.
+							</small>
 						</div>
 						<div class="form-group">
 							<label>Pesel</label>
-							<input type="text" class="form-control" placeholder="Pesel" ng-model="ctrl.userRegister.pesel">
-							<small class="form-text text-muted">We'll never share your pesel number with anyone else.</small>
+							<input type="text" class="form-control" placeholder="Pesel"
+								ng-model="ctrl.userRegister.pesel">
+							<small class="form-text text-muted">
+								We'll never share your pesel number with anyone else.
+							</small>
 						</div>
 						<div class="form-row">
 							<div class="col form-group">
 								<label>Create password</label>
-								<input class="form-control" type="password" placeholder="Password" ng-model="ctrl.userRegister.password">
+								<input class="form-control" type="password"
+									placeholder="Password" ng-model="ctrl.userRegister.password">
 							</div>
 							<div class="col form-group">
 								<label>Confirm Password</label>
-								<input class="form-control" type="password" placeholder="Password">
+								<input class="form-control" type="password"
+									placeholder="Password">
 							</div>
 						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary btn-block"  ng-click="ctrl.saveUserRegister()"> Register  </button>
+							<button type="submit" class="btn btn-primary btn-block"
+								ng-click="ctrl.saveUserRegister()">Register</button>
 						</div>
 						<div class="row" ng-if="ctrl.msg">
-				        <div class="mx-auto">
-				            <p class="text-danger">{{ctrl.msg}}</p>
-				        </div>
-				    </div>   
-						<small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>                                          
+							<div class="mx-auto">
+								<p class="text-danger">{{ctrl.msg}}</p>
+							</div>
+						</div>
+						<small class="text-muted">
+							By clicking the 'Sign Up' button, you confirm that you accept our
+							<br>
+							Terms of use and Privacy Policy.
+						</small>
 					</form>
 				</article>
-				<div class="border-top card-body text-center">Have an account? <a href="#!account/login">Log In</a></div>
+				<div class="border-top card-body text-center">
+					Have an account?
+					<a href="#!account/login">Log In</a>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
+</div>

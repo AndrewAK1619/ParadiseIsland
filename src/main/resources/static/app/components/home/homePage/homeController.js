@@ -1,3 +1,4 @@
 angular.module('app')
-	.controller('HomeController', function($routeParams) {
+.controller('HomeController', function($routeParams) {
+	
 });

@@ -15,23 +15,26 @@
 			<p class="mx-auto col-10 col-md-9">Id: {{ctrl.room.id}}</p>
 			<div class="form-group row">
 				<div class="image-area row x-auto col-4 float-left">
-					<img id="imageResult" ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}" alt=""
+					<img id="imageResult"
+						ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}" alt=""
 						class="img-fluid my-auto rounded shadow-sm mx-auto d-block">
 				</div>
-				<div class="input-group my-auto mx-auto col-7 mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-					<label id="image-label">Main room image:</label> <input type="file"
-						class="form-control border-0" id="upload"
-						ng-change="ctrl.readURL()"
-						ng-model="ctrl.upload" 
-						file-model="ctrl.file"> 
-						<label id="upload-label"
-						for="upload" class="font-weight-light text-muted">Choose
-						file</label>
+				<div
+					class="input-group my-auto mx-auto col-7 mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+					<label id="image-label">Main room image:</label>
+					<input type="file" class="form-control border-0" id="upload"
+						ng-change="ctrl.readURL()" ng-model="ctrl.upload"
+						file-model="ctrl.file">
+					<label id="upload-label" for="upload"
+						class="font-weight-light text-muted">
+						Choose file
+					</label>
 					<div class="input-group-append">
 						<label for="upload" class="btn btn-light m-0 rounded-pill px-4">
-							<i class="fa fa-cloud-upload mr-2 text-muted"></i><small
-							class="text-uppercase font-weight-bold text-muted">Choose
-								file</small>
+							<i class="fa fa-cloud-upload mr-2 text-muted"></i>
+							<small class="text-uppercase font-weight-bold text-muted">
+								Choose file
+							</small>
 						</label>
 					</div>
 				</div>
@@ -50,16 +53,18 @@
 						ng-model="ctrl.room.numberOfDoubleBeds">
 				</div>
 				<div class="form-group">
-					<label for="roomPriceInput">Room Price:</label> <input type="text"
-						class="form-control" id="roomPrice" placeholder="Room Price"
-						ng-model="ctrl.room.roomPrice">
+					<label for="roomPriceInput">Room Price:</label>
+					<input type="text" class="form-control" id="roomPrice"
+						placeholder="Room Price" ng-model="ctrl.room.roomPrice">
 				</div>
 				<div class="form-group">
-					<label for="roomCategorySelect">Category:</label> <select
-						class="form-control" id="roomCategorySelect"
+					<label for="roomCategorySelect">Category:</label>
+					<select class="form-control" id="roomCategorySelect"
 						ng-model="ctrl.room.roomCategory">
 						<option ng-repeat="roomCategory in ctrl.roomCategoriesNames"
-							ng-selected="category === ctrl.room.roomCategory">{{roomCategory}}</option>
+							ng-selected="category === ctrl.room.roomCategory">
+							{{roomCategory}}
+						</option>
 					</select>
 				</div>
 				<div class="row" ng-if="ctrl.msg">
@@ -75,7 +80,8 @@
 				</div>
 				<div class="row">
 					<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels/rooms">Rooms</a>
-					<a ng-if="ctrl.room.id" class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels/rooms-add">Add another room</a>
+					<a ng-if="ctrl.room.id" class="btn btn-primary mb-3 mx-auto"
+						ng-href="#!/hotels/rooms-add">Add another room</a>
 				</div>
 			</div>
 		</form>
