@@ -3,23 +3,23 @@ body {
 }
 
 .jumbo-custom {
-    background: url('../img/jumboBackground.jpg') center;
+	background: url('../img/jumboBackground.jpg') center;
 }
 
 .text-shadow {
 	text-shadow:	-5px 0 8px black, 
-					0 5px 8px black,
-					5px 0 8px black, 
-					0 -5px 8px black,
-					-10px 0 8px black, 
-					0 10px 8px black,
-					10px 0 8px black, 
-					0 -10px 8px black;
+				0 5px 8px black,
+				5px 0 8px black,
+				0 -5px 8px black,
+				-10px 0 8px black, 
+				0 10px 8px black,
+				10px 0 8px black, 
+				0 -10px 8px black;
 }
 
 .logo {
-    width: 50px;
-    height: 50px;
+	width: 50px;
+	height: 50px;
 }
 
 .left-10 {
@@ -27,63 +27,60 @@ body {
 }
 
 .center-img {
-  	display: block;
- 	margin-left: auto;
- 	margin-right: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-
 .loginbox{  
-    background: white;
-    color: black;    
-  	margin: 50px auto 50px auto;
-  	width: 50%;
-    left: 0;
-    padding: 20px;   
-    box-shadow: 0 8px 50px -2px #000;
-    border-radius:5px;
-
+	background: white;
+	color: black;
+	margin: 50px auto 50px auto;
+	width: 50%;
+	left: 0;
+	padding: 20px;   
+	box-shadow: 0 8px 50px -2px #000;
+	border-radius:5px;
 }
 
 @media (max-width:767px) {
-    .loginbox{ 
-        margin-top: 10%;
-    }    
+	.loginbox{ 
+		margin-top: 10%;
+	}    
 }
 
 .loginbox_content{
-    padding:5% 11% 5% 11%;
-
+	padding:5% 11% 5% 11%;
 }
 
 .singtext{
-    font-family: "Open Sans",sans-serif;
-    font-size: 27px;  
-    color: #22aae1;
-    float: right;
-    padding-right: 25%;
+	font-family: "Open Sans",sans-serif;
+	font-size: 27px;  
+	color: #22aae1;
+	float: right;
+	padding-right: 25%;
 }
 
 .submit-btn{
-    float: right;
-    margin-right: 28%;
+	float: right;
+	margin-right: 28%;
 }
 
 .registerHref{
-    padding-left: 10%;
+	padding-left: 10%;
 }
 
 .registerbox{  
-    background: white;
-    color: black;    
-  	margin: 50px auto 50px auto;
-    box-shadow: 0 8px 50px -2px #000;
+	background: white;
+	color: black;    
+	margin: 50px auto 50px auto;
+	box-shadow: 0 8px 50px -2px #000;
 }
 
 @media (max-width:800px) {
-    .submit-btn{
-        margin-right: 23%;
-    }
+	.submit-btn{
+		margin-right: 23%;
+	}
 }
 
 .tableTextWhite {
@@ -105,7 +102,7 @@ body {
 }
 
 #imageListResult {
-    height: auto; 
-    width: auto; 
-    max-height: 250px;
+	height: auto; 
+	width: auto; 
+	max-height: 250px;
 }
