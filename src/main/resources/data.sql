@@ -10,7 +10,7 @@ INSERT INTO room_categories(room_category_id, name) VALUES
   (3, 'Exclusive'),
   (4, 'Apartment');
   
-INSERT INTO rooms(room_id, number_of_double_beds, number_of_single_beds, room_price, room_category) VALUES
+INSERT INTO rooms(room_id, number_of_double_beds, number_of_single_beds, room_price, room_category_id) VALUES
   (1, 1, 0, 200, 1),
   (2, 1, 0, 300, 3),
   (3, 1, 0, 400, 4),
