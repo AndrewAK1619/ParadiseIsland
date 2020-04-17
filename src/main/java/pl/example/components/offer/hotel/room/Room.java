@@ -45,51 +45,39 @@ public class Room implements Serializable {
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public int getNumberOfSingleBeds() {
 		return numberOfSingleBeds;
 	}
-
 	public void setNumberOfSingleBeds(int numberOfSingleBeds) {
 		this.numberOfSingleBeds = numberOfSingleBeds;
 	}
-
 	public int getNumberOfDoubleBeds() {
 		return numberOfDoubleBeds;
 	}
-
 	public void setNumberOfDoubleBeds(int numberOfDoubleBeds) {
 		this.numberOfDoubleBeds = numberOfDoubleBeds;
 	}
-
 	public int getRoomPrice() {
 		return roomPrice;
 	}
-
 	public void setRoomPrice(int roomPrice) {
 		this.roomPrice = roomPrice;
 	}
-
 	public RoomCategory getRoomCategory() {
 		return roomCategory;
 	}
-
 	public void setRoomCategory(RoomCategory roomCategory) {
 		this.roomCategory = roomCategory;
 	}
-
 	public List<RoomImage> getRoomImages() {
 		return roomImages;
 	}
-
 	public void setRoomImages(List<RoomImage> roomImages) {
 		this.roomImages = roomImages;
 	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -104,7 +92,6 @@ public class Room implements Serializable {
 		result = prime * result + roomPrice;
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

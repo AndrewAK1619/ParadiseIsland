@@ -67,8 +67,8 @@ public class RoomService {
 		
 		List<RoomDto> listRoomDto = new ArrayList<>();
 
-		for (RoomCategory roomCategoty : roomCategoryList) {
-			listRoomDto.addAll((roomRepository.findAllByRoomCategory(roomCategoty)
+		for (RoomCategory roomCategory : roomCategoryList) {
+			listRoomDto.addAll((roomRepository.findAllByRoomCategory(roomCategory)
 					.stream()
 					.map(roomMapper::toDto)
 					.collect(Collectors.toList())));

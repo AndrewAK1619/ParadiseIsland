@@ -1,7 +1,7 @@
 angular.module('app')
 .constant('ROOM_ENDPOINT', '/hotels/rooms/:id')
-.constant('DEFAULT_IMAGE', '/hotels/rooms/defaultImg')
-.factory('Room', function($resource, ROOM_ENDPOINT, DEFAULT_IMAGE) {
+.constant('DEFAULT_ROOM_IMAGE', '/hotels/rooms/defaultImg')
+.factory('Room', function($resource, ROOM_ENDPOINT, DEFAULT_ROOM_IMAGE) {
 	return $resource(ROOM_ENDPOINT, { id: '@_id' }, {
 		uploadFileAndRoom: {
 			method: 'POST',
@@ -15,7 +15,7 @@ angular.module('app')
 		},
 		getDefaultImage: {
 			method: 'GET',
-			url: DEFAULT_IMAGE
+			url: DEFAULT_ROOM_IMAGE
 		},
 		getAllRoomsAndMainImg: {
 			method: 'GET',

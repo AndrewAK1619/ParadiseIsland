@@ -8,7 +8,7 @@ public class RoomDto {
 	private int roomPrice;
 	private String roomCategory;
 	private Long mainImageId;
-	
+
 	public Long getId() {
 		return id;
 	}

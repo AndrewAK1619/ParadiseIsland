@@ -101,6 +101,10 @@ body {
 	font-size: 16px;
 }
 
+.text-size-rem-09 {
+	font-size: 0.9rem;
+}
+
 #imageListResult {
 	height: auto; 
 	width: auto; 

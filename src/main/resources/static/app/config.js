@@ -41,6 +41,16 @@ angular.module('app')
 			controller: 'HotelListController',
 			controllerAs: 'ctrl'
 		})
+		.when('/hotels-edit/:hotelId', {
+			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
+			controller: 'HotelEditController',
+			controllerAs: 'ctrl'
+		})
+		.when('/hotels-add', {
+			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
+			controller: 'HotelEditController',
+			controllerAs: 'ctrl'
+		})
 		.when('/hotels/rooms', {
 			templateUrl: 'app/components/offer/hotel/room/list/roomList.html',
 			controller: 'RoomListController',

@@ -5,7 +5,7 @@ public class HotelImageDto {
 	private Long id;
 	private String imagePath;
 	private boolean mainImage;
-	
+
 	public Long getId() {
 		return id;
 	}

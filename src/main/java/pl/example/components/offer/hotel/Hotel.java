@@ -2,6 +2,7 @@ package pl.example.components.offer.hotel;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,25 +15,29 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import pl.example.components.offer.hotel.image.HotelImage;
 import pl.example.components.offer.hotel.room.Room;
 
 @Entity
 @Table(name = "hotels")
 public class Hotel implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "hotel_id", nullable = false)
-    private Long id;
-    @NotEmpty
-    @Column(name="hotel_name", nullable=false)
-    private String hotelName;
-    private String description;
-    @OneToMany
-    @JoinColumn(name = "hotel_id", referencedColumnName="hotel_id")
-    private Set<Room> room = new HashSet<>();
-    
+	private Long id;
+	@NotEmpty
+	@Column(name = "hotel_name", nullable = false)
+	private String hotelName;
+	private String description;
+	@OneToMany
+	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
+	private Set<Room> room = new HashSet<>();
+	@OneToMany
+	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
+	private List<HotelImage> hotelImages;
+
 	public Long getId() {
 		return id;
 	}
@@ -57,7 +62,13 @@ public class Hotel implements Serializable {
 	public void setRoom(Set<Room> room) {
 		this.room = room;
 	}
-	
+	public List<HotelImage> getHotelImages() {
+		return hotelImages;
+	}
+	public void setHotelImages(List<HotelImage> hotelImages) {
+		this.hotelImages = hotelImages;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

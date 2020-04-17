@@ -22,7 +22,7 @@ public class HotelImage implements Serializable {
 	private String imagePath;
 	@Column(name = "top_image", nullable = false)
 	private boolean mainImage;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -41,7 +41,7 @@ public class HotelImage implements Serializable {
 	public void setMainImage(boolean mainImage) {
 		this.mainImage = mainImage;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

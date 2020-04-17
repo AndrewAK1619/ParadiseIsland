@@ -18,34 +18,35 @@ import org.springframework.web.server.ResponseStatusException;
 public class RoomImageService {
 
 	public static final String DEFAULT_IMAGE_PATH = "src/main/resources/static/img/room.jpg";
-	
+
 	RoomImageRepository imageRepository;
 	RoomImageMapper roomImageMapper;
-	
+
 	@Autowired
-	public RoomImageService(RoomImageRepository imageRepository, RoomImageMapper roomImageMapper) {
+	public RoomImageService(RoomImageRepository imageRepository, 
+			RoomImageMapper roomImageMapper) {
 		this.imageRepository = imageRepository;
 		this.roomImageMapper = roomImageMapper;
 	}
-	
-    public RoomImageDto saveRoomImage (MultipartFile file) {
+
+	public RoomImageDto saveRoomImage(MultipartFile file) {
 		RoomImageDto roomImageDtoSave = null;
-		if(file != null) {
+		if (file != null) {
 			RoomImageDto roomImageDto = createImageDto(file);
 			roomImageDtoSave = save(roomImageDto);
 		}
-    	return roomImageDtoSave;
-    }
-    
-    private RoomImageDto createImageDto(MultipartFile file) {
-    	String pathImage = createIndividualImageNameAndSaveImageToServer(file);
-    	RoomImageDto roomImageDto = new RoomImageDto();
-    	roomImageDto.setImagePath(pathImage);
-    	roomImageDto.setMainImage(true);
-    	return roomImageDto;
-    }
-    
-    private String createIndividualImageNameAndSaveImageToServer(MultipartFile file) {
+		return roomImageDtoSave;
+	}
+
+	private RoomImageDto createImageDto(MultipartFile file) {
+		String pathImage = createIndividualImageNameAndSaveImageToServer(file);
+		RoomImageDto roomImageDto = new RoomImageDto();
+		roomImageDto.setImagePath(pathImage);
+		roomImageDto.setMainImage(true);
+		return roomImageDto;
+	}
+
+	private String createIndividualImageNameAndSaveImageToServer(MultipartFile file) {
 		int year = LocalDate.now().getYear();
 		int month = LocalDate.now().getMonthValue();
 		int day = LocalDate.now().getDayOfMonth();
@@ -56,47 +57,49 @@ public class RoomImageService {
 
 		try {
 			oryginalFileName = file.getOriginalFilename();
-			newFileName = year + "" + month + "" + day + "" + second + "." + getExtensionByStringHandling(oryginalFileName).toString();
-			
+			newFileName = year + "" + month + "" + day + "" + second + "."
+					+ getExtensionByStringHandling(oryginalFileName).toString();
+
 			pathImage = "src/main/resources/static/img/rooms/" + newFileName;
-			
+
 			byte[] bytes = file.getBytes();
 			BufferedOutputStream bufferOutputStream = new BufferedOutputStream(
 					new FileOutputStream(new File(pathImage)));
 			bufferOutputStream.write(bytes);
 			bufferOutputStream.close();
 		} catch (IOException ex) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to load file: " + oryginalFileName);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+					"Unable to load file: " + oryginalFileName);
 		}
-    	return pathImage;
-    }
-    
-    private String getExtensionByStringHandling(String fileName) {
-    	String extension = "";
-    	int i = fileName.lastIndexOf('.');
-    	if (i > 0) {
-    	    extension = fileName.substring(i+1);
-    	}
-        return extension;
-    }
-    
-    private RoomImageDto save(RoomImageDto roomImageDto) {
-    	return mapAndSaveRoom(roomImageDto);
-    }
-    
-    RoomImageDto update(RoomImageDto roomImageDto) {
-        return mapAndSaveRoom(roomImageDto);
-    }
-    
-    private RoomImageDto mapAndSaveRoom(RoomImageDto roomImageDto) {
-    	RoomImage roomImageEntity = roomImageMapper.toEntity(roomImageDto);
-    	RoomImage saveroomImageEntity = imageRepository.save(roomImageEntity);
-        return roomImageMapper.toDto(saveroomImageEntity);
-    }
-    
-    public byte[] getDefaultMainImageInByte() throws IOException {
+		return pathImage;
+	}
+
+	private String getExtensionByStringHandling(String fileName) {
+		String extension = "";
+		int i = fileName.lastIndexOf('.');
+		if (i > 0) {
+			extension = fileName.substring(i + 1);
+		}
+		return extension;
+	}
+
+	private RoomImageDto save(RoomImageDto roomImageDto) {
+		return mapAndSaveRoom(roomImageDto);
+	}
+
+	RoomImageDto update(RoomImageDto roomImageDto) {
+		return mapAndSaveRoom(roomImageDto);
+	}
+
+	private RoomImageDto mapAndSaveRoom(RoomImageDto roomImageDto) {
+		RoomImage roomImageEntity = roomImageMapper.toEntity(roomImageDto);
+		RoomImage saveRoomImageEntity = imageRepository.save(roomImageEntity);
+		return roomImageMapper.toDto(saveRoomImageEntity);
+	}
+
+	public byte[] getDefaultMainImageInByte() throws IOException {
 		File file = new File(DEFAULT_IMAGE_PATH);
 		byte[] bytes = Files.readAllBytes(file.toPath());
 		return bytes;
-    }
+	}
 }

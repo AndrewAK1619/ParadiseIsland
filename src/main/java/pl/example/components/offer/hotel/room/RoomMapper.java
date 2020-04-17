@@ -45,7 +45,7 @@ public class RoomMapper {
 		entity.setNumberOfDoubleBeds(roomDto.getNumberOfDoubleBeds());
 		entity.setNumberOfSingleBeds(roomDto.getNumberOfSingleBeds());
 		entity.setRoomPrice(roomDto.getRoomPrice());
-		Optional<RoomCategory> roomCategory = roomCategoryRepository.findByName(roomDto.getRoomCategory());
+		Optional<RoomCategory> roomCategory = roomCategoryRepository.findByName(roomDto.getRoomCategory().trim());
 		roomCategory.ifPresent(entity::setRoomCategory);
 
 		List<RoomImage> roomImeges = addCorrectRoomImageList(roomDto);

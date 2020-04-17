@@ -7,11 +7,12 @@ import pl.example.components.offer.hotel.room.Room;
 
 public class HotelDto {
 
-    private Long id;
-    private String hotelName;
-    private String description;
-    private Set<Room> room = new HashSet<>();
-    
+	private Long id;
+	private String hotelName;
+	private String description;
+	private Set<Room> room = new HashSet<>();
+	private Long mainImageId;
+
 	public Long getId() {
 		return id;
 	}
@@ -35,5 +36,11 @@ public class HotelDto {
 	}
 	public void setRoom(Set<Room> room) {
 		this.room = room;
+	}
+	public Long getMainImageId() {
+		return mainImageId;
+	}
+	public void setMainImageId(Long mainImageId) {
+		this.mainImageId = mainImageId;
 	}
 }

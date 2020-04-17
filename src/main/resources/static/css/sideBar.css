@@ -39,10 +39,6 @@
 	}
 }
 
-body {
-	font-size: 0.9rem;
-}
-
 .page-wrapper .sidebar-wrapper, .sidebar-wrapper .sidebar-brand>a,
 .sidebar-wrapper .sidebar-dropdown>a:after, .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before,
 .sidebar-wrapper ul li a i, .page-wrapper .page-content,
