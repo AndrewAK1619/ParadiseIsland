@@ -27,3 +27,31 @@ INSERT INTO room_images(room_image_id, image_path, top_image, room_id) VALUES
   (5, 'src/main/resources/static/img/rooms/2020040255555.jpg', 1, 5),
   (6, 'src/main/resources/static/img/rooms/2020040266666.jpg', 1, 6),
   (7, 'src/main/resources/static/img/rooms/2020040277777.jpg', 1, 7);
+  
+INSERT INTO hotels(hotel_id, description, hotel_name) VALUES
+  (1, 
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", 
+  "The Glory Hotel"),
+  (2, 
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", 
+  "Cute Mountains"),
+  (3, 
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", 
+  "Royal Place"),
+  (4, 
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", 
+  "Purple Orchid"),
+  (5, 
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", 
+  "Dream Connect"),
+  (6, 
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", 
+  "Astro Resort");
+  
+INSERT INTO hotel_images(hotel_image_id, image_path, top_image, hotel_id) VALUES
+  (1, 'src/main/resources/static/img/hotels/2020041811111.jpeg', 1, 1),
+  (2, 'src/main/resources/static/img/hotels/2020041822222.jpg', 1, 2),
+  (3, 'src/main/resources/static/img/hotels/2020041833333.jpg', 1, 3),
+  (4, 'src/main/resources/static/img/hotels/2020041844444.jpg', 1, 4),
+  (5, 'src/main/resources/static/img/hotels/2020041855555.jpg', 1, 5),
+  (6, 'src/main/resources/static/img/hotels/2020041866666.jpg', 1, 6);

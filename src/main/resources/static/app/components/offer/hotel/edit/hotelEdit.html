@@ -1,0 +1,75 @@
+<div class="container">
+	<div class="row tableTextWhite">
+		<div class="mx-auto">
+			<h2 ng-if="ctrl.hotel.id">Edit hotel</h2>
+			<h2 ng-if="!ctrl.hotel.id">New hotel</h2>
+		</div>
+	</div>
+	<div class="row" ng-if="ctrl.msg">
+		<div class="mx-auto">
+			<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+		</div>
+	</div>
+	<div class="row tableTextWhite">
+		<form class="mx-auto col-10 col-md-8" enctype="multipart/form-data">
+			<p class="mx-auto col-10 col-md-9">Id: {{ctrl.hotel.id}}</p>
+			<div class="form-group row">
+				<div class="image-area row x-auto col-4 float-left">
+					<img id="imageResult"
+						ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}" alt=""
+						class="img-fluid my-auto rounded shadow-sm mx-auto d-block">
+				</div>
+				<div
+					class="input-group my-auto mx-auto col-7 mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+					<label id="image-label">Main hotel image:</label>
+					<input type="file" class="form-control border-0" id="upload"
+						ng-change="ctrl.readURL()" ng-model="ctrl.upload"
+						file-model="ctrl.file">
+					<label id="upload-label" for="upload"
+						class="font-weight-light text-muted">
+						Choose file
+					</label>
+					<div class="input-group-append">
+						<label for="upload" class="btn btn-light m-0 rounded-pill px-4">
+							<i class="fa fa-cloud-upload mr-2 text-muted"></i>
+							<small class="text-uppercase font-weight-bold text-muted">
+								Choose file
+							</small>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="mx-auto col-10 col-md-9">
+				<div class="form-group">
+					<label for="hotelName">Hotel Name:</label>
+					<input type="text" class="form-control"
+						id="hotelNameInput" placeholder="Hotel Name"
+						ng-model="ctrl.hotel.hotelName">
+				</div>
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<textarea class="form-control" rows="5" aria-label="With textarea"
+						id="descriptionInput" placeholder="Description"
+						ng-model="ctrl.hotel.description">
+					</textarea>
+				</div>
+				<div class="row" ng-if="ctrl.msg">
+					<div class="mx-auto">
+						<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+					</div>
+				</div>
+				<div class="form-group mb-5">
+					<button ng-if="!ctrl.hotel.id" type="submit" class="btn btn-success"
+						ng-click="ctrl.saveHotel()">Save</button>
+					<button ng-if="ctrl.hotel.id" type="submit" class="btn btn-success"
+						ng-click="ctrl.updateHotel()">Update</button>
+				</div>
+				<div class="row">
+					<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels">Hotels</a>
+					<a ng-if="ctrl.hotel.id" class="btn btn-primary mb-3 mx-auto"
+						ng-href="#!/hotels-add">Add another hotel</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
