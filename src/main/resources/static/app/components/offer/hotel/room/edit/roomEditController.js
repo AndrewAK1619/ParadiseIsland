@@ -1,7 +1,9 @@
 angular.module('app')
 .controller('RoomEditController', function($routeParams, $location, $timeout, RoomService, RoomCategoryService, Room) {
 	const vm = this;
+	
 	const roomId = $routeParams.roomId;
+	const hotelId = $routeParams.hotelId;
 	
 	const setRoomAndTopImg = result => {
 		vm.roomArray = result.room;
@@ -20,6 +22,7 @@ angular.module('app')
 		vm.roomAndTopImgArray.$promise.then(setRoomAndTopImg);
 	} else {
 		vm.room = new Room();
+		vm.room.hotelId = hotelId;
 		vm.defaultImg = RoomService.getDefaultImage();
 		vm.defaultImg.$promise.then(setDefaultImg);
 	}

@@ -31,8 +31,7 @@ public class Hotel implements Serializable {
 	@Column(name = "hotel_name", nullable = false)
 	private String hotelName;
 	private String description;
-	@OneToMany
-	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
+	@OneToMany(mappedBy="hotel")
 	private Set<Room> room = new HashSet<>();
 	@OneToMany
 	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")

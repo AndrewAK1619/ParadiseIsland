@@ -31,7 +31,7 @@ import pl.example.components.offer.hotel.room.image.RoomImageDto;
 import pl.example.components.offer.hotel.room.image.RoomImageService;
 
 @RestController
-@RequestMapping("/hotels/rooms")
+@RequestMapping("/hotels")
 public class RoomController {
 
 	RoomService roomService;
@@ -43,16 +43,21 @@ public class RoomController {
 		this.roomImageService = roomImageService;
 	}
 	
-	@GetMapping("")
-	public ResponseEntity<MultiValueMap<String, Object>> findAll(@RequestParam(required = false) String roomCategoryName) {
+	@GetMapping("/{hotelId}/rooms")
+	public ResponseEntity<MultiValueMap<String, Object>> findByHotelId(
+			@PathVariable Long hotelId,
+			@RequestParam(name = "roomCategoryName", required = false) String roomCategoryName
+			) throws IOException {
+		
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		List<RoomDto> roomDtoList;
 		
 		if (roomCategoryName != null) {
-			roomDtoList = roomService.findAllByRoomCategory(roomCategoryName);
+			roomDtoList = roomService.findAllByHotelIdAndRoomCategory(hotelId, roomCategoryName);
 		} else {
-			roomDtoList = roomService.findAll();
+			roomDtoList = roomService.findAllByHotelId(hotelId);
 		}
+		
 		List<byte[]> mainImgList = roomDtoList.stream()
 					.map(roomDto -> {
 						try {
@@ -71,7 +76,7 @@ public class RoomController {
 		return ResponseEntity.ok(formData);
 	}
 	
-	@PostMapping("")
+	@PostMapping("/rooms")
 	public ResponseEntity<RoomDto> save(@RequestPart(name = "file", required = false) MultipartFile file, 
 			@RequestPart("roomDto") String roomDtoJson) throws JsonMappingException, JsonProcessingException {
 		
@@ -90,7 +95,7 @@ public class RoomController {
 		return ResponseEntity.created(location).body(savedRoom);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/rooms/{id}")
 	public ResponseEntity<MultiValueMap<String, Object>> findById(@PathVariable Long id) throws IOException {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
         RoomDto roomDto = null;
@@ -108,7 +113,7 @@ public class RoomController {
 		return ResponseEntity.ok(formData);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/rooms/{id}")
     public ResponseEntity<RoomDto> update(@PathVariable Long id,
     		@RequestPart(name = "idRoom", required = false) String idRoom, 
     		@RequestPart(name = "file", required = false) MultipartFile file, 
@@ -127,7 +132,7 @@ public class RoomController {
         return ResponseEntity.ok(updatedRoom);
     }
 	
-	@GetMapping("/defaultImg")
+	@GetMapping("/rooms/defaultImg")
 	public ResponseEntity<?> getDefaultImage() throws IOException {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		formData.add("file", roomImageService.getDefaultMainImageInByte());

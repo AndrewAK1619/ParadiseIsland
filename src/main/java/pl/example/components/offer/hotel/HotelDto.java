@@ -1,16 +1,10 @@
 package pl.example.components.offer.hotel;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import pl.example.components.offer.hotel.room.Room;
-
 public class HotelDto {
 
 	private Long id;
 	private String hotelName;
 	private String description;
-	private Set<Room> room = new HashSet<>();
 	private Long mainImageId;
 
 	public Long getId() {
@@ -30,12 +24,6 @@ public class HotelDto {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public Set<Room> getRoom() {
-		return room;
-	}
-	public void setRoom(Set<Room> room) {
-		this.room = room;
 	}
 	public Long getMainImageId() {
 		return mainImageId;

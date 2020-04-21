@@ -8,6 +8,7 @@ public class RoomDto {
 	private int roomPrice;
 	private String roomCategory;
 	private Long mainImageId;
+	private Long hotelId;
 
 	public Long getId() {
 		return id;
@@ -44,5 +45,11 @@ public class RoomDto {
 	}
 	public void setMainImageId(Long mainImageId) {
 		this.mainImageId = mainImageId;
+	}
+	public Long getHotelId() {
+		return hotelId;
+	}
+	public void setHotelId(Long hotelId) {
+		this.hotelId = hotelId;
 	}
 }

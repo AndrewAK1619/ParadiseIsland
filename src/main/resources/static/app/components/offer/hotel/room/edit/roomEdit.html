@@ -79,9 +79,9 @@
 						ng-click="ctrl.updateRoom()">Update</button>
 				</div>
 				<div class="row">
-					<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels/rooms">Rooms</a>
+					<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels/{{ctrl.room.hotelId}}/rooms">Rooms</a>
 					<a ng-if="ctrl.room.id" class="btn btn-primary mb-3 mx-auto"
-						ng-href="#!/hotels/rooms-add">Add another room</a>
+						ng-href="#!/hotels/{{ctrl.room.hotelId}}/rooms-add">Add another room</a>
 				</div>
 			</div>
 		</form>

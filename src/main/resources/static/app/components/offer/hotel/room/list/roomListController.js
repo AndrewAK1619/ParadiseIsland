@@ -1,6 +1,8 @@
 angular.module('app')
-.controller('RoomListController', function(RoomService) {
+.controller('RoomListController', function($routeParams, RoomService) {
 	const vm = this;
+	
+	vm.hotelId = $routeParams.hotelId;
 	
 	const setRoomAndTopImg = result => {
 		vm.roomArray = result.roomList;
@@ -14,11 +16,11 @@ angular.module('app')
 		}
 	}
 	
-	vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg();
+	vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg(vm.hotelId);
 	vm.roomsAndTopImgArray.$promise.then(setRoomAndTopImg);
 	
 	vm.search = roomCategoryName => {
-		vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg({roomCategoryName});
+		vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg(vm.hotelId, roomCategoryName);
 		vm.roomsAndTopImgArray.$promise.then(setRoomAndTopImg);
 	};
 });

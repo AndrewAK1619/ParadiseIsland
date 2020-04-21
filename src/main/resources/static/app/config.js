@@ -41,27 +41,27 @@ angular.module('app')
 			controller: 'HotelListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels-edit/:hotelId', {
-			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
-			controller: 'HotelEditController',
-			controllerAs: 'ctrl'
-		})
 		.when('/hotels-add', {
 			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
 			controller: 'HotelEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms', {
+		.when('/hotels-edit/:hotelId', {
+			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
+			controller: 'HotelEditController',
+			controllerAs: 'ctrl'
+		})
+		.when('/hotels/:hotelId/rooms', {
 			templateUrl: 'app/components/offer/hotel/room/list/roomList.html',
 			controller: 'RoomListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms-edit/:roomId', {
+		.when('/hotels/:hotelId/rooms-add', {
 			templateUrl: 'app/components/offer/hotel/room/edit/roomEdit.html',
 			controller: 'RoomEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms-add', {
+		.when('/hotels/rooms-edit/:roomId', {
 			templateUrl: 'app/components/offer/hotel/room/edit/roomEdit.html',
 			controller: 'RoomEditController',
 			controllerAs: 'ctrl'
@@ -71,12 +71,12 @@ angular.module('app')
 			controller: 'RoomCategoryListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms/categories-edit/:roomCategoryId', {
+		.when('/hotels/rooms/categories-add', {
 			templateUrl: 'app/components/offer/hotel/room/category/edit/roomCategoryEdit.html',
 			controller: 'RoomCategoryEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms/categories-add', {
+		.when('/hotels/rooms/categories-edit/:roomCategoryId', {
 			templateUrl: 'app/components/offer/hotel/room/category/edit/roomCategoryEdit.html',
 			controller: 'RoomCategoryEditController',
 			controllerAs: 'ctrl'

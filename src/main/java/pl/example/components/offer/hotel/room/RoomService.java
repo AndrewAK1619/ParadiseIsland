@@ -47,6 +47,29 @@ public class RoomService {
 				.collect(Collectors.toList());
 	}
 
+	List<RoomDto> findAllByHotelId(long hotelId) {
+		return roomRepository.findAllByHotelId(hotelId)
+				.stream()
+				.map(roomMapper::toDto)
+				.collect(Collectors.toList());
+	}
+	
+	List<RoomDto> findAllByHotelIdAndRoomCategory(long hotelId, String roomCategoryName) {
+		List<RoomCategory> roomCategoryList = roomCategoryRepository
+				.findAllByNameContainingIgnoreCaseOrderByIdAsc(roomCategoryName);
+		
+		List<RoomDto> listRoomDto = new ArrayList<>();
+
+		for (RoomCategory roomCategory : roomCategoryList) {
+			listRoomDto.addAll((roomRepository.findAllByHotelIdAndRoomCategory(hotelId, roomCategory)
+					.stream()
+					.map(roomMapper::toDto)
+					.collect(Collectors.toList())));
+		}
+		listRoomDto.sort((a,  b) -> a.getId().compareTo(b.getId()));
+		return listRoomDto;
+	}
+
 	List<RoomDto> findAllByNumberOfSingleBeds(int numberOfBeds) {
 		return roomRepository.findAllByNumberOfSingleBeds(numberOfBeds)
 				.stream()
@@ -59,22 +82,6 @@ public class RoomService {
 				.stream()
 				.map(roomMapper::toDto)
 				.collect(Collectors.toList());
-	}
-
-	List<RoomDto> findAllByRoomCategory(String roomCategoryName) {
-		List<RoomCategory> roomCategoryList = roomCategoryRepository
-				.findAllByNameContainingIgnoreCaseOrderByIdAsc(roomCategoryName);
-		
-		List<RoomDto> listRoomDto = new ArrayList<>();
-
-		for (RoomCategory roomCategory : roomCategoryList) {
-			listRoomDto.addAll((roomRepository.findAllByRoomCategory(roomCategory)
-					.stream()
-					.map(roomMapper::toDto)
-					.collect(Collectors.toList())));
-		}
-		listRoomDto.sort((a,  b) -> a.getId().compareTo(b.getId()));
-		return listRoomDto;
 	}
 	
     Optional<RoomDto> findById(long id) {

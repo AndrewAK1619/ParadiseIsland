@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import pl.example.components.offer.hotel.Hotel;
 import pl.example.components.offer.hotel.room.category.RoomCategory;
 import pl.example.components.offer.hotel.room.image.RoomImage;
 
@@ -41,6 +42,9 @@ public class Room implements Serializable {
 	@OneToMany
 	@JoinColumn(name = "room_id", referencedColumnName = "room_id")
 	private List<RoomImage> roomImages;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 
 	public Long getId() {
 		return id;
@@ -77,6 +81,12 @@ public class Room implements Serializable {
 	}
 	public void setRoomImages(List<RoomImage> roomImages) {
 		this.roomImages = roomImages;
+	}
+	public Hotel getHotel() {
+		return hotel;
+	}
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

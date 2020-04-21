@@ -47,7 +47,7 @@ public class HotelController {
 	@GetMapping("")
 	public ResponseEntity<MultiValueMap<String, Object>> findAll(
 			@RequestParam(required = false) String hotelName) {
-		
+		System.out.println(hotelName);
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		List<HotelDto> hotelDtoList;
 

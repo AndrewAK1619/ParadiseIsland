@@ -28,6 +28,11 @@ public class HotelService {
 		this.hotelRepository = hotelRepository;
 		this.hotelMapper = hotelMapper;
 	}
+	
+	Optional<HotelDto> findById(long id) {
+		return hotelRepository.findById(id)
+				.map(hotelMapper::toDto);
+	}
 
 	List<HotelDto> findAll() {
 		return hotelRepository.findAll()
@@ -37,15 +42,10 @@ public class HotelService {
 	}
 	
 	List<HotelDto> findAllByHotelName(String hotelName) {
-		return hotelRepository.findAllByHotelName(hotelName)
+		return hotelRepository.findAllByHotelNameContainingIgnoreCase(hotelName)
 				.stream()
 				.map(hotelMapper::toDto)
 				.collect(Collectors.toList());
-	}
-
-	Optional<HotelDto> findById(long id) {
-		return hotelRepository.findById(id)
-				.map(hotelMapper::toDto);
 	}
 
 	byte[] getMainImageInByteFromHotel(Long hotelId) throws IOException {
