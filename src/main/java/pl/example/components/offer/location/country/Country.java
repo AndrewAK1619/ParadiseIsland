@@ -1,14 +1,19 @@
 package pl.example.components.offer.location.country;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import pl.example.components.offer.hotel.room.image.RoomImage;
 
 @Entity
 @Table(name = "countries")
@@ -26,6 +31,9 @@ public class Country implements Serializable {
 	private String name;
 	@Column(name = "phonecode")
 	private int phonecode;
+	@OneToMany
+	@JoinColumn(name = "country_id", referencedColumnName = "country_id")
+	private List<RoomImage> roomImages;
 	
 	public Long getId() {
 		return id;
