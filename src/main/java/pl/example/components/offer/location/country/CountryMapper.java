@@ -1,17 +1,9 @@
 package pl.example.components.offer.location.country;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CountryMapper {
-	
-	CountryRepository countryRepository;
-	
-	@Autowired
-	public CountryMapper(CountryRepository countryRepository) {
-		this.countryRepository = countryRepository;
-	}
 	
 	CountryDto toDto(Country country) {
 		CountryDto dto = new CountryDto();
