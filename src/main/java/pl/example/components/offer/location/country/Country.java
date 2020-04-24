@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import pl.example.components.offer.hotel.room.image.RoomImage;
+import pl.example.components.offer.location.country.image.CountryImage;
 
 @Entity
 @Table(name = "countries")
@@ -33,7 +33,7 @@ public class Country implements Serializable {
 	private int phonecode;
 	@OneToMany
 	@JoinColumn(name = "country_id", referencedColumnName = "country_id")
-	private List<RoomImage> roomImages;
+	private List<CountryImage> countryImage;
 	
 	public Long getId() {
 		return id;

@@ -1,6 +1,7 @@
 package pl.example.components.offer.location.city;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import pl.example.components.offer.location.city.image.CityImage;
 import pl.example.components.offer.location.region.Region;
 
 @Entity
@@ -29,6 +32,9 @@ public class City implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "region_id")
 	private Region region;
+	@OneToMany
+	@JoinColumn(name = "city_id", referencedColumnName = "city_id")
+	private List<CityImage> cityImage;
 	
 	public Long getId() {
 		return id;

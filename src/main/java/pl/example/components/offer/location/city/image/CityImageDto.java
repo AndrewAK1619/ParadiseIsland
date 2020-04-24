@@ -1,6 +1,6 @@
-package pl.example.components.offer.location.country.image;
+package pl.example.components.offer.location.city.image;
 
-public class CountryImageDto {
+public class CityImageDto {
 
 	private Long id;
 	private String imagePath;
