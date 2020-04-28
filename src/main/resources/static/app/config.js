@@ -81,15 +81,11 @@ angular.module('app')
 			controller: 'RoomCategoryEditController',
 			controllerAs: 'ctrl'
 		})
-		
-		
 		.when('/destinations', {
 			templateUrl: 'app/components/offer/location/destination/list/destinationList.html',
 			controller: 'DestinationListController',
 			controllerAs: 'ctrl'
 		})
-		
-		
 		.when('/', {
 			templateUrl: 'app/components/home/homePage/home.html',
 			controller: 'HomeController',
