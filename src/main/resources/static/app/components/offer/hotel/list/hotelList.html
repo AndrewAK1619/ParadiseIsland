@@ -19,9 +19,8 @@
 	<div class="card border-dark mb-3" ng-repeat="hotel in ctrl.hotel">
 		<div class="row no-gutters">
 			<div class="col-md-4 text-center bg-secondary">
-				<img id="imageListResult"
-					ng-src="data:image/jpeg;base64,{{hotel.imgSrc}}"
-					class="card-img img-fluid" alt="...">
+				<img ng-src="data:image/jpeg;base64,{{hotel.imgSrc}}"
+					class="card-img img-fluid imageListResult" alt="...">
 			</div>
 			<div class="col-md-8">
 				<ul class="list-group list-group-horizontal" style="height: 100%;">

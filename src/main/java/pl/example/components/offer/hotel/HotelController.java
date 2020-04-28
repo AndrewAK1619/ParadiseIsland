@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -61,10 +66,9 @@ public class HotelController {
 						try {
 							return hotelService.getMainImageInByteFromHotel(hotelDto.getId());
 						} catch (IOException e) {
-							e.printStackTrace();
+							throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+									"Downloading object failed");
 						}
-						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
-								"Downloading object failed");
 					})
 					.collect(Collectors.toList());
 
@@ -78,14 +82,15 @@ public class HotelController {
 	public ResponseEntity<HotelDto> save(
 			@RequestPart(name = "file", required = false) MultipartFile file,
 			@RequestPart("hotelDto") String hotelDtoJson) 
-					throws JsonMappingException, JsonProcessingException {
-
+					throws JsonMappingException, JsonProcessingException, MultipartException {
+		
 		HotelDto hotelDto = new ObjectMapper().readValue(hotelDtoJson, HotelDto.class);
 		if (hotelDto.getId() != null)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
 					"Saving object can't have setted id");
 
 		HotelImageDto hotelImageDtoSave = hotelImageService.saveHotelImage(file);
+
 		if (hotelImageDtoSave != null)
 			hotelDto.setMainImageId(hotelImageDtoSave.getId());
 

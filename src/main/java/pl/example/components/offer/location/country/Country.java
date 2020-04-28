@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import pl.example.components.offer.location.country.image.CountryImage;
+import pl.example.components.offer.location.country.information.CountryInformation;
 
 @Entity
 @Table(name = "countries")
@@ -34,6 +35,9 @@ public class Country implements Serializable {
 	@OneToMany
 	@JoinColumn(name = "country_id", referencedColumnName = "country_id")
 	private List<CountryImage> countryImage;
+	@OneToMany
+	@JoinColumn(name = "country_id", referencedColumnName = "country_id")
+	private List<CountryInformation> countryInformation;
 	
 	public Long getId() {
 		return id;
@@ -58,6 +62,18 @@ public class Country implements Serializable {
 	}
 	public void setPhonecode(int phonecode) {
 		this.phonecode = phonecode;
+	}
+	public List<CountryImage> getCountryImage() {
+		return countryImage;
+	}
+	public void setCountryImage(List<CountryImage> countryImage) {
+		this.countryImage = countryImage;
+	}
+	public List<CountryInformation> getCountryInformation() {
+		return countryInformation;
+	}
+	public void setCountryInformation(List<CountryInformation> countryInformation) {
+		this.countryInformation = countryInformation;
 	}
 	
 	@Override

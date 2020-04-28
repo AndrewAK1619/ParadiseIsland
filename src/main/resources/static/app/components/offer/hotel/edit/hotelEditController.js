@@ -34,14 +34,19 @@ angular.module('app')
 	
 	vm.file;
 	vm.saveHotel = () => {
-		const formData = new FormData();
-		formData.append('file', vm.file);
-		formData.append('hotelDto', JSON.stringify(vm.hotel));
-		
-		HotelService.uploadFileAndHotel(formData)
-			.$promise
-			.then(saveCallback)
-			.catch(errorCallback);
+		const maxFileSize = '3145728';
+		if(vm.file.size > maxFileSize) {
+			vm.msg='Data write error: maximum file size is 3MB';
+		} else {
+			const formData = new FormData();
+			formData.append('file', vm.file);
+			formData.append('hotelDto', JSON.stringify(vm.hotel));
+			
+			HotelService.uploadFileAndHotel(formData)
+				.$promise
+				.then(saveCallback)
+				.catch(errorCallback);
+		}
 	};
 	
 	const updateCallback = response => vm.msg='Changes saved';

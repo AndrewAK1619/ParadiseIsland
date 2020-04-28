@@ -18,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class HotelImageService {
 
 	public static final String DEFAULT_IMAGE_PATH = 
-			"src/main/resources/static/img/hotel.jpg";
+			"src/main/resources/static/img/default/hotel.jpg";
 
 	private HotelImageRepository imageRepository;
 	private HotelImageMapper hotelImageMapper;

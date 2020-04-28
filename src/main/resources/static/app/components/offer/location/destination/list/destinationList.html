@@ -1,0 +1,43 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4" ng-repeat="destination in ctrl.destination">
+			<div class="card-group flex-column h-100">
+				<div class="card mb-4 border-dark">
+					<img ng-src="data:image/jpeg;base64,{{destination.imgSrc}}"
+						class="card-img img-fluid imageListResult" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">
+							<strong>{{destination.name}}</strong>
+						</h5>
+						<div class="card-text">
+							<ul>
+								<li ng-repeat="countryInformationDto in destination.countryInformationDto">
+									- {{countryInformationDto.information}}
+								</li>
+							</ul>
+						</div>
+						<br />
+					</div>
+					<div class="card-footer">
+						<a href="" class="btn btn-dark btn-sm">Details</a>
+						<div class="float-right">
+							<button class="btn btn-sm btn-primary" title="Edit">
+								<a ng-href="#!" class="text-white"> 
+									<i class="fas fa-edit"></i>
+								</a>
+							</button>
+							<button class="btn btn-sm btn-warning" title="...">
+								<a ng-href="#!" class="text-white"> 
+									<i class="fas fa-history"></i>
+								</a>
+							</button>
+							<button class="btn btn-sm btn-danger" title="Delete">
+								<i class="fas fa-trash-alt"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -246,3 +246,10 @@ INSERT INTO `countries` (`country_id`, `alpha2_code`, `name`, `phonecode`) VALUE
 (245, 'ZM', 'Zambia', 260),
 (246, 'ZW', 'Zimbabwe', 263);
 
+INSERT INTO country_informations(country_information_id, information, country_id) VALUES
+  (1, 'Lorem ipsum dolor sit amet', null),
+  (2, 'Consectetuer adipiscing elit sed diam', null),
+  (3, 'Nibh euismod tincidunt ut', null),
+  (4, 'Laoreet dolore magna aliquam erat', null),
+  (5, 'Ut wisi enim ad', null),
+  (6, 'Minim veniam quis nostrud exerci', null);

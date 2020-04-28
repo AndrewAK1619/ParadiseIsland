@@ -105,8 +105,14 @@ body {
 	font-size: 0.9rem;
 }
 
-#imageListResult {
-	height: auto; 
-	width: auto; 
-	max-height: 250px;
+.imageListResult {
+	height: 100%;
+	width: 100%;
+	object-fit:cover;
+}
+
+ul, ul li {
+	list-style: none outside;
+	margin:0;
+	padding:0;
 }

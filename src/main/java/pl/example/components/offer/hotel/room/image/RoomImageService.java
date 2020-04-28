@@ -17,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class RoomImageService {
 
-	public static final String DEFAULT_IMAGE_PATH = "src/main/resources/static/img/room.jpg";
+	public static final String DEFAULT_IMAGE_PATH = "src/main/resources/static/img/default/room.jpg";
 
 	RoomImageRepository imageRepository;
 	RoomImageMapper roomImageMapper;

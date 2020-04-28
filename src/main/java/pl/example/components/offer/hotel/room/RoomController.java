@@ -63,10 +63,9 @@ public class RoomController {
 						try {
 							return roomService.getMainImageInByteFromRoom(roomDto.getId());
 						} catch (IOException e) {
-							e.printStackTrace();
+							throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+									"Downloading object failed");
 						}
-						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
-								"Downloading object failed");
 					})
 					.collect(Collectors.toList());
 		
