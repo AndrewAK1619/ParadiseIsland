@@ -3,8 +3,8 @@ angular.module('app')
 	$routeProvider
 		.when('/account/login', {
 			templateUrl: 'app/components/account/login/login.html',
-			controller: 'LoginController',
-			controllerAs: 'ctrl'
+			controller: 'AuthenticationController',
+			controllerAs: 'authController'
 		})
 		.when('/account/register', {
 			templateUrl: 'app/components/account/registration/register.html',
