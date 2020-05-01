@@ -7,7 +7,6 @@ angular.module('app')
 		$location.path('/hotels-add');
 	}
 	vm.login = function() {
-		console.log(vm.credentials);
 		AuthenticationService.authenticate(vm.credentials, loginSuccess);
 	}
  });

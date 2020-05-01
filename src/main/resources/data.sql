@@ -1,3 +1,5 @@
+INSERT INTO user_role(role, description) VALUES ("ROLE_USER", "default role for user");
+
 INSERT INTO users(user_id, email, first_name, last_name, mobile_phone, password, pesel) VALUES
   (1, 'example1@example.com', 'Jan', 'Kowalski', '600600600', 'user1', '90101222457'),
   (2, 'example2@example.com', 'Maciej', 'Zalewski', '605605605', 'user2', '87112242456'),

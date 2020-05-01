@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AuthenticationController {
 
-    @PostMapping("/account/login")
-    @ResponseBody
-    public Principal login(Principal user) {
-        return user;
-    }
+	@PostMapping("/account/login")
+	@ResponseBody
+	public Principal login(Principal user) {
+    	return user;
+	}
 }

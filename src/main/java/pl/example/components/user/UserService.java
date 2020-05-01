@@ -5,9 +5,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import pl.example.components.user.UserRepository;
+import pl.example.components.user.role.UserRole;
+import pl.example.components.user.role.UserRoleRepository;
 import pl.example.components.user.DuplicatePeselException;
 import pl.example.components.user.User;
 import pl.example.components.user.UserDto;
@@ -16,11 +19,19 @@ import pl.example.components.user.UserMapper;
 @Service
 public class UserService {
 
-	@Autowired
+	private static final String DEFAULT_ROLE = "ROLE_USER";
+	
     private UserRepository userRepository;
+    private UserRoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
 
-    UserService(UserRepository userRepository) {
+    @Autowired
+    UserService(UserRepository userRepository,
+    		UserRoleRepository roleRepository,
+    		PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 	
     Optional<UserDto> findById(Long id) {
@@ -60,7 +71,16 @@ public class UserService {
     
     private UserDto mapAndSaveUser(UserDto user) {
         User userEntity = UserMapper.toEntity(user);
+        addWithDefaultRole(userEntity);
         User savedUser = userRepository.save(userEntity);
         return UserMapper.toDto(savedUser);
     }
+    
+	public void addWithDefaultRole(User user) {
+		UserRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
+		user.getRoles().add(defaultRole);
+		String passwordHash = passwordEncoder.encode(user.getPassword());
+		user.setPassword(passwordHash);
+		userRepository.save(user);
+	}
 }

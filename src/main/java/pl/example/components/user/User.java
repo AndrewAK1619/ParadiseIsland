@@ -1,18 +1,24 @@
 package pl.example.components.user;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 import pl.example.components.user.User;
+import pl.example.components.user.role.UserRole;
 
 @Entity
 @Table(name = "users")
@@ -41,6 +47,8 @@ public class User implements Serializable  {
 	@NotEmpty
 	private String password;
 	private String details;
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Set<UserRole> roles = new HashSet<>();
 	
 	public Long getId() {
 		return id;
@@ -89,6 +97,12 @@ public class User implements Serializable  {
 	}
 	public void setDetails(String details) {
 		this.details = details;
+	}
+	public Set<UserRole> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
 	}
 	
 	@Override
