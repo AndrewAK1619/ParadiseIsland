@@ -1,10 +1,18 @@
-INSERT INTO user_role(role, description) VALUES ("ROLE_USER", "default role for user");
+INSERT INTO user_role(id, role, description) VALUES 
+  (1, "ROLE_USER", "default role for user"),
+  (2, "ROLE_ADMIN", "role for admin");
 
 INSERT INTO users(user_id, email, first_name, last_name, mobile_phone, password, pesel) VALUES
-  (1, 'example1@example.com', 'Jan', 'Kowalski', '600600600', 'user1', '90101222457'),
-  (2, 'example2@example.com', 'Maciej', 'Zalewski', '605605605', 'user2', '87112242456'),
-  (3, 'example3@example.com', 'Aneta', 'Korczyńska', '610610610', 'user3', '76061536749'),
-  (4, 'example4@example.com', 'Wojciech', 'Sokolik', '615615615', 'user4', '82010877245');
+  (1, 'admin@example.com', 'John', 'Smith', '123123123', 
+	'{bcrypt}$2a$10$/qm/jZiwBGAEaS8LCW695egoqzUNoLoXWpX4kUH3Ch09KvyLE1yeW', 
+	'12312312312'),
+  (2, 'user@example.com', 'Michael', 'Jones', '321321321', 
+	'{bcrypt}$2a$10$Jvi.vrRv34OB.QpUmRK6h.pAub2/Os9o9/9pTdqAV5iS85bSavg8.', 
+	'32132132132');
+
+INSERT INTO users_roles(user_user_id, roles_id) VALUES
+  (1, 2),
+  (2, 1);
 
 INSERT INTO hotels(hotel_id, description, hotel_name) VALUES
   (1, 

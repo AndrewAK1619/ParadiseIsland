@@ -47,7 +47,7 @@
 							</div>
 						</div>
 					</li>
-					<li class="list-group-item-dark p-2"
+					<li class="list-group-item-dark p-2" ng-show="authenticatedAdmin"
 						style="display: flex; align-items: center;">
 						<div class="btn-group-vertical">
 							<button class="btn btn-sm btn-primary mb-3" title="Edit">
@@ -69,7 +69,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" ng-show="authenticatedAdmin">
 		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels-add">
 			Add new hotel
 		</a>

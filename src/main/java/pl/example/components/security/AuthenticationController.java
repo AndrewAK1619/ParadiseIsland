@@ -12,6 +12,6 @@ public class AuthenticationController {
 	@PostMapping("/account/login")
 	@ResponseBody
 	public Principal login(Principal user) {
-    	return user;
+		return user;
 	}
 }

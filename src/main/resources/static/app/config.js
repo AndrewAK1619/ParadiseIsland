@@ -94,4 +94,12 @@ angular.module('app')
 		.otherwise({
 			redirectTo: '/'
 		});
+})
+.run(function($rootScope, $location) {
+	$rootScope.redirectToHomePage = () => {
+		$location.path('/')
+	}
+	$rootScope.redirectToLoginPage = () => {
+		$location.path('/account/login')
+	}
 });

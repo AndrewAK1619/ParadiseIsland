@@ -6,11 +6,16 @@ angular.module('app')
 		var config = {headers: authHeader};
 		$http
 		.post(LOGIN_ENDPOINT, {}, config)
-		.then(function success(value) {
-			successCallback();
+		.then(function success(response) {
+			$http.defaults.headers.post.Authorization = authHeader.Authorization;
+			successCallback(response);
 		}, function error(reason) {
 			console.log('Login error');
 			console.log(reason);
 		});
+	}
+	this.logout = function(successCallback) {
+		delete $http.defaults.headers.post.Authorization;
+		successCallback();
 	}
 });
