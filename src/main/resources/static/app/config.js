@@ -1,5 +1,6 @@
 angular.module('app')
-.config(function ($routeProvider) {
+.config(function ($routeProvider, $httpProvider) {
+	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 	$routeProvider
 		.when('/account/login', {
 			templateUrl: 'app/components/account/login/login.html',
