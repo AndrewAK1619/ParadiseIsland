@@ -41,8 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf()
 			.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
 		.authorizeRequests()
-			.antMatchers("/").permitAll().and()
-		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);;
+			.antMatchers("/").permitAll()
+			.antMatchers("/users", "/user-edit/**", "/user-add",
+					"/hotels-add", "/hotels-edit/**", "/hotels/:hotelId/rooms-add",
+					"/hotels/rooms-edit/**", "/hotels/rooms/categories", "/hotels/rooms/categories-add",
+					"/hotels/rooms/categories-edit/**").hasAuthority("ROLE_ADMIN");
 	}
 }
