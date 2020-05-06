@@ -4,16 +4,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import pl.example.components.user.User;
 import pl.example.components.user.UserRepository;
 import pl.example.components.user.role.UserRole;
 
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
 	private UserRepository userRepository;
@@ -24,10 +28,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(username);
+	public UserDetails loadUserByUsername(String emailUser) throws UsernameNotFoundException {
+		User user = userRepository.findByEmail(emailUser);
 		if(user == null)
-			throw new UsernameNotFoundException("User not found");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 		org.springframework.security.core.userdetails.User userDetails = 
 				new org.springframework.security.core.userdetails.User(
 						user.getEmail(), 

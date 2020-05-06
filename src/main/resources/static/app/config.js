@@ -96,11 +96,44 @@ angular.module('app')
 			redirectTo: '/'
 		});
 })
-.run(function($rootScope, $location) {
+.run(function($window, $http, $rootScope, $location) {
 	$rootScope.redirectToHomePage = () => {
 		$location.path('/')
 	}
+	
 	$rootScope.redirectToLoginPage = () => {
 		$location.path('/account/login')
+	}
+	
+	$rootScope.logout = function() {
+		delete $http.defaults.headers.common['Authorization'];
+		$window.localStorage.removeItem('jwt')
+		$window.localStorage.removeItem('role')
+		$rootScope.authenticated = false;
+		$rootScope.authenticatedAdmin = false;
+		$rootScope.authenticatedUser = false;
+		$location.path('/');
+	}
+	
+	const jwt = $window.localStorage.getItem('jwt');
+	if(jwt) {
+		$http.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
+	}
+	
+	const role = $window.localStorage.getItem('role');
+	if(role) {
+		if(role === 'ROLE_ADMIN') {
+			$rootScope.authenticated = true;
+			$rootScope.authenticatedAdmin = true;
+			$rootScope.authenticatedUser = false;
+		} else if (role === 'ROLE_USER') {
+			$rootScope.authenticated = true;
+			$rootScope.authenticatedUser = true;
+			$rootScope.authenticatedAdmin = false;
+		} else {
+			$rootScope.authenticated = false;
+			$rootScope.authenticatedAdmin = false;
+			$rootScope.authenticatedUser = false;
+		}
 	}
 });
