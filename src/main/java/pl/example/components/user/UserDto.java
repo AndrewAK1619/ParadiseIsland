@@ -1,14 +1,29 @@
 package pl.example.components.user;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class UserDto {
 
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String mobilePhone;
-    private String email;
-    private String pesel;
+	private Long id;
+	@NotBlank(message="{pl.example.components.user.firstName.NotBlank}")
+	@Size(max = 30, message="{pl.example.components.user.firstName.Size}")
+	private String firstName;
+	@NotBlank(message="{pl.example.components.user.lastName.NotBlank}")
+	@Size(max = 30, message="{pl.example.components.user.lastName.Size}")
+	private String lastName;
+	@NotBlank(message="{pl.example.components.user.mobilePhone.NotBlank}")
+	@Size(max = 15, message="{pl.example.components.user.mobilePhone.Size}")
+	private String mobilePhone;
+	@NotBlank(message="{pl.example.components.user.email.NotBlank}")
+	@Email(message="{pl.example.components.user.email.Email}")
+	private String email;
+	private String pesel;
+	@NotBlank(message="{pl.example.components.user.password.NotBlank}")
+	@Size(min = 6, message="{pl.example.components.user.password.Size}")
 	private String password;
+	@Size(max = 150, message="{pl.example.components.user.details.Size}")
 	private String details;
 	
 	public Long getId() {

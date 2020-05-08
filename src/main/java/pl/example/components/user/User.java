@@ -13,9 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 
 import pl.example.components.user.User;
 import pl.example.components.user.role.UserRole;
@@ -29,22 +26,14 @@ public class User implements Serializable  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-    @NotEmpty
-    @Column(name="first_name", nullable=false)
+    @Column(name="first_name")
     private String firstName;
-    @NotEmpty
-    @Column(name="last_name", nullable=false)
+    @Column(name="last_name")
     private String lastName;
-    @NotEmpty
-    @Column(name="mobile_phone", nullable=false)
-    @Pattern(regexp="(?<!\\w)(\\(?(\\+|00)?48\\)?)?[ -]?\\d{3}[ -]?\\d{3}[ -]?\\d{3}(?!\\w)")
+    @Column(name="mobile_phone")
     private String mobilePhone;
-    @Email
     private String email;
-    @NotEmpty
-    @Column(unique = true)
     private String pesel;
-	@NotEmpty
 	private String password;
 	private String details;
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
