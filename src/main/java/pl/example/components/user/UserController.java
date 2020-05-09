@@ -49,7 +49,6 @@ public class UserController {
 		} else {
 			// TODO check if email exist
 		}
-    	
         if(user.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saving object can't have setted id");
         UserDto savedUser = userService.save(user);
@@ -69,7 +68,13 @@ public class UserController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto user) {
+    public ResponseEntity<?> update(@PathVariable Long id, 
+    		@Valid @RequestBody UserDto user, BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(userService.valid(result));
+		} else {
+			// TODO check if email exist
+		}
         if(!id.equals(user.getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The updated object must have an id in accordance with the id in the resource path");
         UserDto updatedUser = userService.update(user);

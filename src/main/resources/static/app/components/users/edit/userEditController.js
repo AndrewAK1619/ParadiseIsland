@@ -7,8 +7,8 @@ angular.module('app')
 		vm.user = UserService.get(userId);
 	else
 		vm.user = new User();
-
-	const saveCallback = response => {
+	
+	const valid = response => {
 		vm.hasError = false;
 		vm.fields = response.fields;
 		vm.messages = response.messages;
@@ -37,6 +37,10 @@ angular.module('app')
 				}
 			}
 		}
+	}
+
+	const saveCallback = response => {
+		valid(response);
 		if(!vm.hasError) {
 			vm.hasError = null;
 			$location.path(`/user-edit/${vm.user.id}`);
@@ -71,13 +75,20 @@ angular.module('app')
 			.catch(errorCallback);
 	};
 
-	const updateCallback = response => vm.msg='Changes saved';
+	const updateCallback = response => {
+		valid(response);
+		if(vm.hasError) {
+			vm.user = UserService.get(userId);
+		}
+		if(!vm.hasError) {
+			vm.hasError = null;
+			vm.msg='Changes saved';
+		}
+	}
+	
 	vm.updateUser = () => {
-		const formData = new FormData();
-		formData.append('id', 4);
-		formData.append('file', 'troll');
-		formData.append('user', JSON.stringify(vm.user));
-
+		setNull();
+		vm.saveUser = vm.user;
 		UserService.update(vm.user)
 			.then(updateCallback)
 			.catch(errorCallback);
