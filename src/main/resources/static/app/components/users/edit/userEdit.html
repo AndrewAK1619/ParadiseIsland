@@ -12,12 +12,27 @@
 			</div>
 		</div>
 		<div class="row tableTextWhite">
-			<form class="mx-auto col-10 col-md-6">
+			<form name="userForm" novalidate="" class="mx-auto col-10 col-md-6">
 				<p>Id: {{ctrl.user.id}}</p>
 				<div class="form-group">
 					<label for="firstNameInput">First name:</label>
 					<input type="text" class="form-control" id="firstNameInput"
-						placeholder="First name" ng-model="ctrl.user.firstName">
+						placeholder="First name" ng-model="ctrl.user.firstName" 
+						ng-class="{validErrBorder: userForm.firstName.$dirty 
+						&& userForm.firstName.$invalid}" name="firstName"
+						required ng-maxlength="20">
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="userForm.firstName.$dirty 
+							&& userForm.firstName.$invalid">
+							<span ng-show="userForm.firstName.$error.required">
+								- First name is required. -
+							</span>
+							<span ng-show="userForm.firstName.$error.maxlength">
+								- First name must have maximum 20 characters. -
+							</span>
+						</span>
+					</small>
 					<small ng-if="ctrl.errFirstName" class="form-text valid-err-text-two">
 						- {{ ctrl.errFirstNameMsg }} -
 					</small>
@@ -25,23 +40,73 @@
 				<div class="form-group">
 					<label for="lastNameInput">Surname:</label>
 					<input type="text" class="form-control" id="lastNameInput"
-						placeholder="Surname" ng-model="ctrl.user.lastName">
+						placeholder="Surname" ng-model="ctrl.user.lastName"
+						ng-class="{validErrBorder: userForm.surname.$dirty 
+						&& userForm.surname.$invalid}" name="surname"
+						required ng-maxlength="20">
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="userForm.surname.$dirty 
+							&& userForm.surname.$invalid">
+							<span ng-show="userForm.surname.$error.required">
+								- Surname is required. -
+							</span>
+							<span ng-show="userForm.surname.$error.maxlength">
+								- Surname must have maximum 20 characters. -
+							</span>
+						</span>
+					</small>
 					<small ng-if="ctrl.errLastName" class="form-text valid-err-text-two">
 						- {{ ctrl.errLastNameMsg }} -
 					</small>
 				</div>
 				<div class="form-group">
 					<label for="mobilePhoneInput">Mobile phone:</label>
-					<input type="text" class="form-control" id="peselInput"
-						placeholder="Mobile phone" ng-model="ctrl.user.mobilePhone">
+					<input type="text" class="form-control" id="mobilePhoneInput"
+						placeholder="Mobile phone" ng-model="ctrl.user.mobilePhone"
+						ng-class="{validErrBorder: userForm.mobilePhone.$dirty 
+						&& userForm.mobilePhone.$invalid}" name="mobilePhone"
+						ng-pattern="/(?!\w<)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/"
+						required ng-maxlength="20">
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="userForm.mobilePhone.$dirty 
+							&& userForm.mobilePhone.$invalid">
+							<span ng-show="userForm.mobilePhone.$error.required">
+								- Phone number is required. -
+							</span>
+							<span ng-show="userForm.mobilePhone.$error.maxlength">
+								- Phone number must have maximum 20 characters. -
+							</span>
+							<span ng-show="userForm.mobilePhone.$error.pattern">
+								- Phone number has to be, for example: - <br />
+								- +48 888-888-888 || (+48) 888 888 888 || 888-888-888 || 888888888 -
+							</span>
+						</span>
+					</small>
 					<small ng-if="ctrl.errMobilePhone" class="form-text valid-err-text-two">
 						- {{ ctrl.errMobilePhoneMsg }} -
 					</small>
 				</div>
 				<div class="form-group">
 					<label for="emailInput">Email address:</label>
-					<input type="text" class="form-control" id="emailInput"
-						placeholder="Email address" ng-model="ctrl.user.email">
+					<input type="email" class="form-control" id="emailInput"
+						placeholder="Email address" ng-model="ctrl.user.email"
+						ng-class="{validErrBorder: userForm.email.$dirty 
+						&& userForm.email.$invalid}" name="email"
+						required>
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="userForm.email.$dirty 
+							&& userForm.email.$invalid">
+							<span ng-show="userForm.email.$error.required">
+								- Email is required. -
+							</span>
+							<span ng-show="userForm.email.$error.email">
+								- Invalid email address. -
+							</span>
+						</span>
+					</small>
 				<small ng-if="ctrl.errEmail" class="form-text valid-err-text-two">
 					- {{ ctrl.errEmailMsg }} -
 				</small>
@@ -54,7 +119,22 @@
 				<div ng-if="!ctrl.user.id" class="form-group">
 					<label for="passwordInput">Password:</label>
 					<input type="password" class="form-control" id="passwordInput"
-						placeholder="Password" ng-model="ctrl.user.password">
+						placeholder="Password" ng-model="ctrl.user.password"
+						ng-class="{validErrBorder: userForm.password.$dirty 
+						&& userForm.password.$invalid}" name="password"
+						required ng-minlength="8">
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="userForm.password.$dirty 
+							&& userForm.password.$invalid">
+							<span ng-show="userForm.password.$error.required">
+								- Password is required. -
+							</span>
+							<span ng-show="userForm.password.$error.minlength">
+								- Password must have minimum 8 characters. -
+							</span>
+						</span>
+					</small>
 					<small ng-if="ctrl.errPassword" class="form-text valid-err-text-two">
 						- {{ ctrl.errPasswordMsg }} -
 					</small>
@@ -62,8 +142,20 @@
 				<div class="form-group">
 					<label for="detailsInput">Details:</label>
 					<textarea type="text" class="form-control" id="detailsInput"
-						placeholder="Details" ng-model="ctrl.user.details">
+						placeholder="Details" ng-model="ctrl.user.details"
+						ng-class="{validErrBorder: userForm.details.$dirty 
+						&& userForm.details.$invalid}" name="details"
+						ng-maxlength="150">
 					</textarea>
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="userForm.details.$dirty 
+							&& userForm.details.$invalid">
+							<span ng-show="userForm.details.$error.maxlength">
+								- Details must have maximum 150 characters. -
+							</span>
+						</span>
+					</small>
 					<small ng-if="ctrl.errDetails" class="form-text valid-err-text-two textarea">
 						- {{ ctrl.errDetailsMsg }} -
 					</small>
@@ -75,9 +167,13 @@
 				</div>
 				<div class="form-group mb-5">
 					<button ng-if="!ctrl.user.id" type="submit" class="btn btn-success"
-						ng-click="ctrl.saveUser()">Save</button>
+						ng-click="ctrl.saveUser()" ng-disabled="userForm.$invalid">
+						Save
+					</button>
 					<button ng-if="ctrl.user.id" type="submit" class="btn btn-success"
-						ng-click="ctrl.updateUser()">Update</button>
+						ng-click="ctrl.updateUser()" ng-disabled="userForm.$invalid">
+						Update
+					</button>
 				</div>
 				<div class="row">
 					<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/users">Users</a>
