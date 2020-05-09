@@ -119,6 +119,15 @@ body {
 	box-shadow: 0px 0px 5px #F95454;
 }
 
+.valid-err-text-two {
+	color: #cb3328;
+	background: white;
+	border-radius: 5px;
+	font-weight:bold;
+	text-align: center;
+	display: inline-block;
+}
+
 ul, ul li {
 	list-style: none outside;
 	margin:0;

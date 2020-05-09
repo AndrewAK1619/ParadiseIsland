@@ -15,24 +15,36 @@
 			<form class="mx-auto col-10 col-md-6">
 				<p>Id: {{ctrl.user.id}}</p>
 				<div class="form-group">
-					<label for="firstNameInput">Name:</label>
+					<label for="firstNameInput">First name:</label>
 					<input type="text" class="form-control" id="firstNameInput"
 						placeholder="First name" ng-model="ctrl.user.firstName">
+					<small ng-if="ctrl.errFirstName" class="form-text valid-err-text-two">
+						- {{ ctrl.errFirstNameMsg }} -
+					</small>
 				</div>
 				<div class="form-group">
 					<label for="lastNameInput">Surname:</label>
 					<input type="text" class="form-control" id="lastNameInput"
 						placeholder="Surname" ng-model="ctrl.user.lastName">
+					<small ng-if="ctrl.errLastName" class="form-text valid-err-text-two">
+						- {{ ctrl.errLastNameMsg }} -
+					</small>
 				</div>
 				<div class="form-group">
 					<label for="mobilePhoneInput">Mobile phone:</label>
 					<input type="text" class="form-control" id="peselInput"
 						placeholder="Mobile phone" ng-model="ctrl.user.mobilePhone">
+					<small ng-if="ctrl.errMobilePhone" class="form-text valid-err-text-two">
+						- {{ ctrl.errMobilePhoneMsg }} -
+					</small>
 				</div>
 				<div class="form-group">
 					<label for="emailInput">Email address:</label>
 					<input type="text" class="form-control" id="emailInput"
 						placeholder="Email address" ng-model="ctrl.user.email">
+				<small ng-if="ctrl.errEmail" class="form-text valid-err-text-two">
+					- {{ ctrl.errEmailMsg }} -
+				</small>
 				</div>
 				<div class="form-group">
 					<label for="peselInput">Pesel:</label>
@@ -43,11 +55,18 @@
 					<label for="passwordInput">Password:</label>
 					<input type="text" class="form-control" id="passwordInput"
 						placeholder="Password" ng-model="ctrl.user.password">
+					<small ng-if="ctrl.errPassword" class="form-text valid-err-text-two">
+						- {{ ctrl.errPasswordMsg }} -
+					</small>
 				</div>
 				<div class="form-group">
 					<label for="detailsInput">Details:</label>
-					<input type="text" class="form-control" id="detailsInput"
+					<textarea type="text" class="form-control" id="detailsInput"
 						placeholder="Details" ng-model="ctrl.user.details">
+					</textarea>
+					<small ng-if="ctrl.errDetails" class="form-text valid-err-text-two textarea">
+						- {{ ctrl.errDetailsMsg }} -
+					</small>
 				</div>
 				<div class="row" ng-if="ctrl.msg">
 					<div class="mx-auto">

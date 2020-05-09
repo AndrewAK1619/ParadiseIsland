@@ -3,9 +3,12 @@ package pl.example.components.user;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +42,14 @@ public class UserController {
     }
     
     @PostMapping("")
-    public ResponseEntity<UserDto> save(@RequestBody UserDto user) {
+    public ResponseEntity<?> save(@Valid @RequestBody UserDto user, BindingResult result) {
+    	
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(userService.valid(result));
+		} else {
+			// TODO check if email exist
+		}
+    	
         if(user.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saving object can't have setted id");
         UserDto savedUser = userService.save(user);
