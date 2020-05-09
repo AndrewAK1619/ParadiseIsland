@@ -1,11 +1,11 @@
 angular.module('app')
-.controller('RegisterController', function($scope, $routeParams, $location, $timeout, RegisterService, UserRegister) {
+.controller('RegisterController', function($routeParams, $location, $timeout, RegisterService, UserRegister) {
 	const vm = this;
 	const userId = $routeParams.userId;
 	
 	if(userId)
 		vm.userRegister = RegisterService.getCheck(userId);
-	else
+	else 
 		vm.userRegister = new UserRegister();
 	
 	const saveCallback = response => {

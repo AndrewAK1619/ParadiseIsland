@@ -96,7 +96,6 @@ body {
 	font-weight: bold;
 }
 
-
 .text-size-16 {
 	font-size: 16px;
 }
@@ -111,8 +110,13 @@ body {
 	object-fit:cover;
 }
 
-.valid-err {
-	color: red;
+.valid-err-text {
+	color: #F95454;
+}
+
+.validErrBorder {
+	border: solid 2px #F95454;
+	box-shadow: 0px 0px 5px #F95454;
 }
 
 ul, ul li {

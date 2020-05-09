@@ -3,10 +3,10 @@ INSERT INTO user_role(id, role, description) VALUES
   (2, "ROLE_ADMIN", "role for admin");
 
 INSERT INTO users(user_id, email, first_name, last_name, mobile_phone, password, pesel) VALUES
-  (1, 'admin@example.com', 'John', 'Smith', '123123123', 
+  (1, 'admin@example.com', 'John', 'Smith', '123-123-123', 
 	'{bcrypt}$2a$10$/qm/jZiwBGAEaS8LCW695egoqzUNoLoXWpX4kUH3Ch09KvyLE1yeW', 
 	'12312312312'),
-  (2, 'user@example.com', 'Michael', 'Jones', '321321321', 
+  (2, 'user@example.com', 'Michael', 'Jones', '321-321-321', 
 	'{bcrypt}$2a$10$Jvi.vrRv34OB.QpUmRK6h.pAub2/Os9o9/9pTdqAV5iS85bSavg8.', 
 	'32132132132');
 
