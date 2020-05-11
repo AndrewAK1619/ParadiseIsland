@@ -16,7 +16,7 @@ import pl.example.components.user.UserRepository;
 import pl.example.components.user.role.UserRole;
 import pl.example.components.user.role.UserRoleRepository;
 import pl.example.components.validation.ValidationError;
-import pl.example.components.user.DuplicatePeselException;
+import pl.example.components.user.DuplicateEmailException;
 import pl.example.components.user.User;
 import pl.example.components.user.UserDto;
 import pl.example.components.user.UserMapper;
@@ -58,18 +58,18 @@ public class UserService {
     }
     
     UserDto save(UserDto user) {
-        Optional<User> userByPesel = userRepository.findByPesel(user.getPesel());
-        userByPesel.ifPresent(u -> {
-            throw new DuplicatePeselException();
+        Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
+        userByEmail.ifPresent(u -> {
+            throw new DuplicateEmailException();
         });
         return mapAndSaveUser(user);
     }
     
     UserDto update(UserDto user) {
-        Optional<User> userByPesel = userRepository.findByPesel(user.getPesel());
-        userByPesel.ifPresent(u -> {
+        Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
+        userByEmail.ifPresent(u -> {
             if(!u.getId().equals(user.getId()))
-                throw new DuplicatePeselException();
+                throw new DuplicateEmailException();
         });
         return mapAndSaveUser(user);
     }

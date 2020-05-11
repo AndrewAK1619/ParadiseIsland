@@ -22,7 +22,6 @@ public class UserDto {
 	@NotBlank(message="{pl.example.components.user.email.NotBlank}")
 	@Email(message="{pl.example.components.user.email.Email}")
 	private String email;
-	private String pesel;
 	@NotBlank(message="{pl.example.components.user.password.NotBlank}")
 	@Size(min = 8, message="{pl.example.components.user.password.Size}")
 	private String password;
@@ -58,12 +57,6 @@ public class UserDto {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getPesel() {
-		return pesel;
-	}
-	public void setPesel(String pesel) {
-		this.pesel = pesel;
 	}
 	public String getPassword() {
 		return password;

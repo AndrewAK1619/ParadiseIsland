@@ -1,6 +1,7 @@
 package pl.example.components.security;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String emailUser) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(emailUser);
+		Optional<User> userOpt = userRepository.findByEmail(emailUser);
+		User user = null;
+		
+		if (userOpt.isPresent())
+			user = userOpt.get();
+		
 		if(user == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 		org.springframework.security.core.userdetails.User userDetails = 

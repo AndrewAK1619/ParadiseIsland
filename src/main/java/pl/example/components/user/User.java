@@ -33,7 +33,6 @@ public class User implements Serializable  {
     @Column(name="mobile_phone")
     private String mobilePhone;
     private String email;
-    private String pesel;
 	private String password;
 	private String details;
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -69,12 +68,6 @@ public class User implements Serializable  {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPesel() {
-		return pesel;
-	}
-	public void setPesel(String pesel) {
-		this.pesel = pesel;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -105,7 +98,6 @@ public class User implements Serializable  {
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((mobilePhone == null) ? 0 : mobilePhone.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((pesel == null) ? 0 : pesel.hashCode());
 		return result;
 	}
 	@Override
@@ -151,11 +143,6 @@ public class User implements Serializable  {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
-			return false;
-		if (pesel == null) {
-			if (other.pesel != null)
-				return false;
-		} else if (!pesel.equals(other.pesel))
 			return false;
 		return true;
 	}

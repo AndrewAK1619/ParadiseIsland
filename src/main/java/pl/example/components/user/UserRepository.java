@@ -9,8 +9,7 @@ import pl.example.components.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-    Optional<User> findByPesel(String pesel);
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
     List<User> findAllByOrderByIdAsc();
     List<User> findAllByLastNameContainingIgnoreCaseOrderByIdAsc(String lastName);
 }
