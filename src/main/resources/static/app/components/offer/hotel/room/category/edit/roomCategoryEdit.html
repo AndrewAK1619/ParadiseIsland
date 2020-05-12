@@ -12,12 +12,27 @@
 			</div>
 		</div>
 		<div class="row tableTextWhite">
-			<form class="mx-auto col-6">
+			<form name="roomCategoryForm" class="mx-auto col-6">
 				<p>Id: {{ctrl.roomCategory.id}}</p>
 				<div class="form-group">
 					<label for="firstNameInput">Name:</label>
 					<input type="text" class="form-control" id="firstNameInput"
-						placeholder="Category name" ng-model="ctrl.roomCategory.name">
+						placeholder="Category name" ng-model="ctrl.roomCategory.name"
+						ng-class="{validErrBorder: roomCategoryForm.name.$dirty 
+						&& roomCategoryForm.name.$invalid}" name="name"
+						required ng-maxlength="20">
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="roomCategoryForm.name.$dirty 
+							&& roomCategoryForm.name.$invalid">
+							<span ng-show="roomCategoryForm.name.$error.required">
+								- Name is required. -
+							</span>
+							<span ng-show="roomCategoryForm.name.$error.maxlength">
+								- Name must have maximum 20 characters. -
+							</span>
+						</span>
+					</small>
 					<small ng-if="ctrl.errName" class="form-text valid-err-text-two">
 						- {{ ctrl.errNameMsg }} -
 					</small>
@@ -29,9 +44,15 @@
 				</div>
 				<div class="form-group mb-5 mt-3">
 					<button ng-if="!ctrl.roomCategory.id" type="submit"
-						class="btn btn-success" ng-click="ctrl.saveRoomCategory()">Save</button>
+						class="btn btn-success" ng-click="ctrl.saveRoomCategory()"
+						ng-disabled="roomCategoryForm.$invalid">
+						Save
+					</button>
 					<button ng-if="ctrl.roomCategory.id" type="submit"
-						class="btn btn-success" ng-click="ctrl.updateRoomCategory()">Update</button>
+						class="btn btn-success" ng-click="ctrl.updateRoomCategory()"
+						ng-disabled="roomCategoryForm.$invalid">
+						Update
+					</button>
 				</div>
 				<div class="row">
 					<a class="btn btn-primary mb-3 mx-auto"

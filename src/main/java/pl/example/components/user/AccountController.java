@@ -37,13 +37,9 @@ public class AccountController {
     
     @PostMapping("/register")
     public ResponseEntity<?> save(@Valid @RequestBody UserDto user, BindingResult result) {
-    	
 		if (result.hasErrors()) {
 			return ResponseEntity.ok(validationService.valid(result));
-		} else {
-			// TODO check if email exist
 		}
-
         if(user.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The object being saved cannot be overwritten with an existing ID");
         UserDto savedUser = userService.save(user);
