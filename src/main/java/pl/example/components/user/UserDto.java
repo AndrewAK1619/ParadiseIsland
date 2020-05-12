@@ -9,7 +9,7 @@ public class UserDto {
 
 	private Long id;
 	@NotBlank(message="{user.firstName.NotBlank}")
-	@Size(max = 20, message="{.user.firstName.Size}")
+	@Size(max = 20, message="{user.firstName.Size}")
 	private String firstName;
 	@NotBlank(message="{user.lastName.NotBlank}")
 	@Size(max = 20, message="{user.lastName.Size}")

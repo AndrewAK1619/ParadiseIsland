@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,18 +32,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.example.components.offer.hotel.room.image.RoomImageDto;
 import pl.example.components.offer.hotel.room.image.RoomImageService;
+import pl.example.components.validation.ValidationService;
 
 @RestController
 @RequestMapping("/hotels")
 public class RoomController {
 
-	RoomService roomService;
-	RoomImageService roomImageService;
+	private RoomService roomService;
+	private RoomImageService roomImageService;
+	private ValidationService validationService;
+	private Validator validator;
 
 	@Autowired
-	public RoomController(RoomService roomService, RoomImageService roomImageService) {
+	public RoomController(RoomService roomService,
+			RoomImageService roomImageService,
+			ValidationService validationService,
+			Validator validator) {
 		this.roomService = roomService;
 		this.roomImageService = roomImageService;
+		this.validationService = validationService;
+		this.validator = validator;
 	}
 	
 	@GetMapping("/{hotelId}/rooms")
@@ -76,10 +87,17 @@ public class RoomController {
 	}
 	
 	@PostMapping("/rooms")
-	public ResponseEntity<RoomDto> save(@RequestPart(name = "file", required = false) MultipartFile file, 
-			@RequestPart("roomDto") String roomDtoJson) throws JsonMappingException, JsonProcessingException {
-		
+	public ResponseEntity<?> save(@RequestPart(name = "file", required = false) MultipartFile file, 
+			@RequestPart("roomDto") String roomDtoJson) 
+			throws JsonMappingException, JsonProcessingException {
+			
 		RoomDto roomDto = new ObjectMapper().readValue(roomDtoJson, RoomDto.class);
+		
+		BindingResult result = new BeanPropertyBindingResult(roomDto, "roomDto");
+		validator.validate(roomDto, result);
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(validationService.valid(result));
+		} 
 		if (roomDto.getId() != null)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
 					"Saving object can't have setted id");
@@ -113,12 +131,19 @@ public class RoomController {
 	}
 
 	@PutMapping("/rooms/{id}")
-    public ResponseEntity<RoomDto> update(@PathVariable Long id,
+    public ResponseEntity<?> update(@PathVariable Long id,
     		@RequestPart(name = "idRoom", required = false) String idRoom, 
     		@RequestPart(name = "file", required = false) MultipartFile file, 
-    		@RequestPart("roomDto") String roomDtoJson) throws IOException {
+    		@RequestPart("roomDto") String roomDtoJson) 
+    		throws IOException {
     	
 		RoomDto roomDto = new ObjectMapper().readValue(roomDtoJson, RoomDto.class);
+		
+		BindingResult result = new BeanPropertyBindingResult(roomDto, "roomDto");
+		validator.validate(roomDto, result);
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(validationService.valid(result));
+		} 
         if(!id.equals(roomDto.getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
             		"The updated object must have an id in accordance with the id in the resource path");

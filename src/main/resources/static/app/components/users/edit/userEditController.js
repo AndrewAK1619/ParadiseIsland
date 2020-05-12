@@ -40,8 +40,8 @@ angular.module('app')
 	}
 	
 	const setNull = () => {
-		vm.user.fields = null;
-		vm.user.messages = null;
+		delete vm.user.fields;
+		delete vm.user.messages;
 		vm.errFirstName = null;
 		vm.errFirstNameMsg = null;
 		vm.errLastName = null;

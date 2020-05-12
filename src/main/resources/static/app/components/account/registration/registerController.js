@@ -37,8 +37,8 @@ angular.module('app')
 	}
 	
 	const setNull = () => {
-		vm.userRegister.fields = null;
-		vm.userRegister.messages = null;
+		delete vm.userRegister.fields;
+		delete vm.userRegister.messages;
 		vm.errFirstName = null;
 		vm.errFirstNameMsg = null;
 		vm.errLastName = null;

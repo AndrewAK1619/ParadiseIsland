@@ -25,8 +25,8 @@ angular.module('app')
 	}
 	
 	const setNull = () => {
-		vm.roomCategory.fields = null;
-		vm.roomCategory.messages = null;
+		delete vm.roomCategory.fields;
+		delete vm.roomCategory.messages;
 		vm.errName = null;
 		vm.errNameMsg = null;
 	}

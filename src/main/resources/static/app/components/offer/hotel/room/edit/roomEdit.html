@@ -46,17 +46,26 @@
 						<input type="text" class="form-control"
 							id="numberOfSingleBedsInput" placeholder="Number Of Single Beds"
 							ng-model="ctrl.room.numberOfSingleBeds">
+						<small ng-if="ctrl.errNumberOfSingleBeds" class="form-text valid-err-text-two">
+							- {{ ctrl.errNumberOfSingleBedsMsg }} -
+						</small>
 					</div>
 					<div class="form-group">
 						<label for="numberOfDoubleBedsInput">Number Of Double Beds:</label>
 						<input type="text" class="form-control"
 							id="numberOfDoubleBedsInput" placeholder="Number Of Double Beds"
 							ng-model="ctrl.room.numberOfDoubleBeds">
+						<small ng-if="ctrl.errNumberOfDoubleBeds" class="form-text valid-err-text-two">
+							- {{ ctrl.errNumberOfDoubleBedsMsg }} -
+						</small>
 					</div>
 					<div class="form-group">
 						<label for="roomPriceInput">Room Price:</label>
 						<input type="text" class="form-control" id="roomPrice"
 							placeholder="Room Price" ng-model="ctrl.room.roomPrice">
+						<small ng-if="ctrl.errRoomPrice" class="form-text valid-err-text-two">
+							- {{ ctrl.errRoomPriceMsg }} -
+						</small>
 					</div>
 					<div class="form-group">
 						<label for="roomCategorySelect">Category:</label>
@@ -67,6 +76,9 @@
 								{{roomCategory}}
 							</option>
 						</select>
+						<small ng-if="ctrl.errRoomCategory" class="form-text valid-err-text-two">
+							- {{ ctrl.errRoomCategoryMsg }} -
+						</small>
 					</div>
 					<div class="row" ng-if="ctrl.msg">
 						<div class="mx-auto">

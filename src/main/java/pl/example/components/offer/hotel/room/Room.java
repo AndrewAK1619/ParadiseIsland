@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import pl.example.components.offer.hotel.Hotel;
 import pl.example.components.offer.hotel.room.category.RoomCategory;
@@ -25,16 +24,13 @@ public class Room implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "room_id", nullable = false)
+	@Column(name = "room_id")
 	private Long id;
-	@NotNull
-	@Column(name = "number_of_single_beds", nullable = false)
+	@Column(name = "number_of_single_beds")
 	private int numberOfSingleBeds;
-	@NotNull
-	@Column(name = "number_of_double_beds", nullable = false)
+	@Column(name = "number_of_double_beds")
 	private int numberOfDoubleBeds;
-	@NotNull
-	@Column(name = "room_price", nullable = false)
+	@Column(name = "room_price")
 	private int roomPrice;
 	@ManyToOne
 	@JoinColumn(name = "room_category_id")
