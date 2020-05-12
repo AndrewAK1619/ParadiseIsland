@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		<div class="row tableTextWhite">
-			<form class="mx-auto col-10 col-md-8" enctype="multipart/form-data">
+			<form name="roomForm" class="mx-auto col-10 col-md-8" enctype="multipart/form-data">
 				<p class="mx-auto col-10 col-md-9">Id: {{ctrl.room.id}}</p>
 				<div class="form-group row">
 					<div class="image-area row x-auto col-4 float-left">
@@ -43,26 +43,89 @@
 				<div class="mx-auto col-10 col-md-9">
 					<div class="form-group">
 						<label for="numberOfSingleBedsInput">Number Of Single Beds:</label>
-						<input type="text" class="form-control"
+						<input type="number" class="form-control"
 							id="numberOfSingleBedsInput" placeholder="Number Of Single Beds"
-							ng-model="ctrl.room.numberOfSingleBeds">
+							ng-model="ctrl.room.numberOfSingleBeds"
+							ng-class="{validErrBorder: roomForm.numberOfSingleBeds.$dirty 
+							&& roomForm.numberOfSingleBeds.$invalid}" name="numberOfSingleBeds"
+							required min=0 max="10">
+						<small>
+							<span class="form-text valid-err-text-two" 
+								ng-show="roomForm.numberOfSingleBeds.$dirty 
+								&& roomForm.numberOfSingleBeds.$invalid">
+								<span ng-show="roomForm.numberOfSingleBeds.$error.required">
+									- Number of single beds is required. -
+								</span>
+								<span ng-show="roomForm.numberOfSingleBeds.$error.number">
+									- No characters allowed. -
+								</span>
+								<span ng-show="roomForm.numberOfSingleBeds.$error.min">
+									- Number of single beds must be between 0 and 10. -
+								</span>
+								<span ng-show="roomForm.numberOfSingleBeds.$error.max">
+									- Number of single beds must be between 0 and 10. -
+								</span>
+							</span>
+						</small>
 						<small ng-if="ctrl.errNumberOfSingleBeds" class="form-text valid-err-text-two">
 							- {{ ctrl.errNumberOfSingleBedsMsg }} -
 						</small>
 					</div>
 					<div class="form-group">
 						<label for="numberOfDoubleBedsInput">Number Of Double Beds:</label>
-						<input type="text" class="form-control"
+						<input type="number" class="form-control"
 							id="numberOfDoubleBedsInput" placeholder="Number Of Double Beds"
-							ng-model="ctrl.room.numberOfDoubleBeds">
+							ng-model="ctrl.room.numberOfDoubleBeds"
+							ng-class="{validErrBorder: roomForm.numberOfDoubleBeds.$dirty 
+							&& roomForm.numberOfDoubleBeds.$invalid}" name="numberOfDoubleBeds"
+							required min=0 max="10">
+						<small>
+							<span class="form-text valid-err-text-two" 
+								ng-show="roomForm.numberOfDoubleBeds.$dirty 
+								&& roomForm.numberOfDoubleBeds.$invalid">
+								<span ng-show="roomForm.numberOfDoubleBeds.$error.required">
+									- Number of double beds is required. -
+								</span>
+								<span ng-show="roomForm.numberOfDoubleBeds.$error.number">
+									- No characters allowed. -
+								</span>
+								<span ng-show="roomForm.numberOfDoubleBeds.$error.min">
+									- Number of double beds must be between 0 and 10. -
+								</span>
+								<span ng-show="roomForm.numberOfDoubleBeds.$error.max">
+									- Number of double beds must be between 0 and 10. -
+								</span>
+							</span>
+						</small>
 						<small ng-if="ctrl.errNumberOfDoubleBeds" class="form-text valid-err-text-two">
 							- {{ ctrl.errNumberOfDoubleBedsMsg }} -
 						</small>
 					</div>
 					<div class="form-group">
 						<label for="roomPriceInput">Room Price:</label>
-						<input type="text" class="form-control" id="roomPrice"
-							placeholder="Room Price" ng-model="ctrl.room.roomPrice">
+						<input type="number" class="form-control" id="roomPrice"
+							placeholder="Room Price" ng-model="ctrl.room.roomPrice"
+							ng-class="{validErrBorder: roomForm.roomPrice.$dirty 
+							&& roomForm.roomPrice.$invalid}" name="roomPrice"
+							required min="50" max="2000">
+						<small>
+							<span class="form-text valid-err-text-two" 
+								ng-show="roomForm.roomPrice.$dirty 
+								&& roomForm.roomPrice.$invalid">
+								<span ng-show="roomForm.roomPrice.$error.required">
+									- Room price is required. -
+								</span>
+								<span ng-show="roomForm.roomPrice.$error.number">
+									- No characters allowed. -
+								</span>
+								<span ng-show="roomForm.roomPrice.$error.min">
+									- Room price must be between 50 and 2000. -
+								</span>
+								<span ng-show="roomForm.roomPrice.$error.max">
+									- Room price must be between 50 and 2000. -
+								</span>
+							</span>
+						</small>
 						<small ng-if="ctrl.errRoomPrice" class="form-text valid-err-text-two">
 							- {{ ctrl.errRoomPriceMsg }} -
 						</small>
@@ -70,12 +133,24 @@
 					<div class="form-group">
 						<label for="roomCategorySelect">Category:</label>
 						<select class="form-control" id="roomCategorySelect"
-							ng-model="ctrl.room.roomCategory">
+							ng-model="ctrl.room.roomCategory"
+							ng-class="{validErrBorder: roomForm.roomCategory.$dirty 
+							&& roomForm.roomCategory.$invalid}" name="roomCategory"
+							required>
 							<option ng-repeat="roomCategory in ctrl.roomCategoriesNames"
 								ng-selected="category === ctrl.room.roomCategory">
 								{{roomCategory}}
 							</option>
 						</select>
+						<small>
+							<span class="form-text valid-err-text-two" 
+								ng-show="roomForm.roomCategory.$dirty 
+								&& roomForm.roomCategory.$invalid">
+								<span ng-show="roomForm.roomCategory.$error.required">
+									- Room category is required. -
+								</span>
+							</span>
+						</small>
 						<small ng-if="ctrl.errRoomCategory" class="form-text valid-err-text-two">
 							- {{ ctrl.errRoomCategoryMsg }} -
 						</small>
@@ -87,9 +162,13 @@
 					</div>
 					<div class="form-group mb-5">
 						<button ng-if="!ctrl.room.id" type="submit" class="btn btn-success"
-							ng-click="ctrl.saveRoom()">Save</button>
+							ng-click="ctrl.saveRoom()" ng-disabled="roomForm.$invalid">
+							Save
+						</button>
 						<button ng-if="ctrl.room.id" type="submit" class="btn btn-success"
-							ng-click="ctrl.updateRoom()">Update</button>
+							ng-click="ctrl.updateRoom()" ng-disabled="roomForm.$invalid">
+							Update
+						</button>
 					</div>
 					<div class="row">
 						<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels/{{ctrl.room.hotelId}}/rooms">Rooms</a>

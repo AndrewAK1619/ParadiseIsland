@@ -1,6 +1,5 @@
 package pl.example.components.offer.hotel.room;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
@@ -9,10 +8,10 @@ public class RoomDto {
 
 	private Long id;
 	@NotNull(message="{offer.hotel.room.numberOfSingleBeds.NotNull}")
-	@Max(value = 10, message="{offer.hotel.room.numberOfSingleBeds.Max}")
+	@Range(min = 0, max = 10, message="{offer.hotel.room.numberOfSingleBeds.Max}")
 	private int numberOfSingleBeds;
 	@NotNull(message="{offer.hotel.room.numberOfDoubleBeds.NotNull}")
-	@Max(value = 10, message="{offer.hotel.room.numberOfDoubleBeds.Max}")
+	@Range(min = 0, max = 10, message="{offer.hotel.room.numberOfDoubleBeds.Max}")
 	private int numberOfDoubleBeds;
 	@NotNull(message="{offer.hotel.room.roomPrice.NotNull}")
 	@Range(min = 50, max = 2000, message="{offer.hotel.room.roomPrice.Range}")
