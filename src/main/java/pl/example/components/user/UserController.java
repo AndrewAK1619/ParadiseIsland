@@ -21,16 +21,20 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import pl.example.components.user.UserDto;
+import pl.example.components.validation.ValidationService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     private UserService userService;
-
+    private ValidationService validationService;
+    
     @Autowired
-    UserController(UserService userService) {
-        this.userService = userService;
+    UserController(UserService userService,
+    		ValidationService validationService) {
+		this.userService = userService;
+		this.validationService = validationService;
     }
     
     @GetMapping("")
@@ -43,12 +47,9 @@ public class UserController {
     
     @PostMapping("")
     public ResponseEntity<?> save(@Valid @RequestBody UserDto user, BindingResult result) {
-    	
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(userService.valid(result));
-		} else {
-			// TODO check if email exist
-		}
+			return ResponseEntity.ok(validationService.valid(result));
+		} 
         if(user.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saving object can't have setted id");
         UserDto savedUser = userService.save(user);
@@ -71,9 +72,7 @@ public class UserController {
     public ResponseEntity<?> update(@PathVariable Long id, 
     		@Valid @RequestBody UserDto user, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(userService.valid(result));
-		} else {
-			// TODO check if email exist
+			return ResponseEntity.ok(validationService.valid(result));
 		}
         if(!id.equals(user.getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The updated object must have an id in accordance with the id in the resource path");

@@ -8,7 +8,7 @@ angular.module('app')
 	else 
 		vm.userRegister = new UserRegister();
 	
-	const saveCallback = response => {
+	const valid = response => {
 		vm.hasError = false;
 		vm.fields = response.fields;
 		vm.messages = response.messages;
@@ -34,15 +34,7 @@ angular.module('app')
 				}
 			}
 		}
-		if(!vm.hasError) {
-			vm.hasError = null;
-			$location.path(`/account/register/success/${vm.userRegister.id}`);
-		}
-	};
-	
-	const errorCallback = err => {
-		vm.msg = `Failed registration attempt: ${err.data.message}`;
-	};
+	}
 	
 	const setNull = () => {
 		vm.userRegister.fields = null;
@@ -58,6 +50,18 @@ angular.module('app')
 		vm.errPassword = null;
 		vm.errPasswordMsg = null;
 	}
+	
+	const saveCallback = response => {
+		valid(response);
+		if(!vm.hasError) {
+			vm.hasError = null;
+			$location.path(`/account/register/success/${vm.userRegister.id}`);
+		}
+	};
+	
+	const errorCallback = err => {
+		vm.msg = `Failed registration attempt: ${err.data.message}`;
+	};
 	
 	vm.saveUserRegister = () => {
 		setNull();

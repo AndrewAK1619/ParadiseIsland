@@ -12,19 +12,22 @@
 			</div>
 		</div>
 		<div class="row tableTextWhite">
-			<form class="mx-auto col-10 col-md-6">
+			<form class="mx-auto col-6">
 				<p>Id: {{ctrl.roomCategory.id}}</p>
 				<div class="form-group">
 					<label for="firstNameInput">Name:</label>
 					<input type="text" class="form-control" id="firstNameInput"
 						placeholder="Category name" ng-model="ctrl.roomCategory.name">
+					<small ng-if="ctrl.errName" class="form-text valid-err-text-two">
+						- {{ ctrl.errNameMsg }} -
+					</small>
 				</div>
 				<div class="row" ng-if="ctrl.msg">
 					<div class="mx-auto">
 						<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
 					</div>
 				</div>
-				<div class="form-group mb-5">
+				<div class="form-group mb-5 mt-3">
 					<button ng-if="!ctrl.roomCategory.id" type="submit"
 						class="btn btn-success" ng-click="ctrl.saveRoomCategory()">Save</button>
 					<button ng-if="ctrl.roomCategory.id" type="submit"

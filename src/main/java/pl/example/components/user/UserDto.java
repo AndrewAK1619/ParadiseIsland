@@ -8,24 +8,24 @@ import javax.validation.constraints.Size;
 public class UserDto {
 
 	private Long id;
-	@NotBlank(message="{pl.example.components.user.firstName.NotBlank}")
-	@Size(max = 20, message="{pl.example.components.user.firstName.Size}")
+	@NotBlank(message="{user.firstName.NotBlank}")
+	@Size(max = 20, message="{.user.firstName.Size}")
 	private String firstName;
-	@NotBlank(message="{pl.example.components.user.lastName.NotBlank}")
-	@Size(max = 20, message="{pl.example.components.user.lastName.Size}")
+	@NotBlank(message="{user.lastName.NotBlank}")
+	@Size(max = 20, message="{user.lastName.Size}")
 	private String lastName;
-	@NotBlank(message="{pl.example.components.user.mobilePhone.NotBlank}")
-	@Size(max = 20, message="{pl.example.components.user.mobilePhone.Size}")
+	@NotBlank(message="{user.mobilePhone.NotBlank}")
+	@Size(max = 20, message="{user.mobilePhone.Size}")
 	@Pattern(regexp = "(?!\\w<)(\\(?(\\+|00)?48\\)?)?[ -]?\\d{3}[ -]?\\d{3}[ -]?\\d{3}(?!\\w)",
-			message="{pl.example.components.user.mobilePhone.Pattern}")
+			message="{user.mobilePhone.Pattern}")
 	private String mobilePhone;
-	@NotBlank(message="{pl.example.components.user.email.NotBlank}")
-	@Email(message="{pl.example.components.user.email.Email}")
+	@NotBlank(message="{user.email.NotBlank}")
+	@Email(message="{user.email.Email}")
 	private String email;
-	@NotBlank(message="{pl.example.components.user.password.NotBlank}")
-	@Size(min = 8, message="{pl.example.components.user.password.Size}")
+	@NotBlank(message="{user.password.NotBlank}")
+	@Size(min = 8, message="{user.password.Size}")
 	private String password;
-	@Size(max = 150, message="{pl.example.components.user.details.Size}")
+	@Size(max = 150, message="{user.details.Size}")
 	private String details;
 	
 	public Long getId() {

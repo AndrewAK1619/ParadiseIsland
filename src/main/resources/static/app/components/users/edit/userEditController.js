@@ -38,19 +38,7 @@ angular.module('app')
 			}
 		}
 	}
-
-	const saveCallback = response => {
-		valid(response);
-		if(!vm.hasError) {
-			vm.hasError = null;
-			$location.path(`/user-edit/${vm.user.id}`);
-		}
-	};
 	
-	const errorCallback = err => {
-		vm.msg=`Data write error: ${err.data.message}`;
-	};
-
 	const setNull = () => {
 		vm.user.fields = null;
 		vm.user.messages = null;
@@ -67,6 +55,18 @@ angular.module('app')
 		vm.errDetails = null;
 		vm.errDetailsMsg = null;
 	}
+
+	const saveCallback = response => {
+		valid(response);
+		if(!vm.hasError) {
+			vm.hasError = null;
+			$location.path(`/user-edit/${vm.user.id}`);
+		}
+	};
+	
+	const errorCallback = err => {
+		vm.msg=`Data write error: ${err.data.message}`;
+	};
 	
 	vm.saveUser = () => {
 		setNull();
@@ -88,7 +88,6 @@ angular.module('app')
 	
 	vm.updateUser = () => {
 		setNull();
-		vm.saveUser = vm.user;
 		UserService.update(vm.user)
 			.then(updateCallback)
 			.catch(errorCallback);

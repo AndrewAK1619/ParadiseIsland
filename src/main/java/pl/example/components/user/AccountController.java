@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import pl.example.components.user.UserService;
+import pl.example.components.validation.ValidationService;
 import pl.example.components.user.UserDto;
 
 @RestController
@@ -25,17 +26,20 @@ import pl.example.components.user.UserDto;
 public class AccountController {
 
     private UserService userService;
+    private ValidationService validationService;
 
     @Autowired
-    AccountController(UserService userService) {
+    AccountController(UserService userService,
+    		ValidationService validationService) {
         this.userService = userService;
+        this.validationService = validationService;
     }
     
     @PostMapping("/register")
     public ResponseEntity<?> save(@Valid @RequestBody UserDto user, BindingResult result) {
     	
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(userService.valid(result));
+			return ResponseEntity.ok(validationService.valid(result));
 		} else {
 			// TODO check if email exist
 		}

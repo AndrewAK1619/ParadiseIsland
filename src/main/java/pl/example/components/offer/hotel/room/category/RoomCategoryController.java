@@ -3,9 +3,12 @@ package pl.example.components.offer.hotel.room.category;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,15 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import pl.example.components.validation.ValidationService;
+
 @RestController
 @RequestMapping("/hotels/rooms/categories")
 public class RoomCategoryController {
 	
 	private RoomCategoryService roomCategoryService;
+	private ValidationService validationService;
 
 	@Autowired
-	public RoomCategoryController(RoomCategoryService roomCategoryService) {
+	public RoomCategoryController(RoomCategoryService roomCategoryService,
+			ValidationService validationService) {
 		this.roomCategoryService = roomCategoryService;
+		this.validationService = validationService;
 	}
 	
     @GetMapping("")
@@ -37,7 +45,11 @@ public class RoomCategoryController {
     }
     
     @PostMapping("")
-    public ResponseEntity<RoomCategoryDto> save(@RequestBody RoomCategoryDto roomCategory) {
+    public ResponseEntity<?> save(
+    		@Valid @RequestBody RoomCategoryDto roomCategory, BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(validationService.valid(result));
+		} 
         if(roomCategory.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saving object can't have setted id");
         RoomCategoryDto savedRoomCategoty = roomCategoryService.save(roomCategory);
@@ -57,7 +69,12 @@ public class RoomCategoryController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<RoomCategoryDto> update(@PathVariable Long id, @RequestBody RoomCategoryDto roomCategory) {
+    public ResponseEntity<?> update(
+    		@PathVariable Long id, 
+    		@Valid @RequestBody RoomCategoryDto roomCategory, BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(validationService.valid(result));
+		}
         if(!id.equals(roomCategory.getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The updated object must have an id in accordance with the id in the resource path");
         RoomCategoryDto updatedRoomCategory = roomCategoryService.update(roomCategory);
