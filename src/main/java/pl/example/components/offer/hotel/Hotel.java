@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import pl.example.components.offer.hotel.image.HotelImage;
 import pl.example.components.offer.hotel.room.Room;
@@ -25,10 +24,9 @@ public class Hotel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "hotel_id", nullable = false)
+	@Column(name = "hotel_id")
 	private Long id;
-	@NotEmpty
-	@Column(name = "hotel_name", nullable = false)
+	@Column(name = "hotel_name")
 	private String hotelName;
 	private String description;
 	@OneToMany(mappedBy="hotel")

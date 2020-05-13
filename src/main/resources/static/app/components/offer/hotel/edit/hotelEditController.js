@@ -24,9 +24,41 @@ angular.module('app')
 		vm.defaultImg.$promise.then(setDefaultImg);
 	}
 	
+	const valid = response => {
+		vm.hasError = false;
+		vm.fields = response.fields;
+		vm.messages = response.messages;
+		
+		if(vm.fields) {
+			vm.hasError = true;
+			for(var i = 0; i < vm.fields.length; i++) {
+				if(vm.fields[i] === 'hotelName') {
+					vm.errHotelName = vm.fields[i];
+					vm.errHotelNameMsg = vm.messages[i];
+				} else if (vm.fields[i] === 'description') {
+					vm.errDescription = vm.fields[i];
+					vm.errDescriptionMsg = vm.messages[i];
+				}
+			}
+		}
+	}
+	
+	const setNull = () => {
+		delete vm.hotel.fields;
+		delete vm.hotel.messages;
+		vm.errHotelName = null;
+		vm.errHotelNameMsg = null;
+		vm.errDescription = null;
+		vm.errDescriptionMsg = null;
+	}
+	
 	const saveCallback = response => {
-		vm.hotel.id = response.id;
-		$location.path(`/hotels-edit/${vm.hotel.id}`);
+		valid(response);
+		if(!vm.hasError) {
+			vm.hasError = null;
+			vm.hotel.id = response.id;
+			$location.path(`/hotels-edit/${vm.hotel.id}`);
+		}
 	};
 	const errorCallback = err => {
 		vm.msg=`Data write error: ${err.data.message}`;
@@ -34,6 +66,7 @@ angular.module('app')
 	
 	vm.file;
 	vm.saveHotel = () => {
+		setNull();
 		const maxFileSize = '3145728';
 		if(vm.file.size > maxFileSize) {
 			vm.msg='Data write error: maximum file size is 3MB';
@@ -49,9 +82,20 @@ angular.module('app')
 		}
 	};
 	
-	const updateCallback = response => vm.msg='Changes saved';
+	const updateCallback = response => {
+		valid(response);
+		if(vm.hasError) {
+			vm.hotelAndTopImgArray = HotelService.get(hotelId);
+			vm.hotelAndTopImgArray.$promise.then(setHotelAndTopImg);
+		}
+		if(!vm.hasError) {
+			vm.hasError = null;
+			vm.msg='Changes saved';
+		}
+	}
 	
 	vm.updateHotel = () => {
+		setNull();
 		const formData = new FormData();
 		formData.append('idHotel', vm.hotel.id);
 		formData.append('file', vm.file);

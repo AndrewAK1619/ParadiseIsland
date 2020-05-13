@@ -1,9 +1,15 @@
 package pl.example.components.offer.hotel;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class HotelDto {
 
 	private Long id;
+	@NotBlank(message="{offer.hotel.hotelName.NotBlank}")
+	@Size(max = 30, message="{offer.hotel.hotelName.Size}")
 	private String hotelName;
+	@Size(max = 150, message="{offer.hotel.description.Size}")
 	private String description;
 	private Long mainImageId;
 

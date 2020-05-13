@@ -97,7 +97,7 @@ public class RoomController {
 		validator.validate(roomDto, result);
 		if (result.hasErrors()) {
 			return ResponseEntity.ok(validationService.valid(result));
-		} 
+		}
 		if (roomDto.getId() != null)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
 					"Saving object can't have setted id");

@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.example.components.offer.hotel.image.HotelImageDto;
 import pl.example.components.offer.hotel.image.HotelImageService;
+import pl.example.components.validation.ValidationService;
 
 @RestController
 @RequestMapping("/hotels")
@@ -36,12 +40,18 @@ public class HotelController {
 
 	private HotelService hotelService;
 	private HotelImageService hotelImageService;
+	private ValidationService validationService;
+	private Validator validator;
 
 	@Autowired
 	public HotelController(HotelService hotelService, 
-			HotelImageService hotelImageService) {
+			HotelImageService hotelImageService,
+			ValidationService validationService,
+			Validator validator) {
 		this.hotelService = hotelService;
 		this.hotelImageService = hotelImageService;
+		this.validationService = validationService;
+		this.validator = validator;
 	}
 
 	@GetMapping("")
@@ -74,12 +84,18 @@ public class HotelController {
 	}
 
 	@PostMapping("")
-	public ResponseEntity<HotelDto> save(
+	public ResponseEntity<?> save(
 			@RequestPart(name = "file", required = false) MultipartFile file,
 			@RequestPart("hotelDto") String hotelDtoJson) 
 					throws JsonMappingException, JsonProcessingException {
 		
 		HotelDto hotelDto = new ObjectMapper().readValue(hotelDtoJson, HotelDto.class);
+		
+		BindingResult result = new BeanPropertyBindingResult(hotelDto, "hotelDto");
+		validator.validate(hotelDto, result);
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(validationService.valid(result));
+		}
 		if (hotelDto.getId() != null)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
 					"Saving object can't have setted id");
@@ -119,12 +135,18 @@ public class HotelController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<HotelDto> update(@PathVariable Long id,
+	public ResponseEntity<?> update(@PathVariable Long id,
 			@RequestPart(name = "idHotel", required = false) String idHotel,
 			@RequestPart(name = "file", required = false) MultipartFile file,
 			@RequestPart("hotelDto") String hotelDtoJson) throws IOException {
 
 		HotelDto hotelDto = new ObjectMapper().readValue(hotelDtoJson, HotelDto.class);
+		
+		BindingResult result = new BeanPropertyBindingResult(hotelDto, "hotelDto");
+		validator.validate(hotelDto, result);
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(validationService.valid(result));
+		} 
 		if (!id.equals(hotelDto.getId()))
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
 					"The updated object must have an id in accordance with the id in the resource path");

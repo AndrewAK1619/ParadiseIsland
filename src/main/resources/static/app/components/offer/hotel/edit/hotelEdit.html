@@ -46,6 +46,9 @@
 						<input type="text" class="form-control"
 							id="hotelNameInput" placeholder="Hotel Name"
 							ng-model="ctrl.hotel.hotelName">
+						<small ng-if="ctrl.errHotelName" class="form-text valid-err-text-two">
+							- {{ ctrl.errHotelNameMsg }} -
+						</small>
 					</div>
 					<div class="form-group">
 						<label for="description">Description:</label>
@@ -53,6 +56,9 @@
 							id="descriptionInput" placeholder="Description"
 							ng-model="ctrl.hotel.description">
 						</textarea>
+						<small ng-if="ctrl.errDescription" class="form-text valid-err-text-two">
+							- {{ ctrl.errDescriptionMsg }} -
+						</small>
 					</div>
 					<div class="row" ng-if="ctrl.msg">
 						<div class="mx-auto">
