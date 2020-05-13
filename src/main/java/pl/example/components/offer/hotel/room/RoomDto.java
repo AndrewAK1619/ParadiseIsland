@@ -8,10 +8,10 @@ public class RoomDto {
 
 	private Long id;
 	@NotNull(message="{offer.hotel.room.numberOfSingleBeds.NotNull}")
-	@Range(min = 0, max = 10, message="{offer.hotel.room.numberOfSingleBeds.Max}")
+	@Range(min = 0, max = 10, message="{offer.hotel.room.numberOfSingleBeds.Range}")
 	private int numberOfSingleBeds;
 	@NotNull(message="{offer.hotel.room.numberOfDoubleBeds.NotNull}")
-	@Range(min = 0, max = 10, message="{offer.hotel.room.numberOfDoubleBeds.Max}")
+	@Range(min = 0, max = 10, message="{offer.hotel.room.numberOfDoubleBeds.Range}")
 	private int numberOfDoubleBeds;
 	@NotNull(message="{offer.hotel.room.roomPrice.NotNull}")
 	@Range(min = 50, max = 2000, message="{offer.hotel.room.roomPrice.Range}")

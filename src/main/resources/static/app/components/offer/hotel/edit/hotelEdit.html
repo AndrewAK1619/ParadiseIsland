@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		<div class="row tableTextWhite">
-			<form class="mx-auto col-10 col-md-8" enctype="multipart/form-data">
+			<form name="hotelForm" class="mx-auto col-10 col-md-8" enctype="multipart/form-data">
 				<p class="mx-auto col-10 col-md-9">Id: {{ctrl.hotel.id}}</p>
 				<div class="form-group row">
 					<div class="image-area row x-auto col-4 float-left">
@@ -45,7 +45,22 @@
 						<label for="hotelName">Hotel Name:</label>
 						<input type="text" class="form-control"
 							id="hotelNameInput" placeholder="Hotel Name"
-							ng-model="ctrl.hotel.hotelName">
+							ng-model="ctrl.hotel.hotelName"
+							ng-class="{validErrBorder: hotelForm.hotelName.$dirty 
+							&& hotelForm.hotelName.$invalid}" name="hotelName"
+							required ng-maxlength="30">
+						<small>
+							<span class="form-text valid-err-text-two" 
+								ng-show="hotelForm.hotelName.$dirty 
+								&& hotelForm.hotelName.$invalid">
+								<span ng-show="hotelForm.hotelName.$error.required">
+									- Hotel name is required. -
+								</span>
+								<span ng-show="hotelForm.hotelName.$error.maxlength">
+									- Hotel name must have maximum 30 characters. -
+								</span>
+							</span>
+						</small>
 						<small ng-if="ctrl.errHotelName" class="form-text valid-err-text-two">
 							- {{ ctrl.errHotelNameMsg }} -
 						</small>
@@ -54,8 +69,20 @@
 						<label for="description">Description:</label>
 						<textarea class="form-control" rows="5" aria-label="With textarea"
 							id="descriptionInput" placeholder="Description"
-							ng-model="ctrl.hotel.description">
+							ng-model="ctrl.hotel.description"
+							ng-class="{validErrBorder: hotelForm.description.$dirty 
+							&& hotelForm.description.$invalid}" name="description"
+							ng-maxlength="150">
 						</textarea>
+						<small>
+							<span class="form-text valid-err-text-two" 
+								ng-show="hotelForm.description.$dirty 
+								&& hotelForm.description.$invalid">
+								<span ng-show="hotelForm.description.$error.maxlength">
+									- Description must have maximum 150 characters. -
+								</span>
+							</span>
+						</small>
 						<small ng-if="ctrl.errDescription" class="form-text valid-err-text-two">
 							- {{ ctrl.errDescriptionMsg }} -
 						</small>
