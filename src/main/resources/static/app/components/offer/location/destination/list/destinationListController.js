@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('DestinationListController', function (DestinationService) {
+.controller('DestinationListController', function ($location, DestinationService) {
 	const vm = this;
 	
 	const setCountryAndTopImg = result => {
@@ -14,6 +14,11 @@ angular.module('app')
 		}
 	}
 	
-	vm.destinationAndTopImgArray = DestinationService.getTen();
+	var searchObject = $location.url();
+	if(searchObject === '/destinations/popular')
+		vm.destinationAndTopImgArray = DestinationService.getPopular();
+	else if(searchObject === '/destinations/random')
+		vm.destinationAndTopImgArray = DestinationService.getRandom();
+	
 	vm.destinationAndTopImgArray.$promise.then(setCountryAndTopImg);
 });

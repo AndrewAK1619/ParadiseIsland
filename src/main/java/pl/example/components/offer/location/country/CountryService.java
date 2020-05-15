@@ -32,8 +32,15 @@ public class CountryService {
 		this.countryImageService = countryImageService;
 	}
 	
-	List<CountryDto> findTop12() {
-		return countryRepository.findFirst12ById()
+	List<CountryDto> findPopular() {
+		return countryRepository.findPopular()
+				.stream()
+				.map(countryMapper::toDto)
+				.collect(Collectors.toList());
+	}
+	
+	List<CountryDto> findRadnom12Records() {
+		return countryRepository.findRadnom12Records()
 				.stream()
 				.map(countryMapper::toDto)
 				.collect(Collectors.toList());

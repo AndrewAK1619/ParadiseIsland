@@ -82,7 +82,12 @@ angular.module('app')
 			controller: 'RoomCategoryEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/destinations', {
+		.when('/destinations/popular', {
+			templateUrl: 'app/components/offer/location/destination/list/destinationList.html',
+			controller: 'DestinationListController',
+			controllerAs: 'ctrl'
+		})
+		.when('/destinations/random', {
 			templateUrl: 'app/components/offer/location/destination/list/destinationList.html',
 			controller: 'DestinationListController',
 			controllerAs: 'ctrl'

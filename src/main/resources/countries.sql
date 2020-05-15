@@ -246,10 +246,83 @@ INSERT INTO `countries` (`country_id`, `alpha2_code`, `name`, `phonecode`) VALUE
 (245, 'ZM', 'Zambia', 260),
 (246, 'ZW', 'Zimbabwe', 263);
 
+UPDATE countries c SET c.popular_destination = false WHERE c.popular_destination IS NULL;
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Croatia (Hrvatska)';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Egypt';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Greece';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Tunisia';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'United Arab Emirates';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Maldives';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Italy';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'China';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Japan';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Spain';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Thailand';
+UPDATE countries c SET c.popular_destination = true WHERE c.name = 'Cuba';
+
 INSERT INTO country_informations(country_information_id, information, country_id) VALUES
   (1, 'Lorem ipsum dolor sit amet', null),
   (2, 'Consectetuer adipiscing elit sed diam', null),
   (3, 'Nibh euismod tincidunt ut', null),
   (4, 'Laoreet dolore magna aliquam erat', null),
   (5, 'Ut wisi enim ad', null),
-  (6, 'Minim veniam quis nostrud exerci', null);
+  (6, 'Minim veniam quis nostrud exerci', null),
+  (7, 'white Caribbean beaches and beautiful coral islets', 55),
+  (9, 'vibrant Havana with a unique atmosphere', 55),
+  (10, 'world class UNESCO-listed monuments', 55),
+  (12, 'all inclusive hotels only', 64),
+  (13, 'long, sandy beaches', 64),
+  (14, 'amazing coral reefs', 64),
+  (15, 'the kingdom of pharaohs and mysterious pyramids', 64),
+  (16, 'sun, olives and zorba', 85),
+  (17, 'cradle of culture, homeland of myths and the Olympics', 85),
+  (18, 'beautiful, diverse beaches and blue sea', 85),
+  (19, 'evergreen citrus groves and plantations of vines', 85),
+  (20, 'sandy beaches', 107),
+  (21, 'famous resorts', 107),
+  (22, 'excellent cuisine with pizza and spaghetti', 107),
+  (23, 'numerous monuments and magnificent architecture', 107),
+  (24, 'great fun guaranteed', 107),
+  (25, 'there is a lot of history to discover in Japan', 109),
+  (26, 'there are countless of beautiful temples and shrines in Japan', 109),
+  (27, 'it’s possible to visit the incredible Mount Fuji', 109),
+  (28, 'there are 21 World Heritage Sites in Japan', 109),
+  (29, 'the most beautiful beaches in the world', 133),
+  (30, 'a true tropical paradise', 133),
+  (31, 'one island - one hotel', 133),
+  (32, 'luxury holiday', 133),
+  (33, 'long, sandy beaches', 205),
+  (34, 'cities teeming-with-life day and night', 205),
+  (35, 'wine, flamenco and tapas', 205),
+  (36, 'architectural jewels in the cities of Gaudi, Dali and Picasso', 205),
+  (37, 'fascinating monuments, Buddhist temples', 217),
+  (38, 'excellent conditions for rock climbing and watersports', 217),
+  (39, 'dreamlike landscapes, beautiful white beaches', 217),
+  (40, 'Thai cuisine surprising with diversity', 217),
+  (41, 'beautiful, sandy beaches', 222),
+  (42, 'numerous clubs and discos', 222),
+  (43, 'famous "Star Wars" town', 222),
+  (44, 'sensational expeditions to Sahara', 222),
+  (45, 'beautiful, sandy beaches that stretch out for many kilometers', 229),
+  (46, 'futuristic buildings and the tallest building in the world', 229),
+  (47, 'elegant and luxurious hotels', 229),
+  (48, 'crystal clear sea, unspoilt nature and wonderful scenery', 222),
+  (49, 'richness of countless monuments and unique Balkan climate', 229),
+  (50, 'Dubrovnik - the pearl of the Adriatic', 229),
+  (51, 'the Great Wall of China is the hottest attraction in China', 44),
+  (52, 'many attractions for example: Forbidden City, Terracotta Army, Giant Panda', 44),
+  (53, 'this is a vast country of great landscapes, history, diversified culture from place to place', 44);
+
+INSERT INTO country_images(country_image_id, image_path, top_image, country_id) VALUES
+  (1, 'src/main/resources/static/img/location/country/2020051411111.jpg', 1, 44),
+  (2, 'src/main/resources/static/img/location/country/2020051422222.jpeg', 1, 54),
+  (3, 'src/main/resources/static/img/location/country/2020051433333.jpg', 1, 55),
+  (4, 'src/main/resources/static/img/location/country/2020051444444.jpeg', 1, 64),
+  (5, 'src/main/resources/static/img/location/country/2020051455555.jpg', 1, 85),
+  (6, 'src/main/resources/static/img/location/country/2020051466666.jpg', 1, 107),
+  (7, 'src/main/resources/static/img/location/country/2020051477777.jpg', 1, 109),
+  (8, 'src/main/resources/static/img/location/country/2020051488888.jpg', 1, 133),
+  (9, 'src/main/resources/static/img/location/country/2020051499999.jpg', 1, 205),
+  (10, 'src/main/resources/static/img/location/country/2020051411112.jpg', 1, 217),
+  (11, 'src/main/resources/static/img/location/country/2020051411113.jpg', 1, 222),
+  (12, 'src/main/resources/static/img/location/country/2020051411114.jpg', 1, 229);

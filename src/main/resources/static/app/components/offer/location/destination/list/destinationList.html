@@ -3,22 +3,24 @@
 		<div class="col-md-4" ng-repeat="destination in ctrl.destination">
 			<div class="card-group flex-column h-100">
 				<div class="card mb-4 border-dark">
-					<img ng-src="data:image/jpeg;base64,{{destination.imgSrc}}"
-						class="card-img img-fluid imageListResult" alt="...">
-					<div class="card-body">
+					<div class="card-img-part">
+						<img ng-src="data:image/jpeg;base64,{{destination.imgSrc}}"
+							class="card-img img-fluid imageListResult" alt="...">
+					</div>
+					<div class="card-body card-body-part">
 						<h5 class="card-title">
 							<strong>{{destination.name}}</strong>
 						</h5>
 						<div class="card-text">
-							<ul>
+							<ul class="dashed">
 								<li ng-repeat="countryInformationDto in destination.countryInformationDto">
-									- {{countryInformationDto.information}}
+									{{countryInformationDto.information}}
 								</li>
 							</ul>
 						</div>
 						<br />
 					</div>
-					<div class="card-footer">
+					<div class="card-footer card-footer-part">
 						<a href="" class="btn btn-dark btn-sm">Details</a>
 						<div class="float-right" ng-show="authenticatedAdmin">
 							<button class="btn btn-sm btn-primary" title="Edit">

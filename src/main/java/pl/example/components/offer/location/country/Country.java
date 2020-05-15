@@ -32,6 +32,8 @@ public class Country implements Serializable {
 	private String name;
 	@Column(name = "phonecode")
 	private int phonecode;
+	@Column(name = "popular_destination")
+	private boolean popularDestination;
 	@OneToMany
 	@JoinColumn(name = "country_id", referencedColumnName = "country_id")
 	private List<CountryImage> countryImage;
@@ -63,6 +65,12 @@ public class Country implements Serializable {
 	public void setPhonecode(int phonecode) {
 		this.phonecode = phonecode;
 	}
+	public boolean isPopularDestination() {
+		return popularDestination;
+	}
+	public void setPopularDestination(boolean popularDestination) {
+		this.popularDestination = popularDestination;
+	}
 	public List<CountryImage> getCountryImage() {
 		return countryImage;
 	}
@@ -75,6 +83,9 @@ public class Country implements Serializable {
 	public void setCountryInformation(List<CountryInformation> countryInformation) {
 		this.countryInformation = countryInformation;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -84,6 +95,7 @@ public class Country implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + phonecode;
+		result = prime * result + (popularDestination ? 1231 : 1237);
 		return result;
 	}
 	@Override
@@ -111,6 +123,8 @@ public class Country implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		if (phonecode != other.phonecode)
+			return false;
+		if (popularDestination != other.popularDestination)
 			return false;
 		return true;
 	}

@@ -30,11 +30,36 @@ public class CountryController {
 		this.countryInformationService = countryInformationService;
 	}
 	
-	@GetMapping()
-	public ResponseEntity<MultiValueMap<String, Object>> findAll() {
+	@GetMapping("/popular")
+	public ResponseEntity<MultiValueMap<String, Object>> findPopular() {
 		
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
-		List<CountryDto> countryDtoList = countryService.findTop12();
+		List<CountryDto> countryDtoList = countryService.findPopular();
+		
+		metodOnlyToSetDefaultInformationCountry(countryDtoList);
+		
+		List<byte[]> mainImgList = countryDtoList.stream()
+				.map(countryDto -> {
+					try {
+						return countryService.getMainImageInByteFromCountry(countryDto.getId());
+					} catch (IOException e) {
+						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+								"Downloading object failed");
+					}
+				})
+				.collect(Collectors.toList());
+		
+		formData.add("countryList", countryDtoList);
+		formData.add("fileList", mainImgList);
+		
+		return ResponseEntity.ok(formData);
+	}
+	
+	@GetMapping("/random")
+	public ResponseEntity<MultiValueMap<String, Object>> findRadnom() {
+		
+		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
+		List<CountryDto> countryDtoList = countryService.findRadnom12Records();
 		
 		metodOnlyToSetDefaultInformationCountry(countryDtoList);
 		

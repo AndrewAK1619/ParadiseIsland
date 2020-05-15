@@ -107,7 +107,24 @@ body {
 .imageListResult {
 	height: 100%;
 	width: 100%;
+	min-height: 100%;
 	object-fit:cover;
+}
+
+/* .card { */
+/* 	min-height: 600px; */
+/* } */
+
+.card-img-part {
+	height: 38%;
+}
+
+.card-body-part {
+	height: 50%;
+}
+
+.card-footer-part {
+	height: 12%;
 }
 
 .valid-err-text {
@@ -139,8 +156,17 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-ul, ul li {
-	list-style: none outside;
-	margin:0;
-	padding:0;
+ul.dashed {
+	list-style: none;
+	padding-left: 0;
+}
+
+ul.dashed > li {
+	margin-left: 10px;  
+}
+
+ul.dashed > li::before {
+	content: "- ";
+	font-weight: bold;
+	margin-left: -10px;
 }
