@@ -26,19 +26,16 @@ import pl.example.components.user.UserDto;
 public class AccountController {
 
     private UserService userService;
-    private ValidationService validationService;
 
     @Autowired
-    AccountController(UserService userService,
-    		ValidationService validationService) {
+    AccountController(UserService userService) {
         this.userService = userService;
-        this.validationService = validationService;
     }
     
     @PostMapping("/register")
     public ResponseEntity<?> save(@Valid @RequestBody UserDto user, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		}
         if(user.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The object being saved cannot be overwritten with an existing ID");

@@ -40,17 +40,14 @@ public class RoomController {
 
 	private RoomService roomService;
 	private RoomImageService roomImageService;
-	private ValidationService validationService;
 	private Validator validator;
 
 	@Autowired
 	public RoomController(RoomService roomService,
 			RoomImageService roomImageService,
-			ValidationService validationService,
 			Validator validator) {
 		this.roomService = roomService;
 		this.roomImageService = roomImageService;
-		this.validationService = validationService;
 		this.validator = validator;
 	}
 	
@@ -96,7 +93,7 @@ public class RoomController {
 		BindingResult result = new BeanPropertyBindingResult(roomDto, "roomDto");
 		validator.validate(roomDto, result);
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		}
 		if (roomDto.getId() != null)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
@@ -142,7 +139,7 @@ public class RoomController {
 		BindingResult result = new BeanPropertyBindingResult(roomDto, "roomDto");
 		validator.validate(roomDto, result);
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		} 
         if(!id.equals(roomDto.getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 

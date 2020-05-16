@@ -28,13 +28,10 @@ import pl.example.components.validation.ValidationService;
 public class UserController {
 
     private UserService userService;
-    private ValidationService validationService;
     
     @Autowired
-    UserController(UserService userService,
-    		ValidationService validationService) {
+    UserController(UserService userService) {
 		this.userService = userService;
-		this.validationService = validationService;
     }
     
     @GetMapping("")
@@ -48,7 +45,7 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<?> save(@Valid @RequestBody UserDto user, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		} 
         if(user.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saving object can't have setted id");
@@ -72,7 +69,7 @@ public class UserController {
     public ResponseEntity<?> update(@PathVariable Long id, 
     		@Valid @RequestBody UserDto user, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		}
         if(!id.equals(user.getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The updated object must have an id in accordance with the id in the resource path");

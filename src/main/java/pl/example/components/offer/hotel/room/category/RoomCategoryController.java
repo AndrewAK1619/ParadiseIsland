@@ -27,13 +27,10 @@ import pl.example.components.validation.ValidationService;
 public class RoomCategoryController {
 	
 	private RoomCategoryService roomCategoryService;
-	private ValidationService validationService;
 
 	@Autowired
-	public RoomCategoryController(RoomCategoryService roomCategoryService,
-			ValidationService validationService) {
+	public RoomCategoryController(RoomCategoryService roomCategoryService) {
 		this.roomCategoryService = roomCategoryService;
-		this.validationService = validationService;
 	}
 	
     @GetMapping("")
@@ -48,7 +45,7 @@ public class RoomCategoryController {
     public ResponseEntity<?> save(
     		@Valid @RequestBody RoomCategoryDto roomCategory, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		} 
         if(roomCategory.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saving object can't have setted id");
@@ -73,7 +70,7 @@ public class RoomCategoryController {
     		@PathVariable Long id, 
     		@Valid @RequestBody RoomCategoryDto roomCategory, BindingResult result) {
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		}
         if(!id.equals(roomCategory.getId()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The updated object must have an id in accordance with the id in the resource path");

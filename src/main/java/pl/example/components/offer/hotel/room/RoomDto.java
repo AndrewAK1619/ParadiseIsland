@@ -1,22 +1,22 @@
 package pl.example.components.offer.hotel.room;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Range;
 
 public class RoomDto {
 
 	private Long id;
-	@NotNull(message="{offer.hotel.room.numberOfSingleBeds.NotNull}")
+	@NotBlank(message="{offer.hotel.room.numberOfSingleBeds.NotBlank}")
 	@Range(min = 0, max = 10, message="{offer.hotel.room.numberOfSingleBeds.Range}")
 	private int numberOfSingleBeds;
-	@NotNull(message="{offer.hotel.room.numberOfDoubleBeds.NotNull}")
+	@NotBlank(message="{offer.hotel.room.numberOfDoubleBeds.NotBlank}")
 	@Range(min = 0, max = 10, message="{offer.hotel.room.numberOfDoubleBeds.Range}")
 	private int numberOfDoubleBeds;
-	@NotNull(message="{offer.hotel.room.roomPrice.NotNull}")
+	@NotBlank(message="{offer.hotel.room.roomPrice.NotBlank}")
 	@Range(min = 50, max = 2000, message="{offer.hotel.room.roomPrice.Range}")
 	private int roomPrice;
-	@NotNull(message="{offer.hotel.room.roomCategory.NotNull}")
+	@NotBlank(message="{offer.hotel.room.roomCategory.NotBlank}")
 	private String roomCategory;
 	private Long mainImageId;
 	private Long hotelId;

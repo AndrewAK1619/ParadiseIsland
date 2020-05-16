@@ -21,13 +21,10 @@ public class HotelImageService {
 			"src/main/resources/static/img/default/hotel.jpg";
 
 	private HotelImageRepository imageRepository;
-	private HotelImageMapper hotelImageMapper;
 
 	@Autowired
-	public HotelImageService(HotelImageRepository imageRepository, 
-			HotelImageMapper hotelImageMapper) {
+	public HotelImageService(HotelImageRepository imageRepository) {
 		this.imageRepository = imageRepository;
-		this.hotelImageMapper = hotelImageMapper;
 	}
 
 	public HotelImageDto saveHotelImage(MultipartFile file) {
@@ -93,9 +90,9 @@ public class HotelImageService {
 	}
 
 	private HotelImageDto mapAndSaveHotel(HotelImageDto hotelImageDto) {
-		HotelImage hotelImageEntity = hotelImageMapper.toEntity(hotelImageDto);
+		HotelImage hotelImageEntity = HotelImageMapper.toEntity(hotelImageDto);
 		HotelImage saveHotelImageEntity = imageRepository.save(hotelImageEntity);
-		return hotelImageMapper.toDto(saveHotelImageEntity);
+		return HotelImageMapper.toDto(saveHotelImageEntity);
 	}
 
 	public byte[] getDefaultMainImageInByte() throws IOException {

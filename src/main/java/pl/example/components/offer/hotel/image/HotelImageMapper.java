@@ -1,11 +1,8 @@
 package pl.example.components.offer.hotel.image;
 
-import org.springframework.stereotype.Service;
-
-@Service
 public class HotelImageMapper {
 
-	HotelImageDto toDto(HotelImage hotelImage) {
+	static HotelImageDto toDto(HotelImage hotelImage) {
 		HotelImageDto hotelImageDto = new HotelImageDto();
 		hotelImageDto.setId(hotelImage.getId());
 		hotelImageDto.setImagePath(hotelImage.getImagePath());
@@ -13,7 +10,7 @@ public class HotelImageMapper {
 		return hotelImageDto;
 	}
 
-	HotelImage toEntity(HotelImageDto hotelImageDto) {
+	static HotelImage toEntity(HotelImageDto hotelImageDto) {
 		HotelImage hotelImage = new HotelImage();
 		hotelImage.setId(hotelImageDto.getId());
 		hotelImage.setImagePath(hotelImageDto.getImagePath());

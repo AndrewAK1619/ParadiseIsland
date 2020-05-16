@@ -92,6 +92,21 @@ angular.module('app')
 			controller: 'DestinationListController',
 			controllerAs: 'ctrl'
 		})
+		.when('/airlines', {
+			templateUrl: 'app/components/offer/transport/airline/list/airlineList.html',
+			controller: 'AirlineListController',
+			controllerAs: 'ctrl'
+		})
+		.when('/airline-edit/:airlineId', {
+			templateUrl: 'app/components/offer/transport/airline/edit/airlineEdit.html',
+			controller: 'AirlineEditController',
+			controllerAs: 'ctrl'
+		})
+		.when('/airline-add', {
+			templateUrl: 'app/components/offer/transport/airline/edit/airlineEdit.html',
+			controller: 'AirlineEditController',
+			controllerAs: 'ctrl'
+		})
 		.when('/', {
 			templateUrl: 'app/components/home/homePage/home.html',
 			controller: 'HomeController',

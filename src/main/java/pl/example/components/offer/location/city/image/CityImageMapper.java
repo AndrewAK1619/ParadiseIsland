@@ -1,11 +1,8 @@
 package pl.example.components.offer.location.city.image;
 
-import org.springframework.stereotype.Service;
-
-@Service
 public class CityImageMapper {
 
-	CityImageDto toDto(CityImage cityImage) {
+	static CityImageDto toDto(CityImage cityImage) {
 		CityImageDto dto = new CityImageDto();
 		dto.setId(cityImage.getId());
 		dto.setImagePath(cityImage.getImagePath());
@@ -13,7 +10,7 @@ public class CityImageMapper {
 		return dto;
 	}
 	
-	CityImage toEntity(CityImageDto cityImageDto) {
+	static CityImage toEntity(CityImageDto cityImageDto) {
 		CityImage entity = new CityImage();
 		entity.setId(cityImageDto.getId());
 		entity.setImagePath(cityImageDto.getImagePath());

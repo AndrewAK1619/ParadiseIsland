@@ -76,7 +76,7 @@ public class UserService {
         return UserMapper.toDto(savedUser);
     }
     
-	public void addWithDefaultRole(User user) {
+	private void addWithDefaultRole(User user) {
 		UserRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
 		user.getRoles().add(defaultRole);
 		String passwordHash = passwordEncoder.encode(user.getPassword());

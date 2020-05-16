@@ -20,29 +20,26 @@ import pl.example.components.offer.location.country.image.CountryImageService;
 public class CountryService {
 
 	CountryRepository countryRepository;
-	CountryMapper countryMapper;
 	CountryImageService countryImageService;
 	
 	@Autowired
 	public CountryService(CountryRepository countryRepository,
-			CountryMapper countryMapper,
 			CountryImageService countryImageService) {
 		this.countryRepository = countryRepository;
-		this.countryMapper = countryMapper;
 		this.countryImageService = countryImageService;
 	}
 	
 	List<CountryDto> findPopular() {
 		return countryRepository.findPopular()
 				.stream()
-				.map(countryMapper::toDto)
+				.map(CountryMapper::toDto)
 				.collect(Collectors.toList());
 	}
 	
 	List<CountryDto> findRadnom12Records() {
 		return countryRepository.findRadnom12Records()
 				.stream()
-				.map(countryMapper::toDto)
+				.map(CountryMapper::toDto)
 				.collect(Collectors.toList());
 	}
 	

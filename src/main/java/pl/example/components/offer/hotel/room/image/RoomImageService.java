@@ -20,13 +20,10 @@ public class RoomImageService {
 	public static final String DEFAULT_IMAGE_PATH = "src/main/resources/static/img/default/room.jpg";
 
 	RoomImageRepository imageRepository;
-	RoomImageMapper roomImageMapper;
 
 	@Autowired
-	public RoomImageService(RoomImageRepository imageRepository, 
-			RoomImageMapper roomImageMapper) {
+	public RoomImageService(RoomImageRepository imageRepository) {
 		this.imageRepository = imageRepository;
-		this.roomImageMapper = roomImageMapper;
 	}
 
 	public RoomImageDto saveRoomImage(MultipartFile file) {
@@ -92,9 +89,9 @@ public class RoomImageService {
 	}
 
 	private RoomImageDto mapAndSaveRoom(RoomImageDto roomImageDto) {
-		RoomImage roomImageEntity = roomImageMapper.toEntity(roomImageDto);
+		RoomImage roomImageEntity = RoomImageMapper.toEntity(roomImageDto);
 		RoomImage saveRoomImageEntity = imageRepository.save(roomImageEntity);
-		return roomImageMapper.toDto(saveRoomImageEntity);
+		return RoomImageMapper.toDto(saveRoomImageEntity);
 	}
 
 	public byte[] getDefaultMainImageInByte() throws IOException {

@@ -40,17 +40,14 @@ public class HotelController {
 
 	private HotelService hotelService;
 	private HotelImageService hotelImageService;
-	private ValidationService validationService;
 	private Validator validator;
 
 	@Autowired
 	public HotelController(HotelService hotelService, 
 			HotelImageService hotelImageService,
-			ValidationService validationService,
 			Validator validator) {
 		this.hotelService = hotelService;
 		this.hotelImageService = hotelImageService;
-		this.validationService = validationService;
 		this.validator = validator;
 	}
 
@@ -94,7 +91,7 @@ public class HotelController {
 		BindingResult result = new BeanPropertyBindingResult(hotelDto, "hotelDto");
 		validator.validate(hotelDto, result);
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		}
 		if (hotelDto.getId() != null)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
@@ -145,7 +142,7 @@ public class HotelController {
 		BindingResult result = new BeanPropertyBindingResult(hotelDto, "hotelDto");
 		validator.validate(hotelDto, result);
 		if (result.hasErrors()) {
-			return ResponseEntity.ok(validationService.valid(result));
+			return ResponseEntity.ok(ValidationService.valid(result));
 		} 
 		if (!id.equals(hotelDto.getId()))
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,

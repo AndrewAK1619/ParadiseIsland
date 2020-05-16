@@ -120,3 +120,6 @@ INSERT INTO room_images(room_image_id, image_path, top_image, room_id) VALUES
   (28, 'src/main/resources/static/img/rooms/2020042166663.jpg', 1, 28),
   (29, 'src/main/resources/static/img/rooms/2020042166664.jpg', 1, 29),
   (30, 'src/main/resources/static/img/rooms/2020042166665.jpg', 1, 30);
+
+INSERT INTO airlines(airline_id, airline_name, details) VALUES
+  (1, 'Speed Flight Airline', '');
