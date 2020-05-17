@@ -1,0 +1,93 @@
+<div class="container">
+	<div ng-show="authenticatedAdmin">
+		<div class="row tableTextWhite">
+			<div class="mx-auto">
+				<h2 ng-if="ctrl.airline.id">Edit airline</h2>
+				<h2 ng-if="!ctrl.airline.id">New airline</h2>
+			</div>
+		</div>
+		<div class="row" ng-if="ctrl.msg">
+			<div class="mx-auto">
+				<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+			</div>
+		</div>
+		<div class="row tableTextWhite">
+			<form name="airlineForm" novalidate="" class="mx-auto col-10 col-md-6">
+				<p>Id: {{ctrl.airline.id}}</p>
+				<div class="form-group">
+					<label for="airlineNameInput">Airline Name:</label>
+					<input type="text" class="form-control" id="airlineNameInput"
+						placeholder="Airline Name" ng-model="ctrl.airline.airlineName" 
+						ng-class="{validErrBorder: airlineForm.airlineName.$dirty 
+						&& airlineForm.airlineName.$invalid}" name="airlineName"
+						required ng-maxlength="30">
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="airlineForm.airlineName.$dirty 
+							&& airlineForm.airlineName.$invalid">
+							<span ng-show="airlineForm.airlineName.$error.required">
+								- Hotel name is required. -
+							</span>
+							<span ng-show="airlineForm.airlineName.$error.maxlength">
+								- Hotel name must have maximum 30 characters. -
+							</span>
+						</span>
+					</small>
+					<small ng-if="ctrl.errAirlineName" class="form-text valid-err-text-two">
+						- {{ ctrl.errAirlineNameMsg }} -
+					</small>
+				</div>
+				<div class="form-group">
+					<label for="detailsInput">Details:</label>
+					<textarea class="form-control" rows="5" aria-label="With textarea"
+						id="detailsInput" placeholder="Details"
+						ng-model="ctrl.airline.details"
+						ng-class="{validErrBorder: airlineForm.details.$dirty 
+						&& airlineForm.details.$invalid}" name="details"
+						ng-maxlength="150">
+					</textarea>
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="airlineForm.details.$dirty 
+							&& airlineForm.details.$invalid">
+							<span ng-show="airlineForm.details.$error.maxlength">
+								- Details must have maximum 150 characters. -
+							</span>
+						</span>
+					</small>
+					<small ng-if="ctrl.errDetails" class="form-text valid-err-text-two">
+						- {{ ctrl.errDetailsMsg }} -
+					</small>
+				</div>
+				<div class="row" ng-if="ctrl.msg">
+					<div class="mx-auto">
+						<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+					</div>
+				</div>
+				<div class="form-group mb-5">
+					<button ng-if="!ctrl.airline.id" type="submit" class="btn btn-success"
+						ng-click="ctrl.saveAirline()" ng-disabled="airlineForm.$invalid">
+						Save
+					</button>
+					<button ng-if="ctrl.airline.id" type="submit" class="btn btn-success"
+						ng-click="ctrl.updateAirline()" ng-disabled="airlineForm.$invalid">
+						Update
+					</button>
+				</div>
+				<div class="row">
+					<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/airlines">Airlines</a>
+					<a ng-if="ctrl.airline.id" class="btn btn-primary mb-3 mx-auto"
+						ng-href="#!/airline-add">Add another airline</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div ng-show="!authenticatedAdmin"> 
+		<div ng-if="authenticatedUser">
+			{{ redirectToHomePage() }}
+		</div>
+		<div ng-if="!authenticated">
+			{{ redirectToLoginPage() }}
+		</div>
+	</div>
+</div>

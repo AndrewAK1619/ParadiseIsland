@@ -1,0 +1,68 @@
+<div class="container">
+	<div ng-show="authenticatedAdmin">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="form">
+					<div class="input-group mb-2 mr-sm-2">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fas fa-search"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control" id="searchInput"
+							placeholder="Airline name" ng-model="airlineName">
+						<button class="btn btn-primary mx-1"
+							ng-click="ctrl.search(airlineName)">Search</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-hover tableTextWhite">
+					<thead class="test">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Airline Name</th>
+							<th scope="col">Details</th>
+							<th scope="col" class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="airline in ctrl.airlines">
+							<th scope="row">{{airline.id}}</th>
+							<td>{{airline.airlineName}}</td>
+							<td>{{airline.details}}</td>
+							<td class="text-center">
+								<button class="btn btn-sm btn-primary" title="Edit">
+									<a ng-href="#!airline-edit/{{airline.id}}" class="text-white">
+										<i class="fas fa-edit"></i>
+									</a>
+								</button>
+								<button class="btn btn-sm btn-warning" title="...">
+									<a ng-href="#!" class="text-white">
+										<i class="fas fa-wrench"></i>
+									</a>
+								</button>
+								<button class="btn btn-sm btn-danger" title="Delete">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<a class="btn btn-primary mb-3" ng-href="#!airline-add">Add airline</a>
+		</div>
+	</div>
+	<div ng-show="!authenticatedAdmin"> 
+		<div ng-if="authenticatedUser">
+			{{ redirectToHomePage() }}
+		</div>
+		<div ng-if="!authenticated">
+			{{ redirectToLoginPage() }}
+		</div>
+	</div>
+</div>
