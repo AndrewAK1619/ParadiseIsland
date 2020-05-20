@@ -29,6 +29,13 @@ public class CountryService {
 		this.countryImageService = countryImageService;
 	}
 	
+	List<String> findAllNames() {
+        return countryRepository.findAll()
+                .stream()
+                .map(Country::getName)
+                .collect(Collectors.toList());
+    }
+	
 	List<CountryDto> findPopular() {
 		return countryRepository.findPopular()
 				.stream()

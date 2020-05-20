@@ -76,7 +76,7 @@ public class HotelController {
 
 		formData.add("hotelList", hotelDtoList);
 		formData.add("fileList", mainImgList);
-		
+
 		return ResponseEntity.ok(formData);
 	}
 

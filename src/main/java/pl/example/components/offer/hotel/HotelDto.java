@@ -12,7 +12,13 @@ public class HotelDto {
 	@Size(max = 150, message="{offer.hotel.description.Size}")
 	private String description;
 	private Long mainImageId;
-
+	@NotBlank(message="{offer.hotel.country.NotBlank}")
+	private String country;
+	@NotBlank(message="{offer.hotel.region.NotBlank}")
+	private String region;
+	@NotBlank(message="{offer.hotel.city.NotBlank}")
+	private String city;
+	
 	public Long getId() {
 		return id;
 	}
@@ -36,5 +42,23 @@ public class HotelDto {
 	}
 	public void setMainImageId(Long mainImageId) {
 		this.mainImageId = mainImageId;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
 	}
 }

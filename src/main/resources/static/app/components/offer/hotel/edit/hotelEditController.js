@@ -1,5 +1,6 @@
 angular.module('app')
-.controller('HotelEditController', function($routeParams, $location, $timeout, HotelService, Hotel) {
+.controller('HotelEditController', function($scope, $routeParams, $location, $timeout, 
+		HotelService, Hotel, CountryService, CityService) {
 	const vm = this;
 	const hotelId = $routeParams.hotelId;
 	
@@ -7,6 +8,7 @@ angular.module('app')
 		vm.hotelArray = result.hotel;
 		vm.fileArray = result.file;
 		vm.hotel = vm.hotelArray[0];
+		vm.hotel.city = vm.hotel.city + ' (' + vm.hotel.region + ')';
 		vm.imgSrc = vm.fileArray[0];
 	}
     
@@ -23,7 +25,46 @@ angular.module('app')
 		vm.defaultImg = HotelService.getDefaultImage();
 		vm.defaultImg.$promise.then(setDefaultImg);
 	}
+
+	vm.countriesNames = CountryService.getAllNames();
 	
+	vm.completeCountry = function(string) {
+		vm.hideCountry = false;
+		var output = [];
+		angular.forEach(vm.countriesNames, function(country) {
+			if(country.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+				output.push(country);
+			}
+		});
+		vm.filterCountry = output;
+	}
+	vm.fillCountryTextbox = function(string) {
+		vm.errorCountryMessage = false;
+		vm.hotel.country = string;
+		vm.hideCountry = true;
+		vm.hotel.city = null;
+		vm.citiesNames = CityService.getAllNames(vm.hotel.country);
+		vm.countryIsChosen = true;
+	}
+	
+	vm.completeCity = function(string) {
+		vm.hideCity = false;
+		var output = [];
+		angular.forEach(vm.citiesNames, function(city) {
+			if(city.toLowerCase().substring(0, city.lastIndexOf(' '))
+					.indexOf(string.toLowerCase()) >= 0) {
+				output.push(city);
+			}
+		});
+		vm.filterCity = output;
+	}
+	vm.fillCityTextbox = function(string) {
+		vm.errorCityMessage = false;
+		vm.hotel.city = string;
+		vm.hideCity = true;
+		vm.cityIsChosen = true;
+	} 
+
 	const valid = response => {
 		vm.hasError = false;
 		vm.fields = response.fields;
@@ -38,6 +79,15 @@ angular.module('app')
 				} else if (vm.fields[i] === 'description') {
 					vm.errDescription = vm.fields[i];
 					vm.errDescriptionMsg = vm.messages[i];
+				} else if (vm.fields[i] === 'country') {
+					vm.errCountryName = vm.fields[i];
+					vm.errCountryNameMsg = vm.messages[i];
+				} else if (vm.fields[i] === 'region') {
+					vm.errRegionName = vm.fields[i];
+					vm.errRegionNameMsg = vm.messages[i];
+				} else if (vm.fields[i] === 'city') {
+					vm.errCityName = vm.fields[i];
+					vm.errCityNameMsg = vm.messages[i];
 				}
 			}
 		}
@@ -50,6 +100,12 @@ angular.module('app')
 		vm.errHotelNameMsg = null;
 		vm.errDescription = null;
 		vm.errDescriptionMsg = null;
+		vm.errCountryName =null;
+		vm.errCountryNameMsg = null;
+		vm.errRegionName = null;
+		vm.errRegionNameMsg = null;
+		vm.errCityName = null;
+		vm.errCityNameMsg = null;
 	}
 	
 	const saveCallback = response => {
@@ -72,6 +128,27 @@ angular.module('app')
 			vm.msg='Data write error: maximum file size is 3MB';
 		} else {
 			const formData = new FormData();
+			const cityRegion = vm.hotel.city;
+
+			vm.errorCountryMessage = false;
+			vm.errorCityMessage = false;
+			
+			if (vm.countryIsChosen && vm.cityIsChosen) {
+				vm.hotel.region = cityRegion.substring(cityRegion.lastIndexOf('(') + 1, 
+						cityRegion.length - 1);
+				vm.hotel.city = cityRegion.substr(0, cityRegion.lastIndexOf(' '));
+			} else if (!vm.countryIsChosen && !vm.cityIsChosen) {
+				vm.errorCountryMessage = true;
+				vm.errorCityMessage = true;
+				throw new Error('Country and City must be selected from the list.');
+			} else if (!vm.countryIsChosen) {
+				vm.errorCountryMessage = true;
+				throw new Error('Country must be selected from the list.');
+			} else if (!vm.cityIsChosen) {
+				vm.errorCityMessage = true;
+				throw new Error('City must be selected from the list.');
+			}
+
 			formData.append('file', vm.file);
 			formData.append('hotelDto', JSON.stringify(vm.hotel));
 			
@@ -97,6 +174,27 @@ angular.module('app')
 	vm.updateHotel = () => {
 		setNull();
 		const formData = new FormData();
+		const cityRegion = vm.hotel.city;
+		
+		vm.errorCountryMessage = false;
+		vm.errorCityMessage = false;
+		
+		if (vm.countryIsChosen && vm.cityIsChosen) {
+			vm.hotel.region = cityRegion.substring(cityRegion.lastIndexOf('(') + 1, 
+					cityRegion.length - 1);
+			vm.hotel.city = cityRegion.substr(0, cityRegion.lastIndexOf(' '));
+		} else if (!vm.countryIsChosen && !vm.cityIsChosen) {
+			vm.errorCountryMessage = true;
+			vm.errorCityMessage = true;
+			throw new Error('Country and City must be selected from the list.');
+		} else if (!vm.countryIsChosen) {
+			vm.errorCountryMessage = true;
+			throw new Error('Country must be selected from the list.');
+		} else if (!vm.cityIsChosen) {
+			vm.errorCityMessage = true;
+			throw new Error('City must be selected from the list.');
+		}
+		
 		formData.append('idHotel', vm.hotel.id);
 		formData.append('file', vm.file);
 		formData.append('hotelDto', JSON.stringify(vm.hotel));

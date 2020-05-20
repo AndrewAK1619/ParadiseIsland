@@ -66,6 +66,75 @@
 						</small>
 					</div>
 					<div class="form-group">
+						<label for="countryName">Country Name:</label>
+						<input type="text" name="countryName" id="countryName" ng-model="ctrl.hotel.country" 
+							ng-keyup="ctrl.completeCountry(ctrl.hotel.country)" class="form-control" 
+							placeholder="Country Name" ng-focus="focusedCountry = true" autocomplete="off"
+							ng-blur="focusedCountry = false" ng-change="ctrl.countryIsChosen = false"
+							ng-class="{validErrBorder: hotelForm.countryName.$dirty 
+							&& hotelForm.countryName.$invalid}"
+							required>
+						<ul class="list-group col-11" ng-model="ctrl.hideCountry" ng-hide="ctrl.hideCountry"
+							ng-show="focusedCountry" style="position: absolute;">
+							<li class="list-group-item list-group-item-action" 
+							ng-repeat="countryData in ctrl.filterCountry" 
+							ng-mousedown="ctrl.fillCountryTextbox(countryData)">{{countryData}}</li>
+						</ul>
+						<small>
+							<span class="form-text valid-err-text-two" 
+								ng-show="hotelForm.countryName.$dirty 
+								&& hotelForm.countryName.$invalid">
+								<span ng-show="hotelForm.countryName.$error.required">
+									- Country is required. -
+								</span>
+							</span>
+							<span class="form-text valid-err-text-two" 
+								ng-show="ctrl.errorCountryMessage">
+								- Country must be selected from the list. -
+							</span>
+						</small>
+						<small ng-if="ctrl.errCountryName" class="form-text valid-err-text-two">
+							- {{ ctrl.errCountryNameMsg }} -
+						</small>
+					</div>
+					<div class="form-group">
+						<div ng-show="ctrl.countryIsChosen">
+							<label for="cityName">City Name:</label>
+							<input type="text" name="cityName" id="cityName" ng-model="ctrl.hotel.city" 
+								ng-keyup="ctrl.completeCity(ctrl.hotel.city)" class="form-control" 
+								placeholder="City Name" ng-focus="focusedCity = true" autocomplete="off"
+								ng-blur="focusedCity = false" ng-change="ctrl.cityIsChosen = false"
+								ng-class="{validErrBorder: hotelForm.cityName.$dirty 
+								&& hotelForm.cityName.$invalid}"
+								required>
+							<ul class="list-group col-11" ng-model="ctrl.hideCity" ng-hide="ctrl.hideCity"
+								ng-show="focusedCity" style="position: absolute;">
+								<li class="list-group-item list-group-item-action" 
+								ng-repeat="cityData in ctrl.filterCity track by $index" 
+								ng-mousedown="ctrl.fillCityTextbox(cityData)">{{cityData}}</li>
+							</ul>
+						</div>
+						<small>
+							<span class="form-text valid-err-text-two" 
+								ng-show="hotelForm.cityName.$dirty 
+								&& hotelForm.cityName.$invalid">
+								<span ng-show="hotelForm.cityName.$error.required">
+									- City selection is required. -
+								</span>
+							</span>
+							<span class="form-text valid-err-text-two" 
+								ng-show="ctrl.errorCityMessage">
+								- City must be selected from the list. -
+							</span>
+						</small>
+						<small ng-if="ctrl.errCityName" class="form-text valid-err-text-two">
+							- {{ ctrl.errCityNameMsg }} -
+						</small>
+						<small ng-if="ctrl.errRegionName" class="form-text valid-err-text-two">
+							- {{ ctrl.errRegionNameMsg }} -
+						</small>
+					</div>
+					<div class="form-group">
 						<label for="description">Description:</label>
 						<textarea class="form-control" rows="5" aria-label="With textarea"
 							id="descriptionInput" placeholder="Description"
