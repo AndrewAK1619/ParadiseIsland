@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +43,7 @@ public class HotelController {
 
 	@Autowired
 	public HotelController(HotelService hotelService, 
-			HotelImageService hotelImageService,
+			HotelImageService hotelImageService, 
 			Validator validator) {
 		this.hotelService = hotelService;
 		this.hotelImageService = hotelImageService;
@@ -58,22 +57,12 @@ public class HotelController {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		List<HotelDto> hotelDtoList;
 
-		if (hotelName != null) {
+		if (hotelName != null)
 			hotelDtoList = hotelService.findAllByHotelName(hotelName);
-		} else {
+		else
 			hotelDtoList = hotelService.findAll();
-		}
-		List<byte[]> mainImgList = hotelDtoList.stream()
-					.map(hotelDto -> {
-						try {
-							return hotelService.getMainImageInByteFromHotel(hotelDto.getId());
-						} catch (IOException e) {
-							throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
-									"Downloading object failed");
-						}
-					})
-					.collect(Collectors.toList());
-
+		
+		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);
 		formData.add("hotelList", hotelDtoList);
 		formData.add("fileList", mainImgList);
 
@@ -84,10 +73,10 @@ public class HotelController {
 	public ResponseEntity<?> save(
 			@RequestPart(name = "file", required = false) MultipartFile file,
 			@RequestPart("hotelDto") String hotelDtoJson) 
-					throws JsonMappingException, JsonProcessingException {
-		
+			throws JsonMappingException, JsonProcessingException {
+
 		HotelDto hotelDto = new ObjectMapper().readValue(hotelDtoJson, HotelDto.class);
-		
+
 		BindingResult result = new BeanPropertyBindingResult(hotelDto, "hotelDto");
 		validator.validate(hotelDto, result);
 		if (result.hasErrors()) {
@@ -98,7 +87,6 @@ public class HotelController {
 					"Saving object can't have setted id");
 
 		HotelImageDto hotelImageDtoSave = hotelImageService.saveHotelImage(file);
-
 		if (hotelImageDtoSave != null)
 			hotelDto.setMainImageId(hotelImageDtoSave.getId());
 
@@ -112,9 +100,10 @@ public class HotelController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<MultiValueMap<String, Object>> findById(@PathVariable Long id) 
+	public ResponseEntity<MultiValueMap<String, Object>> findById(
+			@PathVariable Long id) 
 			throws IOException {
-		
+
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		HotelDto hotelDto = null;
 		Optional<HotelDto> hotelDtoOptional = hotelService.findById(id);
@@ -132,21 +121,24 @@ public class HotelController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable Long id,
+	public ResponseEntity<?> update(
+			@PathVariable Long id,
 			@RequestPart(name = "idHotel", required = false) String idHotel,
 			@RequestPart(name = "file", required = false) MultipartFile file,
-			@RequestPart("hotelDto") String hotelDtoJson) throws IOException {
+			@RequestPart("hotelDto") String hotelDtoJson) 
+			throws IOException {
 
 		HotelDto hotelDto = new ObjectMapper().readValue(hotelDtoJson, HotelDto.class);
-		
+
 		BindingResult result = new BeanPropertyBindingResult(hotelDto, "hotelDto");
 		validator.validate(hotelDto, result);
 		if (result.hasErrors()) {
 			return ResponseEntity.ok(ValidationService.valid(result));
-		} 
+		}
 		if (!id.equals(hotelDto.getId()))
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-					"The updated object must have an id in accordance with the id in the resource path");
+					"The updated object must have an id in accordance with the "
+					+ "id in the resource path");
 
 		HotelImageDto hotelImageDtoSave = hotelImageService.saveHotelImage(file);
 		if (hotelImageDtoSave != null)

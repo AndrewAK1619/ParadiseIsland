@@ -17,7 +17,8 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class RoomImageService {
 
-	public static final String DEFAULT_IMAGE_PATH = "src/main/resources/static/img/default/room.jpg";
+	public static final String DEFAULT_IMAGE_PATH = 
+			"src/main/resources/static/img/default/room.jpg";
 
 	RoomImageRepository imageRepository;
 
@@ -27,50 +28,34 @@ public class RoomImageService {
 	}
 
 	public RoomImageDto saveRoomImage(MultipartFile file) {
-		RoomImageDto roomImageDtoSave = null;
-		if (file != null) {
-			RoomImageDto roomImageDto = createImageDto(file);
-			roomImageDtoSave = save(roomImageDto);
-		}
+		String newFileName = createIndividualFileImageName(file);
+		if(newFileName == null)
+			return null;
+		String pathImage = getNewPathRoomImage(newFileName);
+		saveImageFileToServer(file, pathImage);
+		RoomImageDto roomImageDto = createImageDtoWithMainImg(pathImage);
+		RoomImageDto roomImageDtoSave = save(roomImageDto);
 		return roomImageDtoSave;
 	}
-
-	private RoomImageDto createImageDto(MultipartFile file) {
-		String pathImage = createIndividualImageNameAndSaveImageToServer(file);
-		RoomImageDto roomImageDto = new RoomImageDto();
-		roomImageDto.setImagePath(pathImage);
-		roomImageDto.setMainImage(true);
-		return roomImageDto;
-	}
-
-	private String createIndividualImageNameAndSaveImageToServer(MultipartFile file) {
+	
+	private String createIndividualFileImageName(MultipartFile file) {
 		int year = LocalDate.now().getYear();
 		int month = LocalDate.now().getMonthValue();
 		int day = LocalDate.now().getDayOfMonth();
 		long second = Instant.now().getEpochSecond();
 		String oryginalFileName = "";
 		String newFileName = "";
-		String pathImage = "";
 
-		try {
+		if(file != null) {
 			oryginalFileName = file.getOriginalFilename();
 			newFileName = year + "" + month + "" + day + "" + second + "."
 					+ getExtensionByStringHandling(oryginalFileName).toString();
-
-			pathImage = "src/main/resources/static/img/rooms/" + newFileName;
-
-			byte[] bytes = file.getBytes();
-			BufferedOutputStream bufferOutputStream = new BufferedOutputStream(
-					new FileOutputStream(new File(pathImage)));
-			bufferOutputStream.write(bytes);
-			bufferOutputStream.close();
-		} catch (IOException ex) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
-					"Unable to load file: " + oryginalFileName);
+		} else {
+			return null;
 		}
-		return pathImage;
+		return newFileName;
 	}
-
+	
 	private String getExtensionByStringHandling(String fileName) {
 		String extension = "";
 		int i = fileName.lastIndexOf('.');
@@ -78,6 +63,30 @@ public class RoomImageService {
 			extension = fileName.substring(i + 1);
 		}
 		return extension;
+	}
+	
+	private String getNewPathRoomImage(String newFileName) {
+		return "src/main/resources/static/img/rooms/" + newFileName;
+	}
+	
+	private void saveImageFileToServer(MultipartFile file, String pathImage) {
+		try {
+			byte[] bytes = file.getBytes();
+			BufferedOutputStream bufferOutputStream = new BufferedOutputStream(
+					new FileOutputStream(new File(pathImage)));
+			bufferOutputStream.write(bytes);
+			bufferOutputStream.close();
+		} catch (IOException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+					"Unable to load file: " + file.getOriginalFilename());
+		}
+	}
+	
+	private RoomImageDto createImageDtoWithMainImg(String pathImage) {
+		RoomImageDto roomImageDto = new RoomImageDto();
+		roomImageDto.setImagePath(pathImage);
+		roomImageDto.setMainImage(true);
+		return roomImageDto;
 	}
 
 	private RoomImageDto save(RoomImageDto roomImageDto) {

@@ -38,9 +38,9 @@ public class Room implements Serializable {
 	@OneToMany
 	@JoinColumn(name = "room_id", referencedColumnName = "room_id")
 	private List<RoomImage> roomImages;
-    @ManyToOne
-    @JoinColumn(name = "hotel_id")
-    private Hotel hotel;
+	@ManyToOne
+	@JoinColumn(name = "hotel_id")
+	private Hotel hotel;
 
 	public Long getId() {
 		return id;

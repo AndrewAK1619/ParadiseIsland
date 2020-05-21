@@ -3,7 +3,6 @@ package pl.example.components.offer.hotel;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,7 +27,7 @@ public class HotelService {
 		this.hotelRepository = hotelRepository;
 		this.hotelMapper = hotelMapper;
 	}
-	
+
 	Optional<HotelDto> findById(long id) {
 		return hotelRepository.findById(id)
 				.map(hotelMapper::toDto);
@@ -40,12 +39,24 @@ public class HotelService {
 				.map(hotelMapper::toDto)
 				.collect(Collectors.toList());
 	}
-	
+
 	List<HotelDto> findAllByHotelName(String hotelName) {
 		return hotelRepository.findAllByHotelNameContainingIgnoreCase(hotelName)
 				.stream()
 				.map(hotelMapper::toDto)
 				.collect(Collectors.toList());
+	}
+	
+	List<byte[]> getMainImgListInByteByHotelDtoList(List<HotelDto> hotelDtoList) {
+		return hotelDtoList.stream()
+			.map(hotelDto -> {
+				try {
+					return getMainImageInByteFromHotel(hotelDto.getId());
+				} catch (IOException e) {
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+							"Downloading object failed");
+				}
+			}).collect(Collectors.toList());
 	}
 
 	byte[] getMainImageInByteFromHotel(Long hotelId) throws IOException {
@@ -56,17 +67,7 @@ public class HotelService {
 
 	private String findMainImagePathFromHotel(Long hotelId) {
 		Optional<Hotel> hotel = hotelRepository.findById(hotelId);
-		List<HotelImage> hotelImages = new ArrayList<>();
-
-		if (hotel.isPresent()) {
-			hotelImages = hotel.get().getHotelImages();
-			hotelImages = hotelImages.stream()
-					.filter(hotelImg -> hotelImg.isMainImage() == true)
-					.collect(Collectors.toList());
-		} else
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
-					"Downloading object failed");
-
+		List<HotelImage> hotelImages = getHotelImagesByOptionalHotel(hotel);
 		String imagePath = "";
 
 		if (hotelImages.size() > 1) {
@@ -81,6 +82,18 @@ public class HotelService {
 			imagePath = HotelImageService.DEFAULT_IMAGE_PATH;
 		}
 		return imagePath;
+	}
+	
+	private List<HotelImage> getHotelImagesByOptionalHotel(Optional<Hotel> hotel) {
+		if (hotel.isPresent()) {
+			List<HotelImage> hotelImages = hotel.get().getHotelImages();
+			hotelImages = hotelImages.stream()
+					.filter(hotelImg -> hotelImg.isMainImage() == true)
+					.collect(Collectors.toList());
+			return hotelImages;
+		} else
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+					"Downloading object failed");
 	}
 
 	HotelDto save(HotelDto hotelDto) {

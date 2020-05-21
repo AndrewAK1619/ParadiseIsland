@@ -6,10 +6,10 @@ import javax.validation.constraints.Size;
 public class RoomCategoryDto {
 
 	private Long id;
-	@NotBlank(message="{offer.hotel.room.category.name.NotBlank}")
-	@Size(max = 20, message="{offer.hotel.room.category.name.Size}")
+	@NotBlank(message = "{offer.hotel.room.category.name.NotBlank}")
+	@Size(max = 20, message = "{offer.hotel.room.category.name.Size}")
 	private String name;
-	
+
 	public Long getId() {
 		return id;
 	}

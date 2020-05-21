@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('HotelEditController', function($scope, $routeParams, $location, $timeout, 
+.controller('HotelEditController', function($routeParams, $location, $timeout, 
 		HotelService, Hotel, CountryService, CityService) {
 	const vm = this;
 	const hotelId = $routeParams.hotelId;

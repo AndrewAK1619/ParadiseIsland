@@ -25,61 +25,64 @@ import pl.example.components.validation.ValidationService;
 @RestController
 @RequestMapping("/hotels/rooms/categories")
 public class RoomCategoryController {
-	
+
 	private RoomCategoryService roomCategoryService;
 
 	@Autowired
 	public RoomCategoryController(RoomCategoryService roomCategoryService) {
 		this.roomCategoryService = roomCategoryService;
 	}
-	
-    @GetMapping("")
-    public List<RoomCategoryDto> findAll(@RequestParam(required = false) String name) {
-        if(name != null)
-            return roomCategoryService.findByName(name);
-        else
-            return roomCategoryService.findAll();
-    }
-    
-    @PostMapping("")
-    public ResponseEntity<?> save(
-    		@Valid @RequestBody RoomCategoryDto roomCategory, BindingResult result) {
-		if (result.hasErrors()) {
-			return ResponseEntity.ok(ValidationService.valid(result));
-		} 
-        if(roomCategory.getId() != null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Saving object can't have setted id");
-        RoomCategoryDto savedRoomCategoty = roomCategoryService.save(roomCategory);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedRoomCategoty.getId())
-                .toUri();
-        return ResponseEntity.created(location).body(savedRoomCategoty);
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<RoomCategoryDto> findById(@PathVariable Long id) {
-        return roomCategoryService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-    
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(
-    		@PathVariable Long id, 
-    		@Valid @RequestBody RoomCategoryDto roomCategory, BindingResult result) {
+
+	@GetMapping("")
+	public List<RoomCategoryDto> findAll(@RequestParam(required = false) String name) {
+		if (name != null)
+			return roomCategoryService.findByName(name);
+		else
+			return roomCategoryService.findAll();
+	}
+
+	@PostMapping("")
+	public ResponseEntity<?> save(
+			@Valid @RequestBody RoomCategoryDto roomCategory, BindingResult result) {
 		if (result.hasErrors()) {
 			return ResponseEntity.ok(ValidationService.valid(result));
 		}
-        if(!id.equals(roomCategory.getId()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The updated object must have an id in accordance with the id in the resource path");
-        RoomCategoryDto updatedRoomCategory = roomCategoryService.update(roomCategory);
-        return ResponseEntity.ok(updatedRoomCategory);
-    }
+		if (roomCategory.getId() != null)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+					"Saving object can't have setted id");
+		RoomCategoryDto savedRoomCategoty = roomCategoryService.save(roomCategory);
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(savedRoomCategoty.getId())
+				.toUri();
+		return ResponseEntity.created(location).body(savedRoomCategoty);
+	}
 
-    @GetMapping("/names")
-    public List<String> findAllNames() {
-        return roomCategoryService.findAllNames();
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<RoomCategoryDto> findById(@PathVariable Long id) {
+		return roomCategoryService.findById(id)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(
+			@PathVariable Long id, @Valid @RequestBody RoomCategoryDto roomCategory,
+			BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(ValidationService.valid(result));
+		}
+		if (!id.equals(roomCategory.getId()))
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+					"The updated object must have an id in accordance with the id "
+					+ "in the resource path");
+		RoomCategoryDto updatedRoomCategory = roomCategoryService.update(roomCategory);
+		return ResponseEntity.ok(updatedRoomCategory);
+	}
+
+	@GetMapping("/names")
+	public List<String> findAllNames() {
+		return roomCategoryService.findAllNames();
+	}
 }

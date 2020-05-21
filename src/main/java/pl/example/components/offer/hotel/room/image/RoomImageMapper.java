@@ -9,7 +9,7 @@ public class RoomImageMapper {
 		roomImageDto.setMainImage(roomImage.isMainImage());
 		return roomImageDto;
 	}
-	
+
 	static RoomImage toEntity(RoomImageDto roomImageDto) {
 		RoomImage roomImage = new RoomImage();
 		roomImage.setId(roomImageDto.getId());

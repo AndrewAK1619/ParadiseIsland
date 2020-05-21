@@ -26,8 +26,8 @@ public class HotelMapper {
 
 	public HotelMapper(HotelRepository hotelRepository, 
 			HotelImageRepository hotelImageRepository,
-			CountryRepository countryRepository,
-			RegionRepository regionRepository,
+			CountryRepository countryRepository, 
+			RegionRepository regionRepository, 
 			CityRepository cityRepository) {
 		this.hotelRepository = hotelRepository;
 		this.hotelImageRepository = hotelImageRepository;
@@ -62,16 +62,19 @@ public class HotelMapper {
 		List<HotelImage> hotelImages = addCorrectHotelImageList(hotelDto);
 
 		entity.setHotelImages(hotelImages);
-		Optional<Country> country = countryRepository.findByName(hotelDto.getCountry());
+		Optional<Country> country = countryRepository
+				.findByName(hotelDto.getCountry());
 		Optional<Region> region = null;
 		if (country.isPresent()) {
 			entity.setCountry(country.get());
-			region = regionRepository.findByNameAndCountry(hotelDto.getRegion(), country.get());
+			region = regionRepository
+					.findByNameAndCountry(hotelDto.getRegion(), country.get());
 		}
 		Optional<City> city = null;
 		if (region.isPresent()) {
 			entity.setRegion(region.get());
-			city = cityRepository.findByNameAndRegion(hotelDto.getCity(), region.get());
+			city = cityRepository
+					.findByNameAndRegion(hotelDto.getCity(), region.get());
 		}
 		city.ifPresent(entity::setCity);
 		return entity;
@@ -94,8 +97,7 @@ public class HotelMapper {
 		return hotelImages;
 	}
 
-	private List<HotelImage> getHotelImageFromHotel(HotelDto hotelDto, 
-			List<HotelImage> hotelImages) {
+	private List<HotelImage> getHotelImageFromHotel(HotelDto hotelDto, List<HotelImage> hotelImages) {
 		Optional<Hotel> hotelBeforeUpdated = hotelRepository.findById(hotelDto.getId());
 		if (hotelBeforeUpdated.isPresent()) {
 			hotelImages = hotelBeforeUpdated.get().getHotelImages();

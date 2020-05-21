@@ -33,7 +33,7 @@ public class Hotel implements Serializable {
 	@Column(name = "hotel_name")
 	private String hotelName;
 	private String description;
-	@OneToMany(mappedBy="hotel")
+	@OneToMany(mappedBy = "hotel")
 	private Set<Room> room = new HashSet<>();
 	@OneToMany
 	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
@@ -47,7 +47,7 @@ public class Hotel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "city_id")
 	private City city;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -96,7 +96,7 @@ public class Hotel implements Serializable {
 	public void setCity(City city) {
 		this.city = city;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

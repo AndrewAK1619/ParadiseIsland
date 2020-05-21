@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoomCategoryService {
 
-	@Autowired
 	RoomCategoryRepository roomCategoryRepository;
+
+	@Autowired
+	public RoomCategoryService(RoomCategoryRepository roomCategoryRepository) {
+		this.roomCategoryRepository = roomCategoryRepository;
+	}
 
 	Optional<RoomCategoryDto> findById(Long id) {
 		return roomCategoryRepository.findById(id)
@@ -24,23 +28,24 @@ public class RoomCategoryService {
 				.map(RoomCategoryMapper::toDto)
 				.collect(Collectors.toList());
 	}
-	
-    List<RoomCategoryDto> findByName(String name) {
-        return roomCategoryRepository.findAllByNameContainingIgnoreCaseOrderByIdAsc(name)
-                .stream()
-                .map(RoomCategoryMapper::toDto)
-                .collect(Collectors.toList());
-    }
-    
-    List<String> findAllNames() {
-        return roomCategoryRepository.findAll()
-                .stream()
-                .map(RoomCategory::getName)
-                .collect(Collectors.toList());
-    }
+
+	List<RoomCategoryDto> findByName(String name) {
+		return roomCategoryRepository.findAllByNameContainingIgnoreCaseOrderByIdAsc(name)
+				.stream()
+				.map(RoomCategoryMapper::toDto)
+				.collect(Collectors.toList());
+	}
+
+	List<String> findAllNames() {
+		return roomCategoryRepository.findAll()
+				.stream()
+				.map(RoomCategory::getName)
+				.collect(Collectors.toList());
+	}
 
 	RoomCategoryDto save(RoomCategoryDto roomCategory) {
-		Optional<RoomCategory> roomCategoryByName = roomCategoryRepository.findByName(roomCategory.getName());
+		Optional<RoomCategory> roomCategoryByName = roomCategoryRepository
+				.findByName(roomCategory.getName());
 		roomCategoryByName.ifPresent(u -> {
 			throw new DuplicateNameException();
 		});
@@ -48,7 +53,8 @@ public class RoomCategoryService {
 	}
 
 	RoomCategoryDto update(RoomCategoryDto roomCategory) {
-		Optional<RoomCategory> roomCategoryByName = roomCategoryRepository.findByName(roomCategory.getName());
+		Optional<RoomCategory> roomCategoryByName = roomCategoryRepository
+				.findByName(roomCategory.getName());
 		roomCategoryByName.ifPresent(u -> {
 			if (!u.getId().equals(roomCategory.getId()))
 				throw new DuplicateNameException();

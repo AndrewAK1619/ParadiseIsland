@@ -1,11 +1,11 @@
 package pl.example.components.offer.hotel.room.image;
 
 public class RoomImageDto {
-	
+
 	private Long id;
 	private String imagePath;
 	private boolean mainImage;
-	
+
 	public Long getId() {
 		return id;
 	}

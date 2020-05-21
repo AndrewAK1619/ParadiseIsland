@@ -28,50 +28,34 @@ public class HotelImageService {
 	}
 
 	public HotelImageDto saveHotelImage(MultipartFile file) {
-		HotelImageDto hotelImageDtoSave = null;
-		if (file != null) {
-			HotelImageDto hotelImageDto = createImageDto(file);
-			hotelImageDtoSave = save(hotelImageDto);
-		}
+		String newFileName = createIndividualFileImageName(file);
+		if(newFileName == null)
+			return null;
+		String pathImage = getNewPathHotelImage(newFileName);
+		saveImageFileToServer(file, pathImage);
+		HotelImageDto hotelImageDto = createImageDtoWithMainImg(pathImage);
+		HotelImageDto hotelImageDtoSave = save(hotelImageDto);
 		return hotelImageDtoSave;
 	}
-
-	private HotelImageDto createImageDto(MultipartFile file) {
-		String pathImage = createIndividualImageNameAndSaveImageToServer(file);
-		HotelImageDto hotelImageDto = new HotelImageDto();
-		hotelImageDto.setImagePath(pathImage);
-		hotelImageDto.setMainImage(true);
-		return hotelImageDto;
-	}
-
-	private String createIndividualImageNameAndSaveImageToServer(MultipartFile file) {
+	
+	private String createIndividualFileImageName(MultipartFile file) {
 		int year = LocalDate.now().getYear();
 		int month = LocalDate.now().getMonthValue();
 		int day = LocalDate.now().getDayOfMonth();
 		long second = Instant.now().getEpochSecond();
 		String oryginalFileName = "";
 		String newFileName = "";
-		String pathImage = "";
 
-		try {
+		if(file != null) {
 			oryginalFileName = file.getOriginalFilename();
 			newFileName = year + "" + month + "" + day + "" + second + "."
 					+ getExtensionByStringHandling(oryginalFileName).toString();
-
-			pathImage = "src/main/resources/static/img/hotels/" + newFileName;
-
-			byte[] bytes = file.getBytes();
-			BufferedOutputStream bufferOutputStream = new BufferedOutputStream(
-					new FileOutputStream(new File(pathImage)));
-			bufferOutputStream.write(bytes);
-			bufferOutputStream.close();
-		} catch (IOException ex) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
-					"Unable to load file: " + oryginalFileName);
+		} else {
+			return null;
 		}
-		return pathImage;
+		return newFileName;
 	}
-
+	
 	private String getExtensionByStringHandling(String fileName) {
 		String extension = "";
 		int i = fileName.lastIndexOf('.');
@@ -79,6 +63,30 @@ public class HotelImageService {
 			extension = fileName.substring(i + 1);
 		}
 		return extension;
+	}
+
+	private String getNewPathHotelImage(String newFileName) {
+		return "src/main/resources/static/img/hotels/" + newFileName;
+	}
+	
+	private void saveImageFileToServer(MultipartFile file, String pathImage) {
+		try {
+			byte[] bytes = file.getBytes();
+			BufferedOutputStream bufferOutputStream = new BufferedOutputStream(
+					new FileOutputStream(new File(pathImage)));
+			bufferOutputStream.write(bytes);
+			bufferOutputStream.close();
+		} catch (IOException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+					"Unable to load file: " + file.getOriginalFilename());
+		}
+	}
+
+	private HotelImageDto createImageDtoWithMainImg(String pathImage) {
+		HotelImageDto hotelImageDto = new HotelImageDto();
+		hotelImageDto.setImagePath(pathImage);
+		hotelImageDto.setMainImage(true);
+		return hotelImageDto;
 	}
 
 	private HotelImageDto save(HotelImageDto hotelImageDto) {

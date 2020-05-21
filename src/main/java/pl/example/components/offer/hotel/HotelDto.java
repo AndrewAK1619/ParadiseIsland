@@ -6,19 +6,19 @@ import javax.validation.constraints.Size;
 public class HotelDto {
 
 	private Long id;
-	@NotBlank(message="{offer.hotel.hotelName.NotBlank}")
-	@Size(max = 30, message="{offer.hotel.hotelName.Size}")
+	@NotBlank(message = "{offer.hotel.hotelName.NotBlank}")
+	@Size(max = 30, message = "{offer.hotel.hotelName.Size}")
 	private String hotelName;
-	@Size(max = 150, message="{offer.hotel.description.Size}")
+	@Size(max = 150, message = "{offer.hotel.description.Size}")
 	private String description;
 	private Long mainImageId;
-	@NotBlank(message="{offer.hotel.country.NotBlank}")
+	@NotBlank(message = "{offer.hotel.country.NotBlank}")
 	private String country;
-	@NotBlank(message="{offer.hotel.region.NotBlank}")
+	@NotBlank(message = "{offer.hotel.region.NotBlank}")
 	private String region;
-	@NotBlank(message="{offer.hotel.city.NotBlank}")
+	@NotBlank(message = "{offer.hotel.city.NotBlank}")
 	private String city;
-	
+
 	public Long getId() {
 		return id;
 	}
