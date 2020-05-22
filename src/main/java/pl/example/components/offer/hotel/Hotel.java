@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import pl.example.components.offer.hotel.advantages.HotelAdvantage;
 import pl.example.components.offer.hotel.image.HotelImage;
 import pl.example.components.offer.hotel.room.Room;
 import pl.example.components.offer.location.city.City;
@@ -38,6 +39,9 @@ public class Hotel implements Serializable {
 	@OneToMany
 	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
 	private List<HotelImage> hotelImages;
+	@OneToMany
+	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
+	private List<HotelAdvantage> hotelAdvantages;
 	@ManyToOne
 	@JoinColumn(name = "country_id")
 	private Country country;
@@ -78,6 +82,12 @@ public class Hotel implements Serializable {
 	public void setHotelImages(List<HotelImage> hotelImages) {
 		this.hotelImages = hotelImages;
 	}
+	public List<HotelAdvantage> getHotelAdvantages() {
+		return hotelAdvantages;
+	}
+	public void setHotelAdvantages(List<HotelAdvantage> hotelAdvantages) {
+		this.hotelAdvantages = hotelAdvantages;
+	}
 	public Country getCountry() {
 		return country;
 	}
@@ -96,7 +106,7 @@ public class Hotel implements Serializable {
 	public void setCity(City city) {
 		this.city = city;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

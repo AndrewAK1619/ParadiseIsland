@@ -61,6 +61,9 @@ public class HotelController {
 			hotelDtoList = hotelService.findAllByHotelName(hotelName);
 		else
 			hotelDtoList = hotelService.findAll();
+			
+		/* Metod only for put example data / Lorem Ipsum. */
+		hotelExampleDataService.metodOnlyToSetDefaultHotelAdvantage(hotelDtoList);
 		
 		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);
 		formData.add("hotelList", hotelDtoList);
@@ -154,4 +157,11 @@ public class HotelController {
 		formData.add("file", hotelImageService.getDefaultMainImageInByte());
 		return ResponseEntity.ok(formData);
 	}
+	
+	/* Section only for put example data / Lorem Ipsum. */
+	
+	@Autowired
+	private pl.example.onlyForExampleData.hotelExampleDataService hotelExampleDataService;
+	
+	/* Section only for put example data / Lorem Ipsum. */
 }

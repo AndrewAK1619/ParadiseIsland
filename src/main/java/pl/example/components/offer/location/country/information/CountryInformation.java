@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "country_informations")
@@ -19,7 +18,6 @@ public class CountryInformation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "country_information_id", nullable = false)
 	private Long id;
-	@NotNull
 	@Column(name = "information", nullable = false)
 	private String information;
 	

@@ -1,7 +1,11 @@
 package pl.example.components.offer.hotel;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import pl.example.components.offer.hotel.advantages.HotelAdvantageDto;
 
 public class HotelDto {
 
@@ -12,6 +16,7 @@ public class HotelDto {
 	@Size(max = 150, message = "{offer.hotel.description.Size}")
 	private String description;
 	private Long mainImageId;
+	private List<HotelAdvantageDto> hotelAdvantageDto;
 	@NotBlank(message = "{offer.hotel.country.NotBlank}")
 	private String country;
 	@NotBlank(message = "{offer.hotel.region.NotBlank}")
@@ -42,6 +47,12 @@ public class HotelDto {
 	}
 	public void setMainImageId(Long mainImageId) {
 		this.mainImageId = mainImageId;
+	}
+	public List<HotelAdvantageDto> getHotelAdvantageDto() {
+		return hotelAdvantageDto;
+	}
+	public void setHotelAdvantageDto(List<HotelAdvantageDto> hotelAdvantageDto) {
+		this.hotelAdvantageDto = hotelAdvantageDto;
 	}
 	public String getCountry() {
 		return country;

@@ -14,20 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import pl.example.components.offer.location.country.information.CountryInformationService;
-
 @RestController
 @RequestMapping("/destinations")
 public class DestinationsController {
 
 	private CountryService countryService;
-	private CountryInformationService countryInformationService;
 	
 	@Autowired
-	public DestinationsController(CountryService countryService, 
-			CountryInformationService countryInformationService) {
+	public DestinationsController(CountryService countryService) {
 		this.countryService = countryService;
-		this.countryInformationService = countryInformationService;
 	}
 
 	@GetMapping("/popular")
@@ -36,7 +31,8 @@ public class DestinationsController {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		List<CountryDto> countryDtoList = countryService.findPopular();
 		
-		metodOnlyToSetDefaultInformationCountry(countryDtoList);
+		/* Metod only for put example data / Lorem Ipsum. */
+		destinationExampleDataService.metodOnlyToSetDefaultInformationCountry(countryDtoList);
 		
 		List<byte[]> mainImgList = countryDtoList.stream()
 				.map(countryDto -> {
@@ -61,7 +57,7 @@ public class DestinationsController {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		List<CountryDto> countryDtoList = countryService.findRadnom12Records();
 		
-		metodOnlyToSetDefaultInformationCountry(countryDtoList);
+		destinationExampleDataService.metodOnlyToSetDefaultInformationCountry(countryDtoList);
 		
 		List<byte[]> mainImgList = countryDtoList.stream()
 				.map(countryDto -> {
@@ -80,20 +76,10 @@ public class DestinationsController {
 		return ResponseEntity.ok(formData);
 	}
 	
-	/* Metods only for put example data / Lorem Ipsum. */
+	/* Section only for put example data / Lorem Ipsum. */
 	
-	private List<CountryDto> metodOnlyToSetDefaultInformationCountry(List<CountryDto> countryDtoList) {
-		countryDtoList.stream()
-			.map(countryDto -> {
-				if(countryDto.getCountryInformationDto().size() != 0) {
-					return countryDtoList;
-				} else {
-					countryDto.setCountryInformationDto(countryInformationService.getDefaultLorepIpsumInformation());
-				}
-				return countryDtoList;
-			})
-			.collect(Collectors.toList());
-		
-		return countryDtoList;
-	}
+	@Autowired
+	private pl.example.onlyForExampleData.destinationExampleDataService destinationExampleDataService;
+	
+	/* Section only for put example data / Lorem Ipsum. */
 }

@@ -39,6 +39,14 @@ INSERT INTO hotel_images(hotel_image_id, image_path, top_image, hotel_id) VALUES
   (4, 'src/main/resources/static/img/hotels/2020041844444.jpg', 1, 4),
   (5, 'src/main/resources/static/img/hotels/2020041855555.jpg', 1, 5),
   (6, 'src/main/resources/static/img/hotels/2020041866666.jpg', 1, 6);
+  
+INSERT INTO hotel_advantages(hotel_advantage_id, description_advantage, hotel_id) VALUES
+  (1, 'Lorem ipsum dolor sit amet', null),
+  (2, 'Consectetuer adipiscing elit sed diam', null),
+  (3, 'Nibh euismod tincidunt ut', null),
+  (4, 'Laoreet dolore magna aliquam erat', null),
+  (5, 'Ut wisi enim ad', null),
+  (6, 'Minim veniam quis nostrud exerci', null);
 
 INSERT INTO room_categories(room_category_id, name) VALUES
   (1, 'Standard'),

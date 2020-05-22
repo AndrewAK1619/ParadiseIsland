@@ -24,7 +24,7 @@
 			</div>
 			<div class="col-md-8">
 				<ul class="list-group list-group-horizontal" style="height: 100%;">
-					<li class="list-group-item w-100"">
+					<li class="list-group-item w-100">
 						<div class="">
 							<div class="items col-12 clearfix">
 								<div class="info-block block-info clearfix">
@@ -38,9 +38,12 @@
 											<strong>{{hotel.hotelName}}</strong>
 										</div>
 										<div class="w-100 mb-3"></div>
-										<div class="col">
-											Description:<br/>
-											{{hotel.description}}
+										<div class="card-text">
+											<ul class="dashed">
+												<li ng-repeat="hotelAdvantageDto in hotel.hotelAdvantageDto | limitTo:4">
+													{{hotelAdvantageDto.descriptionAdvantage}}
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>

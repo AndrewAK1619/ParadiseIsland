@@ -3,9 +3,11 @@ package pl.example.components.offer.hotel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import pl.example.components.offer.hotel.advantages.HotelAdvantageMapper;
 import pl.example.components.offer.hotel.image.HotelImage;
 import pl.example.components.offer.hotel.image.HotelImageRepository;
 import pl.example.components.offer.location.city.City;
@@ -41,6 +43,10 @@ public class HotelMapper {
 		dto.setId(hotel.getId());
 		dto.setHotelName(hotel.getHotelName());
 		dto.setDescription(hotel.getDescription());
+		dto.setHotelAdvantageDto(hotel.getHotelAdvantages()
+				.stream()
+				.map(HotelAdvantageMapper::toDto)
+				.collect(Collectors.toList()));
 		if (hotel.getCountry() != null) {
 			dto.setCountry(hotel.getCountry().getName());
 		}
