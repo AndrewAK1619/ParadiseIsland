@@ -17,9 +17,14 @@ body {
 				0 -10px 8px black;
 }
 
-.logo {
-	width: 50px;
-	height: 50px;
+.logo-40 {
+	width: 40px;
+	height: 40px;
+}
+
+.logo-60 {
+	width: 60px;
+	height: 60px;
 }
 
 .left-10 {
@@ -35,8 +40,9 @@ body {
 .loginbox{  
 	background: white;
 	color: black;
-	margin: 50px auto 50px auto;
+	margin: 10px auto 50px auto;
 	width: 50%;
+	max-width: 500px;
 	left: 0;
 	padding: 20px;   
 	box-shadow: 0 8px 50px -2px #000;
@@ -73,7 +79,8 @@ body {
 .registerbox{  
 	background: white;
 	color: black;
-	margin: 50px auto 50px auto;
+	max-width: 500px;
+	margin: 10px auto 50px auto;
 	box-shadow: 0 8px 50px -2px #000;
 }
 
@@ -110,10 +117,6 @@ body {
 	min-height: 100%;
 	object-fit:cover;
 }
-
-/* .card { */
-/* 	min-height: 600px; */
-/* } */
 
 .card-img-part {
 	height: 38%;

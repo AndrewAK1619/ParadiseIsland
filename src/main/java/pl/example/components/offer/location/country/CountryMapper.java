@@ -2,11 +2,8 @@ package pl.example.components.offer.location.country;
 
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
-
 import pl.example.components.offer.location.country.information.CountryInformationMapper;
 
-@Service
 public class CountryMapper {
 	
 	static CountryDto toDto(Country country) {

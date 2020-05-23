@@ -86,7 +86,7 @@
 #show-sidebar {
 	position: fixed;
 	left: 0;
-	top: 86px;
+	top: 66px;
 	border-radius: 0 4px 4px 0px;
 	width: 35px;
 	transition-delay: 0.3s;
@@ -100,10 +100,10 @@
 
 .sidebar-wrapper {
 	width: 260px;
-	height: calc(100% - 76px);
-	max-height: calc(100% - 76px);
+	height: calc(100% - 58px);
+	max-height: calc(100% - 58px);
 	position: fixed;
-	top: 76px;
+	top: 58px;
 	left: -300px;
 	z-index: 999;
 }

@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import pl.example.components.offer.transport.airline.Airline;
@@ -20,9 +21,10 @@ public class AirlineOffer implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "airline_id")
+	@Column(name = "airline_offer_id")
 	private Long id;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "ariline_id")
 	private Airline ariline;
 	private LocalDateTime departure;
 	@Column(name = "return_trip")
