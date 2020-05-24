@@ -31,9 +31,6 @@ public class DestinationsController {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		List<CountryDto> countryDtoList = countryService.findPopular();
 		
-		/* Metod only for put example data / Lorem Ipsum. */
-		destinationExampleDataService.metodOnlyToSetDefaultInformationCountry(countryDtoList);
-		
 		List<byte[]> mainImgList = countryDtoList.stream()
 				.map(countryDto -> {
 					try {
@@ -56,9 +53,7 @@ public class DestinationsController {
 		
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		List<CountryDto> countryDtoList = countryService.findRadnom12Records();
-		
-		destinationExampleDataService.metodOnlyToSetDefaultInformationCountry(countryDtoList);
-		
+
 		List<byte[]> mainImgList = countryDtoList.stream()
 				.map(countryDto -> {
 					try {
@@ -75,11 +70,4 @@ public class DestinationsController {
 		
 		return ResponseEntity.ok(formData);
 	}
-	
-	/* Section only for put example data / Lorem Ipsum. */
-	
-	@Autowired
-	private pl.example.onlyForExampleData.destinationExampleDataService destinationExampleDataService;
-	
-	/* Section only for put example data / Lorem Ipsum. */
 }

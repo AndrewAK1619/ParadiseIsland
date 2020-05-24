@@ -13,7 +13,7 @@
 						</h5>
 						<div class="card-text">
 							<ul class="dashed">
-								<li ng-repeat="countryInformationDto in destination.countryInformationDto">
+								<li ng-repeat="countryInformationDto in destination.countryInformationDto | limitTo:4"">
 									{{countryInformationDto.information}}
 								</li>
 							</ul>

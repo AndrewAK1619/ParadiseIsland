@@ -78,8 +78,7 @@ public class CountryService {
 			.collect(Collectors.toList());
 			imagePath = mainImage.get(0).getImagePath();
 		} else {
-			/* Metods only for put example data */
-			imagePath = countryImageService.getPathToRandomExampleImg();
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Downloading object failed");
 		}
     	return imagePath;
     }
