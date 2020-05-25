@@ -118,20 +118,14 @@ INSERT INTO country_informations(country_information_id, information, country_id
   (92, 'huge shopping centres with countless shops', 21),
   (93, 'golden sands of the desert and atmosphere like from the "Tales of 1001 Nights', 21),
   (94, 'elegant and luxurious hotels', 21),
-  
-  
-  (95, 'czerwone budki telefoniczne, piętrowe autobusy i słynny londyński Big Ben', 22),
-  (96, 'ojczyzna Sherlocka Holmesa i magia Harrego Pottera', 22),
-  (97, 'intensywne życie nocne w modnych klubach i dyskotekach', 22),
-  (98, 'światowej klasy galerie, muzea i pachnące  minionymi latami antykwariaty', 22),
-
-
-  (99, 'Los Angeles z bajkowym Disneylandem, Hollywood i rezydencjami w Beverly Hills', 23),
-  (100, 'kraina bizonów, mustangów i kowboi', 23),
-  (101, 'zapierający dech w piersiach Wielki Kanion Kolorado', 23),
-  (102, 'rajskie plaże Miami', 23);
-    
-   
+  (95, 'Red telephone booths, double-decker buses and The Great Big Ben in London', 22),
+  (96, "Sherlock Holmes's hometown and Harry Potter's magic", 22),
+  (97, 'Intense nightlife in trendy clubs and discos', 22),
+  (98, 'Word-class galleries, museums and smelling vintage shops for passed years', 22),
+  (99, 'Los Angeles with a fabuluous Disneyland, Hollywood and residences in Beverly Hills', 23),
+  (100, 'a country of bisons, mustangs and cowboys', 23),
+  (101, 'Breathtaking views of Great Canyon of Colorado', 23),
+  (102, 'Heavenly beaches - Miami', 23);
 
 INSERT INTO country_images(country_image_id, image_path, top_image, country_id) VALUES
   (1, 'src/main/resources/static/img/location/country/2020052311111.jpg', 1, 1),
