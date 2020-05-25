@@ -1,9 +1,7 @@
 package pl.example.components.offer.hotel;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +33,7 @@ public class Hotel implements Serializable {
 	private String hotelName;
 	private String description;
 	@OneToMany(mappedBy = "hotel")
-	private Set<Room> room = new HashSet<>();
+	private List<Room> room;
 	@OneToMany
 	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
 	private List<HotelImage> hotelImages;
@@ -70,10 +68,10 @@ public class Hotel implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Set<Room> getRoom() {
+	public List<Room> getRoom() {
 		return room;
 	}
-	public void setRoom(Set<Room> room) {
+	public void setRoom(List<Room> room) {
 		this.room = room;
 	}
 	public List<HotelImage> getHotelImages() {

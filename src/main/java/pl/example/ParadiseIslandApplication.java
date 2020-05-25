@@ -9,5 +9,4 @@ public class ParadiseIslandApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ParadiseIslandApplication.class, args);
 	}
-
 }

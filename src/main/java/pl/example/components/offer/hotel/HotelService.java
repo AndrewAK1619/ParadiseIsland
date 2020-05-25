@@ -34,7 +34,7 @@ public class HotelService {
 	}
 
 	List<HotelDto> findAll() {
-		return hotelRepository.findAll()
+		return hotelRepository.own()
 				.stream()
 				.map(hotelMapper::toDto)
 				.collect(Collectors.toList());
