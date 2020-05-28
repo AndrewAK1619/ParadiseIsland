@@ -16,7 +16,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="card border-dark mb-3" ng-repeat="hotel in ctrl.hotel">
+	<div class="card border-dark mb-3" ng-repeat="hotel in ctrl.hotelArray">
 		<div class="row no-gutters">
 			<div class="col-md-4 text-center bg-secondary">
 				<img ng-src="data:image/jpeg;base64,{{hotel.imgSrc}}"
@@ -43,7 +43,8 @@
 										<div class="w-100 mb-3"></div>
 										<div class="card-text">
 											<ul class="dashed">
-												<li ng-repeat="hotelAdvantageDto in hotel.hotelAdvantageDto | limitTo:4">
+												<li ng-repeat="hotelAdvantageDto 
+													in hotel.hotelAdvantageDto | limitTo:4">
 													{{hotelAdvantageDto.descriptionAdvantage}}
 												</li>
 											</ul>
@@ -74,6 +75,66 @@
 				</ul>
 			</div>
 		</div>
+	</div>
+	<div ng-show="ctrl.hotelDataLoaded">
+		<nav aria-label="Page navigation">
+			<ul class="pagination pagination-v1 justify-content-center">
+				<li class="page-item">
+					<a ng-click="ctrl.firstPage()" 
+						class="page-link" href="" tabindex="-1">
+						<i class="fa fa-angle-double-left"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.previousPage()" 
+						class="page-link" href="" tabindex="-1">
+						<i class="fa fa-angle-left"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.loadPage(ctrl.numButton - 2)" 
+						class="page-link" id="firstButton" href="">
+						{{ctrl.numButton - 2}}
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.loadPage(ctrl.numButton - 1)" 
+						class="page-link" id="secondButton" href="">
+						{{ctrl.numButton - 1}}
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.loadPage(ctrl.numButton)" 
+						class="page-link" id="thirdButton" href="">
+						{{ctrl.numButton}}
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.loadPage(ctrl.numButton + 1)" 
+						class="page-link" id="fourthButton" href="">
+						{{ctrl.numButton  + 1}}
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.loadPage(ctrl.numButton + 2)" 
+						class="page-link" id="fifthButton" href="">
+						{{ctrl.numButton + 2}}
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.nextPage()" class="page-link" 
+						href="" tabindex="-1">
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.lastPage()" class="page-link" 
+						href="" tabindex="-1">
+						<i class="fa fa-angle-double-right"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 	<div class="row" ng-show="authenticatedAdmin">
 		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels-add">

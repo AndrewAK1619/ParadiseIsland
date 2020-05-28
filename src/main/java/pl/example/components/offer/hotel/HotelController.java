@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -52,15 +53,17 @@ public class HotelController {
 
 	@GetMapping("")
 	public ResponseEntity<MultiValueMap<String, Object>> findAll(
-			@RequestParam(required = false) String hotelName) {
+			@RequestParam(required = false) String hotelName,
+			@RequestParam(defaultValue = "0", required = false) Integer page) {
 
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
-		List<HotelDto> hotelDtoList;
+		Page<HotelDto> hotelDtoList;
 
-		if (hotelName != null)
-			hotelDtoList = hotelService.findAllByHotelName(hotelName);
-		else
-			hotelDtoList = hotelService.findAll();
+		// TODO fix search
+//		if (hotelName != null)
+//			hotelDtoList = hotelService.findAllByHotelName(hotelName);
+//		else
+			hotelDtoList = hotelService.findAll(page);
 		
 		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);
 		formData.add("hotelList", hotelDtoList);
@@ -152,6 +155,35 @@ public class HotelController {
 	public ResponseEntity<?> getDefaultImage() throws IOException {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		formData.add("file", hotelImageService.getDefaultMainImageInByte());
+		return ResponseEntity.ok(formData);
+	}
+	
+	@GetMapping("/page/{pageNumber}")
+	public ResponseEntity<MultiValueMap<String, Object>> findAllByPage(
+			@PathVariable(required = false) Optional<Integer> pageNumber,
+			@RequestParam(required = false) String hotelName) {
+
+		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
+		Page<HotelDto> hotelDtoList;
+
+		// TODO fix search
+//		if (hotelName != null)
+//			hotelDtoList = hotelService.findAllByHotelName(hotelName);
+//		else
+
+		if (pageNumber.isPresent()) {
+			if(pageNumber.get() < 0) {
+				hotelDtoList = hotelService.findAll(0);
+			} else {
+				hotelDtoList = hotelService.findAll(pageNumber.get() - 1);
+			}
+		} else {
+			hotelDtoList = hotelService.findAll(0);
+		}
+		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);
+		formData.add("hotelList", hotelDtoList);
+		formData.add("fileList", mainImgList);
+
 		return ResponseEntity.ok(formData);
 	}
 }

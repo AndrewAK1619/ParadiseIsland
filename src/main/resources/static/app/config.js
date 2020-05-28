@@ -42,6 +42,11 @@ angular.module('app')
 			controller: 'HotelListController',
 			controllerAs: 'ctrl'
 		})
+		.when('/hotels/page/:pageNumber', {
+			templateUrl: 'app/components/offer/hotel/list/hotelList.html',
+			controller: 'HotelListController',
+			controllerAs: 'ctrl'
+		})
 		.when('/hotels-add', {
 			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
 			controller: 'HotelEditController',

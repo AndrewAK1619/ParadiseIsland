@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/users", "/user-edit/**", "/user-add",
 				"/hotels-add", "/hotels-edit/**", "/hotels/:hotelId/rooms-add",
 				"/hotels/rooms-edit/**", "/hotels/rooms/categories", "/hotels/rooms/categories-add",
-				"/hotels/rooms/categories-edit/**").hasAuthority("ROLE_ADMIN").and()
+				"/hotels/rooms/categories-edit/**", "/hotels/page/**").hasAuthority("ROLE_ADMIN").and()
 			.exceptionHandling().and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

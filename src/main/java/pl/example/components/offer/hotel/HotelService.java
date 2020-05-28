@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -33,21 +35,20 @@ public class HotelService {
 				.map(hotelMapper::toDto);
 	}
 
-	List<HotelDto> findAll() {
-		return hotelRepository.own()
-				.stream()
-				.map(hotelMapper::toDto)
-				.collect(Collectors.toList());
+	Page<HotelDto> findAll(int pageNumber) {
+		Page<Hotel> page = hotelRepository.findAllHotel(PageRequest.of(pageNumber, 10));
+		return page.map(hotelMapper::toDto);
 	}
 
-	List<HotelDto> findAllByHotelName(String hotelName) {
-		return hotelRepository.findAllByHotelNameContainingIgnoreCase(hotelName)
-				.stream()
-				.map(hotelMapper::toDto)
-				.collect(Collectors.toList());
-	}
+	// TODO fix search
+//	List<HotelDto> findAllByHotelName(String hotelName) {
+//		return hotelRepository.findAllByHotelNameContainingIgnoreCase(hotelName)
+//				.stream()
+//				.map(hotelMapper::toDto)
+//				.collect(Collectors.toList());
+//	}
 	
-	List<byte[]> getMainImgListInByteByHotelDtoList(List<HotelDto> hotelDtoList) {
+	List<byte[]> getMainImgListInByteByHotelDtoList(Page<HotelDto> hotelDtoList) {
 		return hotelDtoList.stream()
 			.map(hotelDto -> {
 				try {

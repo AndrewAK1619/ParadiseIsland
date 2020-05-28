@@ -1,0 +1,23 @@
+.pagination-v1 > li > a, 
+.pagination-v1 > li > span {
+	background-color: #2c3e50;
+	border: 1px solid #2c3e50;
+	border-radius: 4px;
+	color: #fff;
+	float: left;
+	font-size: 14px;
+	line-height: 1.42857;
+	margin-right: 5px;
+	padding: 8px 15px;
+	position: relative;
+	text-decoration: none;
+}
+.pagination-v1 > li > a.active,
+.pagination-v1 > li > a:hover,
+.pagination-v1 > li > span:hover,
+.pagination-v1 > li > a:focus,
+.pagination-v1 > li > span:focus {
+	background-color: #475b70 !important;
+	border-color: #35495c;
+	color: #fff;
+}
