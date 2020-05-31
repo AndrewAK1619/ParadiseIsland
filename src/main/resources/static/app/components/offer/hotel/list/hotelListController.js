@@ -1,17 +1,31 @@
 angular.module('app')
-.controller('HotelListController', function ($routeParams, $location, $rootScope, HotelService) {
+.controller('HotelListController', function ($rootScope, $routeParams, $location, 
+		$rootScope, HotelService, CountryService) {
+	
 	const vm = this;
+	
 	vm.hotelDataLoaded = false;
 	vm.pageNumber = $routeParams.pageNumber;
-	
-	const setHotlAndTopImgData = result => {
-		vm.fileArray = result.fileList[0];
-		vm.pageInfo = result.hotelList[0];
-		vm.hotelArray = vm.pageInfo.content;
-		var oneImg;
-		for(oneImg in vm.fileArray) {
-			vm.hotelArray[oneImg].imgSrc = vm.fileArray[oneImg];
-		}
+	vm.countriesNames = CountryService.getAllNames();
+	vm.hotelName = $rootScope.hotelName;
+	vm.countryName = $rootScope.countryName;
+
+	vm.completeCountry = string => {
+		vm.hideCountryList = false;
+		var output = [];
+		angular.forEach(vm.countriesNames, function(country) {
+			if(string == undefined) {
+				string = '';
+			} else if(country.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+				output.push(country);
+			}
+		});
+		vm.filterCountry = output;
+	}
+	vm.fillCountryTextbox = function(string) {
+		vm.countryName = string;
+		vm.hideCountryList = true;
+		vm.countryIsChosen = true;
 	}
 	
 	const removeClassButtons = () => {
@@ -33,7 +47,9 @@ angular.module('app')
 			} else if(pageNum === 3) {
 				angular.element(document.querySelector("#thirdButton")).addClass("active");
 			}
-		} else if(pageNum === vm.totalPages - 2 || pageNum === vm.totalPages - 1 || pageNum === vm.totalPages) {
+		} else if(pageNum === vm.totalPages - 2 || pageNum === vm.totalPages - 1 || 
+				pageNum === vm.totalPages) {
+			
 			vm.numButton = vm.totalPages - 2;
 			if(pageNum === vm.totalPages - 2) {
 				angular.element(document.querySelector("#thirdButton")).addClass("active");
@@ -48,6 +64,58 @@ angular.module('app')
 		}
 	}
 	
+	const checkVisibleButtons = pageInfo => {
+		vm.disableFirstPage = pageInfo.first;
+		vm.disablePreviousPage = pageInfo.first;
+		vm.disableNextPage = pageInfo.last;
+		vm.disableLastPage = pageInfo.last;
+		
+		if(pageInfo.totalPages === 1) {
+			vm.showSecondButton = true;
+			vm.showThirdButton = true;
+			vm.showFourthButton = true;
+			vm.showFifthButton = true;
+		} else if(pageInfo.totalPages === 2) {
+			vm.showSecondButton = false;
+			vm.showThirdButton = true;
+			vm.showFourthButton = true;
+			vm.showFifthButton = true;
+		} else if(pageInfo.totalPages === 3) {
+			vm.showSecondButton = false;
+			vm.showThirdButton = false;
+			vm.showFourthButton = true;
+			vm.showFifthButton = true;
+		} else if(pageInfo.totalPages === 4) {
+			vm.showSecondButton = false;
+			vm.showThirdButton = false;
+			vm.showFourthButton = false;
+			vm.showFifthButton = true;
+		} else {
+			vm.showSecondButton = false;
+			vm.showThirdButton = false;
+			vm.showFourthButton = false;
+			vm.showFifthButton = false;
+		}
+	}
+	
+	const setHotlAndTopImgData = result => {
+		vm.fileArray = result.fileList[0];
+		vm.pageInfo = result.hotelList[0];
+		vm.hotelArray = vm.pageInfo.content;
+		checkVisibleButtons(vm.pageInfo);
+		
+		if(vm.pageInfo.totalElements === 0) {
+			vm.resultFound = true;
+		} else {
+			vm.hotelDataLoaded = true;
+			vm.resultFound = false;
+		}
+		var oneImg;
+		for(oneImg in vm.fileArray) {
+			vm.hotelArray[oneImg].imgSrc = vm.fileArray[oneImg];
+		}
+	}
+	
 	const setHotelAndTopImg = result => {
 		vm.hotelDataLoaded = false;
 		vm.pageNumber = result.hotelList[0].number + 1;
@@ -56,11 +124,9 @@ angular.module('app')
 		if($location.path() === '/hotels') {
 			setHotlAndTopImgData(result);
 			setNumberButtons(vm.pageNumber);
-			vm.hotelDataLoaded = true;
-		} else if(vm.pageNumber >= 1 && vm.pageNumber <= vm.totalPages) {
+		} else if(vm.pageNumber >= 1 && vm.pageNumber <= vm.totalPages + 1) {
 			setHotlAndTopImgData(result);
 			setNumberButtons(vm.pageNumber);
-			vm.hotelDataLoaded = true;
 		} else {
 			$location.path(`/hotels`);
 		}
@@ -70,22 +136,32 @@ angular.module('app')
 		if(vm.pageNumber < 1 || vm.pageNumber > vm.totalPages) {
 			$location.path(`/hotels`);
 		}
-		vm.hotelsAndTopImgArray = HotelService.loadPage(vm.pageNumber);
+		vm.hotelsAndTopImgArray = HotelService
+			.getAllHotelsByNameAndCountry(vm.pageNumber, vm.hotelName, vm.countryName);
 		vm.hotelsAndTopImgArray.$promise.then(setHotelAndTopImg);
 	} else {
 		vm.hotelsAndTopImgArray = HotelService.getAllHotelsAndMainImg();
 		vm.hotelsAndTopImgArray.$promise.then(setHotelAndTopImg);
 	}
 	
-	// TODO fix search
-	vm.search = hotelName => {
-		vm.hotelsAndTopImgArray = HotelService.getAllHotelsAndMainImg({hotelName});
-		vm.hotelsAndTopImgArray.$promise.then(setHotelAndTopImg);
+	vm.search = () => {
+		$rootScope.hotelName = vm.hotelName;
+		$rootScope.countryName = vm.countryName;
+		if(vm.pageNumber === 1) {
+			vm.hotelsAndTopImgArray = HotelService
+				.getAllHotelsByNameAndCountry(vm.pageNumber, vm.hotelName, vm.countryName);
+			vm.hotelsAndTopImgArray.$promise.then(setHotelAndTopImg);
+		} else {
+			vm.pageNumber = 1;
+			$location.path(`/hotels/page/${vm.pageNumber}`);
+		}
 	};
 
 	vm.loadPage = buttonNumber => {
-		if(buttonNumber >=1 && buttonNumber <= vm.totalPages) {
+		if(buttonNumber >= 1 && buttonNumber <= vm.totalPages) {
 			vm.pageNumber = buttonNumber;
+			$rootScope.hotelName = vm.hotelName;
+			$rootScope.countryName = vm.countryName;
 			$location.path(`/hotels/page/${vm.pageNumber}`);
 		}
 	};

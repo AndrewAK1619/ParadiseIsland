@@ -69,14 +69,15 @@
 						<label for="countryName">Country Name:</label>
 						<input type="text" name="countryName" id="countryName" ng-model="ctrl.hotel.country" 
 							ng-keyup="ctrl.completeCountry(ctrl.hotel.country)" class="form-control" 
+							ng-mousedown="ctrl.completeCountry(ctrl.country)"
 							placeholder="Country Name" ng-focus="focusedCountry = true" autocomplete="off"
 							ng-blur="focusedCountry = false" ng-change="ctrl.countryIsChosen = false"
 							ng-class="{validErrBorder: hotelForm.countryName.$dirty 
 							&& hotelForm.countryName.$invalid}"
 							required>
 						<ul class="list-group col-11" ng-model="ctrl.hideCountry" ng-hide="ctrl.hideCountry"
-							ng-show="focusedCountry" style="position: absolute;">
-							<li class="list-group-item list-group-item-action" 
+							ng-show="focusedCountry" style="position: absolute; z-index: 1;">
+							<li class="list-group-item list-group-item-action border border-secondary" 
 							ng-repeat="countryData in ctrl.filterCountry" 
 							ng-mousedown="ctrl.fillCountryTextbox(countryData)">{{countryData}}</li>
 						</ul>
@@ -102,14 +103,15 @@
 							<label for="cityName">City Name:</label>
 							<input type="text" name="cityName" id="cityName" ng-model="ctrl.hotel.city" 
 								ng-keyup="ctrl.completeCity(ctrl.hotel.city)" class="form-control" 
+								ng-mousedown="ctrl.completeCity(ctrl.hotel.city)"
 								placeholder="City Name" ng-focus="focusedCity = true" autocomplete="off"
 								ng-blur="focusedCity = false" ng-change="ctrl.cityIsChosen = false"
 								ng-class="{validErrBorder: hotelForm.cityName.$dirty 
 								&& hotelForm.cityName.$invalid}"
 								required>
 							<ul class="list-group col-11" ng-model="ctrl.hideCity" ng-hide="ctrl.hideCity"
-								ng-show="focusedCity" style="position: absolute;">
-								<li class="list-group-item list-group-item-action" 
+								ng-show="focusedCity" style="position: absolute; z-index: 1;">
+								<li class="list-group-item list-group-item-action border border-secondary" 
 								ng-repeat="cityData in ctrl.filterCity track by $index" 
 								ng-mousedown="ctrl.fillCityTextbox(cityData)">{{cityData}}</li>
 							</ul>

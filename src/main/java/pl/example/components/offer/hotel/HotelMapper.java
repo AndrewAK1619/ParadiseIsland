@@ -43,10 +43,12 @@ public class HotelMapper {
 		dto.setId(hotel.getId());
 		dto.setHotelName(hotel.getHotelName());
 		dto.setDescription(hotel.getDescription());
-		dto.setHotelAdvantageDto(hotel.getHotelAdvantages()
-				.stream()
-				.map(HotelAdvantageMapper::toDto)
-				.collect(Collectors.toList()));
+		if (hotel.getHotelAdvantages() != null) {
+			dto.setHotelAdvantageDto(hotel.getHotelAdvantages()
+			.stream()
+			.map(HotelAdvantageMapper::toDto)
+			.collect(Collectors.toList()));
+		}
 		if (hotel.getCountry() != null) {
 			dto.setCountry(hotel.getCountry().getName());
 		}

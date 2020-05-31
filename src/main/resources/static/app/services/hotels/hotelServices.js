@@ -19,7 +19,7 @@ angular.module('app')
 			transformRequest: angular.identity,
 			headers: {'Content-type': undefined}
 		},
-		loadPage: {
+		getAllHotelsByNameAndCountry: {
 			method: 'GET',
 			url: HOTEL_LOAD_PAGE,
 			params: { pageNumber: '@_pageNumber' },
@@ -35,7 +35,8 @@ angular.module('app')
 .service('HotelService', function (Hotel) {
 	this.get = index => Hotel.get({id: index});
 	this.getAllHotelsAndMainImg = params => Hotel.getAllHotelsAndMainImg(params);
-	this.loadPage = pageNumber => Hotel.loadPage({pageNumber: pageNumber});
+	this.getAllHotelsByNameAndCountry = (pageNumber, hotelName, countryName) => 
+		Hotel.getAllHotelsByNameAndCountry({pageNumber: pageNumber, hotelName, countryName});
 	this.uploadFileAndHotel = formData => Hotel.uploadFileAndHotel(formData);
 	this.updateFileAndHotel = formData => Hotel.updateFileAndHotel({id: formData.getAll('idHotel')[0]}, formData);
 	this.getDefaultImage = () => Hotel.getDefaultImage();

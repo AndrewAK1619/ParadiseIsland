@@ -40,13 +40,12 @@ public class HotelService {
 		return page.map(hotelMapper::toDto);
 	}
 
-	// TODO fix search
-//	List<HotelDto> findAllByHotelName(String hotelName) {
-//		return hotelRepository.findAllByHotelNameContainingIgnoreCase(hotelName)
-//				.stream()
-//				.map(hotelMapper::toDto)
-//				.collect(Collectors.toList());
-//	}
+	Page<HotelDto> findAllByHotelNameAndCountryName(
+			String hotelName, String countryName, int pageNumber) {
+		Page<Hotel> page = hotelRepository.findAllByHotelNameAndCountryName(
+				hotelName, countryName, PageRequest.of(pageNumber, 10));
+		return page.map(hotelMapper::toDto);
+	}
 	
 	List<byte[]> getMainImgListInByteByHotelDtoList(Page<HotelDto> hotelDtoList) {
 		return hotelDtoList.stream()

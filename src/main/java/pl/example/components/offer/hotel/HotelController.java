@@ -53,22 +53,13 @@ public class HotelController {
 
 	@GetMapping("")
 	public ResponseEntity<MultiValueMap<String, Object>> findAll(
-			@RequestParam(required = false) String hotelName,
 			@RequestParam(defaultValue = "0", required = false) Integer page) {
-
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
-		Page<HotelDto> hotelDtoList;
-
-		// TODO fix search
-//		if (hotelName != null)
-//			hotelDtoList = hotelService.findAllByHotelName(hotelName);
-//		else
-			hotelDtoList = hotelService.findAll(page);
-		
+		Page<HotelDto> hotelDtoList = hotelService.findAll(page);
 		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);
+		
 		formData.add("hotelList", hotelDtoList);
 		formData.add("fileList", mainImgList);
-
 		return ResponseEntity.ok(formData);
 	}
 
@@ -150,40 +141,40 @@ public class HotelController {
 		HotelDto updatedHotel = hotelService.update(hotelDto);
 		return ResponseEntity.ok(updatedHotel);
 	}
-
-	@GetMapping("/defaultImg")
-	public ResponseEntity<?> getDefaultImage() throws IOException {
-		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
-		formData.add("file", hotelImageService.getDefaultMainImageInByte());
-		return ResponseEntity.ok(formData);
-	}
 	
 	@GetMapping("/page/{pageNumber}")
-	public ResponseEntity<MultiValueMap<String, Object>> findAllByPage(
+	public ResponseEntity<MultiValueMap<String, Object>> getAllHotelsByNameAndCountry(
 			@PathVariable(required = false) Optional<Integer> pageNumber,
-			@RequestParam(required = false) String hotelName) {
+			@RequestParam(required = false) String hotelName,
+			@RequestParam(required = false) String countryName) {
 
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
 		Page<HotelDto> hotelDtoList;
 
-		// TODO fix search
-//		if (hotelName != null)
-//			hotelDtoList = hotelService.findAllByHotelName(hotelName);
-//		else
+		if (hotelName == null)
+			hotelName = "";
+		if (countryName == null)
+			countryName = "";
 
 		if (pageNumber.isPresent()) {
-			if(pageNumber.get() < 0) {
-				hotelDtoList = hotelService.findAll(0);
-			} else {
-				hotelDtoList = hotelService.findAll(pageNumber.get() - 1);
-			}
+			hotelDtoList = hotelService
+					.findAllByHotelNameAndCountryName(hotelName, countryName, pageNumber.get() - 1);
 		} else {
-			hotelDtoList = hotelService.findAll(0);
+			hotelDtoList = hotelService
+					.findAllByHotelNameAndCountryName(hotelName, countryName, 0);
 		}
+
 		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);
 		formData.add("hotelList", hotelDtoList);
 		formData.add("fileList", mainImgList);
 
+		return ResponseEntity.ok(formData);
+	}
+	
+	@GetMapping("/defaultImg")
+	public ResponseEntity<?> getDefaultImage() throws IOException {
+		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
+		formData.add("file", hotelImageService.getDefaultMainImageInByte());
 		return ResponseEntity.ok(formData);
 	}
 }

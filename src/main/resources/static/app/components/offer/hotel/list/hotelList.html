@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 offset-md-3">
+		<div class="col-md-8 offset-md-2">
 			<div class="form">
 				<div class="input-group mb-2 mr-sm-2">
 					<div class="input-group-prepend">
@@ -9,9 +9,20 @@
 						</div>
 					</div>
 					<input type="text" class="form-control" id="searchInput"
-						placeholder="Hotel Name" ng-model="hotelName">
+						placeholder="Hotel Name" ng-model="ctrl.hotelName">
+					<input type="text" name="countryName" id="countryName" ng-model="ctrl.countryName" 
+						ng-keyup="ctrl.completeCountry(ctrl.countryName)" class="form-control" 
+						ng-mousedown="ctrl.completeCountry(ctrl.countryName)"
+						placeholder="Country Name" ng-focus="focusedCountry = true" autocomplete="off"
+						ng-blur="focusedCountry = false" ng-change="ctrl.countryIsChosen = false">
+					<ul class="list-group col-6 offset-md-5 hotel-country-search" ng-model="ctrl.hideCountryList" 
+						ng-hide="ctrl.hideCountryList" ng-show="focusedCountry">
+						<li class="list-group-item list-group-item-action border border-dark" 
+						ng-repeat="countryData in ctrl.filterCountry"
+						ng-mousedown="ctrl.fillCountryTextbox(countryData)">{{countryData}}</li>
+					</ul>
 					<button class="btn btn-primary mx-1"
-						ng-click="ctrl.search(hotelName)">Search</button>
+						ng-click="ctrl.search()">Search</button>
 				</div>
 			</div>
 		</div>
@@ -76,17 +87,22 @@
 			</div>
 		</div>
 	</div>
+	<div ng-show="ctrl.resultFound" class="col-md-12 text-center my-4">
+		<h1><strong>No result found</strong></h1>
+	</div>
 	<div ng-show="ctrl.hotelDataLoaded">
 		<nav aria-label="Page navigation">
 			<ul class="pagination pagination-v1 justify-content-center">
 				<li class="page-item">
 					<a ng-click="ctrl.firstPage()" 
+						ng-class="{ 'disabled': ctrl.disableFirstPage }" 
 						class="page-link" href="" tabindex="-1">
 						<i class="fa fa-angle-double-left"></i>
 					</a>
 				</li>
 				<li class="page-item">
 					<a ng-click="ctrl.previousPage()" 
+						ng-class="{ 'disabled': ctrl.disablePreviousPage }" 
 						class="page-link" href="" tabindex="-1">
 						<i class="fa fa-angle-left"></i>
 					</a>
@@ -97,25 +113,25 @@
 						{{ctrl.numButton - 2}}
 					</a>
 				</li>
-				<li class="page-item">
-					<a ng-click="ctrl.loadPage(ctrl.numButton - 1)" 
+				<li class="page-item" ng-hide="ctrl.showSecondButton">
+					<a ng-click="ctrl.loadPage(ctrl.numButton - 1)"
 						class="page-link" id="secondButton" href="">
 						{{ctrl.numButton - 1}}
 					</a>
 				</li>
-				<li class="page-item">
+				<li class="page-item" ng-hide="ctrl.showThirdButton">
 					<a ng-click="ctrl.loadPage(ctrl.numButton)" 
 						class="page-link" id="thirdButton" href="">
 						{{ctrl.numButton}}
 					</a>
 				</li>
-				<li class="page-item">
-					<a ng-click="ctrl.loadPage(ctrl.numButton + 1)" 
+				<li class="page-item" ng-hide="ctrl.showFourthButton">
+					<a ng-click="ctrl.loadPage(ctrl.numButton + 1)"  
 						class="page-link" id="fourthButton" href="">
 						{{ctrl.numButton  + 1}}
 					</a>
 				</li>
-				<li class="page-item">
+				<li class="page-item" ng-hide="ctrl.showFifthButton">
 					<a ng-click="ctrl.loadPage(ctrl.numButton + 2)" 
 						class="page-link" id="fifthButton" href="">
 						{{ctrl.numButton + 2}}
@@ -123,12 +139,14 @@
 				</li>
 				<li class="page-item">
 					<a ng-click="ctrl.nextPage()" class="page-link" 
+						ng-class="{ 'disabled': ctrl.disableNextPage }"
 						href="" tabindex="-1">
 						<i class="fa fa-angle-right"></i>
 					</a>
 				</li>
 				<li class="page-item">
 					<a ng-click="ctrl.lastPage()" class="page-link" 
+						ng-class="{ 'disabled': ctrl.disableLastPage }" 
 						href="" tabindex="-1">
 						<i class="fa fa-angle-double-right"></i>
 					</a>

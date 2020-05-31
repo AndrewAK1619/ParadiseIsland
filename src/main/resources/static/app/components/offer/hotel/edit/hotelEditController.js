@@ -32,7 +32,9 @@ angular.module('app')
 		vm.hideCountry = false;
 		var output = [];
 		angular.forEach(vm.countriesNames, function(country) {
-			if(country.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
+			if(string == undefined) {
+				string = '';
+			} else if(country.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
 				output.push(country);
 			}
 		});
@@ -51,7 +53,9 @@ angular.module('app')
 		vm.hideCity = false;
 		var output = [];
 		angular.forEach(vm.citiesNames, function(city) {
-			if(city.toLowerCase().substring(0, city.lastIndexOf(' '))
+			if(string == undefined) {
+				string = '';
+			} else if(city.toLowerCase().substring(0, city.lastIndexOf(' '))
 					.indexOf(string.toLowerCase()) >= 0) {
 				output.push(city);
 			}

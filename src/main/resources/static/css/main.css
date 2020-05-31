@@ -147,6 +147,19 @@ body {
 	display: inline-block;
 }
 
+.hotel-country-search {
+	position: absolute;
+	z-index: 1;
+	top: 38px;
+	left: 30px;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+	background: #CCC;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
