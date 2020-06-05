@@ -29,7 +29,7 @@ public class CountryService {
 		this.countryImageService = countryImageService;
 	}
 	
-	List<String> findAllNames() {
+	public List<String> findAllNames() {
         return countryRepository.findAll()
                 .stream()
                 .map(Country::getName)

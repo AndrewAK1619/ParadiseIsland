@@ -1,9 +1,125 @@
-<div class="container" style="margin: 20px auto 20px auto;">
-	<div class="row justify-content-center">
-		<div class="card text-center col-sm-11">
-			<div class="card-body">
-				<div class="mx-auto">
-					<h2>Welcome on our site !!!</h2>
+<div class="container" style="margin: 5px auto 5px auto;">
+	<div class="jumbotron jumbo-custom">
+		<h1 class="text-shadow text-center text-white my-2 pb-5">
+			<strong>Paradise Island</strong>
+		</h1>
+		<div class="row">
+			<div class="card col-sm-8 search-card">
+				<div class="card-body">
+					<label class="text-white">Going to</label>
+					<input type="text" name="destination" id="destination" ng-model="ctrl.destination" 
+						ng-keyup="ctrl.completeSearch(ctrl.destination)" class="form-control" 
+						ng-mousedown="ctrl.completeSearch(ctrl.destination)"
+						placeholder="Destination or hotel name" ng-focus="focusedSearch = true" 
+						autocomplete="off" ng-blur="focusedSearch = false" 
+						ng-change="ctrl.searchIsChosen = false">
+					<div class="row card scroll-text col-sm-11" ng-show="focusedSearch">	
+						<div class="card-body">
+							<div class="row">
+								<div class="center-block search-list"
+									ng-hide="ctrl.isCountriesListExist">
+									<div style="padding-bottom: 4px;">
+										<strong>Country</strong>
+									</div>
+									<div class="focused-search pb-2" 
+										ng-model="ctrl.hideSearchList" 
+										style="font-size: 13px;"
+										ng-hide="ctrl.hideSearchList"
+										ng-repeat="country in ctrl.filterSearchCountry" 
+										ng-mousedown="ctrl.fillSearchTextbox(country, 'country')">
+										{{country}} <br/>
+									</div>
+								</div>
+								<div class="center-block search-list" 
+									ng-hide="ctrl.isRegionsListExist">
+									<div style="padding-bottom: 4px;">
+										<strong>Regions</strong>
+									</div>
+									<div class="focused-search pb-2" 
+										ng-model="ctrl.hideSearchList" 
+										style="font-size: 13px;"
+										ng-hide="ctrl.hideSearchList"
+										ng-repeat="region in ctrl.filterSearchRegion" 
+										ng-mousedown="ctrl.fillSearchTextbox(region, 'region')">
+										{{region}} <br/>
+									</div>
+								</div>
+								<div class="center-block search-list" 
+									ng-hide="ctrl.isCitiesListExist">
+									<div style="padding-bottom: 4px;">
+										<strong>Cities</strong>
+									</div>
+									<div class="focused-search pb-2" 
+										ng-model="ctrl.hideSearchList" 
+										style="font-size: 13px;"
+										ng-hide="ctrl.hideSearchList"
+										ng-repeat="city in ctrl.filterSearchCity" 
+										ng-mousedown="ctrl.fillSearchTextbox(city, 'city')">
+										{{city}} <br/>
+									</div>
+								</div>
+								<div class="center-block search-list"
+									ng-hide="ctrl.isHotelsListExist">
+									<div style="padding-bottom: 4px;">
+										<strong>Hotels</strong>
+									</div>
+									<div class="focused-search pb-2" 
+										ng-model="ctrl.hideSearchList" 
+										ng-hide="ctrl.hideSearchList"
+										ng-repeat="hotels in ctrl.filterSearchHotel" 
+										ng-mousedown="ctrl.fillSearchTextbox(hotels, 'hotel')">
+										<a class="topic">{{hotels.hotelName}}</a> <br/>
+										<a class="content">{{hotels.country}} / 
+										{{hotels.region}} / {{hotels.city}}</a> <br/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row pt-3">
+						<div class="col-12">
+							<div class="row">
+								<div class="form-group col-4">
+									<label class="text-white">Departure</label>
+									<input type="date" name="bday" 
+										max="2050-12-31" class="form-control"
+					        			style="cursor: pointer;" id="dateDeparture"
+					        			ng-model="ctrl.departure"
+					        			ng-change="ctrl.setMinReturnDate(ctrl.departure)">
+								</div>
+								<div class="form-group col-4">
+									<label class="text-white" >Return</label>
+									<input type="date" name="bday"
+										max="2050-12-31" class="form-control"
+										style="cursor: pointer;" id="dateReturn"
+										ng-model="ctrl.returnDate">
+								</div>
+								<div class="form-group col-2">
+									<label class="text-white">Persons</label>
+									<select class="form-control custom-select" 
+										style="cursor: pointer;"
+										ng-model="ctrl.persons"
+										ng-init="ctrl.persons = '2'">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<button type="button" class="btn btn-success" 
+							style="color: #333333; cursor: pointer;"
+							ng-click="ctrl.searchDataSend()">
+							<Strong>Search</Strong>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

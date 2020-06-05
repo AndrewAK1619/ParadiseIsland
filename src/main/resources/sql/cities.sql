@@ -48,7 +48,7 @@ INSERT INTO cities (city_id, name, region_id) VALUES
   (47, 'Marrakesh', 40),
   (48, 'Fez', 41),
   (49, 'Ouarzazate', 42),
-  (50, 'Meknes', 43),
+  (50, 'Guelmim', 43),
   (51, 'Rabat', 44),
   (52, 'Essaouira', 40),
   (53, 'Agadir', 45),
@@ -86,7 +86,7 @@ INSERT INTO cities (city_id, name, region_id) VALUES
   (85, 'Istanbul', 76),
   (86, 'Antalya', 77),
   (87, 'Ürgüp', 78),
-  (88, 'Antalya', 79),
+  (88, 'Cesme', 79),
   (89, 'İzmir', 80),
   (90, 'Kuşadası', 81),
   (91, 'Edirne', 82),
@@ -109,7 +109,7 @@ INSERT INTO cities (city_id, name, region_id) VALUES
   (108, 'Nottingham', 95),
   (109, 'New York City', 96),
   (110, 'New Orleans', 97),
-  (111, 'Los Angeles', 98),
+  (111, 'Seattle', 98),
   (112, 'Washington', 99),
   (113, 'Charleston', 100),
   (114, 'Las Vegas', 101),
@@ -120,5 +120,3 @@ INSERT INTO cities (city_id, name, region_id) VALUES
   (119, 'Boston', 105),
   (120, 'Orlando', 103),
   (121, 'Nashville', 106);
-  
-  

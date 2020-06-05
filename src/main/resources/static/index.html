@@ -35,6 +35,7 @@
 	<script src="app/tools/sideBar.js"></script>
 	
 	<!-- Services -->
+	<script src="app/services/home/homeServices.js"></script>
 	<script src="app/services/users/authenticationServices.js"></script>
 	<script src="app/services/users/registerServices.js"></script>
 	<script src="app/services/users/userServices.js"></script>
@@ -245,14 +246,11 @@
 		</nav>
 		<!-- sidebar-wrapper  -->
 		<div class="page-content">
-			<main role="main" class="container">
-				<div class="jumbotron jumbo-custom text-white text-center my-2">
-					<h1 class="text-shadow">
-						<strong>Paradise Island</strong>
-					</h1>
-				</div>
+			<main role="main">
+
+				<div ng-view></div>
+			
 			</main>
-			<div ng-view></div>
 		</div>
 		<!-- page-content" -->
 	</div>

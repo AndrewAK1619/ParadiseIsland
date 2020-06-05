@@ -31,7 +31,7 @@ public class CityService {
 		this.countryRepository = countryRepository;
 	}
 
-	List<String> findAllNames() {
+	public List<String> findAllNames() {
         return cityRepository.findAll()
                 .stream()
                 .map(City::getName)

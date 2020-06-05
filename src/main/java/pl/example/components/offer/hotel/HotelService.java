@@ -39,6 +39,13 @@ public class HotelService {
 		Page<Hotel> page = hotelRepository.findAllHotel(PageRequest.of(pageNumber, 10));
 		return page.map(hotelMapper::toDto);
 	}
+	
+	public List<String> findAllNames() {
+        return hotelRepository.findAll()
+                .stream()
+                .map(Hotel::getHotelName)
+                .collect(Collectors.toList());
+    }
 
 	Page<HotelDto> findAllByHotelNameAndCountryName(
 			String hotelName, String countryName, int pageNumber) {

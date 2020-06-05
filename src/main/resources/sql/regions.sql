@@ -41,7 +41,7 @@ INSERT INTO regions (region_id, name, country_id) VALUES
   (40, 'Marrakesh-Safi', 13),
   (41, 'Fès-Meknès', 13),
   (42, 'Drâa-Tafilalet', 13),
-  (43, 'Fès-Meknès', 13),
+  (43, 'Guelmim-Oued Noun', 13),
   (44, 'Rabat-Salé-Kénitra', 13),
   (45, 'Souss-Massa', 13),
   (46, 'Tanger-Tetouan-Al Hoceima', 13),
@@ -77,7 +77,7 @@ INSERT INTO regions (region_id, name, country_id) VALUES
   (76, 'Istanbul', 19),
   (77, 'Antalya', 19),
   (78, 'Nevşehir', 19),
-  (79, 'Antalya', 19),
+  (79, 'Aegean', 19),
   (80, 'İzmir', 19),
   (81, 'Aydın', 19),
   (82, 'Edirne', 19),
@@ -96,7 +96,7 @@ INSERT INTO regions (region_id, name, country_id) VALUES
   (95, 'East Midlands, England', 22),
   (96, 'New York', 23),
   (97, 'Louisiana', 23),
-  (98, 'California', 23),
+  (98, 'Washington', 23),
   (99, 'District of Columbia', 23),
   (100, 'South Carolina', 23),
   (101, 'Nevada', 23),
@@ -105,5 +105,3 @@ INSERT INTO regions (region_id, name, country_id) VALUES
   (104, 'Illinois', 23),
   (105, 'Massachusetts', 23),
   (106, 'Tennessee', 23);
-  
-  

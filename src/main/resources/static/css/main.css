@@ -2,8 +2,18 @@ body {
 	background: url('../img/mainBackground.jpg') center;
 }
 
+.jumbotron {
+    padding: 2em 5em;
+}
+
 .jumbo-custom {
-	background: url('../img/jumboBackground.jpg') center;
+	background: url('../img/jumboBackground/home.jpg') center;
+	background-size: cover;
+}
+
+.jumbo-destinations {
+	background: url('../img/jumboBackground/destinations.jpg') center;
+	background-size: cover;
 }
 
 .text-shadow {
@@ -37,16 +47,16 @@ body {
 	margin-right: auto;
 }
 
-.loginbox{  
+.loginbox{    
 	background: white;
 	color: black;
-	margin: 10px auto 50px auto;
+	margin: 10% auto auto auto;
 	width: 50%;
 	max-width: 500px;
 	left: 0;
 	padding: 20px;   
 	box-shadow: 0 8px 50px -2px #000;
-	border-radius:5px;
+	border-radius: 5px;
 }
 
 @media (max-width:767px) {
@@ -159,6 +169,51 @@ body {
 	opacity: 0.5;
 	background: #CCC;
 }
+
+.search-list {
+	min-width: 160px;
+}
+
+.focused-search:hover {
+	color: #0046b5 !important;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.topic{
+	font-size: 13px !important;
+	color: #0046b5 !important;
+}
+
+.content{
+	font-size: 10px !important;
+}
+
+.search-card {
+	background: rgba(25, 25, 25, .7);
+}
+
+.scroll-text{
+	position: absolute;
+	height: 400px;
+	overflow: auto;
+	padding: 0px 15px;
+	z-index: 1;
+}
+.scroll-text::-webkit-scrollbar {  
+    width: 8px;  
+}  
+.scroll-text::-webkit-scrollbar-track {  
+    background-color: #E7E7E7
+}  
+.scroll-text::-webkit-scrollbar-thumb {  
+   background-color: rgba(223, 86, 86, 0.69);
+	border: 1px solid rgba(92, 92, 92, 0.5);
+	border-radius: 10px;
+}  
+.scroll-text::-webkit-scrollbar-thumb:hover {  
+    background-color: #000;  
+}  
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
