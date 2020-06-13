@@ -1,6 +1,7 @@
 package pl.example.components.offer.location.region;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -20,4 +21,8 @@ public class RegionService {
                 .map(Region::getName)
                 .collect(Collectors.toList());
     }
+    
+	public Optional<Region> findByName(String name) {
+		return regionRepository.findByName(name);
+	}
 }

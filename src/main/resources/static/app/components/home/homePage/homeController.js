@@ -1,11 +1,11 @@
 angular.module('app')
-.controller('HomeController', function(HomeService) {
+.controller('HomeController', function($filter, $location, $cookies, HomeService, SearchService) {
 	const vm = this;
 
-	vm.countriesNames = HomeService.getAllCountries();
-	vm.regionsNames = HomeService.getAllRegions();
-	vm.citiesNames = HomeService.getAllCities();
-	vm.hotels = HomeService.getAllHotels();
+	vm.countriesNames = SearchService.getAllCountries();
+	vm.regionsNames = SearchService.getAllRegions();
+	vm.citiesNames = SearchService.getAllCities();
+	vm.hotels = SearchService.getAllHotels();
 	
 	const showDataList = (string, dataList) => {
 		const output = [];
@@ -72,13 +72,41 @@ angular.module('app')
 		vm.hideSearchList = true;
 		vm.searchIsChosen = true;
 	}
-	vm.searchDataSend = () => {
-		vm.searchData = {'chosenDestination':vm.chosenDestination, 
-				'dataType':vm.dataType,
-				'departure':vm.departure,
-				'returnDate':vm.returnDate,
-				'persons':vm.persons};
-		HomeService.sendDataSearch();
+	
+	const okCallback = () => {
+		$location.path(`/search-result/page/1`);
+	};
+	
+	const errorCallback = err => {
+		vm.msg=`Data write error: ${err.data.message}`;
+	};
+	
+	vm.createCookieOfSearchDataAndRedirect = () => {
+		
+		if(!vm.departure)
+			vm.departure = new Date();
+		if(!vm.returnDate) {
+			vm.returnDate = new Date();
+			vm.returnDate.setDate(vm.departure.getDate() + 7);
+		}
+		
+		departure = $filter('date')(vm.departure, "yyyy-MM-dd");
+		returnDate = $filter('date')(vm.returnDate, "yyyy-MM-dd");
+		
+		const searchDataMap = { 
+				"chosenDestination": vm.chosenDestination, 
+				"dataType": vm.dataType,
+				"departure": departure,
+				"returnDate": returnDate,
+				"persons": vm.persons};
+		
+		var expireDate = new Date();
+		expireDate.setDate(expireDate.getDate() + 1);
+		
+		$cookies.put('searchDataMap', JSON.stringify(searchDataMap),
+				{expires: expireDate, samesite: 'strict'});
+
+		okCallback();
 	}
 	var init = setMinDate = () => {
 		var now = new Date();

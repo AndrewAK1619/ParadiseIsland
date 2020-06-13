@@ -7,8 +7,7 @@ public class SearchHotelDto {
 	private String country;
 	private String region;
 	private String city;
-	
-	
+
 	public Long getId() {
 		return id;
 	}

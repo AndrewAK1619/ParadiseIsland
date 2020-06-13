@@ -38,7 +38,7 @@ public class HotelMapper {
 		this.cityRepository = cityRepository;
 	}
 
-	HotelDto toDto(Hotel hotel) {
+	public HotelDto toDto(Hotel hotel) {
 		HotelDto dto = new HotelDto();
 		dto.setId(hotel.getId());
 		dto.setHotelName(hotel.getHotelName());

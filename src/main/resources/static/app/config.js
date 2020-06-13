@@ -112,6 +112,16 @@ angular.module('app')
 			controller: 'AirlineEditController',
 			controllerAs: 'ctrl'
 		})
+		.when('/search-result', {
+			templateUrl: 'app/components/offer/search/searchList.html',
+			controller: 'SearchListController',
+			controllerAs: 'ctrl'
+		})
+		.when('/search-result/page/:pageNumber', {
+			templateUrl: 'app/components/offer/search/searchList.html',
+			controller: 'SearchListController',
+			controllerAs: 'ctrl'
+		})
 		.when('/', {
 			templateUrl: 'app/components/home/homePage/home.html',
 			controller: 'HomeController',

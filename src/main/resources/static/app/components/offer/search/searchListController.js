@@ -1,32 +1,14 @@
 angular.module('app')
-.controller('HotelListController', function ($rootScope, $routeParams, $location, 
-		$rootScope, HotelService, CountryService) {
+.controller('SearchListController', function ($cookies, $routeParams, $location, 
+		HotelService, SearchService, CountryService) {
 	
 	const vm = this;
-	
-	vm.hotelDataLoaded = false;
+	vm.searchDataLoaded = false;
 	vm.pageNumber = $routeParams.pageNumber;
-	vm.countriesNames = CountryService.getAllNames();
-	vm.hotelName = $rootScope.hotelName;
-	vm.countryName = $rootScope.countryName;
-
-	vm.completeCountry = string => {
-		vm.hideCountryList = false;
-		var output = [];
-		angular.forEach(vm.countriesNames, function(country) {
-			if(string == undefined) {
-				string = '';
-			} else if(country.toLowerCase().indexOf(string.toLowerCase()) >= 0) {
-				output.push(country);
-			}
-		});
-		vm.filterCountry = output;
-	}
-	vm.fillCountryTextbox = function(string) {
-		vm.countryName = string;
-		vm.hideCountryList = true;
-		vm.countryIsChosen = true;
-	}
+	vm.countriesNames = SearchService.getAllCountries();
+	vm.regionsNames = SearchService.getAllRegions();
+	vm.citiesNames = SearchService.getAllCities();
+	vm.hotels = SearchService.getAllHotels();
 	
 	const removeClassButtons = () => {
 		angular.element(document.querySelector("#firstButton")).removeClass("active");
@@ -98,16 +80,57 @@ angular.module('app')
 		}
 	}
 	
-	const setHotlAndTopImgData = result => {
+    const differenceInDays = (dt1, dt2) => {
+        
+        var one = new Date(dt1[0], dt1[1], dt1[2]),
+            two = new Date(dt2[0], dt2[1], dt2[2]);
+        
+        var millisecondsPerDay = 1000 * 60 * 60 * 24;
+        var millisBetween = two.getTime() - one.getTime();
+        var days = millisBetween / millisecondsPerDay;
+    
+        return Math.floor(days);      
+    };
+	
+	const setSearchData = result => {
 		vm.fileArray = result.fileList[0];
 		vm.pageInfo = result.hotelList[0];
 		vm.hotelArray = vm.pageInfo.content;
-		checkVisibleButtons(vm.pageInfo);
+		vm.roomList = result.roomList[0];
 		
+		const searchDataMap = JSON.parse($cookies.get('searchDataMap'));
+		const departure = searchDataMap.departure;
+		const returnDate = searchDataMap.returnDate;
+		
+        var dt1 = departure.split('-'),
+	        dt2 = returnDate.split('-');
+
+		vm.days = differenceInDays(dt1, dt2);
+		
+        if(dt1[0] === dt2[0]) {
+        	vm.showDate = dt1[2] + '.' + dt1[1] + '-' + dt2[2] + '.' + 
+				dt2[1] + '.' + dt2[0];
+        } else {
+        	vm.showDate = dt1[2] + '.' + dt1[1] + '.' + dt2[0] + '-' + 
+    			dt2[2] + '.' + dt2[1] + '.' + dt2[0];
+        }
+		
+		var num;
+		for(num in vm.roomList) {
+			if(!vm.roomList[num]) {
+				vm.hotelArray[num].price = 'No room available';
+				vm.hotelArray[num].isRoomNull = true;
+			}
+			else
+				vm.hotelArray[num].price = vm.roomList[num].roomPrice * vm.days;
+		}
+		
+		checkVisibleButtons(vm.pageInfo);
+
 		if(vm.pageInfo.totalElements === 0) {
 			vm.resultFound = true;
 		} else {
-			vm.hotelDataLoaded = true;
+			vm.searchDataLoaded = true;
 			vm.resultFound = false;
 		}
 		var oneImg;
@@ -116,53 +139,33 @@ angular.module('app')
 		}
 	}
 	
-	const setHotelAndTopImg = result => {
-		vm.hotelDataLoaded = false;
+	const setSearchDataAndButtons = result => {
+		vm.searchDataLoaded = false;
 		vm.pageNumber = result.hotelList[0].number + 1;
 		vm.totalPages = result.hotelList[0].totalPages;
 		
-		if($location.path() === '/hotels') {
-			setHotlAndTopImgData(result);
-			setNumberButtons(vm.pageNumber);
-		} else if(vm.pageNumber >= 1 && vm.pageNumber <= vm.totalPages) {
-			setHotlAndTopImgData(result);
+		if(vm.pageNumber >= 1 && vm.pageNumber <= vm.totalPages) {
+			setSearchData(result);
 			setNumberButtons(vm.pageNumber);
 		} else {
-			$location.path(`/hotels/page/1`);
+			$location.path(`/search-result/page/1`);
 		}
 	}
 
 	if(vm.pageNumber) {
 		if(vm.pageNumber < 1 || vm.pageNumber > vm.totalPages) {
-			$location.path(`/hotels`);
+			$location.path(`/search-result/page/1`);
 		}
-		vm.hotelsAndTopImgArray = HotelService
-			.getAllHotelsByNameAndCountry(vm.pageNumber, vm.hotelName, vm.countryName);
-		vm.hotelsAndTopImgArray.$promise.then(setHotelAndTopImg);
+		vm.searchDataArray = SearchService.getAllSearchData(vm.pageNumber);
+		vm.searchDataArray.$promise.then(setSearchDataAndButtons);
 	} else {
-		vm.hotelsAndTopImgArray = HotelService.getAllHotelsAndMainImg();
-		vm.hotelsAndTopImgArray.$promise.then(setHotelAndTopImg);
+		$location.path(`/search-result/page/1`);
 	}
 	
-	vm.search = () => {
-		$rootScope.hotelName = vm.hotelName;
-		$rootScope.countryName = vm.countryName;
-		if(vm.pageNumber === 1) {
-			vm.hotelsAndTopImgArray = HotelService
-				.getAllHotelsByNameAndCountry(vm.pageNumber, vm.hotelName, vm.countryName);
-			vm.hotelsAndTopImgArray.$promise.then(setHotelAndTopImg);
-		} else {
-			vm.pageNumber = 1;
-			$location.path(`/hotels/page/${vm.pageNumber}`);
-		}
-	};
-
 	vm.loadPage = buttonNumber => {
 		if(buttonNumber >= 1 && buttonNumber <= vm.totalPages) {
 			vm.pageNumber = buttonNumber;
-			$rootScope.hotelName = vm.hotelName;
-			$rootScope.countryName = vm.countryName;
-			$location.path(`/hotels/page/${vm.pageNumber}`);
+			$location.path(`/search-result/page/${vm.pageNumber}`);
 		}
 	};
 	vm.firstPage = () => {

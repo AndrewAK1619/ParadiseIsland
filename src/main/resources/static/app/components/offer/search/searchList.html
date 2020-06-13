@@ -1,0 +1,181 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 offset-md-2">
+			<div class="form">
+				<div class="input-group mb-2 mr-sm-2">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-search"></i>
+						</div>
+					</div>
+					<button class="btn btn-primary mx-1"
+						ng-click="ctrl.search()">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card border-dark mb-3" ng-repeat="hotel in ctrl.hotelArray">
+		<div class="row no-gutters">
+			<div class="col-md-4 text-center bg-secondary">
+				<img ng-src="data:image/jpeg;base64,{{hotel.imgSrc}}"
+					class="card-img img-fluid imageListResult" alt="...">
+			</div>
+			<div class="col-md-8">
+				<ul class="list-group list-group-horizontal" style="height: 100%;">
+					<li class="list-group-item w-100">
+						<div class="">
+							<div class="items col-12 clearfix">
+								<div class="info-block block-info clearfix">
+									<div class="square-box">
+										<span class="glyphicon glyphicon-user glyphicon-lg"></span>
+									</div>
+									<div class="row">
+										<div>
+											<small>{{hotel.country}} / {{hotel.region}} / {{hotel.city}}</small>
+										</div>
+										<div class="w-100 mb-1"></div>
+										<div class="font-weight-bold">
+											<strong>{{hotel.hotelName}}</strong>
+										</div>
+										<div class="w-100 mb-3"></div>
+										<div class="card-text">
+											<ul class="dashed">
+												<li ng-repeat="hotelAdvantageDto 
+													in hotel.hotelAdvantageDto | limitTo:4">
+													{{hotelAdvantageDto.descriptionAdvantage}}
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item-dark p-2" style="width: 40%">
+						<div ng-hide="hotel.isRoomNull" class="h-100 m-2" style="position: relative;">
+							<div class="h-50">
+								<div class="row m-0 w-100 flex-row-reverse">
+									<div>
+										<div>
+											<small>
+												<a>
+													<i class="far fa-calendar-alt"></i>
+													<span class="ml-1">{{ctrl.showDate}}</span>
+												</a>
+											</small>
+										</div>
+									</div>
+								</div>
+								<div class="row m-0 w-100 flex-row-reverse">
+									<div>
+										<small>
+											<span>({{ctrl.days}} days)</span>
+										</small>
+									</div>
+								</div>
+							</div>
+							<div class="h-50">
+								<div class="row m-0" style="position: absolute; 
+									bottom: 70px; right: 0; line-height: 100%;">
+									<div style="font-size: 20px; vertical-align: bottom;">
+										<strong>
+											{{hotel.price}}
+										</strong>
+									</div>
+									<div class="ml-2" style="vertical-align: bottom;">
+										eur / pp
+									</div>
+								</div>
+								<div class="row m-0 align-text-bottom">
+									<button class="btn btn-sm btn-primary m-3 w-75" title="Details"
+										style="position: absolute; bottom: 0; left: 5%;">
+										<a ng-href="" class="text-white">
+											Details
+										</a>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div ng-show="hotel.isRoomNull" class="h-100 m-2">
+							<div class="row m-0 h-100 w-100 justify-content-center 
+								align-items-center text-danger">
+								<div>
+									<strong>
+										<span>No room available</span>
+									</strong>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div ng-show="ctrl.resultFound" class="col-md-12 text-center my-4">
+		<h1><strong>No result found</strong></h1>
+	</div>
+	<div ng-show="ctrl.searchDataLoaded">
+		<nav aria-label="Page navigation">
+			<ul class="pagination pagination-v1 justify-content-center">
+				<li class="page-item">
+					<a ng-click="ctrl.firstPage()" 
+						ng-class="{ 'disabled': ctrl.disableFirstPage }" 
+						class="page-link" href="" tabindex="-1">
+						<i class="fa fa-angle-double-left"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.previousPage()" 
+						ng-class="{ 'disabled': ctrl.disablePreviousPage }" 
+						class="page-link" href="" tabindex="-1">
+						<i class="fa fa-angle-left"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.loadPage(ctrl.numButton - 2)" 
+						class="page-link" id="firstButton" href="">
+						{{ctrl.numButton - 2}}
+					</a>
+				</li>
+				<li class="page-item" ng-hide="ctrl.showSecondButton">
+					<a ng-click="ctrl.loadPage(ctrl.numButton - 1)"
+						class="page-link" id="secondButton" href="">
+						{{ctrl.numButton - 1}}
+					</a>
+				</li>
+				<li class="page-item" ng-hide="ctrl.showThirdButton">
+					<a ng-click="ctrl.loadPage(ctrl.numButton)" 
+						class="page-link" id="thirdButton" href="">
+						{{ctrl.numButton}}
+					</a>
+				</li>
+				<li class="page-item" ng-hide="ctrl.showFourthButton">
+					<a ng-click="ctrl.loadPage(ctrl.numButton + 1)"  
+						class="page-link" id="fourthButton" href="">
+						{{ctrl.numButton  + 1}}
+					</a>
+				</li>
+				<li class="page-item" ng-hide="ctrl.showFifthButton">
+					<a ng-click="ctrl.loadPage(ctrl.numButton + 2)" 
+						class="page-link" id="fifthButton" href="">
+						{{ctrl.numButton + 2}}
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.nextPage()" class="page-link" 
+						ng-class="{ 'disabled': ctrl.disableNextPage }"
+						href="" tabindex="-1">
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.lastPage()" class="page-link" 
+						ng-class="{ 'disabled': ctrl.disableLastPage }" 
+						href="" tabindex="-1">
+						<i class="fa fa-angle-double-right"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</div>

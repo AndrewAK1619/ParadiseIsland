@@ -59,4 +59,8 @@ public class CityService {
 		}
 		return cityNames;
 	}
+	
+	public Optional<City> findByName(String name) {
+		return cityRepository.findByName(name);
+	}
 }

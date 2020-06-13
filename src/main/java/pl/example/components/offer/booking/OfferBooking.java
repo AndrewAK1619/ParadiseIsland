@@ -35,7 +35,7 @@ public class OfferBooking implements Serializable {
 	private User user;
 	@Column(name = "total_price")
 	private float totalPrice;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -66,7 +66,7 @@ public class OfferBooking implements Serializable {
 	public void setTotalPrice(float totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

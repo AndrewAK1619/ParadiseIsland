@@ -11,7 +11,7 @@ public class OfferBookingDto {
 	private AirlineOffer airlineOffer;
 	private User user;
 	private float totalPrice;
-	
+
 	public Long getId() {
 		return id;
 	}

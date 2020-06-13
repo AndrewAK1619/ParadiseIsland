@@ -3,7 +3,7 @@ package pl.example.components.offer.booking;
 import pl.example.components.offer.hotel.Hotel;
 
 public class SearchHotelMapper {
-	
+
 	static SearchHotelDto toDto(Hotel hotel) {
 		SearchHotelDto dto = new SearchHotelDto();
 		dto.setId(hotel.getId());

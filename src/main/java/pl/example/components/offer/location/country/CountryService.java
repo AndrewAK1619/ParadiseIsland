@@ -35,6 +35,10 @@ public class CountryService {
                 .map(Country::getName)
                 .collect(Collectors.toList());
     }
+    
+	public Optional<Country> findByName(String name) {
+		return countryRepository.findByName(name);
+	}
 	
 	List<CountryDto> findPopular() {
 		return countryRepository.findPopular()

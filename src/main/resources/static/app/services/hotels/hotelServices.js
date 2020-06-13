@@ -7,7 +7,7 @@ angular.module('app')
 		getAllHotelsAndMainImg: {
 			method: 'GET',
 			transformRequest: angular.identity,
-			headers: {'Content-type': undefined},
+			headers: {'Content-type': undefined}
 		},
 		uploadFileAndHotel: {
 			method: 'POST',

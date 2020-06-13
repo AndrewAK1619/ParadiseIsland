@@ -2,7 +2,7 @@ package pl.example.components.offer.booking;
 
 public class OfferBookingMapper {
 
-	static OfferBookingDto toDto(OfferBooking  offerBooking) {
+	static OfferBookingDto toDto(OfferBooking offerBooking) {
 		OfferBookingDto dto = new OfferBookingDto();
 		dto.setId(offerBooking.getId());
 		dto.setHotelBooking(offerBooking.getHotelBooking());
@@ -11,7 +11,7 @@ public class OfferBookingMapper {
 		dto.setTotalPrice(offerBooking.getTotalPrice());
 		return dto;
 	}
-	
+
 	static OfferBooking toEntity(OfferBookingDto offerBookingDto) {
 		OfferBooking entity = new OfferBooking();
 		entity.setId(offerBookingDto.getId());

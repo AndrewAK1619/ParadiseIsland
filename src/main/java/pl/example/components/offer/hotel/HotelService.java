@@ -54,7 +54,7 @@ public class HotelService {
 		return page.map(hotelMapper::toDto);
 	}
 	
-	List<byte[]> getMainImgListInByteByHotelDtoList(Page<HotelDto> hotelDtoList) {
+	public List<byte[]> getMainImgListInByteByHotelDtoList(Page<HotelDto> hotelDtoList) {
 		return hotelDtoList.stream()
 			.map(hotelDto -> {
 				try {

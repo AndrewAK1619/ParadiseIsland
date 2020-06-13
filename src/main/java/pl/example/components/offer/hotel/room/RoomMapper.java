@@ -33,7 +33,7 @@ public class RoomMapper {
 		this.hotelRepository = hotelRepository;
 	}
 
-	RoomDto toDto(Room room) {
+	public RoomDto toDto(Room room) {
 		RoomDto dto = new RoomDto();
 		dto.setId(room.getId());
 		dto.setNumberOfDoubleBeds(room.getNumberOfDoubleBeds());
