@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.example.components.offer.hotel.HotelDto;
 import pl.example.components.offer.hotel.HotelService;
 import pl.example.components.offer.hotel.room.RoomDto;
+import pl.example.components.offer.transport.airline.offer.AirlineOffer;
 
 @RestController
 @RequestMapping("/")
@@ -67,10 +68,12 @@ public class SearchController {
 		}
 		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);
 		List<RoomDto> minCostRoomList = searchService.getRoomWhereIsMinimalCost(searchDataMap, hotelDtoList);
+		AirlineOffer airlineOffer = searchService.getAirlineOfferWhereIsMinimalCost(searchDataMap);
 
 		formData.add("hotelList", hotelDtoList);
 		formData.add("fileList", mainImgList);
 		formData.add("roomList", minCostRoomList);
+		formData.add("airlineOffer", airlineOffer);
 
 		return ResponseEntity.ok(formData);
 	}

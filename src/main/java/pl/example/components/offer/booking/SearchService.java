@@ -1,6 +1,7 @@
 package pl.example.components.offer.booking;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,10 @@ import pl.example.components.offer.location.country.Country;
 import pl.example.components.offer.location.country.CountryService;
 import pl.example.components.offer.location.region.Region;
 import pl.example.components.offer.location.region.RegionService;
+import pl.example.components.offer.transport.airline.Airline;
+import pl.example.components.offer.transport.airline.AirlineRepository;
+import pl.example.components.offer.transport.airline.offer.AirlineOffer;
+import pl.example.components.offer.transport.airline.offer.AirlineOfferService;
 
 @Service
 public class SearchService {
@@ -46,6 +51,8 @@ public class SearchService {
 	private CountryService countryService;
 	private RegionService regionService;
 	private CityService cityService;
+	private AirlineOfferService airlineOfferService;
+	private AirlineRepository airlineRepository;
 
 	@Autowired
 	public SearchService(HotelRepository hotelRepository, 
@@ -54,7 +61,9 @@ public class SearchService {
 			RoomMapper roomMapper, 
 			CountryService countryService, 
 			RegionService regionService,
-			CityService cityService) 
+			CityService cityService,
+			AirlineOfferService airlineOfferService,
+			AirlineRepository airlineRepository) 
 	{
 		this.hotelRepository = hotelRepository;
 		this.hotelMapper = hotelMapper;
@@ -63,6 +72,8 @@ public class SearchService {
 		this.countryService = countryService;
 		this.regionService = regionService;
 		this.cityService = cityService;
+		this.airlineOfferService = airlineOfferService;
+		this.airlineRepository = airlineRepository;
 	}
 
 	List<SearchHotelDto> findAllSearchHotels() {
@@ -202,5 +213,55 @@ public class SearchService {
 	private LocalDate parseDate(String date) {
 		DateTimeFormatter datePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		return LocalDate.parse(date, datePattern);
+	}
+	
+	AirlineOffer getAirlineOfferWhereIsMinimalCost(Map<String, String> searchDataMap) {
+		LocalDate departureVar = LocalDate.now();
+		LocalDate returnDateVar = departureVar.plusDays(7);
+
+		if (searchDataMap.get(DEPARTURE_STRING) != null)
+			departureVar = parseDate(searchDataMap.get(DEPARTURE_STRING));
+		if (searchDataMap.get(RETURN_DATE_STRING) != null)
+			returnDateVar = parseDate(searchDataMap.get(RETURN_DATE_STRING));
+		
+		List<AirlineOffer> airlinesOffer = airlineOfferService
+				.getAirlineOfferByDepartureAndReturnDateOrderByFlightPrice(
+				departureVar, returnDateVar);
+				
+		if(airlinesOffer.isEmpty()) {
+			// method only to put example data
+			generateExampleAirlineData(departureVar, returnDateVar);
+			
+			airlinesOffer = airlineOfferService
+					.getAirlineOfferByDepartureAndReturnDateOrderByFlightPrice(
+					departureVar, returnDateVar);
+		}
+		return airlinesOffer.get(0);
+	}
+	
+	// method only to put example data
+	private void generateExampleAirlineData(LocalDate departure, LocalDate returnDate) {
+		for(int i = 0; i<3; i++) {
+			AirlineOffer airlineOffer = new AirlineOffer();
+			
+			Optional<Airline> airlineOpt = airlineRepository.findRandomAirline();
+			airlineOpt.ifPresent(a -> airlineOffer.setAriline(a));
+			
+			int departureHour = (int)(Math.random() * (13 - 5 + 1) + 5);
+			int departureMin = ((int)(Math.random() * (5 - 0 + 1) + 0)) * 10;
+			LocalDateTime departureDateTime = departure.atTime(departureHour,departureMin);
+			airlineOffer.setDeparture(departureDateTime);
+			
+			int returnHour = (int)(Math.random() * (20 - 14 + 1) + 14);
+			int returnMin = ((int)(Math.random() * (5 - 0 + 1) + 0)) * 10;
+			LocalDateTime returnDateTime = returnDate.atTime(returnHour,returnMin);
+			airlineOffer.setReturnTrip(returnDateTime);
+			
+			int flightPrice = (int)(Math.random() * (800 - 100 + 50) + 100);
+			System.out.println("flightPrice - " + flightPrice);
+			airlineOffer.setFlightPrice(flightPrice);
+			
+			airlineOfferService.saveAirlineOffer(airlineOffer);
+		}
 	}
 }
