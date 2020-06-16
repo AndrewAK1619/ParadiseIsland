@@ -97,6 +97,7 @@ angular.module('app')
 		vm.pageInfo = result.hotelList[0];
 		vm.hotelArray = vm.pageInfo.content;
 		vm.roomList = result.roomList[0];
+		vm.airlineOffer = result.airlineOffer[0];
 		
 		const searchDataMap = JSON.parse($cookies.get('searchDataMap'));
 		const departure = searchDataMap.departure;
@@ -122,7 +123,8 @@ angular.module('app')
 				vm.hotelArray[num].isRoomNull = true;
 			}
 			else
-				vm.hotelArray[num].price = vm.roomList[num].roomPrice * vm.days;
+				vm.hotelArray[num].price = 
+					vm.roomList[num].roomPrice * vm.days + vm.airlineOffer.flightPrice;
 		}
 		
 		checkVisibleButtons(vm.pageInfo);
