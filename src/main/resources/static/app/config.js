@@ -122,6 +122,11 @@ angular.module('app')
 			controller: 'SearchListController',
 			controllerAs: 'ctrl'
 		})
+		.when('/search-result/details/:hotelId', {
+			templateUrl: 'app/components/offer/search/details/searchDetails.html',
+			controller: 'SearchDetailsController',
+			controllerAs: 'ctrl'
+		})
 		.when('/', {
 			templateUrl: 'app/components/home/homePage/home.html',
 			controller: 'HomeController',

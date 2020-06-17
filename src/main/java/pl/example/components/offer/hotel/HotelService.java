@@ -30,7 +30,7 @@ public class HotelService {
 		this.hotelMapper = hotelMapper;
 	}
 
-	Optional<HotelDto> findById(long id) {
+	public Optional<HotelDto> findById(long id) {
 		return hotelRepository.findById(id)
 				.map(hotelMapper::toDto);
 	}
@@ -66,7 +66,7 @@ public class HotelService {
 			}).collect(Collectors.toList());
 	}
 
-	byte[] getMainImageInByteFromHotel(Long hotelId) throws IOException {
+	public byte[] getMainImageInByteFromHotel(Long hotelId) throws IOException {
 		File file = new File(findMainImagePathFromHotel(hotelId));
 		byte[] bytes = Files.readAllBytes(file.toPath());
 		return bytes;
