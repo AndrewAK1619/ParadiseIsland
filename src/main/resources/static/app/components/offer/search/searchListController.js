@@ -81,10 +81,8 @@ angular.module('app')
 	}
 	
     const differenceInDays = (dt1, dt2) => {
-        
         var one = new Date(dt1[0], dt1[1], dt1[2]),
             two = new Date(dt2[0], dt2[1], dt2[2]);
-        
         var millisecondsPerDay = 1000 * 60 * 60 * 24;
         var millisBetween = two.getTime() - one.getTime();
         var days = millisBetween / millisecondsPerDay;
