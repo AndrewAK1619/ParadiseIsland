@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('RoomListController', function($routeParams, RoomService) {
+.controller('RoomListController', function($routeParams, $location, RoomService, SearchDetailsService) {
 	const vm = this;
 	
 	vm.hotelId = $routeParams.hotelId;
@@ -16,11 +16,24 @@ angular.module('app')
 		}
 	}
 	
-	vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg(vm.hotelId);
+	var url = $location.url();
+	
+	if(url === `/hotels/${vm.hotelId}/rooms`)
+		vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg(vm.hotelId);
+	else 
+		vm.roomsAndTopImgArray = RoomService.getAvailableRooms(vm.hotelId);
 	vm.roomsAndTopImgArray.$promise.then(setRoomAndTopImg);
 	
 	vm.search = roomCategoryName => {
-		vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg(vm.hotelId, roomCategoryName);
+		if(url === `/hotels/${vm.hotelId}/rooms`)
+			vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg(vm.hotelId, roomCategoryName);
+		else
+			vm.roomsAndTopImgArray = RoomService.getAvailableRooms(vm.hotelId, roomCategoryName);
 		vm.roomsAndTopImgArray.$promise.then(setRoomAndTopImg);
+	};
+	
+	vm.setRoom = room => {
+		SearchDetailsService.setRoomAndHotelId(room, vm.hotelId);
+		$location.path(`/search-result/details/${vm.hotelId}`);
 	};
 });

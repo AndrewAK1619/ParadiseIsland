@@ -113,7 +113,7 @@ angular.module('app')
         	vm.showDate = dt1[2] + '.' + dt1[1] + '.' + dt2[0] + '-' + 
     			dt2[2] + '.' + dt2[1] + '.' + dt2[0];
         }
-		
+
 		var num;
 		for(num in vm.roomList) {
 			if(!vm.roomList[num]) {

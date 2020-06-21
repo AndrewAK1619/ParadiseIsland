@@ -14,7 +14,7 @@ angular.module('app')
     
         return Math.floor(days);      
     };
-	
+    
 	const setDetailsData = result => {
 		vm.hotel = result.hotelList[0];
 		vm.imgSrc = result.mainImg[0];
@@ -23,7 +23,15 @@ angular.module('app')
 		vm.firstHotelAdv = vm.hotel.hotelAdvantageDto.slice(0, lengh/2);
 		vm.secondHotelAdv = vm.hotel.hotelAdvantageDto.slice(lengh/2, lengh);
 		
-		vm.room = result.room[0];
+		if(SearchDetailsService.getHotelId() === vm.hotelId){
+			if(!SearchDetailsService.getRoom()){
+				vm.room = result.room[0];
+			} else {
+				vm.room = SearchDetailsService.getRoom();
+			}
+		} else{
+			vm.room = result.room[0];
+		}
 		vm.airlineOffer = result.airlineOffer[0];
 		
 		vm.searchCookie = JSON.parse($cookies.get('searchDataMap'));

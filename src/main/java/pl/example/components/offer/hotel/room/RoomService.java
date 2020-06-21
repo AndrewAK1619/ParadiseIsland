@@ -62,7 +62,7 @@ public class RoomService {
 
 		for (RoomCategory roomCategory : roomCategoryList) {
 			listRoomDto.addAll(roomRepository
-					.findAllByHotelIdAndRoomCategory(hotelId, roomCategory)
+					.findAllByHotelIdAndRoomCategoryOrderByHotelId(hotelId, roomCategory)
 					.stream()
 					.map(roomMapper::toDto)
 					.collect(Collectors.toList()));
@@ -89,7 +89,7 @@ public class RoomService {
 		return roomRepository.findById(id).map(roomMapper::toDto);
 	}
 	
-	List<byte[]> getMainImgListInByteByRoomDtoList(List<RoomDto> roomDtoList) {
+	public List<byte[]> getMainImgListInByteByRoomDtoList(List<RoomDto> roomDtoList) {
 		return roomDtoList.stream()
 			.map(roomDto -> {
 				try {

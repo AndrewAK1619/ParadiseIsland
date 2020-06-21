@@ -2,7 +2,8 @@ angular.module('app')
 .constant('ROOM_ENDPOINT', '/hotels/rooms/:id')
 .constant('HOTEL_ROOM_ENDPOINT', '/hotels/:hotelId/rooms/:id')
 .constant('DEFAULT_ROOM_IMAGE', '/hotels/rooms/defaultImg')
-.factory('Room', function($resource, ROOM_ENDPOINT, HOTEL_ROOM_ENDPOINT, DEFAULT_ROOM_IMAGE) {
+.constant('ALL_AVAILABLE_ROOM', '/search-result/details/:hotelId/rooms')
+.factory('Room', function($resource, ROOM_ENDPOINT, HOTEL_ROOM_ENDPOINT, DEFAULT_ROOM_IMAGE, ALL_AVAILABLE_ROOM) {
 	return $resource(ROOM_ENDPOINT, { id: '@_id' }, {
 		uploadFileAndRoom: {
 			method: 'POST',
@@ -23,6 +24,12 @@ angular.module('app')
 		getDefaultImage: {
 			method: 'GET',
 			url: DEFAULT_ROOM_IMAGE
+		},
+		getAvailableRooms: {
+			method: 'GET',
+			transformRequest: angular.identity,
+			headers: {'Content-type': undefined},
+			url: ALL_AVAILABLE_ROOM
 		}
 	});
 })
@@ -32,4 +39,5 @@ angular.module('app')
 	this.uploadFileAndRoom = formData => Room.uploadFileAndRoom(formData);
 	this.updateFileAndRoom = formData => Room.updateFileAndRoom({id: formData.getAll('idRoom')[0]}, formData);
 	this.getDefaultImage = () => Room.getDefaultImage();
+	this.getAvailableRooms = (hotelId, roomCategoryName) => Room.getAvailableRooms({hotelId: hotelId, roomCategoryName});
 });

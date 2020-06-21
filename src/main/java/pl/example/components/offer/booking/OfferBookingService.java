@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ import pl.example.components.offer.hotel.room.Room;
 import pl.example.components.offer.hotel.room.RoomDto;
 import pl.example.components.offer.hotel.room.RoomMapper;
 import pl.example.components.offer.hotel.room.RoomRepository;
+import pl.example.components.offer.hotel.room.RoomService;
+import pl.example.components.offer.hotel.room.category.RoomCategory;
+import pl.example.components.offer.hotel.room.category.RoomCategoryRepository;
 
 @Service
 public class OfferBookingService {
@@ -29,13 +33,19 @@ public class OfferBookingService {
 	private HotelService hotelService;
 	private RoomRepository roomRepository;
 	private RoomMapper roomMapper;
+	private RoomService roomService;
+	private RoomCategoryRepository roomCategoryRepository;
 
 	public OfferBookingService(HotelService hotelService,
 			RoomRepository roomRepository,
-			RoomMapper roomMapper) {
+			RoomMapper roomMapper,
+			RoomService roomService,
+			RoomCategoryRepository roomCategoryRepository) {
 		this.hotelService = hotelService;
 		this.roomRepository = roomRepository;
 		this.roomMapper = roomMapper;
+		this.roomService = roomService;
+		this.roomCategoryRepository = roomCategoryRepository;
 	}
 	
 	HotelDto getHotelById(Long hotelId) {
@@ -55,33 +65,82 @@ public class OfferBookingService {
 	RoomDto getRoomWhereIsMinimalCost(
 			Map<String, String> searchDataMap, 
 			HotelDto hotelDto) {
-		LocalDate departureVar = LocalDate.now();
-		LocalDate returnDateVar = departureVar.plusDays(7);
-		Integer personsVar = 2;
 
-		if (searchDataMap.get(DEPARTURE_STRING) != null)
-			departureVar = parseDate(searchDataMap.get(DEPARTURE_STRING));
-		if (searchDataMap.get(RETURN_DATE_STRING) != null)
-			returnDateVar = parseDate(searchDataMap.get(RETURN_DATE_STRING));
-		if (searchDataMap.get(PERSONS_STRING) != null)
-			personsVar = Integer.valueOf(searchDataMap.get(PERSONS_STRING));
-
-		final LocalDate departure = departureVar;
-		final LocalDate returnDate = returnDateVar;
-		final Integer persons = personsVar;
-		List<Room> rooms = new ArrayList<>();
-
-		rooms = roomRepository.findAvailableRooms(
-					hotelDto.getId(), 
-					departure.plusDays(1), 
-					returnDate.plusDays(1), 
-					persons);
+		List<RoomDto> rooms = getAllAvailableRooms(searchDataMap, hotelDto);
 
 		if(rooms.isEmpty()) {
 			return null;
 		} else {
-			return roomMapper.toDto(rooms.get(0));
+			return rooms.get(0);
 		}
+	}
+	
+	List<RoomDto> getAllAvailableRooms(
+			Map<String, String> searchDataMap, 
+			HotelDto hotelDto) {
+		final LocalDate departure = getCookieDeparture(searchDataMap);
+		final LocalDate returnDate = getCookieReturnDate(searchDataMap);
+		final Integer persons = getNumberOfPersons(searchDataMap);
+
+		return roomRepository.findAvailableRooms(
+					hotelDto.getId(), 
+					departure.plusDays(1), 
+					returnDate.plusDays(1), 
+					persons)
+				.stream()
+				.map(r -> roomMapper.toDto(r))
+				.collect(Collectors.toList());
+	}
+	
+	List<RoomDto> getAllAvailableRooms(
+			Map<String, String> searchDataMap, 
+			HotelDto hotelDto,
+			String roomCategoryName) {
+		final LocalDate departure = getCookieDeparture(searchDataMap);
+		final LocalDate returnDate = getCookieReturnDate(searchDataMap);
+		final Integer persons = getNumberOfPersons(searchDataMap);
+
+		List<RoomCategory> roomCategoryList = roomCategoryRepository
+				.findAllByNameContainingIgnoreCaseOrderByIdAsc(roomCategoryName);
+		List<Room> listRoom = new ArrayList<>();
+
+		for (RoomCategory roomCategory : roomCategoryList) {
+			listRoom.addAll(roomRepository
+					.findAvailableRoomsByCategory(
+							hotelDto.getId(),
+							departure.plusDays(1),
+							returnDate.plusDays(1),
+							persons,
+							roomCategory.getId()));
+		}
+		return listRoom.stream()
+				.map(r -> roomMapper.toDto(r))
+				.collect(Collectors.toList());
+	}
+	
+	private LocalDate getCookieDeparture(Map<String, String> searchDataMap) {
+		LocalDate departureVar = LocalDate.now();
+		if (searchDataMap.get(DEPARTURE_STRING) != null)
+			departureVar = parseDate(searchDataMap.get(DEPARTURE_STRING));
+		return departureVar;
+	}
+	
+	private LocalDate getCookieReturnDate(Map<String, String> searchDataMap) {
+		LocalDate returnDateVar =  LocalDate.now().plusDays(7);
+		if (searchDataMap.get(RETURN_DATE_STRING) != null)
+			returnDateVar = parseDate(searchDataMap.get(RETURN_DATE_STRING));
+		return returnDateVar;
+	}
+	
+	private Integer getNumberOfPersons(Map<String, String> searchDataMap) {
+		Integer personsVar = 2;
+		if (searchDataMap.get(PERSONS_STRING) != null)
+			personsVar = Integer.valueOf(searchDataMap.get(PERSONS_STRING));
+		return personsVar;
+	}
+	
+	List<byte[]> getMainImgListInByteByRoomDtoList(List<RoomDto> roomDtoList) {
+		return roomService.getMainImgListInByteByRoomDtoList(roomDtoList);
 	}
 	
 	private LocalDate parseDate(String date) {
