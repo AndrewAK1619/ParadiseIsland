@@ -132,6 +132,11 @@ angular.module('app')
 			controller: 'RoomListController',
 			controllerAs: 'ctrl'
 		})
+		.when('/search-result/details/:hotelId/airlines', {
+			templateUrl: 'app/components/offer/transport/airlineOffer/list/airlineOfferList.html',
+			controller: 'AirlineOfferListController',
+			controllerAs: 'ctrl'
+		})
 		.when('/', {
 			templateUrl: 'app/components/home/homePage/home.html',
 			controller: 'HomeController',

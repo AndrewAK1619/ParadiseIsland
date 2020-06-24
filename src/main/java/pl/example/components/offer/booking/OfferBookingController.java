@@ -22,22 +22,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.example.components.offer.hotel.HotelDto;
 import pl.example.components.offer.hotel.room.RoomDto;
-import pl.example.components.offer.transport.airline.offer.AirlineOffer;
+import pl.example.components.offer.transport.airline.offer.AirlineOfferDto;
 
 @RestController
-@RequestMapping("/search-result/details")
+@RequestMapping("/search-result/details/{hotelId}")
 public class OfferBookingController {
 
 	private OfferBookingService offerBookingService;
-	private SearchService searchService;
 
-	public OfferBookingController(OfferBookingService offerBookingService,
-			SearchService searchService) {
+	public OfferBookingController(OfferBookingService offerBookingService) {
 		this.offerBookingService = offerBookingService;
-		this.searchService = searchService;
 	}
 
-	@GetMapping("/{hotelId}")
+	@GetMapping("")
 	public ResponseEntity<MultiValueMap<String, Object>> getDetailsData(
 			@CookieValue(value = "searchDataMap", required = false) String searchDataMapString,
 			@PathVariable Long hotelId) throws IOException{
@@ -58,7 +55,7 @@ public class OfferBookingController {
 		HotelDto hotelDto = offerBookingService.getHotelById(hotelId);
 		byte[] mainImg = offerBookingService.getMainImageInByteFromHotel(hotelDto.getId());
 		RoomDto minCostRoom = offerBookingService.getRoomWhereIsMinimalCost(searchDataMap, hotelDto);
-		AirlineOffer airlineOffer = searchService.getAirlineOfferWhereIsMinimalCost(searchDataMap);
+		AirlineOfferDto airlineOffer = offerBookingService.getAirlineOfferWhereIsMinimalCost(searchDataMap);
 		
 		formData.add("hotelList", hotelDto);
 		formData.add("mainImg", mainImg);
@@ -68,7 +65,7 @@ public class OfferBookingController {
 		return ResponseEntity.ok(formData);
 	}
 	
-	@GetMapping("/{hotelId}/rooms")
+	@GetMapping("/rooms")
 	public ResponseEntity<MultiValueMap<String, Object>> getRoomsData(
 			@CookieValue(value = "searchDataMap", required = false) String searchDataMapString,
 			@PathVariable Long hotelId,
@@ -101,5 +98,26 @@ public class OfferBookingController {
 		formData.add("fileList", mainImgList);
 		
 		return ResponseEntity.ok(formData);
+	}
+	
+	@GetMapping("/airlines")
+	public ResponseEntity<List<AirlineOfferDto>> getAirlinesOfferByDate(
+			@CookieValue(value = "searchDataMap", required = false) String searchDataMapString){
+			
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> searchDataMap = new HashMap<>();
+
+		if (searchDataMapString != null) {
+			try {
+				searchDataMap = mapper.readValue(
+						searchDataMapString, new TypeReference<Map<String, String>>() {});
+			} catch (IOException e) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+						"Search data not found");
+			}
+		}
+		List<AirlineOfferDto> airlineOffersList = offerBookingService.getAllAirlineOfferByDate(searchDataMap);
+		
+		return ResponseEntity.ok(airlineOffersList);
 	}
 }

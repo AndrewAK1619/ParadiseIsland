@@ -33,6 +33,8 @@ import pl.example.components.offer.location.region.RegionService;
 import pl.example.components.offer.transport.airline.Airline;
 import pl.example.components.offer.transport.airline.AirlineRepository;
 import pl.example.components.offer.transport.airline.offer.AirlineOffer;
+import pl.example.components.offer.transport.airline.offer.AirlineOfferDto;
+import pl.example.components.offer.transport.airline.offer.AirlineOfferMapper;
 import pl.example.components.offer.transport.airline.offer.AirlineOfferService;
 
 @Service
@@ -52,6 +54,7 @@ public class SearchService {
 	private RegionService regionService;
 	private CityService cityService;
 	private AirlineOfferService airlineOfferService;
+	private AirlineOfferMapper airlineOfferMapper;
 	private AirlineRepository airlineRepository;
 
 	@Autowired
@@ -63,6 +66,7 @@ public class SearchService {
 			RegionService regionService,
 			CityService cityService,
 			AirlineOfferService airlineOfferService,
+			AirlineOfferMapper airlineOfferMapper,
 			AirlineRepository airlineRepository) 
 	{
 		this.hotelRepository = hotelRepository;
@@ -73,6 +77,7 @@ public class SearchService {
 		this.regionService = regionService;
 		this.cityService = cityService;
 		this.airlineOfferService = airlineOfferService;
+		this.airlineOfferMapper = airlineOfferMapper;
 		this.airlineRepository = airlineRepository;
 	}
 
@@ -215,19 +220,14 @@ public class SearchService {
 		return LocalDate.parse(date, datePattern);
 	}
 	
-	AirlineOffer getAirlineOfferWhereIsMinimalCost(Map<String, String> searchDataMap) {
-		LocalDate departureVar = LocalDate.now();
-		LocalDate returnDateVar = departureVar.plusDays(7);
-
-		if (searchDataMap.get(DEPARTURE_STRING) != null)
-			departureVar = parseDate(searchDataMap.get(DEPARTURE_STRING));
-		if (searchDataMap.get(RETURN_DATE_STRING) != null)
-			returnDateVar = parseDate(searchDataMap.get(RETURN_DATE_STRING));
+	AirlineOfferDto getAirlineOfferByDateWhereIsMinimalCost(Map<String, String> searchDataMap) {
+		LocalDate departureVar = getCookieDeparture(searchDataMap);
+		LocalDate returnDateVar = getCookieReturnDate(searchDataMap);
 		
 		List<AirlineOffer> airlinesOffer = airlineOfferService
 				.getAirlineOfferByDepartureAndReturnDateOrderByFlightPrice(
 				departureVar, returnDateVar);
-				
+
 		if(airlinesOffer.isEmpty()) {
 			// method only to put example data
 			generateExampleAirlineData(departureVar, returnDateVar);
@@ -236,7 +236,42 @@ public class SearchService {
 					.getAirlineOfferByDepartureAndReturnDateOrderByFlightPrice(
 					departureVar, returnDateVar);
 		}
-		return airlinesOffer.get(0);
+		return airlineOfferMapper.toDto(airlinesOffer.get(0));
+	}
+	
+	List<AirlineOfferDto> getAllAirlineOfferByDate(Map<String, String> searchDataMap) {
+		LocalDate departureVar = getCookieDeparture(searchDataMap);
+		LocalDate returnDateVar = getCookieReturnDate(searchDataMap);
+		
+		List<AirlineOffer> airlinesOffer = airlineOfferService
+				.getAirlineOfferByDepartureAndReturnDate(
+				departureVar, returnDateVar);
+
+		if(airlinesOffer.isEmpty()) {
+			// method only to put example data
+			generateExampleAirlineData(departureVar, returnDateVar);
+			
+			airlinesOffer = airlineOfferService
+					.getAirlineOfferByDepartureAndReturnDate(
+					departureVar, returnDateVar);
+		}
+		return airlinesOffer.stream()
+				.map(ao -> airlineOfferMapper.toDto(ao))
+				.collect(Collectors.toList());
+	}
+// getAirlineOfferByDepartureAndReturnDateOrderByFlightPrice
+	private LocalDate getCookieDeparture(Map<String, String> searchDataMap) {
+		LocalDate departureVar = LocalDate.now();
+		if (searchDataMap.get(DEPARTURE_STRING) != null)
+			departureVar = parseDate(searchDataMap.get(DEPARTURE_STRING));
+		return departureVar;
+	}
+	
+	private LocalDate getCookieReturnDate(Map<String, String> searchDataMap) {
+		LocalDate returnDateVar =  LocalDate.now().plusDays(7);
+		if (searchDataMap.get(RETURN_DATE_STRING) != null)
+			returnDateVar = parseDate(searchDataMap.get(RETURN_DATE_STRING));
+		return returnDateVar;
 	}
 	
 	// method only to put example data

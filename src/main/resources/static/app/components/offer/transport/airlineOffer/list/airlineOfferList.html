@@ -1,0 +1,59 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<div class="form">
+				<div class="input-group mb-2 mr-sm-2">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-search"></i>
+						</div>
+					</div>
+					<input type="text" class="form-control" id="searchInput"
+						placeholder="Airline name" ng-model="airlineName">
+					<button class="btn btn-primary mx-1"
+						ng-click="ctrl.search(airlineName)">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<table class="table table-hover tableTextWhite">
+				<thead class="test">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Airline Name</th>
+						<th scope="col">Departure</th>
+						<th scope="col">Return</th>
+						<th scope="col">flightPrice</th>
+						<th scope="col" class="text-center">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="airlineOffer in ctrl.airlinesOfferList">
+						<th scope="row">{{airlineOffer.numId}}</th>
+						<td>{{airlineOffer.airlineName}}</td>
+						<td>{{airlineOffer.departure | date:'dd-MM-yyyy / HH:mm'}}</td>
+						<td>{{airlineOffer.returnTrip | date:'dd-MM-yyyy / HH:mm'}}</td>
+						<td>{{airlineOffer.flightPrice}}</td>
+						<td class="text-center">
+							<button class="btn btn-sm btn-success mb-3" title="Choose this airline offer"
+								ng-click="ctrl.setAirlineOffer(airlineOffer)">
+								<a ng-href="" class="text-white">
+									<i class="fas fa-check"></i>
+								</a>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+		<div class="row">
+		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/search-result/details/{{ctrl.hotelId}}" 
+			ng-show="authenticatedAdmin">
+			<i class="fas fa-undo-alt"></i>
+			Return
+		</a>
+	</div>
+</div>

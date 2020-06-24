@@ -13,7 +13,14 @@ public class AirlineOfferService {
 	public AirlineOfferService(AirlineOfferRepository airlineOfferRepository) {
 		this.airlineOfferRepository = airlineOfferRepository;
 	}
-
+	
+	public List<AirlineOffer> getAirlineOfferByDepartureAndReturnDate(
+			LocalDate departure, LocalDate returnTrip) {
+		return airlineOfferRepository.findAllByDepartureAndReturnTrip(
+				departure.atStartOfDay(), departure.plusDays(1).atStartOfDay(),
+				returnTrip.atStartOfDay(), returnTrip.plusDays(1).atStartOfDay());
+	}
+	
 	public List<AirlineOffer> getAirlineOfferByDepartureAndReturnDateOrderByFlightPrice(
 			LocalDate departure, LocalDate returnTrip) {
 		return airlineOfferRepository.findAllByDepartureAndReturnTripOrderByFlightPrice(

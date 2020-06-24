@@ -22,6 +22,7 @@ import pl.example.components.offer.hotel.room.RoomRepository;
 import pl.example.components.offer.hotel.room.RoomService;
 import pl.example.components.offer.hotel.room.category.RoomCategory;
 import pl.example.components.offer.hotel.room.category.RoomCategoryRepository;
+import pl.example.components.offer.transport.airline.offer.AirlineOfferDto;
 
 @Service
 public class OfferBookingService {
@@ -35,17 +36,20 @@ public class OfferBookingService {
 	private RoomMapper roomMapper;
 	private RoomService roomService;
 	private RoomCategoryRepository roomCategoryRepository;
+	private SearchService searchService;
 
 	public OfferBookingService(HotelService hotelService,
 			RoomRepository roomRepository,
 			RoomMapper roomMapper,
 			RoomService roomService,
-			RoomCategoryRepository roomCategoryRepository) {
+			RoomCategoryRepository roomCategoryRepository,
+			SearchService searchService) {
 		this.hotelService = hotelService;
 		this.roomRepository = roomRepository;
 		this.roomMapper = roomMapper;
 		this.roomService = roomService;
 		this.roomCategoryRepository = roomCategoryRepository;
+		this.searchService = searchService;
 	}
 	
 	HotelDto getHotelById(Long hotelId) {
@@ -116,6 +120,14 @@ public class OfferBookingService {
 		return listRoom.stream()
 				.map(r -> roomMapper.toDto(r))
 				.collect(Collectors.toList());
+	}
+	
+	AirlineOfferDto getAirlineOfferWhereIsMinimalCost(Map<String, String> searchDataMap) {
+		return searchService.getAirlineOfferByDateWhereIsMinimalCost(searchDataMap);
+	}
+	
+	List<AirlineOfferDto> getAllAirlineOfferByDate(Map<String, String> searchDataMap) {
+		return searchService.getAllAirlineOfferByDate(searchDataMap);
 	}
 	
 	private LocalDate getCookieDeparture(Map<String, String> searchDataMap) {

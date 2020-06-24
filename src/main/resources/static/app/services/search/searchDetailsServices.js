@@ -14,25 +14,49 @@ angular.module('app')
 	var room;
 	var hotelId;
 	
-	var setRoomAndHotelId = (newObj, hotId) => {
-		room = newObj;
+	var setRoomAndHotelId = (newRoom, hotId) => {
+		room = newRoom;
 		hotelId = hotId;
 	};
 	var getRoom = function(){
 		return room;
 	};
-	var getHotelId = function(){
+	var getHotelIdByChosenRoom = function(){
 		return hotelId;
 	};
 	return {
 		setRoomAndHotelId: setRoomAndHotelId,
 		getRoom: getRoom,
-		getHotelId: getHotelId
+		getHotelIdByChosenRoom: getHotelIdByChosenRoom
 	};
 })
-.service('SearchDetailsService', function (SearchDetails, ChosenRoom) {
+.factory('ChosenAirlineOffer', function() {
+	var airlineOffer;
+	var hotelId;
+	
+	var setAirlineOfferAndHotelId = (newObj, hotId) => {
+		airlineOffer = newObj;
+		hotelId = hotId;
+	};
+	var getAirlineOffer = function(){
+		return airlineOffer;
+	};
+	var getHotelIdByChosenAirlineOffer = function(){
+		return hotelId;
+	};
+	return {
+		setAirlineOfferAndHotelId: setAirlineOfferAndHotelId,
+		getAirlineOffer: getAirlineOffer,
+		getHotelIdByChosenAirlineOffer: getHotelIdByChosenAirlineOffer
+	};
+})
+.service('SearchDetailsService', function (SearchDetails, ChosenRoom, ChosenAirlineOffer) {
 	this.getSearchDetails = hotelId => SearchDetails.getSearchDetails({hotelId: hotelId});
 	this.setRoomAndHotelId = (room, hotId) => ChosenRoom.setRoomAndHotelId(room, hotId);
+	this.setAirlineOfferAndHotelId = (airlineOffer, hotId) => 
+		ChosenAirlineOffer.setAirlineOfferAndHotelId(airlineOffer, hotId);
 	this.getRoom = () => ChosenRoom.getRoom();
-	this.getHotelId = () => ChosenRoom.getHotelId();
+	this.getAirlineOffer = () => ChosenAirlineOffer.getAirlineOffer();
+	this.getHotelIdByChosenRoom = () => ChosenRoom.getHotelIdByChosenRoom();
+	this.getHotelIdByChosenAirlineOffer = () => ChosenAirlineOffer.getHotelIdByChosenAirlineOffer();
 });

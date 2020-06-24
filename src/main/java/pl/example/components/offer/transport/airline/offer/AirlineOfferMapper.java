@@ -18,11 +18,11 @@ public class AirlineOfferMapper {
 		this.airlineRepository = airlineRepository;
 	}
 
-	AirlineOfferDto toDto(AirlineOffer airlineOffer) {
+	public AirlineOfferDto toDto(AirlineOffer airlineOffer) {
 		AirlineOfferDto dto = new AirlineOfferDto();
 		dto.setId(airlineOffer.getId());
 		if (airlineOffer.getAriline() != null) {
-			dto.setArilineId(airlineOffer.getId());;
+			dto.setAirlineName(airlineOffer.getAriline().getAirlineName());
 		}
 		dto.setDeparture(airlineOffer.getDeparture());
 		dto.setReturnTrip(airlineOffer.getReturnTrip());
@@ -33,7 +33,7 @@ public class AirlineOfferMapper {
 	AirlineOffer toEntity(AirlineOfferDto airlineOfferDto) {
 		AirlineOffer entity = new AirlineOffer();
 		entity.setId(airlineOfferDto.getId());
-		Optional<Airline> airline = airlineRepository.findById(airlineOfferDto.getArilineId());
+		Optional<Airline> airline = airlineRepository.findByAirlineName(airlineOfferDto.getAirlineName());
 		airline.ifPresent(entity::setAriline);
 		entity.setDeparture(airlineOfferDto.getDeparture());
 		entity.setReturnTrip(airlineOfferDto.getReturnTrip());

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class AirlineOfferDto {
 
 	private Long id;
-	private Long arilineId;
+	private String airlineName;
 	private LocalDateTime departure;
 	private LocalDateTime returnTrip;
 	private float flightPrice;
@@ -16,11 +16,11 @@ public class AirlineOfferDto {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getArilineId() {
-		return arilineId;
+	public String getAirlineName() {
+		return airlineName;
 	}
-	public void setArilineId(Long arilineId) {
-		this.arilineId = arilineId;
+	public void setAirlineName(String airlineName) {
+		this.airlineName = airlineName;
 	}
 	public LocalDateTime getDeparture() {
 		return departure;

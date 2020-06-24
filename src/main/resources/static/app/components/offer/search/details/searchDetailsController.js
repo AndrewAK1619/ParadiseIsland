@@ -1,6 +1,5 @@
 angular.module('app')
 .controller('SearchDetailsController', function ($cookies, $routeParams, SearchDetailsService) {
-	
 	const vm = this;
 	
 	vm.hotelId = $routeParams.hotelId;
@@ -23,7 +22,7 @@ angular.module('app')
 		vm.firstHotelAdv = vm.hotel.hotelAdvantageDto.slice(0, lengh/2);
 		vm.secondHotelAdv = vm.hotel.hotelAdvantageDto.slice(lengh/2, lengh);
 		
-		if(SearchDetailsService.getHotelId() === vm.hotelId){
+		if(SearchDetailsService.getHotelIdByChosenRoom() === vm.hotelId){
 			if(!SearchDetailsService.getRoom()){
 				vm.room = result.room[0];
 			} else {
@@ -32,7 +31,16 @@ angular.module('app')
 		} else{
 			vm.room = result.room[0];
 		}
-		vm.airlineOffer = result.airlineOffer[0];
+		
+		if(SearchDetailsService.getHotelIdByChosenAirlineOffer() === vm.hotelId){
+			if(!SearchDetailsService.getAirlineOffer()){
+				vm.airlineOffer = result.airlineOffer[0];
+			} else {
+				vm.airlineOffer = SearchDetailsService.getAirlineOffer();
+			}
+		} else{
+			vm.airlineOffer = result.airlineOffer[0];
+		}
 		
 		vm.searchCookie = JSON.parse($cookies.get('searchDataMap'));
         var dt1 = vm.searchCookie.departure.split('-'),
