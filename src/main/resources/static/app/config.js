@@ -137,6 +137,16 @@ angular.module('app')
 			controller: 'AirlineOfferListController',
 			controllerAs: 'ctrl'
 		})
+		.when('/search-result/details/success', {
+			templateUrl: 'app/components/offer/search/details/success.html',
+			controller: 'SearchDetailsController',
+			controllerAs: 'ctrl'
+		})
+		.when('/search-result/details/success/:offerBookingId', {
+			templateUrl: 'app/components/offer/search/details/success.html',
+			controller: 'SearchDetailsController',
+			controllerAs: 'ctrl'
+		})
 		.when('/', {
 			templateUrl: 'app/components/home/homePage/home.html',
 			controller: 'HomeController',

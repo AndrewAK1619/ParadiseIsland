@@ -1,8 +1,9 @@
 angular.module('app')
-.controller('SearchDetailsController', function ($cookies, $routeParams, SearchDetailsService) {
+.controller('SearchDetailsController', function ($cookies, $routeParams, $location, SearchDetailsService) {
 	const vm = this;
 	
 	vm.hotelId = $routeParams.hotelId;
+	vm.offerBookingId = $routeParams.offerBookingId;
 	
     const differenceInDays = (dt1, dt2) => {
         var one = new Date(dt1[0], dt1[1], dt1[2]),
@@ -47,9 +48,39 @@ angular.module('app')
         dt2 = vm.searchCookie.returnDate.split('-');
         vm.days = differenceInDays(dt1, dt2);
         
+        vm.hotelTotalPrice = vm.room.roomPrice * vm.days;
         vm.totalPrice = vm.room.roomPrice * vm.days + vm.airlineOffer.flightPrice;
 	}
 	
-	vm.searchDetails = SearchDetailsService.getSearchDetails(vm.hotelId);
-	vm.searchDetails.$promise.then(setDetailsData);
+	if(!vm.offerBookingId) {
+		vm.searchDetails = SearchDetailsService.getSearchDetails(vm.hotelId);
+		vm.searchDetails.$promise.then(setDetailsData);
+	}
+	
+	const saveCallback = response => {
+		vm.offerBookingId = response.id;
+		if(vm.offerBookingId){
+			$location.path(`/search-result/details/success/${vm.offerBookingId}`);
+		}
+	};
+
+	const errorCallback = err => {
+		vm.msg = `Failed booking attempt: ${err.data.message}`;
+	};
+	
+	vm.bookTrip = () => {
+		const formData = new FormData();
+		
+		formData.append('roomId', vm.room.id);
+		formData.append('hotelTotalPrice', vm.hotelTotalPrice);
+		formData.append('departure', vm.searchCookie.departure);
+		formData.append('returnDate', vm.searchCookie.returnDate);
+		formData.append('airlineOfferId', vm.airlineOffer.id);
+		formData.append('totalPrice', vm.totalPrice);
+		
+		SearchDetailsService.bookTripOffer(vm.hotelId, formData)
+				.$promise
+				.then(saveCallback)
+				.catch(errorCallback);
+	}
 });

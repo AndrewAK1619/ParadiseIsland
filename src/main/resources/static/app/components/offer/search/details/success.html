@@ -1,0 +1,30 @@
+<div class="container" style="margin: 20px auto 20px auto;">
+	<div class="row justify-content-center">
+		<div class="card text-center col-sm-11">
+			<div class="card-body">
+				<div class="alert alert-success" ng-if="ctrl.offerBookingId">
+					<h3>
+						<strong>Success!</strong>
+						<p>You have successfully booked !</p>
+					</h3>
+					<button type="button" class="btn btn-primary"
+						title="Return to home page">
+						<a ng-href="#!" class="text-white"> Return to home page </a>
+					</button>
+				</div>
+				<div class="alert alert-danger" ng-if="!ctrl.offerBookingId">
+					<h3>
+						<strong>Failed!</strong>
+						<p>An attempt to booking failed !</p>
+					</h3>
+					<button type="button" class="btn btn-primary"
+						title="Return to home page">
+						<a ng-href="#!" class="text-white">
+							Return to home page 
+						</a>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

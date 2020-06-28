@@ -1,23 +1,56 @@
 package pl.example.components.offer.booking;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pl.example.components.offer.hotel.booking.HotelBooking;
+import pl.example.components.offer.hotel.booking.HotelBookingRepository;
+import pl.example.components.offer.transport.airline.offer.AirlineOffer;
+import pl.example.components.offer.transport.airline.offer.AirlineOfferRepository;
+import pl.example.components.user.User;
+import pl.example.components.user.UserRepository;
+
+@Service
 public class OfferBookingMapper {
+
+	private HotelBookingRepository hotelBookingRepository;
+	private AirlineOfferRepository airlineOfferRepository;
+	private UserRepository userRepository;
+	
+	@Autowired
+	public OfferBookingMapper(
+			HotelBookingRepository hotelBookingRepository,
+			AirlineOfferRepository airlineOfferRepository,
+			UserRepository userRepository) {
+		this.hotelBookingRepository = hotelBookingRepository;
+		this.airlineOfferRepository = airlineOfferRepository;
+		this.userRepository = userRepository;
+	}
 
 	static OfferBookingDto toDto(OfferBooking offerBooking) {
 		OfferBookingDto dto = new OfferBookingDto();
 		dto.setId(offerBooking.getId());
-		dto.setHotelBooking(offerBooking.getHotelBooking());
-		dto.setAirlineOffer(offerBooking.getAirlineOffer());
-		dto.setUser(offerBooking.getUser());
+		dto.setHotelBookingId(offerBooking.getHotelBooking().getId());
+		dto.setAirlineOfferId(offerBooking.getAirlineOffer().getId());
+		dto.setUserEmail(offerBooking.getUser().getEmail());
 		dto.setTotalPrice(offerBooking.getTotalPrice());
 		return dto;
 	}
 
-	static OfferBooking toEntity(OfferBookingDto offerBookingDto) {
+	OfferBooking toEntity(OfferBookingDto offerBookingDto) {
 		OfferBooking entity = new OfferBooking();
 		entity.setId(offerBookingDto.getId());
-		entity.setHotelBooking(offerBookingDto.getHotelBooking());
-		entity.setAirlineOffer(offerBookingDto.getAirlineOffer());
-		entity.setUser(offerBookingDto.getUser());
+		Optional<HotelBooking> hotelBooking = hotelBookingRepository
+				.findById(offerBookingDto.getHotelBookingId());
+		hotelBooking.ifPresent(entity::setHotelBooking);
+		Optional<AirlineOffer> airlineOffer = airlineOfferRepository
+				.findById(offerBookingDto.getAirlineOfferId());
+		airlineOffer.ifPresent(entity::setAirlineOffer);
+		Optional<User> user = userRepository
+				.findByEmail(offerBookingDto.getUserEmail());
+		user.ifPresent(entity::setUser);
 		entity.setTotalPrice(offerBookingDto.getTotalPrice());
 		return entity;
 	}

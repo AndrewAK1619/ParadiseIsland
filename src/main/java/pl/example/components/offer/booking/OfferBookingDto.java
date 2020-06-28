@@ -1,40 +1,36 @@
 package pl.example.components.offer.booking;
 
-import pl.example.components.offer.hotel.booking.HotelBooking;
-import pl.example.components.offer.transport.airline.offer.AirlineOffer;
-import pl.example.components.user.User;
-
 public class OfferBookingDto {
 
 	private Long id;
-	private HotelBooking hotelBooking;
-	private AirlineOffer airlineOffer;
-	private User user;
+	private Long hotelBookingId;
+	private Long airlineOfferId;
+	private String userEmail;
 	private float totalPrice;
-
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public HotelBooking getHotelBooking() {
-		return hotelBooking;
+	public Long getHotelBookingId() {
+		return hotelBookingId;
 	}
-	public void setHotelBooking(HotelBooking hotelBooking) {
-		this.hotelBooking = hotelBooking;
+	public void setHotelBookingId(Long hotelBookingId) {
+		this.hotelBookingId = hotelBookingId;
 	}
-	public AirlineOffer getAirlineOffer() {
-		return airlineOffer;
+	public Long getAirlineOfferId() {
+		return airlineOfferId;
 	}
-	public void setAirlineOffer(AirlineOffer airlineOffer) {
-		this.airlineOffer = airlineOffer;
+	public void setAirlineOfferId(Long airlineOfferId) {
+		this.airlineOfferId = airlineOfferId;
 	}
-	public User getUser() {
-		return user;
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	public float getTotalPrice() {
 		return totalPrice;

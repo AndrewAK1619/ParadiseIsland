@@ -7,6 +7,11 @@
 						<img ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}"
 							class="card-img img-fluid imageListResult" alt="...">
 					</div>
+					<div class="row" ng-if="ctrl.msg">
+						<div class="mx-auto" style="font-size: 22px;">
+							<p class="text-danger font-weight-bold">{{ctrl.msg}}</p>
+						</div>
+					</div>
 					<div class="m-3">
 						<a>
 							{{ctrl.hotel.country}} / {{ctrl.hotel.region}} / {{ctrl.hotel.city}}		
@@ -212,7 +217,7 @@
 							</div>
 							<div class="row">
 								<a class="btn btn-success mb-3 mx-auto text-white w-100 mt-3" 
-									ng-href="">
+									ng-href="" ng-click="ctrl.bookTrip()">
 									Book now
 								</a>
 							</div>

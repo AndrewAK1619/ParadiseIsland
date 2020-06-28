@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -12,8 +13,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,6 +24,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pl.example.components.offer.hotel.HotelDto;
+import pl.example.components.offer.hotel.booking.HotelBooking;
+import pl.example.components.offer.hotel.booking.HotelBookingService;
 import pl.example.components.offer.hotel.room.RoomDto;
 import pl.example.components.offer.transport.airline.offer.AirlineOfferDto;
 
@@ -29,9 +34,14 @@ import pl.example.components.offer.transport.airline.offer.AirlineOfferDto;
 public class OfferBookingController {
 
 	private OfferBookingService offerBookingService;
+	private HotelBookingService hotelBookingService;
 
-	public OfferBookingController(OfferBookingService offerBookingService) {
+	@Autowired
+	public OfferBookingController(
+			OfferBookingService offerBookingService,
+			HotelBookingService hotelBookingService) {
 		this.offerBookingService = offerBookingService;
+		this.hotelBookingService = hotelBookingService;
 	}
 
 	@GetMapping("")
@@ -119,5 +129,30 @@ public class OfferBookingController {
 		List<AirlineOfferDto> airlineOffersList = offerBookingService.getAllAirlineOfferByDate(searchDataMap);
 		
 		return ResponseEntity.ok(airlineOffersList);
+	}
+	
+	@PostMapping("/bookTrip")
+	public ResponseEntity<?> bookTripOffer(
+			@PathVariable String hotelId,
+			@RequestPart("roomId") String roomId,
+			@RequestPart("hotelTotalPrice") String hotelTotalPrice,
+			@RequestPart("departure") String departure,
+			@RequestPart("returnDate") String returnDate,
+			@RequestPart("airlineOfferId") String airlineOfferId,
+			@RequestPart("totalPrice") String totalPrice) {
+	
+		HotelBooking hotelBookingEntity = hotelBookingService.saveHotelBooking(
+				hotelId,
+				roomId,
+				hotelTotalPrice,
+				departure,
+				returnDate);
+				
+		OfferBookingDto offerBookingDto = offerBookingService.saveOfferBooking(
+				hotelBookingEntity.getId(),
+				airlineOfferId, 
+				totalPrice);
+		
+		return ResponseEntity.ok(offerBookingDto);
 	}
 }

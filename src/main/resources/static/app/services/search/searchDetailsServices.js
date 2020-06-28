@@ -1,13 +1,20 @@
 angular.module('app')
 .constant('SEARCH_DETAILS_ENDPOINT', '/search-result/details/:hotelId')
-.factory('SearchDetails', function ($resource, SEARCH_DETAILS_ENDPOINT) {
-	return $resource(SEARCH_DETAILS_ENDPOINT, {}, {
+.constant('BOOK_TRIP_ENDPOINT', '/search-result/details/:hotelId/bookTrip')
+.factory('SearchDetails', function ($resource, SEARCH_DETAILS_ENDPOINT, BOOK_TRIP_ENDPOINT) {
+	return $resource(SEARCH_DETAILS_ENDPOINT, { hotelId: '@_hotelId' }, {
 		getSearchDetails: {
 			method: 'GET',
 			params: { hotelId: '@_hotelId' },
 			transformRequest: angular.identity,
 			headers: {'Content-type': undefined}
 		},
+		bookTripOffer: {
+			method: 'POST',
+			url: BOOK_TRIP_ENDPOINT,
+			transformRequest: angular.identity,
+			headers: {'Content-type': undefined}
+		}
 	});
 })
 .factory('ChosenRoom', function() {
@@ -59,4 +66,5 @@ angular.module('app')
 	this.getAirlineOffer = () => ChosenAirlineOffer.getAirlineOffer();
 	this.getHotelIdByChosenRoom = () => ChosenRoom.getHotelIdByChosenRoom();
 	this.getHotelIdByChosenAirlineOffer = () => ChosenAirlineOffer.getHotelIdByChosenAirlineOffer();
+	this.bookTripOffer = (hotelId, formData) => SearchDetails.bookTripOffer({hotelId: hotelId}, formData);
 });

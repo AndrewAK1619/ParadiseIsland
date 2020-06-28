@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -37,19 +39,25 @@ public class OfferBookingService {
 	private RoomService roomService;
 	private RoomCategoryRepository roomCategoryRepository;
 	private SearchService searchService;
+	private OfferBookingRepository offerBookingRepository;
+	private OfferBookingMapper offerBookingMapper;
 
 	public OfferBookingService(HotelService hotelService,
 			RoomRepository roomRepository,
 			RoomMapper roomMapper,
 			RoomService roomService,
 			RoomCategoryRepository roomCategoryRepository,
-			SearchService searchService) {
+			SearchService searchService,
+			OfferBookingRepository offerBookingRepository,
+			OfferBookingMapper offerBookingMapper) {
 		this.hotelService = hotelService;
 		this.roomRepository = roomRepository;
 		this.roomMapper = roomMapper;
 		this.roomService = roomService;
 		this.roomCategoryRepository = roomCategoryRepository;
 		this.searchService = searchService;
+		this.offerBookingRepository = offerBookingRepository;
+		this.offerBookingMapper = offerBookingMapper;
 	}
 	
 	HotelDto getHotelById(Long hotelId) {
@@ -158,5 +166,22 @@ public class OfferBookingService {
 	private LocalDate parseDate(String date) {
 		DateTimeFormatter datePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		return LocalDate.parse(date, datePattern);
+	}
+
+	OfferBookingDto saveOfferBooking(
+			Long hotelBookingId, 
+			String airlineOfferIdStr, 
+			String totalPrice) {
+			
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		OfferBookingDto dto = new OfferBookingDto();
+		dto.setHotelBookingId(hotelBookingId);
+		dto.setAirlineOfferId(Long.valueOf(airlineOfferIdStr));
+		dto.setUserEmail(authentication.getName());
+		dto.setTotalPrice(Float.valueOf(totalPrice));
+		OfferBooking offerBookingEnity = offerBookingRepository.save(offerBookingMapper.toEntity(dto));
+		
+		return OfferBookingMapper.toDto(offerBookingEnity);
 	}
 }
