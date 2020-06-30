@@ -22,67 +22,67 @@ angular.module('app')
 			controller: 'RegisterController',
 			controllerAs: 'ctrl'
 		})
-		.when('/users', {
+		.when('/admin/users', {
 			templateUrl: 'app/components/users/list/userList.html',
 			controller: 'UserListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/user-edit/:userId', {
+		.when('/admin/user-edit/:userId', {
 			templateUrl: 'app/components/users/edit/userEdit.html',
 			controller: 'UserEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/user-add', {
+		.when('/admin/user-add', {
 			templateUrl: 'app/components/users/edit/userEdit.html',
 			controller: 'UserEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels', {
+		.when('/admin/hotels', {
 			templateUrl: 'app/components/offer/hotel/list/hotelList.html',
 			controller: 'HotelListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/page/:pageNumber', {
+		.when('/admin/hotels/page/:pageNumber', {
 			templateUrl: 'app/components/offer/hotel/list/hotelList.html',
 			controller: 'HotelListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels-add', {
+		.when('/admin/hotels-add', {
 			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
 			controller: 'HotelEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels-edit/:hotelId', {
+		.when('/admin/hotels-edit/:hotelId', {
 			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
 			controller: 'HotelEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/:hotelId/rooms', {
+		.when('/admin/hotels/:hotelId/rooms', {
 			templateUrl: 'app/components/offer/hotel/room/list/roomList.html',
 			controller: 'RoomListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/:hotelId/rooms-add', {
+		.when('/admin/hotels/:hotelId/rooms-add', {
 			templateUrl: 'app/components/offer/hotel/room/edit/roomEdit.html',
 			controller: 'RoomEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms-edit/:roomId', {
+		.when('/admin/hotels/rooms-edit/:roomId', {
 			templateUrl: 'app/components/offer/hotel/room/edit/roomEdit.html',
 			controller: 'RoomEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms/categories', {
+		.when('/admin/hotels/rooms/categories', {
 			templateUrl: 'app/components/offer/hotel/room/category/list/roomCategoryList.html',
 			controller: 'RoomCategoryListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms/categories-add', {
+		.when('/admin/hotels/rooms/categories-add', {
 			templateUrl: 'app/components/offer/hotel/room/category/edit/roomCategoryEdit.html',
 			controller: 'RoomCategoryEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/hotels/rooms/categories-edit/:roomCategoryId', {
+		.when('/admin/hotels/rooms/categories-edit/:roomCategoryId', {
 			templateUrl: 'app/components/offer/hotel/room/category/edit/roomCategoryEdit.html',
 			controller: 'RoomCategoryEditController',
 			controllerAs: 'ctrl'
@@ -97,17 +97,17 @@ angular.module('app')
 			controller: 'DestinationListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/airlines', {
+		.when('/admin/airlines', {
 			templateUrl: 'app/components/offer/transport/airline/list/airlineList.html',
 			controller: 'AirlineListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/airline-edit/:airlineId', {
+		.when('/admin/airline-edit/:airlineId', {
 			templateUrl: 'app/components/offer/transport/airline/edit/airlineEdit.html',
 			controller: 'AirlineEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/airline-add', {
+		.when('/admin/airline-add', {
 			templateUrl: 'app/components/offer/transport/airline/edit/airlineEdit.html',
 			controller: 'AirlineEditController',
 			controllerAs: 'ctrl'

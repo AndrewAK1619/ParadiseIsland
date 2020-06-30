@@ -112,7 +112,8 @@ public class OfferBookingController {
 	
 	@GetMapping("/airlines")
 	public ResponseEntity<List<AirlineOfferDto>> getAirlinesOfferByDate(
-			@CookieValue(value = "searchDataMap", required = false) String searchDataMapString){
+			@CookieValue(value = "searchDataMap", required = false) String searchDataMapString,
+			@RequestParam(required = false) String airlineName){
 			
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> searchDataMap = new HashMap<>();
@@ -126,7 +127,13 @@ public class OfferBookingController {
 						"Search data not found");
 			}
 		}
-		List<AirlineOfferDto> airlineOffersList = offerBookingService.getAllAirlineOfferByDate(searchDataMap);
+		List<AirlineOfferDto> airlineOffersList;
+		if(airlineName != null)
+			airlineOffersList = offerBookingService
+				.getAllAirlineOfferByDateAndAirlineName(searchDataMap, airlineName);
+		else
+			airlineOffersList = offerBookingService
+					.getAllAirlineOfferByDate(searchDataMap);
 		
 		return ResponseEntity.ok(airlineOffersList);
 	}

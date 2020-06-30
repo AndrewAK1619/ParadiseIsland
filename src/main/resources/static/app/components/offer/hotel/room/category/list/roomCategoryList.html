@@ -34,13 +34,13 @@
 							<td>{{roomCategory.name}}</td>
 							<td class="text-center">
 								<button class="btn btn-sm btn-primary" title="Edit">
-									<a ng-href="#!hotels/rooms/categories-edit/{{roomCategory.id}}"
+									<a ng-href="#!/admin/hotels/rooms/categories-edit/{{roomCategory.id}}"
 										class="text-white">
 										<i class="fas fa-edit"></i>
 									</a>
 								</button>
 								<button class="btn btn-sm btn-warning" title="...">
-									<a ng-href="#!" class="text-white">
+									<a ng-href="" class="text-white">
 										<i class="fas fa-history"></i>
 									</a>
 								</button>
@@ -55,7 +55,7 @@
 		</div>
 		<div class="row">
 			<a class="btn btn-primary mb-3 mx-auto"
-				ng-href="#!/hotels/rooms/categories-add">Add new category</a>
+				ng-href="#!/admin/hotels/rooms/categories-add">Add new category</a>
 		</div>
 	</div>
 	<div ng-show="!authenticatedAdmin"> 

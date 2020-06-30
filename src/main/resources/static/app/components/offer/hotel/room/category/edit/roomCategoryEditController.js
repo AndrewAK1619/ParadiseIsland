@@ -35,7 +35,7 @@ angular.module('app')
 		valid(response);
 		if(!vm.hasError) {
 			vm.hasError = null;
-			$location.path(`/hotels/rooms/categories-edit/${vm.roomCategory.id}`);
+			$location.path(`/admin/hotels/rooms/categories-edit/${vm.roomCategory.id}`);
 		}
 	};
 	const errorCallback = err => {

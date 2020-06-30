@@ -35,7 +35,7 @@
 							<td>{{airline.details}}</td>
 							<td class="text-center">
 								<button class="btn btn-sm btn-primary" title="Edit">
-									<a ng-href="#!airline-edit/{{airline.id}}" class="text-white">
+									<a ng-href="#!/admin/airline-edit/{{airline.id}}" class="text-white">
 										<i class="fas fa-edit"></i>
 									</a>
 								</button>
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<a class="btn btn-primary mb-3" ng-href="#!airline-add">Add airline</a>
+			<a class="btn btn-primary mb-3" ng-href="#!/admin/airline-add">Add airline</a>
 		</div>
 	</div>
 	<div ng-show="!authenticatedAdmin"> 

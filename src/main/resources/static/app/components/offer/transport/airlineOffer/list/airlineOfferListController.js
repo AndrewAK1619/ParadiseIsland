@@ -4,12 +4,15 @@ angular.module('app')
 	
 	vm.hotelId = $routeParams.hotelId;
 	
-	const setAirlinesOfferListData = result => {
-		vm.airlinesOfferList = result;
-		
+	const setNumId = () => {
 		for(var i = 0; i < vm.airlinesOfferList.length; i++) {
 			vm.airlinesOfferList[i].numId = i+1;
 		}
+	}
+	
+	const setAirlinesOfferListData = result => {
+		vm.airlinesOfferList = result;
+		setNumId();
 	}
 
 	vm.airlinesOfferListPromise = AirlineOfferService.getAirlinesOfferByDate(vm.hotelId);
@@ -17,6 +20,7 @@ angular.module('app')
 	
 	vm.search = airlineName => {
 		vm.airlinesOfferList = AirlineOfferService.getAirlinesOfferByDate(vm.hotelId, airlineName);
+		vm.airlinesOfferList.$promise.then(setNumId);
 	};
 	
 	vm.setAirlineOffer = airlineOffer => {

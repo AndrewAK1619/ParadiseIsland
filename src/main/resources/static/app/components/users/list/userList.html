@@ -37,7 +37,7 @@
 							<td>{{user.email}}</td>
 							<td class="text-center">
 								<button class="btn btn-sm btn-primary" title="Edit">
-									<a ng-href="#!user-edit/{{user.id}}" class="text-white">
+									<a ng-href="#!/admin/user-edit/{{user.id}}" class="text-white">
 										<i class="fas fa-user-edit"></i>
 									</a>
 								</button>
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<a class="btn btn-primary mb-3" ng-href="#!user-add">Add user</a>
+			<a class="btn btn-primary mb-3" ng-href="#!/admin/user-add">Add user</a>
 		</div>
 	</div>
 	<div ng-show="!authenticatedAdmin"> 

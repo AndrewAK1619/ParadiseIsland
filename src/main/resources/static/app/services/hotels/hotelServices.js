@@ -1,7 +1,7 @@
 angular.module('app')
-.constant('HOTEL_ENDPOINT', '/hotels/:id')
-.constant('HOTEL_LOAD_PAGE', '/hotels/page/:pageNumber')
-.constant('DEFAULT_HOTEL_IMAGE', '/hotels/defaultImg')
+.constant('HOTEL_ENDPOINT', '/admin/hotels/:id')
+.constant('HOTEL_LOAD_PAGE', '/admin/hotels/page/:pageNumber')
+.constant('DEFAULT_HOTEL_IMAGE', '/admin/hotels/defaultImg')
 .factory('Hotel', function ($resource, HOTEL_ENDPOINT, DEFAULT_HOTEL_IMAGE, HOTEL_LOAD_PAGE) {
 	return $resource(HOTEL_ENDPOINT, { id: '@_id' }, {
 		getAllHotelsAndMainImg: {

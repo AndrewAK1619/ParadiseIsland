@@ -1,5 +1,5 @@
 angular.module('app')
-.constant('AIRLINE_ENDPOINT', '/airlines/:id')
+.constant('AIRLINE_ENDPOINT', '/admin/airlines/:id')
 .factory('Airline', function($resource, AIRLINE_ENDPOINT) {
 	return $resource(AIRLINE_ENDPOINT, { id: '@_id' }, {
 		update: {

@@ -250,7 +250,6 @@ public class SearchService {
 		if(airlinesOffer.isEmpty()) {
 			// method only to put example data
 			generateExampleAirlineData(departureVar, returnDateVar);
-			
 			airlinesOffer = airlineOfferService
 					.getAirlineOfferByDepartureAndReturnDate(
 					departureVar, returnDateVar);
@@ -259,6 +258,23 @@ public class SearchService {
 				.map(ao -> airlineOfferMapper.toDto(ao))
 				.collect(Collectors.toList());
 	}
+	
+	List<AirlineOfferDto> getAllAirlineOfferByDateAndAirlineName(
+			Map<String, String> searchDataMap, String airlineName) {
+			
+		LocalDate departureVar = getCookieDeparture(searchDataMap);
+		LocalDate returnDateVar = getCookieReturnDate(searchDataMap);
+		
+		List<AirlineOffer> airlinesOffer = airlineOfferService
+				.getAirlineOfferByDepartureAndReturnDateAndAirlineName(
+				departureVar, returnDateVar, airlineName);
+
+
+		return airlinesOffer.stream()
+				.map(ao -> airlineOfferMapper.toDto(ao))
+				.collect(Collectors.toList());
+	}
+	
 // getAirlineOfferByDepartureAndReturnDateOrderByFlightPrice
 	private LocalDate getCookieDeparture(Map<String, String> searchDataMap) {
 		LocalDate departureVar = LocalDate.now();

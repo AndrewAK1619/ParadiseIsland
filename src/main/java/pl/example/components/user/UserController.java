@@ -24,7 +24,7 @@ import pl.example.components.user.UserDto;
 import pl.example.components.validation.ValidationService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/admin/users")
 public class UserController {
 
     private UserService userService;
@@ -72,7 +72,9 @@ public class UserController {
 			return ResponseEntity.ok(ValidationService.valid(result));
 		}
         if(!id.equals(user.getId()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The updated object must have an id in accordance with the id in the resource path");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+            		"The updated object must have an id in accordance "
+            		+ "with the id in the resource path");
         UserDto updatedUser = userService.update(user);
         return ResponseEntity.ok(updatedUser);
     }

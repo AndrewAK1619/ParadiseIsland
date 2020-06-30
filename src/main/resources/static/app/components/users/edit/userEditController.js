@@ -60,7 +60,7 @@ angular.module('app')
 		valid(response);
 		if(!vm.hasError) {
 			vm.hasError = null;
-			$location.path(`/user-edit/${vm.user.id}`);
+			$location.path(`/admin/user-edit/${vm.user.id}`);
 		}
 	};
 	

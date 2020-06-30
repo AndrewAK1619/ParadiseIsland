@@ -35,7 +35,7 @@ import pl.example.components.offer.hotel.image.HotelImageService;
 import pl.example.components.validation.ValidationService;
 
 @RestController
-@RequestMapping("/hotels")
+@RequestMapping("/admin/hotels")
 public class HotelController {
 
 	private HotelService hotelService;

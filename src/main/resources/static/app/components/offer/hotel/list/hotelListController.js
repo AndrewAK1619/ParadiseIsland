@@ -121,20 +121,20 @@ angular.module('app')
 		vm.pageNumber = result.hotelList[0].number + 1;
 		vm.totalPages = result.hotelList[0].totalPages;
 		
-		if($location.path() === '/hotels') {
+		if($location.path() === '/admin/hotels') {
 			setHotlAndTopImgData(result);
 			setNumberButtons(vm.pageNumber);
 		} else if(vm.pageNumber >= 1 && vm.pageNumber <= vm.totalPages) {
 			setHotlAndTopImgData(result);
 			setNumberButtons(vm.pageNumber);
 		} else {
-			$location.path(`/hotels/page/1`);
+			$location.path(`/admin/hotels/page/1`);
 		}
 	}
 
 	if(vm.pageNumber) {
 		if(vm.pageNumber < 1 || vm.pageNumber > vm.totalPages) {
-			$location.path(`/hotels`);
+			$location.path(`/admin/hotels`);
 		}
 		vm.hotelsAndTopImgArray = HotelService
 			.getAllHotelsByNameAndCountry(vm.pageNumber, vm.hotelName, vm.countryName);
@@ -153,7 +153,7 @@ angular.module('app')
 			vm.hotelsAndTopImgArray.$promise.then(setHotelAndTopImg);
 		} else {
 			vm.pageNumber = 1;
-			$location.path(`/hotels/page/${vm.pageNumber}`);
+			$location.path(`/admin/hotels/page/${vm.pageNumber}`);
 		}
 	};
 
@@ -162,7 +162,7 @@ angular.module('app')
 			vm.pageNumber = buttonNumber;
 			$rootScope.hotelName = vm.hotelName;
 			$rootScope.countryName = vm.countryName;
-			$location.path(`/hotels/page/${vm.pageNumber}`);
+			$location.path(`/admin/hotels/page/${vm.pageNumber}`);
 		}
 	};
 	vm.firstPage = () => {

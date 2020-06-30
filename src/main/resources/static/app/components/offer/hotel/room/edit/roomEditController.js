@@ -72,7 +72,7 @@ angular.module('app')
 		if(!vm.hasError) {
 			vm.hasError = null;
 			vm.room.id = response.id;
-			$location.path(`/hotels/rooms-edit/${vm.room.id}`);
+			$location.path(`/admin/hotels/rooms-edit/${vm.room.id}`);
 		}
 	};
 	const errorCallback = err => {

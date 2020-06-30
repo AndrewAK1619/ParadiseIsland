@@ -40,7 +40,7 @@ angular.module('app')
 		valid(response);
 		if(!vm.hasError) {
 			vm.hasError = null;
-			$location.path(`/airline-edit/${vm.airline.id}`);
+			$location.path(`/admin/airline-edit/${vm.airline.id}`);
 		}
 	};
 	

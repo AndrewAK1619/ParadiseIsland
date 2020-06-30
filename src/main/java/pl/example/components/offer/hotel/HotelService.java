@@ -113,6 +113,11 @@ public class HotelService {
 
 	private HotelDto mapAndSaveHotel(HotelDto hotelDto) {
 		Hotel hotelEntity = hotelMapper.toEntity(hotelDto);
+		if(hotelEntity.getId() != null) {
+			Optional<Hotel> hotelOptional = hotelRepository.findById(hotelEntity.getId());
+			hotelOptional.ifPresent(h -> 
+				hotelEntity.setHotelAdvantages(h.getHotelAdvantages()));
+		}
 		Hotel savedHotel = hotelRepository.save(hotelEntity);
 		return hotelMapper.toDto(savedHotel);
 	}

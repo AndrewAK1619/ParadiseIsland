@@ -57,7 +57,7 @@ public class UserService {
         userByEmail.ifPresent(u -> {
             throw new DuplicateEmailException();
         });
-        return mapAndSaveUser(user);
+        return mapAndSaveUser(user, true);
     }
     
     UserDto update(UserDto user) {
@@ -66,12 +66,19 @@ public class UserService {
             if(!u.getId().equals(user.getId()))
                 throw new DuplicateEmailException();
         });
-        return mapAndSaveUser(user);
+        return mapAndSaveUser(user, false);
     }
     
-    private UserDto mapAndSaveUser(UserDto user) {
+    private UserDto mapAndSaveUser(UserDto user, boolean isUserNotExist) {
         User userEntity = UserMapper.toEntity(user);
-        addWithDefaultRole(userEntity);
+        if(isUserNotExist) {
+        	addWithDefaultRole(userEntity);
+        } else {
+        	Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
+            userByEmail.ifPresent(u -> {
+            	userEntity.setRoles(u.getRoles());
+            });
+        }
         User savedUser = userRepository.save(userEntity);
         return UserMapper.toDto(savedUser);
     }
@@ -81,6 +88,5 @@ public class UserService {
 		user.getRoles().add(defaultRole);
 		String passwordHash = passwordEncoder.encode(user.getPassword());
 		user.setPassword(passwordHash);
-		userRepository.save(user);
 	}
 }

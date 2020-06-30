@@ -143,14 +143,14 @@
 							ng-model="ctrl.hotel.description"
 							ng-class="{validErrBorder: hotelForm.description.$dirty 
 							&& hotelForm.description.$invalid}" name="description"
-							ng-maxlength="150">
+							ng-maxlength="300">
 						</textarea>
 						<small>
 							<span class="form-text valid-err-text-two" 
 								ng-show="hotelForm.description.$dirty 
 								&& hotelForm.description.$invalid">
 								<span ng-show="hotelForm.description.$error.maxlength">
-									- Description must have maximum 150 characters. -
+									- Description must have maximum 300 characters. -
 								</span>
 							</span>
 						</small>
@@ -174,9 +174,9 @@
 						</button>
 					</div>
 					<div class="row">
-						<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels">Hotels</a>
+						<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels">Hotels</a>
 						<a ng-if="ctrl.hotel.id" class="btn btn-primary mb-3 mx-auto"
-							ng-href="#!/hotels-add">Add another hotel</a>
+							ng-href="#!/admin/hotels-add">Add another hotel</a>
 					</div>
 				</div>
 			</form>

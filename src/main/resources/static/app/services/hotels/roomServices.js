@@ -1,7 +1,7 @@
 angular.module('app')
-.constant('ROOM_ENDPOINT', '/hotels/rooms/:id')
-.constant('HOTEL_ROOM_ENDPOINT', '/hotels/:hotelId/rooms/:id')
-.constant('DEFAULT_ROOM_IMAGE', '/hotels/rooms/defaultImg')
+.constant('ROOM_ENDPOINT', '/admin/hotels/rooms/:id')
+.constant('HOTEL_ROOM_ENDPOINT', '/admin/hotels/:hotelId/rooms/:id')
+.constant('DEFAULT_ROOM_IMAGE', '/admin/hotels/rooms/defaultImg')
 .constant('ALL_AVAILABLE_ROOM', '/search-result/details/:hotelId/rooms')
 .factory('Room', function($resource, ROOM_ENDPOINT, HOTEL_ROOM_ENDPOINT, DEFAULT_ROOM_IMAGE, ALL_AVAILABLE_ROOM) {
 	return $resource(ROOM_ENDPOINT, { id: '@_id' }, {

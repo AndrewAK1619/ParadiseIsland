@@ -42,7 +42,7 @@ angular.module('app')
 		} else{
 			vm.airlineOffer = result.airlineOffer[0];
 		}
-		
+		// TODO check exist cookie
 		vm.searchCookie = JSON.parse($cookies.get('searchDataMap'));
         var dt1 = vm.searchCookie.departure.split('-'),
         dt2 = vm.searchCookie.returnDate.split('-');

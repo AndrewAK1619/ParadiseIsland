@@ -13,7 +13,7 @@ public class HotelDto {
 	@NotBlank(message = "{offer.hotel.hotelName.NotBlank}")
 	@Size(max = 30, message = "{offer.hotel.hotelName.Size}")
 	private String hotelName;
-	@Size(max = 150, message = "{offer.hotel.description.Size}")
+	@Size(max = 300, message = "{offer.hotel.description.Size}")
 	private String description;
 	private Long mainImageId;
 	private List<HotelAdvantageDto> hotelAdvantageDto;

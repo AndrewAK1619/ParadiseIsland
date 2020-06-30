@@ -138,6 +138,12 @@ public class OfferBookingService {
 		return searchService.getAllAirlineOfferByDate(searchDataMap);
 	}
 	
+	List<AirlineOfferDto> getAllAirlineOfferByDateAndAirlineName(
+			Map<String, String> searchDataMap, String airlineName) {
+		return searchService
+				.getAllAirlineOfferByDateAndAirlineName(searchDataMap, airlineName);
+	}
+	
 	private LocalDate getCookieDeparture(Map<String, String> searchDataMap) {
 		LocalDate departureVar = LocalDate.now();
 		if (searchDataMap.get(DEPARTURE_STRING) != null)

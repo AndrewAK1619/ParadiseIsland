@@ -23,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.example.components.validation.ValidationService;
 
 @RestController
-@RequestMapping("/airlines")
+@RequestMapping("/admin/airlines")
 public class AirlineController {
 
 	private AirlineService airlineService;

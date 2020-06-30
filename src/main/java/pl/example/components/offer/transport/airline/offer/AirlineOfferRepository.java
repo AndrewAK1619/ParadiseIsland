@@ -18,6 +18,16 @@ public interface AirlineOfferRepository extends JpaRepository<AirlineOffer, Long
 	List<AirlineOffer> findAllByDepartureAndReturnTrip(
 			LocalDateTime departureDayStart, LocalDateTime departureDayEnd, 
 			LocalDateTime returnTripDayStart, LocalDateTime returnTripDayEnd);
+			
+	@Query(value = "SELECT * FROM airline_offer ao									\r\n" + 
+			"WHERE ao.departure BETWEEN :departureDayStart AND :departureDayEnd		\r\n" + 
+			"AND ao.return_trip BETWEEN :returnTripDayStart AND :returnTripDayEnd	\r\n" +
+			"AND ao.ariline_id IN (SELECT a.airline_id FROM airlines a 			\r\n" +
+			"WHERE LOWER(a.airline_name) LIKE LOWER(CONCAT('%', :airlineName, '%')))", nativeQuery = true)
+	List<AirlineOffer> findAllByDepartureAndReturnTripAndAirlineName(
+			LocalDateTime departureDayStart, LocalDateTime departureDayEnd, 
+			LocalDateTime returnTripDayStart, LocalDateTime returnTripDayEnd, 
+			String airlineName);
 	
 	@Query(value = "SELECT * FROM airline_offer ao									\r\n" + 
 			"WHERE ao.departure BETWEEN :departureDayStart AND :departureDayEnd		\r\n" + 

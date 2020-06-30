@@ -1,6 +1,6 @@
 angular.module('app')
-.constant('ROOM_CATEGORY_ENDPOINT', '/hotels/rooms/categories/:id')
-.constant('ROOM_CATEGORY_NAMES_ENDPOINT', '/hotels/rooms/categories/names')
+.constant('ROOM_CATEGORY_ENDPOINT', '/admin/hotels/rooms/categories/:id')
+.constant('ROOM_CATEGORY_NAMES_ENDPOINT', '/admin/hotels/rooms/categories/names')
 .factory('RoomCategory', function($resource, ROOM_CATEGORY_ENDPOINT) {
 	return $resource(ROOM_CATEGORY_ENDPOINT, { id: '@_id' }, {
 		update: {

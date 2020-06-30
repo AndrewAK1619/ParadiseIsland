@@ -45,12 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/account/login").permitAll()
-				.antMatchers("/").permitAll()
-				.antMatchers("/users", "/user-edit/**", "/user-add",
-				"/hotels-add", "/hotels-edit/**", "/hotels/:hotelId/rooms-add",
-				"/hotels/rooms-edit/**", "/hotels/rooms/categories", "/hotels/rooms/categories-add",
-				"/hotels/rooms/categories-edit/**", "/hotels/page/**", "/search-result/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers("/", "/account/login", "/account/register", 
+						"/search-result/**").permitAll()
+				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 				.and()
 			.exceptionHandling().and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

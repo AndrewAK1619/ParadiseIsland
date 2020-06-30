@@ -23,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.example.components.validation.ValidationService;
 
 @RestController
-@RequestMapping("/hotels/rooms/categories")
+@RequestMapping("/admin/hotels/rooms/categories")
 public class RoomCategoryController {
 
 	private RoomCategoryService roomCategoryService;

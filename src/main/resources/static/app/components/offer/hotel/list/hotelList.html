@@ -1,162 +1,172 @@
 <div class="container">
-	<div class="row">
-		<div class="col-md-8 offset-md-2">
-			<div class="form">
-				<div class="input-group mb-2 mr-sm-2">
-					<div class="input-group-prepend">
-						<div class="input-group-text">
-							<i class="fas fa-search"></i>
+	<div ng-show="authenticatedAdmin">
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="form">
+					<div class="input-group mb-2 mr-sm-2">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fas fa-search"></i>
+							</div>
 						</div>
+						<input type="text" class="form-control" id="searchInput"
+							placeholder="Hotel Name" ng-model="ctrl.hotelName">
+						<input type="text" name="countryName" id="countryName" ng-model="ctrl.countryName" 
+							ng-keyup="ctrl.completeCountry(ctrl.countryName)" class="form-control" 
+							ng-mousedown="ctrl.completeCountry(ctrl.countryName)"
+							placeholder="Country Name" ng-focus="focusedCountry = true" autocomplete="off"
+							ng-blur="focusedCountry = false" ng-change="ctrl.countryIsChosen = false">
+						<ul class="list-group col-6 offset-md-5 hotel-country-search" ng-model="ctrl.hideCountryList" 
+							ng-hide="ctrl.hideCountryList" ng-show="focusedCountry">
+							<li class="list-group-item list-group-item-action border border-dark" 
+							ng-repeat="countryData in ctrl.filterCountry"
+							ng-mousedown="ctrl.fillCountryTextbox(countryData)">{{countryData}}</li>
+						</ul>
+						<button class="btn btn-primary mx-1"
+							ng-click="ctrl.search()">Search</button>
 					</div>
-					<input type="text" class="form-control" id="searchInput"
-						placeholder="Hotel Name" ng-model="ctrl.hotelName">
-					<input type="text" name="countryName" id="countryName" ng-model="ctrl.countryName" 
-						ng-keyup="ctrl.completeCountry(ctrl.countryName)" class="form-control" 
-						ng-mousedown="ctrl.completeCountry(ctrl.countryName)"
-						placeholder="Country Name" ng-focus="focusedCountry = true" autocomplete="off"
-						ng-blur="focusedCountry = false" ng-change="ctrl.countryIsChosen = false">
-					<ul class="list-group col-6 offset-md-5 hotel-country-search" ng-model="ctrl.hideCountryList" 
-						ng-hide="ctrl.hideCountryList" ng-show="focusedCountry">
-						<li class="list-group-item list-group-item-action border border-dark" 
-						ng-repeat="countryData in ctrl.filterCountry"
-						ng-mousedown="ctrl.fillCountryTextbox(countryData)">{{countryData}}</li>
-					</ul>
-					<button class="btn btn-primary mx-1"
-						ng-click="ctrl.search()">Search</button>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="card border-dark mb-3" ng-repeat="hotel in ctrl.hotelArray">
-		<div class="row no-gutters">
-			<div class="col-md-4 text-center bg-secondary">
-				<img ng-src="data:image/jpeg;base64,{{hotel.imgSrc}}"
-					class="card-img img-fluid imageListResult" alt="...">
-			</div>
-			<div class="col-md-8">
-				<ul class="list-group list-group-horizontal" style="height: 100%;">
-					<li class="list-group-item w-100">
-						<div class="">
-							<div class="items col-12 clearfix">
-								<div class="info-block block-info clearfix">
-									<div class="square-box">
-										<span class="glyphicon glyphicon-user glyphicon-lg"></span>
-									</div>
-									<div class="row">
-										<div>
-											<small>{{hotel.country}} / {{hotel.region}} / {{hotel.city}}</small>
+		<div class="card border-dark mb-3" ng-repeat="hotel in ctrl.hotelArray">
+			<div class="row no-gutters">
+				<div class="col-md-4 text-center bg-secondary">
+					<img ng-src="data:image/jpeg;base64,{{hotel.imgSrc}}"
+						class="card-img img-fluid imageListResult" alt="...">
+				</div>
+				<div class="col-md-8">
+					<ul class="list-group list-group-horizontal" style="height: 100%;">
+						<li class="list-group-item w-100">
+							<div class="">
+								<div class="items col-12 clearfix">
+									<div class="info-block block-info clearfix">
+										<div class="square-box">
+											<span class="glyphicon glyphicon-user glyphicon-lg"></span>
 										</div>
-										<div class="w-100 mb-1"></div>
-										<div class="font-weight-bold">
-											#{{hotel.id}}.
-											<strong>{{hotel.hotelName}}</strong>
-										</div>
-										<div class="w-100 mb-3"></div>
-										<div class="card-text">
-											<ul class="dashed">
-												<li ng-repeat="hotelAdvantageDto 
-													in hotel.hotelAdvantageDto | limitTo:4">
-													{{hotelAdvantageDto.descriptionAdvantage}}
-												</li>
-											</ul>
+										<div class="row">
+											<div>
+												<small>{{hotel.country}} / {{hotel.region}} / {{hotel.city}}</small>
+											</div>
+											<div class="w-100 mb-1"></div>
+											<div class="font-weight-bold">
+												#{{hotel.id}}.
+												<strong>{{hotel.hotelName}}</strong>
+											</div>
+											<div class="w-100 mb-3"></div>
+											<div class="card-text">
+												<ul class="dashed">
+													<li ng-repeat="hotelAdvantageDto 
+														in hotel.hotelAdvantageDto | limitTo:4">
+														{{hotelAdvantageDto.descriptionAdvantage}}
+													</li>
+												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</li>
-					<li class="list-group-item-dark p-2" ng-show="authenticatedAdmin"
-						style="display: flex; align-items: center;">
-						<div class="btn-group-vertical">
-							<button class="btn btn-sm btn-primary mb-3" title="Edit">
-								<a ng-href="#!/hotels-edit/{{hotel.id}}" class="text-white">
-									<i class="fas fa-edit"></i>
-								</a>
-							</button>
-							<button class="btn btn-sm btn-warning mb-3" title="Rooms">
-								<a ng-href="#!/hotels/{{hotel.id}}/rooms" class="text-white">
-									<i class="fas fa-door-open"></i>
-								</a>
-							</button>
-							<button class="btn btn-sm btn-danger" title="Delete">
-								<i class="fas fa-trash-alt"></i>
-							</button>
-						</div>
-					</li>
-				</ul>
+						</li>
+						<li class="list-group-item-dark p-2" ng-show="authenticatedAdmin"
+							style="display: flex; align-items: center;">
+							<div class="btn-group-vertical">
+								<button class="btn btn-sm btn-primary mb-3" title="Edit">
+									<a ng-href="#!/admin/hotels-edit/{{hotel.id}}" class="text-white">
+										<i class="fas fa-edit"></i>
+									</a>
+								</button>
+								<button class="btn btn-sm btn-warning mb-3" title="Rooms">
+									<a ng-href="#!/admin/hotels/{{hotel.id}}/rooms" class="text-white">
+										<i class="fas fa-door-open"></i>
+									</a>
+								</button>
+								<button class="btn btn-sm btn-danger" title="Delete">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
+		<div ng-show="ctrl.resultFound" class="col-md-12 text-center my-4">
+			<h1><strong>No result found</strong></h1>
+		</div>
+		<div ng-show="ctrl.hotelDataLoaded">
+			<nav aria-label="Page navigation">
+				<ul class="pagination pagination-v1 justify-content-center">
+					<li class="page-item">
+						<a ng-click="ctrl.firstPage()" 
+							ng-class="{ 'disabled': ctrl.disableFirstPage }" 
+							class="page-link" href="" tabindex="-1">
+							<i class="fa fa-angle-double-left"></i>
+						</a>
+					</li>
+					<li class="page-item">
+						<a ng-click="ctrl.previousPage()" 
+							ng-class="{ 'disabled': ctrl.disablePreviousPage }" 
+							class="page-link" href="" tabindex="-1">
+							<i class="fa fa-angle-left"></i>
+						</a>
+					</li>
+					<li class="page-item">
+						<a ng-click="ctrl.loadPage(ctrl.numButton - 2)" 
+							class="page-link" id="firstButton" href="">
+							{{ctrl.numButton - 2}}
+						</a>
+					</li>
+					<li class="page-item" ng-hide="ctrl.showSecondButton">
+						<a ng-click="ctrl.loadPage(ctrl.numButton - 1)"
+							class="page-link" id="secondButton" href="">
+							{{ctrl.numButton - 1}}
+						</a>
+					</li>
+					<li class="page-item" ng-hide="ctrl.showThirdButton">
+						<a ng-click="ctrl.loadPage(ctrl.numButton)" 
+							class="page-link" id="thirdButton" href="">
+							{{ctrl.numButton}}
+						</a>
+					</li>
+					<li class="page-item" ng-hide="ctrl.showFourthButton">
+						<a ng-click="ctrl.loadPage(ctrl.numButton + 1)"  
+							class="page-link" id="fourthButton" href="">
+							{{ctrl.numButton  + 1}}
+						</a>
+					</li>
+					<li class="page-item" ng-hide="ctrl.showFifthButton">
+						<a ng-click="ctrl.loadPage(ctrl.numButton + 2)" 
+							class="page-link" id="fifthButton" href="">
+							{{ctrl.numButton + 2}}
+						</a>
+					</li>
+					<li class="page-item">
+						<a ng-click="ctrl.nextPage()" class="page-link" 
+							ng-class="{ 'disabled': ctrl.disableNextPage }"
+							href="" tabindex="-1">
+							<i class="fa fa-angle-right"></i>
+						</a>
+					</li>
+					<li class="page-item">
+						<a ng-click="ctrl.lastPage()" class="page-link" 
+							ng-class="{ 'disabled': ctrl.disableLastPage }" 
+							href="" tabindex="-1">
+							<i class="fa fa-angle-double-right"></i>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<div class="row" ng-show="authenticatedAdmin">
+			<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels-add">
+				Add new hotel
+			</a>
+		</div>
 	</div>
-	<div ng-show="ctrl.resultFound" class="col-md-12 text-center my-4">
-		<h1><strong>No result found</strong></h1>
-	</div>
-	<div ng-show="ctrl.hotelDataLoaded">
-		<nav aria-label="Page navigation">
-			<ul class="pagination pagination-v1 justify-content-center">
-				<li class="page-item">
-					<a ng-click="ctrl.firstPage()" 
-						ng-class="{ 'disabled': ctrl.disableFirstPage }" 
-						class="page-link" href="" tabindex="-1">
-						<i class="fa fa-angle-double-left"></i>
-					</a>
-				</li>
-				<li class="page-item">
-					<a ng-click="ctrl.previousPage()" 
-						ng-class="{ 'disabled': ctrl.disablePreviousPage }" 
-						class="page-link" href="" tabindex="-1">
-						<i class="fa fa-angle-left"></i>
-					</a>
-				</li>
-				<li class="page-item">
-					<a ng-click="ctrl.loadPage(ctrl.numButton - 2)" 
-						class="page-link" id="firstButton" href="">
-						{{ctrl.numButton - 2}}
-					</a>
-				</li>
-				<li class="page-item" ng-hide="ctrl.showSecondButton">
-					<a ng-click="ctrl.loadPage(ctrl.numButton - 1)"
-						class="page-link" id="secondButton" href="">
-						{{ctrl.numButton - 1}}
-					</a>
-				</li>
-				<li class="page-item" ng-hide="ctrl.showThirdButton">
-					<a ng-click="ctrl.loadPage(ctrl.numButton)" 
-						class="page-link" id="thirdButton" href="">
-						{{ctrl.numButton}}
-					</a>
-				</li>
-				<li class="page-item" ng-hide="ctrl.showFourthButton">
-					<a ng-click="ctrl.loadPage(ctrl.numButton + 1)"  
-						class="page-link" id="fourthButton" href="">
-						{{ctrl.numButton  + 1}}
-					</a>
-				</li>
-				<li class="page-item" ng-hide="ctrl.showFifthButton">
-					<a ng-click="ctrl.loadPage(ctrl.numButton + 2)" 
-						class="page-link" id="fifthButton" href="">
-						{{ctrl.numButton + 2}}
-					</a>
-				</li>
-				<li class="page-item">
-					<a ng-click="ctrl.nextPage()" class="page-link" 
-						ng-class="{ 'disabled': ctrl.disableNextPage }"
-						href="" tabindex="-1">
-						<i class="fa fa-angle-right"></i>
-					</a>
-				</li>
-				<li class="page-item">
-					<a ng-click="ctrl.lastPage()" class="page-link" 
-						ng-class="{ 'disabled': ctrl.disableLastPage }" 
-						href="" tabindex="-1">
-						<i class="fa fa-angle-double-right"></i>
-					</a>
-				</li>
-			</ul>
-		</nav>
-	</div>
-	<div class="row" ng-show="authenticatedAdmin">
-		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/hotels-add">
-			Add new hotel
-		</a>
+	<div ng-show="!authenticatedAdmin"> 
+		<div ng-if="authenticatedUser">
+			{{ redirectToHomePage() }}
+		</div>
+		<div ng-if="!authenticated">
+			{{ redirectToLoginPage() }}
+		</div>
 	</div>
 </div>

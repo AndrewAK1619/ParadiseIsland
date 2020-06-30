@@ -18,14 +18,16 @@ angular.module('app')
 	
 	var url = $location.url();
 	
-	if(url === `/hotels/${vm.hotelId}/rooms`)
+	if(url === `/admin/hotels/${vm.hotelId}/rooms`)
 		vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg(vm.hotelId);
-	else 
+	else {
 		vm.roomsAndTopImgArray = RoomService.getAvailableRooms(vm.hotelId);
+		vm.isSearchUrl = true;
+	}
 	vm.roomsAndTopImgArray.$promise.then(setRoomAndTopImg);
 	
 	vm.search = roomCategoryName => {
-		if(url === `/hotels/${vm.hotelId}/rooms`)
+		if(url === `/admin/hotels/${vm.hotelId}/rooms`)
 			vm.roomsAndTopImgArray = RoomService.getAllRoomsAndMainImg(vm.hotelId, roomCategoryName);
 		else
 			vm.roomsAndTopImgArray = RoomService.getAvailableRooms(vm.hotelId, roomCategoryName);
