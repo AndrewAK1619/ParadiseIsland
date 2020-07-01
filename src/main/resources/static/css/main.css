@@ -125,7 +125,7 @@ body {
 	height: 100%;
 	width: 100%;
 	min-height: 100%;
-	object-fit:cover;
+	object-fit: cover;
 }
 
 .card-img-part {
@@ -178,6 +178,15 @@ body {
 	color: #0046b5 !important;
 	font-weight: bold;
 	cursor: pointer;
+}
+
+.dropdown-item {
+	color: #5e5e5e;
+}
+
+.dropdown-item:hover {
+	background-color: #3c5fe8 !important;
+	color: white !important;
 }
 
 .topic{
