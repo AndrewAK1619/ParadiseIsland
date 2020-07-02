@@ -1,0 +1,61 @@
+<div class="container">
+	<div ng-show="authenticated">
+		<div class="row">
+			<div class="col-md-1 mb-3"></div>
+			<div class="col-md-4 mb-3">
+				<div class="card profile-card-2">
+					<div class="card-img-block">
+						<img class="card-img img-fluid imageListResult" src="/img/gallary/2341.png" alt="Card image"/>
+					</div>
+						<div class="card-body pt-5">
+							<img src="/img/icons/email.jpg" alt="Change email" class="profileIcon"/>
+							<h5 class="card-title">Change your email address</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2 mb-3"></div>
+			<div class="col-md-4 mb-3">
+				<div class="card profile-card-2">
+					<div class="card-img-block">
+						<img class="card-img img-fluid imageListResult" src="/img/gallary/2342.jpg" alt="Card image" />
+					</div>
+						<div class="card-body pt-5">
+							<img src="/img/icons/padlock.png" alt="Change password" class="profileIcon"/>
+							<h5 class="card-title">Change your password</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1 mb-3"></div>
+			<div class="col-md-1 mb-3"></div>
+			<div class="col-md-4 mb-3">
+				<div class="card profile-card-2">
+					<div class="card-img-block">
+						<img class="card-img img-fluid imageListResult" src="/img/gallary/2344.jpg" alt="Card image"/>
+					</div>
+						<div class="card-body pt-5">
+							<img src="/img/icons/about.png" alt="Change email" class="profileIcon"/>
+							<h5 class="card-title">Change your other details</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2 mb-3"></div>
+			<div class="col-md-4 mb-3">
+				<div class="card profile-card-2">
+					<div class="card-img-block">
+						<img class="card-img img-fluid imageListResult" src="/img/gallary/2343.jpg" alt="Card image" />
+					</div>
+						<div class="card-body pt-5">
+							<img src="/img/icons/globe.png" alt="Change password" class="profileIcon"/>
+							<h5 class="card-title">Your reservations</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1 mb-3"></div>
+		</div>
+	</div>
+	<div ng-show="!authenticated"> 
+		<div ng-if="!authenticated">
+			{{ redirectToLoginPage() }}
+		</div>
+	</div>
+</div>
