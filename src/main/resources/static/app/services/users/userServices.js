@@ -1,9 +1,21 @@
 angular.module('app')
 .constant('USER_ENDPOINT', '/admin/users/:id')
-.factory('User', function($resource, USER_ENDPOINT) {
+.constant('PROFILE_ENDPOINT', '/account/profile')
+.factory('User', function($resource, USER_ENDPOINT, PROFILE_ENDPOINT) {
 	return $resource(USER_ENDPOINT, { id: '@_id' }, {
 		update: {
 			method: 'PUT'
+		},
+		getUserEmail: {
+			method: 'GET',
+			url: PROFILE_ENDPOINT,
+			transformRequest: angular.identity,
+			headers: {'Content-type': undefined},
+			isArray: true
+		},
+		saveUserEmail: {
+			method: 'POST',
+			url: PROFILE_ENDPOINT
 		}
 	});
 })
@@ -11,5 +23,7 @@ angular.module('app')
 	this.getAll = params => User.query(params);
 	this.get = index => User.get({id: index});
 	this.save = user => user.$save();
-	this.update = user => user.$update({id: user.id})
+	this.update = user => user.$update({id: user.id});
+	this.getUserEmail = () => User.getUserEmail();
+	this.saveUserEmail = email => User.saveUserEmail(email);
 });

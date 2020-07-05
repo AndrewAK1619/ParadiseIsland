@@ -151,8 +151,26 @@
 								</div>
 								<div class="col form-group">
 									<label>Confirm Password</label>
-									<input class="form-control" type="password"
-										placeholder="Password">
+									<input class="form-control" type="password" placeholder="Password"
+										ng-model="ctrl.confirmPassword" name="confirmPassword" 
+										ng-class="{validErrBorder: registForm.confirmPassword.$dirty 
+										&& registForm.confirmPassword.$invalid}"
+										required compare-to="ctrl.userRegister.password">	
+									<small>
+										<span class="form-text valid-err-text" 
+											ng-show="registForm.confirmPassword.$dirty 
+ 											&& registForm.confirmPassword.$invalid">
+											<span ng-show="registForm.confirmPassword.$error.required">
+												Password is required.
+											</span>
+											<span ng-show="registForm.confirmPassword.$error.compareTo">
+												These passwords don't match.
+											</span>
+										</span>
+									</small>
+									<small ng-if="ctrl.errConfirmPassword" class="form-text valid-err-text">
+										{{ ctrl.errConfirmPasswordMsg }}
+									</small>
 								</div>
 							</div>
 							<div class="form-group">

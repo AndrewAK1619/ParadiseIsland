@@ -1,56 +1,106 @@
 <div class="container">
 	<div ng-show="authenticated">
 		<div class="row">
-			<div class="col-md-1 mb-3"></div>
-			<div class="col-md-4 mb-3">
-				<div class="card profile-card-2">
-					<div class="card-img-block">
-						<img class="card-img img-fluid imageListResult" src="/img/gallary/2341.png" alt="Card image"/>
-					</div>
-						<div class="card-body pt-5">
-							<img src="/img/icons/email.jpg" alt="Change email" class="profileIcon"/>
-							<h5 class="card-title">Change your email address</h5>
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<div class="card-deck flex-column h-100">
+					<div class="card mb-4 profile-card-2" ng-blur="ctrl.unFocusedEmailCard()">
+						<div class="card-img-block" ng-if="!ctrl.isDesireToChangeEmail" 
+							ng-click="ctrl.focusedEmailCard()">
+							<img class="card-img img-fluid imageListResult" 
+								src="/img/gallary/2341.png" alt="Card image"/>
+						</div>
+						<div ng-if="!ctrl.isDesireToChangeEmail" ng-click="ctrl.focusedEmailCard()">
+							<div class="card-body pt-5">
+								<img src="/img/icons/email.jpg" alt="Change email" class="profileIcon"/>
+								<h5 class="card-title">Change your email address</h5>
+							</div>
+						</div>
+						<div ng-if="ctrl.isDesireToChangeEmail">
+							<div class="card-body">
+								<div class="card-text">
+									<div class="row justify-content-end pr-3" ng-click="ctrl.unFocusedEmailCard()">
+										<a style="cursor: pointer;">
+											<i class="fas fa-times cos" style="pointer-events: none;"></i>
+										</a>
+									</div>
+									<div class="row text-pofile m-2 pt-1">
+										After changing your e-mail address you will be logged out
+									</div>
+									<div class="card-content mx-auto">
+										<i class="fas fa-envelope" ng-class="{'icon-profile': ctrl.iconProfile, 
+											'icon-profile-focused' : ctrl.iconProfileFocused}"></i>
+										<input class="input-card" type="text" placeholder="e-mail"
+											value="{{ ctrl.userEmail }}" ng-model="ctrl.userEmail"
+											ng-focus="ctrl.setIconProfileFocused()" 
+											ng-blur="ctrl.setIconProfileUnFocused()"
+											style="border: 0;">
+										<div class="input-card-border-bottom"></div>
+										<span class="border-card"></span>
+									</div>
+									<div class="row justify-content-end pr-3">
+										<button type="submit" class="btn btn-primary mt-4"
+											ng-click="ctrl.changeEmail()">
+											SUBMIT
+											<i class="fas fa-angle-double-right pl-2" 
+												style="pointer-events: none;"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row px-4" ng-if="ctrl.msg">
+								<div class="mx-auto" style="color: red;">
+									<p class="">{{ctrl.msg}}</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2 mb-3"></div>
-			<div class="col-md-4 mb-3">
-				<div class="card profile-card-2">
-					<div class="card-img-block">
-						<img class="card-img img-fluid imageListResult" src="/img/gallary/2342.jpg" alt="Card image" />
-					</div>
-						<div class="card-body pt-5">
-							<img src="/img/icons/padlock.png" alt="Change password" class="profileIcon"/>
-							<h5 class="card-title">Change your password</h5>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-1 mb-3"></div>
-			<div class="col-md-1 mb-3"></div>
-			<div class="col-md-4 mb-3">
-				<div class="card profile-card-2">
-					<div class="card-img-block">
-						<img class="card-img img-fluid imageListResult" src="/img/gallary/2344.jpg" alt="Card image"/>
-					</div>
-						<div class="card-body pt-5">
-							<img src="/img/icons/about.png" alt="Change email" class="profileIcon"/>
-							<h5 class="card-title">Change your other details</h5>
+			<div class="col-md-2"></div>
+			<div class="col-md-4">
+				<div class="card-deck flex-column h-100">
+					<div class="card mb-4 profile-card-2">
+						<div class="card-img-block">
+							<img class="card-img img-fluid imageListResult" src="/img/gallary/2342.jpg" alt="Card image" />
+						</div>
+							<div class="card-body pt-5">
+								<img src="/img/icons/padlock.png" alt="Change password" class="profileIcon"/>
+								<h5 class="card-title">Change your password</h5>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2 mb-3"></div>
-			<div class="col-md-4 mb-3">
-				<div class="card profile-card-2">
-					<div class="card-img-block">
-						<img class="card-img img-fluid imageListResult" src="/img/gallary/2343.jpg" alt="Card image" />
-					</div>
-						<div class="card-body pt-5">
-							<img src="/img/icons/globe.png" alt="Change password" class="profileIcon"/>
-							<h5 class="card-title">Your reservations</h5>
+			<div class="col-md-1"></div>
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<div class="card-deck flex-column h-100">
+					<div class="card mb-4 profile-card-2">
+						<div class="card-img-block">
+							<img class="card-img img-fluid imageListResult" src="/img/gallary/2344.jpg" alt="Card image"/>
+						</div>
+							<div class="card-body pt-5">
+								<img src="/img/icons/about.png" alt="Change email" class="profileIcon"/>
+								<h5 class="card-title">Change your other details</h5>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-1 mb-3"></div>
+			<div class="col-md-2"></div>
+			<div class="col-md-4">
+				<div class="card-deck flex-column h-100">		
+					<div class="card mb-4 profile-card-2">
+						<div class="card-img-block">
+							<img class="card-img img-fluid imageListResult" src="/img/gallary/2343.jpg" alt="Card image" />
+						</div>
+							<div class="card-body pt-5">
+								<img src="/img/icons/globe.png" alt="Change password" class="profileIcon"/>
+								<h5 class="card-title">Your reservations</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
 		</div>
 	</div>
 	<div ng-show="!authenticated"> 

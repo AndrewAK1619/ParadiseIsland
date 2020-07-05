@@ -49,6 +49,8 @@ angular.module('app')
 		vm.errEmailMsg = null;
 		vm.errPassword = null;
 		vm.errPasswordMsg = null;
+		vm.errConfirmPassword = null;
+		vm.errConfirmPasswordMsg = null;
 	}
 	
 	const saveCallback = response => {
@@ -63,10 +65,17 @@ angular.module('app')
 		vm.msg = `Failed registration attempt: ${err.data.message}`;
 	};
 	
+	vm.confirmPassword;
+	
 	vm.saveUserRegister = () => {
 		setNull();
-		RegisterService.save(vm.userRegister)
+		if(vm.userRegister.password === vm.confirmPassword) {
+			RegisterService.save(vm.userRegister)
 			.then(saveCallback)
 			.catch(errorCallback);
+		} else {
+			vm.errConfirmPassword = true;
+			vm.errConfirmPasswordMsg = 'These passwords don\'t match';
+		}
 	};
 });

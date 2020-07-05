@@ -24,8 +24,8 @@ angular.module('app')
 		})
 		.when('/account/profile', {
 			templateUrl: 'app/components/account/profile/profile.html',
-			controller: '',
-			controllerAs: ''
+			controller: 'ProfileController',
+			controllerAs: 'ctrl'
 		})
 		.when('/admin/users', {
 			templateUrl: 'app/components/users/list/userList.html',
@@ -179,7 +179,7 @@ angular.module('app')
 		$rootScope.authenticatedUser = false;
 		$location.path('/');
 	}
-	
+
 	const jwt = $window.localStorage.getItem('jwt');
 	if(jwt) {
 		$http.defaults.headers.common['Authorization'] = 'Bearer ' + jwt;
