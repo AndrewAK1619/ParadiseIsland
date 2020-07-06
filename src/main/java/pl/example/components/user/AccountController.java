@@ -67,7 +67,7 @@ public class AccountController {
         return email;
     }
     
-    @PostMapping("/profile")
+    @PostMapping("/profile/email")
     public ResponseEntity<?> saveUserEmail(@RequestBody String email) {
     	UserDto userDto = userService.changeUserEmial(email);
         return ResponseEntity.ok(userDto);

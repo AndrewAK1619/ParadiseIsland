@@ -52,12 +52,21 @@
 .icon-profile {
 	font-size: 15px;
 	pointer-events: none;
+	min-width: 15px;
 }
 
 .icon-profile-focused {
 	font-size: 15px;
 	pointer-events: none;
 	color: #0049bf;
+	min-width: 15px;
+}
+
+.icon-profile-new {
+	font-size: 15px;
+	color: #15910a;
+	pointer-events: none;
+	min-width: 15px;
 }
 
 .card-content {
@@ -65,10 +74,19 @@
 }
 
 .input-card {
-	width: 90%;
+	width: calc(100% - 20px);
 	font-size: 15px;
 	border: 0;
 	padding: 10px 10px;
+	outline: none;
+}
+
+.input-card:focus {
+	width: calc(100% - 20px);
+	font-size: 15px;
+	border: 0;
+	padding: 10px 10px;
+	outline: none;
 }
 
 .input-card-border-bottom {

@@ -1,7 +1,10 @@
 angular.module('app')
 .constant('USER_ENDPOINT', '/admin/users/:id')
 .constant('PROFILE_ENDPOINT', '/account/profile')
-.factory('User', function($resource, USER_ENDPOINT, PROFILE_ENDPOINT) {
+.constant('PROFILE_EMAIL_ENDPOINT', '/account/profile/email')
+.constant('PROFILE_PASSWORD_ENDPOINT', '/account/profile/password')
+.factory('User', function($resource, USER_ENDPOINT, PROFILE_ENDPOINT, 
+		PROFILE_EMAIL_ENDPOINT, PROFILE_PASSWORD_ENDPOINT) {
 	return $resource(USER_ENDPOINT, { id: '@_id' }, {
 		update: {
 			method: 'PUT'
@@ -15,7 +18,11 @@ angular.module('app')
 		},
 		saveUserEmail: {
 			method: 'POST',
-			url: PROFILE_ENDPOINT
+			url: PROFILE_EMAIL_ENDPOINT
+		},
+		saveUserPassword: {
+			method: 'POST',
+			url: PROFILE_PASSWORD_ENDPOINT
 		}
 	});
 })
@@ -26,4 +33,6 @@ angular.module('app')
 	this.update = user => user.$update({id: user.id});
 	this.getUserEmail = () => User.getUserEmail();
 	this.saveUserEmail = email => User.saveUserEmail(email);
+	this.saveUserPassword = (oldPassword, newPassword) => 
+		User.saveUserPassword({oldPassword, newPassword});
 });
