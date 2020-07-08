@@ -89,9 +89,21 @@ angular.module('app')
 			.catch(errorCallbackEmail);
 	}
 	
+	const saveCallbackPassword = () => {
+		vm.msgPassword = 'PASSWORD IS CHANGE';
+	}
+	const errorCallbackPassword = err => {
+		vm.msgPassword = `${err.data.message}`;
+	};
+	
 	vm.changePassword = () => {
 		vm.msgPassword = null;
-		UserService.saveUserPassword(vm.oldPassword, vm.newPassword)
+		
+		const formData = new FormData();
+		formData.append('oldPassword', vm.oldPassword);
+		formData.append('newPassword', vm.newPassword);
+		
+		UserService.saveUserPassword(formData)
 			.$promise
 			.then(saveCallbackPassword)
 			.catch(errorCallbackPassword);

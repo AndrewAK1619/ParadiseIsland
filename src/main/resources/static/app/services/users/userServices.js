@@ -22,7 +22,9 @@ angular.module('app')
 		},
 		saveUserPassword: {
 			method: 'POST',
-			url: PROFILE_PASSWORD_ENDPOINT
+			url: PROFILE_PASSWORD_ENDPOINT,
+			transformRequest: angular.identity,
+			headers: {'Content-type': undefined}
 		}
 	});
 })
@@ -33,6 +35,5 @@ angular.module('app')
 	this.update = user => user.$update({id: user.id});
 	this.getUserEmail = () => User.getUserEmail();
 	this.saveUserEmail = email => User.saveUserEmail(email);
-	this.saveUserPassword = (oldPassword, newPassword) => 
-		User.saveUserPassword({oldPassword, newPassword});
+	this.saveUserPassword = formData => User.saveUserPassword(formData);
 });

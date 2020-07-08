@@ -19,8 +19,8 @@
 						<div ng-if="ctrl.isDesireToChangeEmail">
 							<div class="card-body">
 								<div class="card-text">
-									<div class="row justify-content-end pr-3" ng-click="ctrl.unFocusedEmailCard()">
-										<a style="cursor: pointer;">
+									<div class="row justify-content-end pr-3" >
+										<a style="cursor: pointer;" ng-click="ctrl.unFocusedEmailCard()">
 											<i class="fas fa-times cos" style="pointer-events: none;"></i>
 										</a>
 									</div>
@@ -88,8 +88,8 @@
 						<div ng-if="ctrl.isDesireToChangePassword">
 							<div class="card-body">
 								<div class="card-text">
-									<div class="row justify-content-end pr-3" ng-click="ctrl.unFocusedPasswordCard()">
-										<a style="cursor: pointer;">
+									<div class="row justify-content-end pr-3">
+										<a style="cursor: pointer;" ng-click="ctrl.unFocusedPasswordCard()">
 											<i class="fas fa-times cos" style="pointer-events: none;"></i>
 										</a>
 									</div>
@@ -102,7 +102,7 @@
 													ng-focus="ctrl.setIconProfileFocusedOldPassword()" 
 													ng-blur="ctrl.setIconProfileUnFocusedOldPassword()"
 													ng-class="{validErrBorder: passwordForm.old.$dirty 
-													&& passwordForm.old.$invalid}" required ng-minlength="8">
+													&& passwordForm.old.$invalid}" required>
 												<div class="input-card-border-bottom"></div>
 												<span class="border-card"></span>
 											</div>
@@ -150,9 +150,6 @@
 								&& passwordForm.old.$invalid">
 								<span ng-show="passwordForm.old.$error.required">
 									Old password is required.
-								</span>
-								<span ng-show="passwordForm.old.$error.minlength">
-									Old password must have minimum 8 characters.
 								</span>
 							</span>
 							<span class="form-text valid-err-text px-4 pb-4 font-weight-bold" 

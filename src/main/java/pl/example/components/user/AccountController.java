@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -70,6 +71,14 @@ public class AccountController {
     @PostMapping("/profile/email")
     public ResponseEntity<?> saveUserEmail(@RequestBody String email) {
     	UserDto userDto = userService.changeUserEmial(email);
+        return ResponseEntity.ok(userDto);
+    }
+    
+    @PostMapping("/profile/password")
+    public ResponseEntity<?> saveUserPassword(
+    		@RequestPart("oldPassword") String oldPassword,
+    		@RequestPart("newPassword") String newPassword) {
+    	UserDto userDto = userService.changeUserPassword(oldPassword, newPassword);
         return ResponseEntity.ok(userDto);
     }
 }

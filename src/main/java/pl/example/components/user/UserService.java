@@ -24,102 +24,137 @@ import pl.example.components.user.UserMapper;
 public class UserService {
 
 	private static final String DEFAULT_ROLE = "ROLE_USER";
-	
-    private UserRepository userRepository;
-	private UserRoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    UserService(UserRepository userRepository,
-    		UserRoleRepository roleRepository,
-    		PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-	
-    Optional<UserDto> findById(Long id) {
-        return userRepository.findById(id).map(UserMapper::toDto);
-    }
-    
-    Optional<UserDto> findByEmail(String email) {
-    	return userRepository.findByEmail(email).map(UserMapper::toDto);
-    }
-    
-    List<UserDto> findAll() {
-        return userRepository.findAllByOrderByIdAsc()
-                .stream()
-                .map(UserMapper::toDto)
-                .collect(Collectors.toList());
-    }
-    
-    List<UserDto> findByLastName(String lastName) {
-        return userRepository.findAllByLastNameContainingIgnoreCaseOrderByIdAsc(lastName)
-                .stream()
-                .map(UserMapper::toDto)
-                .collect(Collectors.toList());
-    }
-    
-    UserDto changeUserEmial(String newEmail) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	String actualEmail = authentication.getName();
-    	
-    	if(actualEmail.equals("admin@example.com") || actualEmail.equals("user@example.com")) {
-    		throw new ResponseStatusException(HttpStatus.LOCKED, 
-    				"You cannot change this user's email. "
-    				+ "('admin@example.com' and 'user@example.com' modifications are not possible)");
-    	}
-    	if(actualEmail.equals(newEmail)) {
-    		throw new ResponseStatusException(HttpStatus.CONFLICT, 
-    				"The user with the given e-mail already exists. Enter a different e-mail");
-    	}
-        Optional<User> userByEmail = userRepository.findByEmail(newEmail);
-        userByEmail.ifPresent(u -> {
-            throw new DuplicateEmailException();
-        });
-    	Optional<User> userOpt = userRepository.findByEmail(actualEmail);
-    	if(userOpt.isPresent()) {
-    		UserDto userDto = UserMapper.toDto(userOpt.get());
-    		userDto.setEmail(newEmail);
-    		return mapAndSaveUser(userDto, false);
-    	} else {
-    		throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
-    				"The user is not found");
-    	}
-    }
-    
-    UserDto save(UserDto user) {
-        Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
-        userByEmail.ifPresent(u -> {
-            throw new DuplicateEmailException();
-        });
-        return mapAndSaveUser(user, true);
-    }
-    
-    UserDto update(UserDto user) {
-        Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
-        userByEmail.ifPresent(u -> {
-            if(!u.getId().equals(user.getId()))
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
-                		"The user is not found");
-        });
-        return mapAndSaveUser(user, false);
-    }
-    
-    private UserDto mapAndSaveUser(UserDto user, boolean isUserNotExist) {
-        User userEntity = UserMapper.toEntity(user);
-        if(isUserNotExist) {
-        	addWithDefaultRole(userEntity);
-        } else {
-        	Optional<User> userById = userRepository.findById(user.getId());
-        	userById.ifPresent(u -> {
-        		userEntity.setRoles(u.getRoles());
-            });
-        }
-        User savedUser = userRepository.save(userEntity);
-        return UserMapper.toDto(savedUser);
-    }
-    
+	private UserRepository userRepository;
+	private UserRoleRepository roleRepository;
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	UserService(UserRepository userRepository, 
+			UserRoleRepository roleRepository, 
+			PasswordEncoder passwordEncoder) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	Optional<UserDto> findById(Long id) {
+		return userRepository
+				.findById(id)
+				.map(UserMapper::toDto);
+	}
+
+	Optional<UserDto> findByEmail(String email) {
+		return userRepository
+				.findByEmail(email)
+				.map(UserMapper::toDto);
+	}
+
+	List<UserDto> findAll() {
+		return userRepository.findAllByOrderByIdAsc()
+				.stream()
+				.map(UserMapper::toDto)
+				.collect(Collectors.toList());
+	}
+
+	List<UserDto> findByLastName(String lastName) {
+		return userRepository.findAllByLastNameContainingIgnoreCaseOrderByIdAsc(lastName)
+				.stream()
+				.map(UserMapper::toDto)
+				.collect(Collectors.toList());
+	}
+
+	UserDto changeUserEmial(String newEmail) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String actualEmail = authentication.getName();
+
+		if (actualEmail.equals("admin@example.com") || actualEmail.equals("user@example.com")) {
+			throw new ResponseStatusException(HttpStatus.LOCKED, 
+					"You cannot change this user's email. "
+					+ "('admin@example.com' and 'user@example.com' modifications are not possible)");
+		}
+		if (actualEmail.equals(newEmail)) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT,
+					"The user with the given e-mail already exists. Enter a different e-mail");
+		}
+		Optional<User> userByEmail = userRepository.findByEmail(newEmail);
+		userByEmail.ifPresent(u -> {
+			throw new DuplicateEmailException();
+		});
+		Optional<User> userOpt = userRepository.findByEmail(actualEmail);
+		if (userOpt.isPresent()) {
+			UserDto userDto = UserMapper.toDto(userOpt.get());
+			userDto.setEmail(newEmail);
+			return mapAndSaveUser(userDto, false);
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+					"The user is not found");
+		}
+	}
+
+	UserDto changeUserPassword(String oldPassword, String newPassword) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String actualEmail = authentication.getName();
+
+		if (actualEmail.equals("admin@example.com") || actualEmail.equals("user@example.com")) {
+			throw new ResponseStatusException(HttpStatus.LOCKED, 
+					"You cannot change this user's password. "
+					+ "('admin@example.com' and 'user@example.com' modifications are not possible)");
+		}
+		Optional<User> userOpt = userRepository.findByEmail(actualEmail);
+		if (userOpt.isPresent()) {
+			UserDto userDto = UserMapper.toDto(userOpt.get());
+
+			if (!passwordEncoder.matches(oldPassword, userDto.getPassword())) {
+				throw new ResponseStatusException(HttpStatus.CONFLICT, 
+						"The old password is incorrect. Try again");
+			}
+			if (oldPassword.equals(newPassword)) {
+				throw new ResponseStatusException(HttpStatus.CONFLICT,
+						"The old password and the new one are the same. Enter a different password");
+			}
+			String newPasswordHashed = passwordEncoder.encode(newPassword);
+			userDto.setPassword(newPasswordHashed);
+			
+			return mapAndSaveUser(userDto, false);
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+					"The user is not found");
+		}
+	}
+
+	UserDto save(UserDto user) {
+		Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
+		userByEmail.ifPresent(u -> {
+			throw new DuplicateEmailException();
+		});
+		return mapAndSaveUser(user, true);
+	}
+
+	UserDto update(UserDto user) {
+		Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
+		userByEmail.ifPresent(u -> {
+			if (!u.getId().equals(user.getId()))
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+						"The user is not found");
+		});
+		return mapAndSaveUser(user, false);
+	}
+
+	private UserDto mapAndSaveUser(UserDto user, boolean isUserNotExist) {
+		User userEntity = UserMapper.toEntity(user);
+		if (isUserNotExist) {
+			addWithDefaultRole(userEntity);
+		} else {
+			Optional<User> userById = userRepository.findById(user.getId());
+			userById.ifPresent(u -> {
+				userEntity.setRoles(u.getRoles());
+			});
+		}
+		User savedUser = userRepository.save(userEntity);
+		return UserMapper.toDto(savedUser);
+	}
+
 	private void addWithDefaultRole(User user) {
 		UserRole defaultRole = roleRepository.findByRole(DEFAULT_ROLE);
 		user.getRoles().add(defaultRole);
