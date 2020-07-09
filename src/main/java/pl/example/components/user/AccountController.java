@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -80,5 +81,23 @@ public class AccountController {
     		@RequestPart("newPassword") String newPassword) {
     	UserDto userDto = userService.changeUserPassword(oldPassword, newPassword);
         return ResponseEntity.ok(userDto);
+    }
+    
+    @GetMapping("/profile/userDetails")
+    public ResponseEntity<UserDto> getUserDetails() {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	return userService.findByEmail(authentication.getName())
+	        .map(ResponseEntity::ok)
+	        .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @PutMapping("/profile/userDetails")
+    public ResponseEntity<?> updateUserDetails( 
+    		@Valid @RequestBody UserDto user, BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseEntity.ok(ValidationService.valid(result));
+		}
+        UserDto updatedUser = userService.update(user);
+        return ResponseEntity.ok(updatedUser);
     }
 }

@@ -3,8 +3,9 @@ angular.module('app')
 .constant('PROFILE_ENDPOINT', '/account/profile')
 .constant('PROFILE_EMAIL_ENDPOINT', '/account/profile/email')
 .constant('PROFILE_PASSWORD_ENDPOINT', '/account/profile/password')
+.constant('PROFILE_DETAILS_ENDPOINT', '/account/profile/userDetails')
 .factory('User', function($resource, USER_ENDPOINT, PROFILE_ENDPOINT, 
-		PROFILE_EMAIL_ENDPOINT, PROFILE_PASSWORD_ENDPOINT) {
+		PROFILE_EMAIL_ENDPOINT, PROFILE_PASSWORD_ENDPOINT, PROFILE_DETAILS_ENDPOINT) {
 	return $resource(USER_ENDPOINT, { id: '@_id' }, {
 		update: {
 			method: 'PUT'
@@ -25,7 +26,17 @@ angular.module('app')
 			url: PROFILE_PASSWORD_ENDPOINT,
 			transformRequest: angular.identity,
 			headers: {'Content-type': undefined}
-		}
+		},
+		getUserDetails: {
+			method: 'GET',
+			url: PROFILE_DETAILS_ENDPOINT,
+			transformRequest: angular.identity,
+			headers: {'Content-type': undefined},
+		},
+		updateUserDetails: {
+			method: 'PUT',
+			url: PROFILE_DETAILS_ENDPOINT,
+		},
 	});
 })
 .service('UserService', function(User) {
@@ -36,4 +47,6 @@ angular.module('app')
 	this.getUserEmail = () => User.getUserEmail();
 	this.saveUserEmail = email => User.saveUserEmail(email);
 	this.saveUserPassword = formData => User.saveUserPassword(formData);
+	this.getUserDetails = () => User.getUserDetails();
+	this.updateUserDetails = user => User.updateUserDetails(user);
 });

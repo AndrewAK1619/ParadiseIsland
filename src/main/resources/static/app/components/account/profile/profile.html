@@ -6,11 +6,12 @@
 				<div class="card-deck flex-column h-100">
 					<div class="card mb-4 profile-card-2" ng-blur="ctrl.unFocusedEmailCard()">
 						<div class="card-img-block" ng-if="!ctrl.isDesireToChangeEmail" 
-							ng-click="ctrl.focusedEmailCard()">
+							ng-click="ctrl.focusedEmailCard()" style="cursor: pointer;">
 							<img class="card-img img-fluid imageListResult" 
 								src="/img/gallary/2341.png" alt="Card image"/>
 						</div>
-						<div ng-if="!ctrl.isDesireToChangeEmail" ng-click="ctrl.focusedEmailCard()">
+						<div ng-if="!ctrl.isDesireToChangeEmail" ng-click="ctrl.focusedEmailCard()"
+							style="cursor: pointer;">
 							<div class="card-body pt-5">
 								<img src="/img/icons/email.jpg" alt="Change email" class="profileIcon"/>
 								<h5 class="card-title">Change your email address</h5>
@@ -75,11 +76,12 @@
 				<div class="card-deck flex-column h-100">
 					<div class="card mb-4 profile-card-2" ng-blur="ctrl.unFocusedPasswordCard()">
 						<div class="card-img-block" ng-if="!ctrl.isDesireToChangePassword" 
-							ng-click="ctrl.focusedPasswordCard()">
+							ng-click="ctrl.focusedPasswordCard()" style="cursor: pointer;">
 							<img class="card-img img-fluid imageListResult" 
 								src="/img/gallary/2342.jpg" alt="Card image" />
 						</div>
-						<div ng-if="!ctrl.isDesireToChangePassword" ng-click="ctrl.focusedPasswordCard()">
+						<div ng-if="!ctrl.isDesireToChangePassword" ng-click="ctrl.focusedPasswordCard()"
+							style="cursor: pointer;">
 							<div class="card-body pt-5">
 								<img src="/img/icons/padlock.png" alt="Change password" class="profileIcon"/>
 								<h5 class="card-title">Change your password</h5>
@@ -180,6 +182,11 @@
 									<p class="">{{ctrl.msgPassword}}</p>
 								</div>
 							</div>
+							<div class="row px-4" ng-if="ctrl.msgPasswordSuccess">
+								<div class="mx-auto" style="color: green;">
+									<p class="">{{ctrl.msgPasswordSuccess}}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -187,7 +194,8 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-1"></div>
 			<div class="col-md-4">
-				<div class="card-deck flex-column h-100">
+				<div class="card-deck flex-column h-100" ng-click="ctrl.userDetails()" 
+					style="cursor: pointer;">
 					<div class="card mb-4 profile-card-2">
 						<div class="card-img-block">
 							<img class="card-img img-fluid imageListResult" src="/img/gallary/2344.jpg" alt="Card image"/>

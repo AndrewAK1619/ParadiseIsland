@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('ProfileController', function($rootScope, UserService) {
+.controller('ProfileController', function($rootScope, $location, UserService) {
 	const vm = this;
 
 	vm.setDefaultValue = () => {
@@ -90,7 +90,7 @@ angular.module('app')
 	}
 	
 	const saveCallbackPassword = () => {
-		vm.msgPassword = 'PASSWORD IS CHANGE';
+		vm.msgPasswordSuccess = 'PASSWORD IS CHANGE';
 	}
 	const errorCallbackPassword = err => {
 		vm.msgPassword = `${err.data.message}`;
@@ -107,5 +107,9 @@ angular.module('app')
 			.$promise
 			.then(saveCallbackPassword)
 			.catch(errorCallbackPassword);
+	}
+	
+	vm.userDetails = () => {
+		$location.path('/account/profile/userDetails');
 	}
 });

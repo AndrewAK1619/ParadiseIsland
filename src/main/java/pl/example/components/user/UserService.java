@@ -122,7 +122,7 @@ public class UserService {
 					"The user is not found");
 		}
 	}
-
+	
 	UserDto save(UserDto user) {
 		Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
 		userByEmail.ifPresent(u -> {
@@ -132,7 +132,7 @@ public class UserService {
 	}
 
 	UserDto update(UserDto user) {
-		Optional<User> userByEmail = userRepository.findByEmail(user.getEmail());
+		Optional<User> userByEmail = userRepository.findById(user.getId());
 		userByEmail.ifPresent(u -> {
 			if (!u.getId().equals(user.getId()))
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
