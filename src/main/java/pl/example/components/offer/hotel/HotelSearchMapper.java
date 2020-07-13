@@ -1,11 +1,9 @@
-package pl.example.components.offer.booking;
+package pl.example.components.offer.hotel;
 
-import pl.example.components.offer.hotel.Hotel;
+public class HotelSearchMapper {
 
-public class SearchHotelMapper {
-
-	static SearchHotelDto toDto(Hotel hotel) {
-		SearchHotelDto dto = new SearchHotelDto();
+	static HotelSearchDto toDto(Hotel hotel) {
+		HotelSearchDto dto = new HotelSearchDto();
 		dto.setId(hotel.getId());
 		dto.setHotelName(hotel.getHotelName());
 		if (hotel.getCountry() != null) {

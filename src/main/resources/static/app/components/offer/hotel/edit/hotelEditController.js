@@ -45,7 +45,7 @@ angular.module('app')
 		vm.hotel.country = string;
 		vm.hideCountry = true;
 		vm.hotel.city = null;
-		vm.citiesNames = CityService.getAllNames(vm.hotel.country);
+		vm.citiesNames = CityService.getAllNamesByCountry(vm.hotel.country);
 		vm.countryIsChosen = true;
 	}
 	

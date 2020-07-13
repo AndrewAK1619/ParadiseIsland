@@ -132,8 +132,8 @@ public class UserService {
 	}
 
 	UserDto update(UserDto user) {
-		Optional<User> userByEmail = userRepository.findById(user.getId());
-		userByEmail.ifPresent(u -> {
+		Optional<User> userById = userRepository.findById(user.getId());
+		userById.ifPresent(u -> {
 			if (!u.getId().equals(user.getId()))
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
 						"The user is not found");

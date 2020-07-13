@@ -1,14 +1,10 @@
 angular.module('app')
 .controller('SearchListController', function ($cookies, $routeParams, $location, 
-		HotelService, SearchService, CountryService) {
+		HotelService, SearchService, CountryService, CityService) {
 	
 	const vm = this;
 	vm.searchDataLoaded = false;
 	vm.pageNumber = $routeParams.pageNumber;
-	vm.countriesNames = SearchService.getAllCountries();
-	vm.regionsNames = SearchService.getAllRegions();
-	vm.citiesNames = SearchService.getAllCities();
-	vm.hotels = SearchService.getAllHotels();
 	
 	const removeClassButtons = () => {
 		angular.element(document.querySelector("#firstButton")).removeClass("active");

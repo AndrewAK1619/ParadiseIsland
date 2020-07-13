@@ -16,7 +16,7 @@ angular.module('app')
     };
     
 	const setDetailsData = result => {
-		vm.hotel = result.hotelList[0];
+		vm.hotel = result.hotel[0];
 		vm.imgSrc = result.mainImg[0];
 		
 		const lengh = vm.hotel.hotelAdvantageDto.length;

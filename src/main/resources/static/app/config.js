@@ -32,6 +32,11 @@ angular.module('app')
 			controller: 'UserDetailsController',
 			controllerAs: 'ctrl'
 		})
+		.when('/account/profile/reservations', {
+			templateUrl: 'app/components/account/profile/reservation/reservationList.html',
+			controller: 'ReservationController',
+			controllerAs: 'ctrl'
+		})
 		.when('/admin/users', {
 			templateUrl: 'app/components/users/list/userList.html',
 			controller: 'UserListController',

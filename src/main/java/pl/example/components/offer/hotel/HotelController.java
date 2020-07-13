@@ -55,7 +55,7 @@ public class HotelController {
 	public ResponseEntity<MultiValueMap<String, Object>> findAll(
 			@RequestParam(defaultValue = "0", required = false) Integer page) {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
-		Page<HotelDto> hotelDtoList = hotelService.findAll(page);
+		Page<HotelDto> hotelDtoList = hotelService.findAllWithPage(page);
 		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);
 		
 		formData.add("hotelList", hotelDtoList);
@@ -158,10 +158,10 @@ public class HotelController {
 
 		if (pageNumber.isPresent()) {
 			hotelDtoList = hotelService
-					.findAllByHotelNameAndCountryName(hotelName, countryName, pageNumber.get() - 1);
+					.findAllByHotelNameAndCountryNameWithPage(hotelName, countryName, pageNumber.get() - 1);
 		} else {
 			hotelDtoList = hotelService
-					.findAllByHotelNameAndCountryName(hotelName, countryName, 0);
+					.findAllByHotelNameAndCountryNameWithPage(hotelName, countryName, 0);
 		}
 
 		List<byte[]> mainImgList = hotelService.getMainImgListInByteByHotelDtoList(hotelDtoList);

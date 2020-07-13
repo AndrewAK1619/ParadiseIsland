@@ -18,9 +18,14 @@ public class CityController {
 	public CityController(CityService cityService) {
 		this.cityService = cityService;
 	}
-
+	
     @GetMapping("/names")
-    public List<String> findAllNames(
+    public List<String> findAllNames() {
+        return cityService.findAllNames();
+    }
+
+    @GetMapping("/names/country")
+    public List<String> findAllNamesByCountry(
     		@RequestParam(name = "country") String country) {
 
 		return cityService.findAllNamesByCountry(country);

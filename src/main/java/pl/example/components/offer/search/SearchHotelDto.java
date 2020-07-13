@@ -1,4 +1,4 @@
-package pl.example.components.offer.booking;
+package pl.example.components.offer.search;
 
 public class SearchHotelDto {
 

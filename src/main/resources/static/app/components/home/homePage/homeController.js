@@ -1,10 +1,12 @@
 angular.module('app')
-.controller('HomeController', function($filter, $location, $cookies, HomeService, SearchService) {
+.controller('HomeController', function($filter, $location, $cookies, HomeService, 
+		SearchService, CountryService, RegionService, CityService) {
+	
 	const vm = this;
 
-	vm.countriesNames = SearchService.getAllCountries();
-	vm.regionsNames = SearchService.getAllRegions();
-	vm.citiesNames = SearchService.getAllCities();
+	vm.countriesNames = CountryService.getAllNames();
+	vm.regionsNames = RegionService.getAllNames();
+	vm.citiesNames = CityService.getAllNames();
 	vm.hotels = SearchService.getAllHotels();
 	
 	const showDataList = (string, dataList) => {

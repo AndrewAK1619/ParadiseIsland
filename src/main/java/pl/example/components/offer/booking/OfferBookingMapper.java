@@ -29,7 +29,7 @@ public class OfferBookingMapper {
 		this.userRepository = userRepository;
 	}
 
-	static OfferBookingDto toDto(OfferBooking offerBooking) {
+	public static OfferBookingDto toDto(OfferBooking offerBooking) {
 		OfferBookingDto dto = new OfferBookingDto();
 		dto.setId(offerBooking.getId());
 		dto.setHotelBookingId(offerBooking.getHotelBooking().getId());
@@ -39,7 +39,7 @@ public class OfferBookingMapper {
 		return dto;
 	}
 
-	OfferBooking toEntity(OfferBookingDto offerBookingDto) {
+	public OfferBooking toEntity(OfferBookingDto offerBookingDto) {
 		OfferBooking entity = new OfferBooking();
 		entity.setId(offerBookingDto.getId());
 		Optional<HotelBooking> hotelBooking = hotelBookingRepository

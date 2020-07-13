@@ -112,4 +112,8 @@ angular.module('app')
 	vm.userDetails = () => {
 		$location.path('/account/profile/userDetails');
 	}
+	
+	vm.reservationList = () => {
+		$location.path('/account/profile/reservations');
+	}
 });

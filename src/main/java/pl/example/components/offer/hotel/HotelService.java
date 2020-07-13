@@ -10,12 +10,16 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import pl.example.components.offer.hotel.image.HotelImage;
 import pl.example.components.offer.hotel.image.HotelImageService;
+import pl.example.components.offer.location.city.City;
+import pl.example.components.offer.location.country.Country;
+import pl.example.components.offer.location.region.Region;
 
 @Service
 public class HotelService {
@@ -30,12 +34,17 @@ public class HotelService {
 		this.hotelMapper = hotelMapper;
 	}
 
-	public Optional<HotelDto> findById(long id) {
-		return hotelRepository.findById(id)
+	public Optional<HotelDto> findById(long hotelId) {
+		return hotelRepository.findById(hotelId)
+				.map(hotelMapper::toDto);
+	}
+	
+	public Page<HotelDto> findByIdWithPage(long hotelId, Pageable pageable) {
+		return hotelRepository.findById(hotelId, pageable)
 				.map(hotelMapper::toDto);
 	}
 
-	Page<HotelDto> findAll(int pageNumber) {
+	public Page<HotelDto> findAllWithPage(int pageNumber) {
 		Page<Hotel> page = hotelRepository.findAllHotel(PageRequest.of(pageNumber, 10));
 		return page.map(hotelMapper::toDto);
 	}
@@ -47,11 +56,33 @@ public class HotelService {
                 .collect(Collectors.toList());
     }
 
-	Page<HotelDto> findAllByHotelNameAndCountryName(
+	Page<HotelDto> findAllByHotelNameAndCountryNameWithPage(
 			String hotelName, String countryName, int pageNumber) {
 		Page<Hotel> page = hotelRepository.findAllByHotelNameAndCountryName(
 				hotelName, countryName, PageRequest.of(pageNumber, 10));
 		return page.map(hotelMapper::toDto);
+	}
+	
+	public Page<HotelDto> findAllByCountryWithPage(Country country, Integer pageNumber) {
+		return hotelRepository.findAllByCountry(country, PageRequest.of(pageNumber, 10))
+				.map(hotelMapper::toDto);
+	}
+	
+	public Page<HotelDto> findAllByRegionWithPage(Region region, Integer pageNumber) {
+		return hotelRepository.findAllByRegion(region, PageRequest.of(pageNumber, 10))
+				.map(hotelMapper::toDto);
+	}
+	
+	public Page<HotelDto> findAllByCityWithPage(City city, Integer pageNumber) {
+		return hotelRepository.findAllByCity(city, PageRequest.of(pageNumber, 10))
+				.map(hotelMapper::toDto);
+	}
+	
+	public List<HotelSearchDto> findAllHotelSearch() {
+		return hotelRepository.findAll()
+				.stream()
+				.map(HotelSearchMapper::toDto)
+				.collect(Collectors.toList());
 	}
 	
 	public List<byte[]> getMainImgListInByteByHotelDtoList(Page<HotelDto> hotelDtoList) {
