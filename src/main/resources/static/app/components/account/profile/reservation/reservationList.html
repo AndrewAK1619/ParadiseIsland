@@ -1,0 +1,49 @@
+<div class="container">
+	<div ng-show="authenticated">
+		<div class="jumbotron jumbo-reservations">
+			<h1 class="text-shadow text-center text-white my-5">
+				<strong>Reservations</strong>
+			</h1>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-hover tableTextWhite">
+					<thead class="test">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Destination</th>
+							<th scope="col">Departure date</th>
+							<th scope="col">Return date</th>
+							<th scope="col">Price</th>
+							<th scope="col" class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="reservation in ctrl.reservations">
+							<th scope="row">{{reservation.id}}</th>
+							<td>{{reservation.destination}}</td>
+							<td>{{reservation.departureDate | date:'dd-MM-yyyy'}}</td>
+							<td>{{reservation.returnDate | date:'dd-MM-yyyy'}}</td>
+							<td>{{reservation.totalPrice}} eur</td>
+							<td class="text-center">
+								<a class="btn btn-success mx-auto" ng-href="#!/">
+									Details
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/account/profile">
+				Return to profile settings
+			</a>
+		</div>
+	</div>
+	<div ng-show="!authenticated"> 
+		<div ng-if="!authenticated">
+			{{ redirectToLoginPage() }}
+		</div>
+	</div>
+</div>

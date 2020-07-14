@@ -49,6 +49,10 @@ public class UserService {
 				.findByEmail(email)
 				.map(UserMapper::toDto);
 	}
+	
+	public Optional<User> findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 
 	List<UserDto> findAll() {
 		return userRepository.findAllByOrderByIdAsc()

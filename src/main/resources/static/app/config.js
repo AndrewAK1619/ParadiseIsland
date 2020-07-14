@@ -34,7 +34,7 @@ angular.module('app')
 		})
 		.when('/account/profile/reservations', {
 			templateUrl: 'app/components/account/profile/reservation/reservationList.html',
-			controller: 'ReservationController',
+			controller: 'ReservationListController',
 			controllerAs: 'ctrl'
 		})
 		.when('/admin/users', {

@@ -49,7 +49,7 @@ angular.module('app')
         vm.days = differenceInDays(dt1, dt2);
         
         vm.hotelTotalPrice = vm.room.roomPrice * vm.days;
-        vm.totalPrice = vm.room.roomPrice * vm.days + vm.airlineOffer.flightPrice;
+        vm.totalPriceForOnePerson = vm.room.roomPrice * vm.days + vm.airlineOffer.flightPrice;
 	}
 	
 	if(!vm.offerBookingId) {
@@ -71,12 +71,14 @@ angular.module('app')
 	vm.bookTrip = () => {
 		const formData = new FormData();
 		
+		const totalPrice = vm.totalPriceForOnePerson * vm.searchCookie.persons;
+		
 		formData.append('roomId', vm.room.id);
 		formData.append('hotelTotalPrice', vm.hotelTotalPrice);
 		formData.append('departure', vm.searchCookie.departure);
 		formData.append('returnDate', vm.searchCookie.returnDate);
 		formData.append('airlineOfferId', vm.airlineOffer.id);
-		formData.append('totalPrice', vm.totalPrice);
+		formData.append('totalPrice', totalPrice);
 		
 		SearchDetailsService.bookTripOffer(vm.hotelId, formData)
 				.$promise
