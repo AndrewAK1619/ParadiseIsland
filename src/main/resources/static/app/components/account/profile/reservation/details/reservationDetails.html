@@ -1,0 +1,205 @@
+<div class="container">
+	<div ng-show="authenticated">
+		<div class="card mb-5" style="background-color: #d6d6d6;">
+			<div class="container-fliud">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="text-center bg-secondary m-3">
+							<img ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}"
+								class="card-img img-fluid imageListResult" alt="...">
+						</div>
+						<div class="row" ng-if="ctrl.msg">
+							<div class="mx-auto" style="font-size: 22px;">
+								<p class="text-danger font-weight-bold">{{ctrl.msg}}</p>
+							</div>
+						</div>
+						<div class="m-3">
+							<a>
+								{{ctrl.hotel.country}} / {{ctrl.hotel.region}} / {{ctrl.hotel.city}}		
+							</a>
+							<div class="w-100 mb-1"></div>
+							<a class="font-weight-bold"
+								style="font-size: 18px;">
+								{{ctrl.hotel.hotelName}}			
+							</a>
+							<hr>
+							<div>
+								<div class="font-weight-bold mb-2"
+									style="font-size: 18px;">
+									Offer advantages
+								</div>
+								<div class="row m-0">
+									<div class="col-md-6">
+										<ul class="dashed ml-2">
+											<li ng-repeat="adv 
+												in ctrl.firstHotelAdv">
+												{{adv.descriptionAdvantage}}
+											</li>
+										</ul>
+									</div>
+									<div class="col-md-6">
+										<ul class="dashed ml-2">
+											<li ng-repeat="adv 
+												in ctrl.secondHotelAdv">
+												{{adv.descriptionAdvantage}}
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row m-0">
+								<div class="col-md-1" style="color: #304cf0;">
+									<svg class="bi bi-building" width="1.3em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M15.285.089A.5.5 0 0 1 15.5.5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5H1a.5.5 0 0 1-.5-.5v-6a.5.5 0 0 1 .418-.493l5.582-.93V3.5a.5.5 0 0 1 .324-.468l8-3a.5.5 0 0 1 .46.057zM7.5 3.846V8.5a.5.5 0 0 1-.418.493l-5.582.93V15h8v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.222l-7 2.624z"/>
+										<path fill-rule="evenodd" d="M6.5 15.5v-7h1v7h-1z"/>
+										<path d="M2.5 11h1v1h-1v-1zm2 0h1v1h-1v-1zm-2 2h1v1h-1v-1zm2 0h1v1h-1v-1zm6-10h1v1h-1V3zm2 0h1v1h-1V3zm-4 2h1v1h-1V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm-2 2h1v1h-1V7zm2 0h1v1h-1V7zm-4 0h1v1h-1V7zm0 2h1v1h-1V9zm2 0h1v1h-1V9zm2 0h1v1h-1V9zm-4 2h1v1h-1v-1zm2 0h1v1h-1v-1zm2 0h1v1h-1v-1z"/>
+									</svg>
+								</div>
+								<div class="col-md-11 p-0">		
+									<div class="font-weight-bold mb-2"
+										style="font-size: 18px; color: #304cf0;">
+										<a>
+											Hotel
+										</a>
+									</div>
+									<div>
+										{{ctrl.hotel.description}}
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row m-0">
+								<div class="col-md-1" style="color: #304cf0;">
+									<i class="fas fa-bed"></i>
+								</div>
+								<div class="col-md-11 p-0">		
+									<div class="font-weight-bold mb-2"
+										style="font-size: 18px; color: #304cf0;">
+										<a>
+											Room
+										</a>
+									</div>
+									<div class="row m-0">
+										<div class="col-md-2 p-0">
+											Double Beds
+										</div>
+										<div class="col-md-4 p-0 ml-1">
+											{{ctrl.room.numberOfDoubleBeds}}
+										</div>
+										<div class="col-md-2 p-0">	
+											Single Beds:
+										</div>
+										<div class="col-md-3 p-0 ml-1">		
+											{{ctrl.room.numberOfSingleBeds}}
+										</div>
+									</div>
+									<div class="row m-0 pt-2">
+										<div class="col-md-2 p-0">
+											Category:
+										</div>
+										<div class="col-md-4 p-0 ml-1">
+											{{ctrl.room.roomCategory}}
+										</div>
+										<div class="col-md-2 p-0">	
+											Price:
+										</div>
+										<div class="col-md-3 p-0 ml-1">		
+											{{ctrl.room.roomPrice}} eur / pp
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row m-0">
+								<div class="col-md-1" style="color: #304cf0;">
+									<i class="fas fa-plane"></i>
+								</div>
+								<div class="col-md-11 p-0">		
+									<div class="font-weight-bold mb-2"
+										style="font-size: 18px; color: #304cf0;">
+										<a>
+											Flight
+										</a>
+									</div>
+									<div class="mb-2 font-weight-bold">
+										{{ctrl.airlineOffer.ariline.airlineName}}
+									</div>
+									<div class="row m-0 pb-2">
+										<div class="col-md-2 p-0">	
+											Departure:
+										</div>
+										<div class="col-md-4 p-0 ml-1">
+											{{ctrl.airlineOffer.departure | date:'dd-MM-yyyy / HH:mm'}}
+										</div>
+										<div class="col-md-2 p-0">	
+											Return:
+										</div>
+										<div class="col-md-3 p-0 ml-1">
+											{{ctrl.airlineOffer.returnTrip | date:'dd-MM-yyyy / HH:mm'}}
+										</div>
+									</div>
+									<div class="row m-0 pb-2">
+										<div class="col-md-2 p-0">	
+											Price:
+										</div>
+										<div class="col-md-4 p-0 ml-1">
+											{{ctrl.airlineOffer.flightPrice}} eur
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			        </div>
+					<div class="col-md-4">
+						<div class="card shadow m-3">
+							<div class="card-body p-4">
+								<h3 class="text-center">Reservation</h3>
+								<div>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item">
+											<i class="fas fa-users text-center"
+											style="width: 25px; color: #304cf0;"></i>
+											<a>{{ctrl.numberOfPersons}} persons</a>
+										</li>
+										<li class="list-group-item">
+											<i class="far fa-calendar-alt text-center" 
+											style="width: 25px; color: #304cf0;"></i>
+											<a>{{ctrl.airlineOffer.departure | date:'dd-MM-yyyy'}}</a>
+										</li>
+										<li class="list-group-item">
+											<i class="far fa-calendar-alt text-center"
+											style="width: 25px; color: #304cf0;"></i>
+											<a>{{ctrl.airlineOffer.returnTrip | date:'dd-MM-yyyy'}}</a>
+										</li>
+										<li class="list-group-item">
+											<i class="far fa-clock text-center"
+											style="width: 25px; color: #304cf0;"></i>
+											<a>{{ctrl.days}} days</a>
+										</li>
+									</ul>
+								</div>
+								<div class="row m-0 pt-4">
+									<div class="col-md-6">Total amount</div>
+									<div class="col-md-6 text-right">
+										<a class="text-right">
+											{{ctrl.totalPrice}}
+										</a>
+										<a>
+											EUR
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+			        </div>
+				</div>
+			</div>
+		</div>
+		<div ng-show="!authenticated"> 
+			<div ng-if="!authenticated">
+				{{ redirectToLoginPage() }}
+			</div>
+		</div>
+	</div>
+</div>

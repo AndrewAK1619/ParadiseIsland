@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import pl.example.components.offer.booking.OfferBooking;
+
 @Service
 public class AirlineOfferService {
 
@@ -60,6 +62,11 @@ public class AirlineOfferService {
 				.stream()
 				.map(ao -> airlineOfferMapper.toDto(ao))
 				.collect(Collectors.toList());
+	}
+	
+	public AirlineOfferDto getAirlineDtoByOfferBooking(OfferBooking offerBooking) {
+		AirlineOffer airlineOffer = offerBooking.getAirlineOffer();
+		return airlineOfferMapper.toDto(airlineOffer);
 	}
 
 	public void saveAirlineOffer(AirlineOffer airlineOffer) {

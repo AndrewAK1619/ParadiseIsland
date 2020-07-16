@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import pl.example.components.offer.booking.OfferBooking;
 import pl.example.components.offer.hotel.image.HotelImage;
 import pl.example.components.offer.hotel.image.HotelImageService;
 import pl.example.components.offer.location.city.City;
@@ -132,6 +133,11 @@ public class HotelService {
 		} else
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
 					"Downloading object failed");
+	}
+	
+	public HotelDto getHotelDtoByOfferBooking(OfferBooking offerBooking) {
+		Hotel hotel = offerBooking.getHotelBooking().getHotel();
+		return hotelMapper.toDto(hotel);
 	}
 
 	HotelDto save(HotelDto hotelDto) {

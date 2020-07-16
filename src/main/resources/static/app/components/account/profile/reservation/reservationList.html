@@ -26,7 +26,8 @@
 							<td>{{reservation.returnDate | date:'dd-MM-yyyy'}}</td>
 							<td>{{reservation.totalPrice}} eur</td>
 							<td class="text-center">
-								<a class="btn btn-success mx-auto" ng-href="#!/">
+								<a class="btn btn-success mx-auto" 
+									ng-href="#!/account/profile/reservations/details/{{reservation.id}}">
 									Details
 								</a>
 							</td>

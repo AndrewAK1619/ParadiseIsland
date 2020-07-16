@@ -140,13 +140,15 @@ public class SearchController {
 			@RequestPart("departure") String departure,
 			@RequestPart("returnDate") String returnDate, 
 			@RequestPart("airlineOfferId") String airlineOfferId,
+			@RequestPart("numberOfPersons") String numberOfPersons,
 			@RequestPart("totalPrice") String totalPrice) {
-
+		
 		HotelBooking hotelBookingEntity = hotelBookingService
 				.saveHotelBooking(hotelId, roomId, hotelTotalPrice, departure, returnDate);
 
 		OfferBookingDto offerBookingDto = searchService
-				.saveOfferBooking(hotelBookingEntity.getId(), airlineOfferId, totalPrice);
+				.saveOfferBooking(hotelBookingEntity.getId(), airlineOfferId, 
+				Integer.parseInt(numberOfPersons), totalPrice);
 
 		return ResponseEntity.ok(offerBookingDto);
 	}

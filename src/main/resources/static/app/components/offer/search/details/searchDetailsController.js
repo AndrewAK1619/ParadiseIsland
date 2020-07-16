@@ -12,7 +12,7 @@ angular.module('app')
         var millisBetween = two.getTime() - one.getTime();
         var days = millisBetween / millisecondsPerDay;
     
-        return Math.floor(days);      
+        return Math.floor(days);
     };
     
 	const setDetailsData = result => {
@@ -72,12 +72,13 @@ angular.module('app')
 		const formData = new FormData();
 		
 		const totalPrice = vm.totalPriceForOnePerson * vm.searchCookie.persons;
-		
+
 		formData.append('roomId', vm.room.id);
 		formData.append('hotelTotalPrice', vm.hotelTotalPrice);
 		formData.append('departure', vm.searchCookie.departure);
 		formData.append('returnDate', vm.searchCookie.returnDate);
 		formData.append('airlineOfferId', vm.airlineOffer.id);
+		formData.append('numberOfPersons', vm.searchCookie.persons);
 		formData.append('totalPrice', totalPrice);
 		
 		SearchDetailsService.bookTripOffer(vm.hotelId, formData)

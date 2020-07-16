@@ -35,6 +35,7 @@ public class OfferBookingMapper {
 		dto.setHotelBookingId(offerBooking.getHotelBooking().getId());
 		dto.setAirlineOfferId(offerBooking.getAirlineOffer().getId());
 		dto.setUserEmail(offerBooking.getUser().getEmail());
+		dto.setNumberOfPersons(offerBooking.getNumberOfPersons());
 		dto.setTotalPrice(offerBooking.getTotalPrice());
 		return dto;
 	}
@@ -51,6 +52,7 @@ public class OfferBookingMapper {
 		Optional<User> user = userRepository
 				.findByEmail(offerBookingDto.getUserEmail());
 		user.ifPresent(entity::setUser);
+		entity.setNumberOfPersons(offerBookingDto.getNumberOfPersons());
 		entity.setTotalPrice(offerBookingDto.getTotalPrice());
 		return entity;
 	}

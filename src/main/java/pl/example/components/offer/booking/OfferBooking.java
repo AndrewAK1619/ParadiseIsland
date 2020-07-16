@@ -33,6 +33,8 @@ public class OfferBooking implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	@Column(name = "number_of_persons")
+	private int numberOfPersons;
 	@Column(name = "total_price")
 	private float totalPrice;
 
@@ -59,6 +61,12 @@ public class OfferBooking implements Serializable {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public int getNumberOfPersons() {
+		return numberOfPersons;
+	}
+	public void setNumberOfPersons(int numberOfPersons) {
+		this.numberOfPersons = numberOfPersons;
 	}
 	public float getTotalPrice() {
 		return totalPrice;

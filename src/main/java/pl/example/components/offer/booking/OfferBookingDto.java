@@ -6,6 +6,7 @@ public class OfferBookingDto {
 	private Long hotelBookingId;
 	private Long airlineOfferId;
 	private String userEmail;
+	private int numberOfPersons;
 	private float totalPrice;
 	
 	public Long getId() {
@@ -31,6 +32,12 @@ public class OfferBookingDto {
 	}
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+	public int getNumberOfPersons() {
+		return numberOfPersons;
+	}
+	public void setNumberOfPersons(int numberOfPersons) {
+		this.numberOfPersons = numberOfPersons;
 	}
 	public float getTotalPrice() {
 		return totalPrice;

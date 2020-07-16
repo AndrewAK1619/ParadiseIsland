@@ -312,10 +312,11 @@ public class SearchService {
 	OfferBookingDto saveOfferBooking(
 			Long hotelBookingId, 
 			String airlineOfferIdStr, 
+			int numberOfPersons,
 			String totalPrice) {
 
 		return offerBookingService.saveOfferBooking(
-				hotelBookingId, airlineOfferIdStr, totalPrice);
+				hotelBookingId, airlineOfferIdStr, numberOfPersons, totalPrice);
 	}
 
 	List<HotelSearchDto> findAllHotelsSearch() {
