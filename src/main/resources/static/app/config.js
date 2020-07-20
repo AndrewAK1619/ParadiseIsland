@@ -1,180 +1,225 @@
 angular.module('app')
-.config(function ($routeProvider, $httpProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-	$routeProvider
-		.when('/account/login', {
-			templateUrl: 'app/components/account/login/login.html',
+	$stateProvider
+		.state('myapp', {
+			views: {
+				'header': {
+					templateUrl: 'app/components/header/header.html'
+				},
+				'content': {
+					template: '<div ui-view></div>'
+				},
+				'footer': {
+					templateUrl: 'app/components/footer/footer.html'
+				}
+			}
+		})
+		.state('myapp.login', {
+			url: '/account/login',
+			templateUrl: 'app/components/content/account/login/login.html',
 			controller: 'AuthenticationController',
 			controllerAs: 'authController'
 		})
-		.when('/account/register', {
-			templateUrl: 'app/components/account/registration/register.html',
+		.state('myapp.register', {
+			url: '/account/register',
+			templateUrl: 'app/components/content/account/registration/register.html',
 			controller: 'RegisterController',
 			controllerAs: 'ctrl'
 		})
-		.when('/account/register/success', {
-			templateUrl: 'app/components/account/registration/success.html',
+		.state('myapp.register/success', {
+			url: '/account/register/success',
+			templateUrl: 'app/components/content/account/registration/success.html',
 			controller: 'RegisterController',
 			controllerAs: 'ctrl'
 		})
-		.when('/account/register/success/:userId', {
-			templateUrl: 'app/components/account/registration/success.html',
+		.state('myapp.register/success/id', {
+			url: '/account/register/success/:userId',
+			templateUrl: 'app/components/content/account/registration/success.html',
 			controller: 'RegisterController',
 			controllerAs: 'ctrl'
 		})
-		.when('/account/profile', {
-			templateUrl: 'app/components/account/profile/profile.html',
+		.state('myapp.profile', {
+			url: '/account/profile',
+			templateUrl: 'app/components/content/account/profile/profile.html',
 			controller: 'ProfileController',
 			controllerAs: 'ctrl'
 		})
-		.when('/account/profile/userDetails', {
-			templateUrl: 'app/components/account/profile/userDetails/userDetails.html',
+		.state('myapp.profile/userDetails', {
+			url: '/account/profile/userDetails',
+			templateUrl: 'app/components/content/account/profile/userDetails/userDetails.html',
 			controller: 'UserDetailsController',
 			controllerAs: 'ctrl'
 		})
-		.when('/account/profile/reservations', {
-			templateUrl: 'app/components/account/profile/reservation/reservationList.html',
+		.state('myapp.reservations', {
+			url: '/account/profile/reservations',
+			templateUrl: 'app/components/content/account/profile/reservation/reservationList.html',
 			controller: 'ReservationListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/account/profile/reservations/details/:offerBookingId', {
-			templateUrl: 'app/components/account/profile/reservation/details/reservationDetails.html',
+		.state('myapp.reservations/details', {
+			url: '/account/profile/reservations/details/:offerBookingId',
+			templateUrl: 'app/components/content/account/profile/reservation/details/reservationDetails.html',
 			controller: 'ReservationDetailsController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/users', {
-			templateUrl: 'app/components/users/list/userList.html',
+		.state('myapp.users', {
+			url: '/admin/users',
+			templateUrl: 'app/components/content/users/list/userList.html',
 			controller: 'UserListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/user-edit/:userId', {
-			templateUrl: 'app/components/users/edit/userEdit.html',
+		.state('myapp.user-edit', {
+			url: '/admin/user-edit/:userId',
+			templateUrl: 'app/components/content/users/edit/userEdit.html',
 			controller: 'UserEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/user-add', {
-			templateUrl: 'app/components/users/edit/userEdit.html',
+		.state('myapp.user-add', {
+			url: '/admin/user-add',
+			templateUrl: 'app/components/content/users/edit/userEdit.html',
 			controller: 'UserEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels', {
-			templateUrl: 'app/components/offer/hotel/list/hotelList.html',
+		.state('myapp.hotels', {
+			url: '/admin/hotels',
+			templateUrl: 'app/components/content/offer/hotel/list/hotelList.html',
 			controller: 'HotelListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels/page/:pageNumber', {
-			templateUrl: 'app/components/offer/hotel/list/hotelList.html',
+		.state('myapp.hotels/page', {
+			url: '/admin/hotels/page/:pageNumber',
+			templateUrl: 'app/components/content/offer/hotel/list/hotelList.html',
 			controller: 'HotelListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels-add', {
-			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
+		.state('myapp.hotels-add', {
+			url: '/admin/hotels-add',
+			templateUrl: 'app/components/content/offer/hotel/edit/hotelEdit.html',
 			controller: 'HotelEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels-edit/:hotelId', {
-			templateUrl: 'app/components/offer/hotel/edit/hotelEdit.html',
+		.state('myapp.hotels-edit', {
+			url: '/admin/hotels-edit/:hotelId',
+			templateUrl: 'app/components/content/offer/hotel/edit/hotelEdit.html',
 			controller: 'HotelEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels/:hotelId/rooms', {
-			templateUrl: 'app/components/offer/hotel/room/list/roomList.html',
+		.state('myapp.hotels/rooms', {
+			url: '/admin/hotels/:hotelId/rooms',
+			templateUrl: 'app/components/content/offer/hotel/room/list/roomList.html',
 			controller: 'RoomListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels/:hotelId/rooms-add', {
-			templateUrl: 'app/components/offer/hotel/room/edit/roomEdit.html',
+		.state('myapp.rooms-add', {
+			url: '/admin/hotels/:hotelId/rooms-add',
+			templateUrl: 'app/components/content/offer/hotel/room/edit/roomEdit.html',
 			controller: 'RoomEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels/rooms-edit/:roomId', {
-			templateUrl: 'app/components/offer/hotel/room/edit/roomEdit.html',
+		.state('myapp.rooms-edit', {
+			url: '/admin/hotels/rooms-edit/:roomId',
+			templateUrl: 'app/components/content/offer/hotel/room/edit/roomEdit.html',
 			controller: 'RoomEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels/rooms/categories', {
-			templateUrl: 'app/components/offer/hotel/room/category/list/roomCategoryList.html',
+		.state('myapp.categories', {
+			url: '/admin/hotels/rooms/categories',
+			templateUrl: 'app/components/content/offer/hotel/room/category/list/roomCategoryList.html',
 			controller: 'RoomCategoryListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels/rooms/categories-add', {
-			templateUrl: 'app/components/offer/hotel/room/category/edit/roomCategoryEdit.html',
+		.state('myapp.categories-add', {
+			url: '/admin/hotels/rooms/categories-add',
+			templateUrl: 'app/components/content/offer/hotel/room/category/edit/roomCategoryEdit.html',
 			controller: 'RoomCategoryEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/hotels/rooms/categories-edit/:roomCategoryId', {
-			templateUrl: 'app/components/offer/hotel/room/category/edit/roomCategoryEdit.html',
+		.state('myapp.categories-edit', {
+			url: '/admin/hotels/rooms/categories-edit/:roomCategoryId',
+			templateUrl: 'app/components/content/offer/hotel/room/category/edit/roomCategoryEdit.html',
 			controller: 'RoomCategoryEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/destinations/popular', {
-			templateUrl: 'app/components/offer/location/destination/list/destinationList.html',
+		.state('myapp.destinations/popular', {
+			url: '/destinations/popular',
+			templateUrl: 'app/components/content/offer/location/destination/list/destinationList.html',
 			controller: 'DestinationListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/destinations/random', {
-			templateUrl: 'app/components/offer/location/destination/list/destinationList.html',
+		.state('myapp.destinations/random', {
+			url: '/destinations/random',
+			templateUrl: 'app/components/content/offer/location/destination/list/destinationList.html',
 			controller: 'DestinationListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/airlines', {
-			templateUrl: 'app/components/offer/transport/airline/list/airlineList.html',
+		.state('myapp.airlines', {
+			url: '/admin/airlines',
+			templateUrl: 'app/components/content/offer/transport/airline/list/airlineList.html',
 			controller: 'AirlineListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/airline-edit/:airlineId', {
-			templateUrl: 'app/components/offer/transport/airline/edit/airlineEdit.html',
+		.state('myapp.airline-edit', {
+			url: '/admin/airline-edit/:airlineId',
+			templateUrl: 'app/components/content/offer/transport/airline/edit/airlineEdit.html',
 			controller: 'AirlineEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/admin/airline-add', {
-			templateUrl: 'app/components/offer/transport/airline/edit/airlineEdit.html',
+		.state('myapp.airline-add', {
+			url: '/admin/airline-add',
+			templateUrl: 'app/components/content/offer/transport/airline/edit/airlineEdit.html',
 			controller: 'AirlineEditController',
 			controllerAs: 'ctrl'
 		})
-		.when('/search-result', {
-			templateUrl: 'app/components/offer/search/searchList.html',
+		.state('myapp.search-result', {
+			url: '/search-result',
+			templateUrl: 'app/components/content/offer/search/searchList.html',
 			controller: 'SearchListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/search-result/page/:pageNumber', {
-			templateUrl: 'app/components/offer/search/searchList.html',
+		.state('myapp.search-result/page', {
+			url: '/search-result/page/:pageNumber',
+			templateUrl: 'app/components/content/offer/search/searchList.html',
 			controller: 'SearchListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/search-result/details/:hotelId', {
-			templateUrl: 'app/components/offer/search/details/searchDetails.html',
+		.state('myapp.search-result/details', {
+			url: '/search-result/details/:hotelId',
+			templateUrl: 'app/components/content/offer/search/details/searchDetails.html',
 			controller: 'SearchDetailsController',
 			controllerAs: 'ctrl'
 		})
-		.when('/search-result/details/:hotelId/rooms', {
-			templateUrl: 'app/components/offer/hotel/room/list/roomList.html',
+		.state('myapp.search-result/details/rooms', {
+			url: '/search-result/details/:hotelId/rooms',
+			templateUrl: 'app/components/content/offer/hotel/room/list/roomList.html',
 			controller: 'RoomListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/search-result/details/:hotelId/airlines', {
-			templateUrl: 'app/components/offer/transport/airlineOffer/list/airlineOfferList.html',
+		.state('myapp.search-result/details/airlines', {
+			url: '/search-result/details/:hotelId/airlines',
+			templateUrl: 'app/components/content/offer/transport/airlineOffer/list/airlineOfferList.html',
 			controller: 'AirlineOfferListController',
 			controllerAs: 'ctrl'
 		})
-		.when('/search-result/details/success', {
-			templateUrl: 'app/components/offer/search/details/success.html',
+		.state('myapp.search-result/details/success', {
+			url: '/search-result/details/success',
+			templateUrl: 'app/components/content/offer/search/details/success.html',
 			controller: 'SearchDetailsController',
 			controllerAs: 'ctrl'
 		})
-		.when('/search-result/details/success/:offerBookingId', {
-			templateUrl: 'app/components/offer/search/details/success.html',
+		.state('myapp.search-result/details/success/id', {
+			url: '/search-result/details/success/:offerBookingId',
+			templateUrl: 'app/components/content/offer/search/details/success.html',
 			controller: 'SearchDetailsController',
 			controllerAs: 'ctrl'
 		})
-		.when('/', {
-			templateUrl: 'app/components/home/homePage/home.html',
+		.state('myapp.homePage', {
+			url: '/',
+			templateUrl: 'app/components/content/home/homePage/home.html',
 			controller: 'HomeController',
 			controllerAs: 'ctrl'
 		})
-		.otherwise({
-			redirectTo: '/'
-		});
+		$urlRouterProvider.otherwise("/");
 })
 .run(function($window, $http, $rootScope, $location) {
 	$rootScope.redirectToHomePage = () => {

@@ -1,2 +1,2 @@
 'use strict';
-angular.module('app', ['ngRoute', 'ngResource', 'ngCookies']);
+angular.module('app', ['ui.router', 'ngResource', 'ngCookies']);
