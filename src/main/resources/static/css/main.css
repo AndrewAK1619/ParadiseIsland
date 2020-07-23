@@ -21,6 +21,11 @@ body {
 	background-size: cover;
 }
 
+.jumbo-user-details {
+	background: url('../img/jumboBackground/userDetails.jpg') center;
+	background-size: cover;
+}
+
 .text-shadow {
 	text-shadow:	-5px 0 8px black, 
 				0 5px 8px black,

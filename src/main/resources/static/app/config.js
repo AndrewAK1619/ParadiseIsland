@@ -7,6 +7,16 @@ angular.module('app')
 				'header': {
 					templateUrl: 'app/components/header/header.html'
 				},
+				'adminPanel': {
+					templateUrl: 'app/components/sidebar/adminPanel.html',
+					controller: 'AdminPanelController',
+					controllerAs: 'ctrl'
+				},
+				'userPanel': {
+					templateUrl: 'app/components/sidebar/userPanel.html',
+					controller: 'UserPanelController',
+					controllerAs: 'ctrl'
+				},
 				'content': {
 					template: '<div ui-view></div>'
 				},

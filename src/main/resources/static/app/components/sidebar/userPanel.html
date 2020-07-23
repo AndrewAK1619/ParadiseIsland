@@ -1,0 +1,68 @@
+<div ng-init="ctrl.init()"></div>
+<a id="show-sidebar" class="btn btn-sm btn-dark" href="">
+	<i class="fas fa-bars"></i>
+</a>
+<nav id="sidebar" class="sidebar-wrapper">
+	<div class="sidebar-content">
+		<div class="sidebar-brand">
+			<a>User Panel</a>
+			<div id="close-sidebar">
+				<i class="fas fa-times"></i>
+			</div>
+		</div>
+		<div class="sidebar-header">
+			<div class="user-info">
+				<span class="user-name">
+					{{ ctrl.userDetails.firstName }}
+					<strong>{{ ctrl.userDetails.lastName }}</strong>
+				</span>
+				<span class="user-role">User</span>
+			</div>
+		</div>
+		<div class="sidebar-menu">
+			<ul>
+				<li class="header-menu">
+					<span>General</span>
+				</li>
+				<li class="sidebar-dropdown">
+					<a href="">
+						<i class="fa fa-map-marker-alt"></i>
+						<span>Destinations</span>
+					</a>
+					<div class="sidebar-submenu">
+						<ul>
+							<li>
+								<a href="#!/destinations/popular">
+									Popular destinations list
+								</a>
+							</li>
+							<li>
+								<a href="#!/destinations/random">
+									Random destinations list
+								</a>
+							</li>
+						</ul>
+					</div>	
+				</li>
+			</ul>
+			<div class="sidebar-menu mt-2">
+				<ul>
+					<li class="header-menu">
+						<span>Extra</span>
+					</li>
+					<li>
+						<a href="">
+							<i class="fa fa-book"></i>
+							<span>Documentation</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar-footer">
+		<a href="">
+			<i class="fa fa-cog"></i>
+		</a>
+	</div>
+</nav>
