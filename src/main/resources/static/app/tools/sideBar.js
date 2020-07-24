@@ -1,5 +1,28 @@
 jQuery(function($) {
-	
+
+	var sidebarBehavior = () => {
+		var window_top = $(window).scrollTop() + 58;
+		var footer_top = $(".footer").offset().top;
+		var div_top = $('#sticky-anchor').offset().top;
+		var div_height = $("#sidebar").height();
+
+		var padding = 0;
+
+		if (window_top + div_height > footer_top - padding) {
+			$('#sidebar').css({top: (window_top + div_height - footer_top + padding - 58) * -1});
+			$('#sidebar').css({'transition': 'none'});
+		}
+		else if (window_top > div_top) {
+			$('#sidebar').css({'top': '58px'});
+			$('#sidebar').css({'transition': 'all 0.3s ease'});
+		} else {
+			$('#sidebar').css({'transition': 'all 0.3s ease'});
+		}
+	};
+	$(window).scroll(function() {
+		sidebarBehavior();
+	});
+
 	$(".sidebar-dropdown > a").click(function() {
 		$(".sidebar-submenu").slideUp(200);
 		if ($(this)

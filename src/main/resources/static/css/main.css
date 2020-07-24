@@ -188,6 +188,10 @@ body {
 	background: #CCC;
 }
 
+.min-cont-700 {
+	min-height: 700px;
+}
+
 .search-list {
 	min-width: 160px;
 }

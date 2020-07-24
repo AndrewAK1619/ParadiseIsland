@@ -21,7 +21,9 @@ angular.module('app')
 					template: '<div ui-view></div>'
 				},
 				'footer': {
-					templateUrl: 'app/components/footer/footer.html'
+					templateUrl: 'app/components/footer/footer.html',
+					controller: 'FooterController',
+					controllerAs: 'ctrl'
 				}
 			}
 		})

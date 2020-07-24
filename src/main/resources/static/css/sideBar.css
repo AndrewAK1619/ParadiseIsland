@@ -44,10 +44,6 @@
 .sidebar-wrapper ul li a i, .page-wrapper .page-content,
 .sidebar-wrapper .sidebar-search input.search-menu, .sidebar-wrapper .sidebar-search .input-group-text,
 .sidebar-wrapper .sidebar-menu ul li a, #show-sidebar, #close-sidebar {
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
 
@@ -99,6 +95,17 @@
 /*----------------sidebar-wrapper----------------*/
 
 .sidebar-wrapper {
+	width: 260px;
+	height: calc(100% - 58px);
+	max-height: calc(100% - 58px);
+	bottom: 120px;
+	position: fixed;
+	top: 58px;
+	left: -300px;
+	z-index: 999;
+}
+
+.sidebar-wrapper-footer {
 	width: 260px;
 	height: calc(100% - 58px);
 	max-height: calc(100% - 58px);

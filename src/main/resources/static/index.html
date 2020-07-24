@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="app">
+<html data-ng-app="app" lang="pl">
 <head>
 	<meta charset="UTF-8">
 	<title>Paradise Island - best trip offers!</title>
@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="css/sideBar.css">
 	<link rel="stylesheet" href="css/pagination.css">
 	<link rel="stylesheet" href="css/profileCard.css">
+	<link rel="stylesheet" href="css/footer.css">
 	
 	<!-- Bootstrap -->
 	<script src="node_modules/jquery/dist/jquery.slim.js"></script>
@@ -34,6 +35,7 @@
 	<!-- Application -->
 	<script src="app/index.js"></script>
 	<script src="app/config.js"></script>
+	<script src="app/tools/sideBar.js"></script>
 
 	<!-- Services -->
 	<script src="app/services/home/homeServices.js"></script>
@@ -54,6 +56,9 @@
 	<script src="app/services/profileComponent/reservationServices.js"></script>
 
 	<!-- Controllers -->
+	<script src="app/components/sidebar/adminPanelController.js"></script>
+	<script src="app/components/sidebar/userPanelController.js"></script>
+	<script src="app/components/footer/footerController.js"></script>
 	<script src="app/components/content/home/homePage/homeController.js"></script>
 	<script src="app/components/content/account/login/authenticationController.js"></script>
 	<script src="app/components/content/account/registration/registerController.js"></script>
@@ -75,8 +80,6 @@
 	<script src="app/components/content/offer/search/searchListController.js"></script>
 	<script src="app/components/content/offer/search/details/searchDetailsController.js"></script>
 	<script src="app/components/content/offer/transport/airlineOffer/list/airlineOfferListController.js"></script>
-	<script src="app/components/sidebar/adminPanelController.js"></script>
-	<script src="app/components/sidebar/userPanelController.js"></script>
 
 	<!-- Directives -->
 	<script src="app/directive/fileModelDirective.js"></script>
@@ -85,6 +88,7 @@
 <body>
 	<div ui-view="header" class="sticky-top"></div>
 	<div ng-if="authenticated">
+		<div id="sticky-anchor" style="top: 58px;"></div>
 		<div class="page-wrapper chiller-theme toggled text-size-rem-09">
 			<div ng-if="authenticatedAdmin">
 				<div ui-view="adminPanel"></div>
@@ -95,14 +99,13 @@
 			<div class="page-content">
 				<main role="main">
 					<div ui-view="content"></div>
-					<div ui-view="footer"></div>
 				</main>
 			</div>
 		</div>
 	</div>
 	<div ng-if="!authenticated" class="mt-4">
 		<div ui-view="content"></div>
-		<div ui-view="footer"></div>
 	</div>
+	<div ui-view="footer"></div>
 </body>
 </html>
