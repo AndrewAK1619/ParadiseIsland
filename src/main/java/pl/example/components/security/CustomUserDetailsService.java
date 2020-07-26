@@ -22,7 +22,7 @@ import pl.example.components.user.role.UserRole;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	public void setUserRepository(UserRepository userRepository) {
 		this.userRepository = userRepository;

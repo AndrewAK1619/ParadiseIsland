@@ -136,11 +136,11 @@ angular.module('app')
 
 			vm.errorCountryMessage = false;
 			vm.errorCityMessage = false;
-			
+
 			if (vm.countryIsChosen && vm.cityIsChosen) {
-				vm.hotel.region = cityRegion.substring(cityRegion.lastIndexOf('(') + 1, 
-						cityRegion.length - 1);
-				vm.hotel.city = cityRegion.substr(0, cityRegion.lastIndexOf(' '));
+				vm.hotel.region = cityRegion.substring(
+						cityRegion.lastIndexOf('(') + 1, cityRegion.length - 1);
+				vm.hotel.city = cityRegion.substr(0, cityRegion.indexOf(' '));
 			} else if (!vm.countryIsChosen && !vm.cityIsChosen) {
 				vm.errorCountryMessage = true;
 				vm.errorCityMessage = true;
@@ -152,7 +152,6 @@ angular.module('app')
 				vm.errorCityMessage = true;
 				throw new Error('City must be selected from the list.');
 			}
-
 			formData.append('file', vm.file);
 			formData.append('hotelDto', JSON.stringify(vm.hotel));
 			

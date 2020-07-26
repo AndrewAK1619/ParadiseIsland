@@ -233,7 +233,7 @@ angular.module('app')
 		})
 		$urlRouterProvider.otherwise("/");
 })
-.run(function($window, $http, $rootScope, $location) {
+.run(function($window, $http, $rootScope, $location, UserService) {
 	$rootScope.redirectToHomePage = () => {
 		$location.path('/')
 	}
@@ -273,4 +273,28 @@ angular.module('app')
 			$rootScope.authenticatedUser = false;
 		}
 	}
-});
+	var isOpenRunSite;
+	const errorCallback = err => {
+		var str = err.data.message.substring(0, 11);
+
+		if(str === 'JWT expired') {
+			$rootScope.logout();
+			if(isOpenRunSite) {
+				location.reload();
+			}
+		}
+	}
+	$rootScope.checkTokenExpired = (isOpenSite) => {
+		isOpenRunSite = isOpenSite;
+		UserService.getUserEmail()
+			.$promise
+			.catch(errorCallback);
+	}
+	$rootScope.checkTokenExpired(true);
+})
+.factory("$exceptionHandler", ['$injector', function($injector) {
+	return function (exception, cause) {
+		const $rootScope = $injector.get("$rootScope");
+		$rootScope.checkTokenExpired(false);
+	};
+}]);
