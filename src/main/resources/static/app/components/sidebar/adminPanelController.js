@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('AdminPanelController', function($rootScope, $document, UserService) {
+.controller('AdminPanelController', function($rootScope, UserService) {
 	const vm = this;
 
 	vm.userDetails = UserService.getUserDetails();

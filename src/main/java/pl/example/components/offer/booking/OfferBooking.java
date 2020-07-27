@@ -2,6 +2,7 @@ package pl.example.components.offer.booking;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class OfferBooking implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "offer_booking_id")
 	private Long id;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE )
 	@JoinColumn(name = "hotel_booking_id")
 	private HotelBooking hotelBooking;
 	@ManyToOne

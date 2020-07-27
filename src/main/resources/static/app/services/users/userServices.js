@@ -10,6 +10,9 @@ angular.module('app')
 		update: {
 			method: 'PUT'
 		},
+		deleteUser: {
+			method: 'DELETE'
+		},
 		getUserEmail: {
 			method: 'GET',
 			url: PROFILE_ENDPOINT,
@@ -44,6 +47,7 @@ angular.module('app')
 	this.get = index => User.get({id: index});
 	this.save = user => user.$save();
 	this.update = user => user.$update({id: user.id});
+	this.deleteUser = user => user.$delete({id: user.id});
 	this.getUserEmail = () => User.getUserEmail();
 	this.saveUserEmail = email => User.saveUserEmail(email);
 	this.saveUserPassword = formData => User.saveUserPassword(formData);

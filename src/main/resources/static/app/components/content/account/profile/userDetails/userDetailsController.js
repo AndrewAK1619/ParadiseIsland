@@ -46,7 +46,7 @@ angular.module('app')
 	};
 	
 	const errorCallback = err => {
-		vm.msg=`Data write error: ${err.data.message}`;
+		vm.msg=`${err.data.message}`;
 	};
 
 	vm.saveUser = () => {

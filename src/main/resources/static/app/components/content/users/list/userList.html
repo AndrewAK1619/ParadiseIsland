@@ -1,5 +1,21 @@
 <div class="container min-cont-700">
 	<div ng-show="authenticatedAdmin">
+		<div ng-if="ctrl.msg">
+			<div class="row justify-content-center">
+				<div class="col info-box rounded col-6 bg-light p-2 m-2">
+					<div class="row ">
+						<div class="col-12 col-sm-2 d-flex justify-content-center 
+							align-items-center display-4 text-danger">
+							<i class="fa fa-info-circle"></i>
+						</div>
+						<div class="col-12 col-sm-10">
+							<p class="err-msg">{{ctrl.msg}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<div class="form">
@@ -42,11 +58,13 @@
 									</a>
 								</button>
 								<button class="btn btn-sm btn-warning" title="...">
-									<a ng-href="#!" class="text-white">
+									<a ng-href="" class="text-white">
 										<i class="fas fa-wrench"></i>
 									</a>
 								</button>
-								<button class="btn btn-sm btn-danger" title="Delete">
+								<button class="btn btn-sm btn-danger" title="Delete"
+									ng-confirm-click="Are you sure to delete this user ?" 
+									confirmed-click="ctrl.deleteUser(user)">
 									<i class="fas fa-user-minus"></i>
 								</button>
 							</td>
