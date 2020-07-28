@@ -32,7 +32,8 @@
 										<span class="glyphicon glyphicon-user glyphicon-lg"></span>
 									</div>
 									<div class="row">
-										<div class="col-sm-3 font-weight-bold text-size-16" ng-show="authenticatedAdmin">
+										<div class="col-sm-3 font-weight-bold text-size-16" 
+											ng-if="authenticatedAdmin">
 											#{{room.id}}
 										</div>
 										<div class="w-100 mb-3"></div>
@@ -61,18 +62,18 @@
 					<li class="list-group-item-dark p-2"
 						style="display: flex; align-items: center;">
 						<div class="btn-group-vertical">
-							<button class="btn btn-sm btn-primary mb-3" title="Edit" ng-show="authenticatedAdmin">
+							<button class="btn btn-sm btn-primary mb-3" title="Edit" ng-if="authenticatedAdmin">
 								<a ng-href="#!/admin/hotels/rooms-edit/{{room.id}}" class="text-white">
 									<i class="fas fa-edit"></i>
 								</a>
 							</button>
 							<button class="btn btn-sm btn-success mb-3" title="Choose this room"
-								ng-click="ctrl.setRoom(room)" ng-show="ctrl.isSearchUrl">
+								ng-click="ctrl.setRoom(room)" ng-if="ctrl.isSearchUrl">
 								<a ng-href="" class="text-white">
 									<i class="fas fa-check"></i>
 								</a>
 							</button>
-							<button class="btn btn-sm btn-danger" title="Delete" ng-show="authenticatedAdmin">
+							<button class="btn btn-sm btn-danger" title="Delete" ng-if="authenticatedAdmin">
 								<i class="fas fa-trash-alt"></i>
 							</button>
 						</div>
@@ -83,15 +84,16 @@
 	</div>
 	<div class="row">
 		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels/{{ctrl.hotelId}}/rooms-add" 
-			ng-show="authenticatedAdmin">
+			ng-if="authenticatedAdmin">
 			Add new room
 		</a>
 		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/search-result/details/{{ctrl.hotelId}}"
-			ng-show="ctrl.isSearchUrl">
+			ng-if="ctrl.isSearchUrl">
 			<i class="fas fa-undo-alt"></i>
 			Return
 		</a>
-		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels" ng-show="authenticatedAdmin">
+		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels" 
+			ng-if="authenticatedAdmin">
 			Hotels
 		</a>
 	</div>

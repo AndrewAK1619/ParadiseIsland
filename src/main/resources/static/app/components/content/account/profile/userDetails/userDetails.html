@@ -125,7 +125,7 @@
 			</div>
 		</form>
 	</div>
-	<div ng-show="!authenticated"> 
+	<div ng-if="!authenticated"> 
 		<div ng-if="!authenticated">
 			{{ redirectToLoginPage() }}
 		</div>

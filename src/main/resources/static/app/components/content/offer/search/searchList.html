@@ -52,7 +52,7 @@
 						</div>
 					</li>
 					<li class="list-group-item-dark p-2" style="width: 40%">
-						<div ng-hide="hotel.isRoomNull" class="h-100 m-2" style="position: relative;">
+						<div ng-if="!hotel.isRoomNull" class="h-100 m-2" style="position: relative;">
 							<div class="h-50">
 								<div class="row m-0 w-100 flex-row-reverse">
 									<div>
@@ -96,7 +96,7 @@
 								</div>
 							</div>
 						</div>
-						<div ng-show="hotel.isRoomNull" class="h-100 m-2">
+						<div ng-if="hotel.isRoomNull" class="h-100 m-2">
 							<div class="row m-0 h-100 w-100 justify-content-center 
 								align-items-center text-danger">
 								<div>
@@ -111,7 +111,7 @@
 			</div>
 		</div>
 	</div>
-	<div ng-show="ctrl.resultFound" class="col-md-12 text-center my-4">
+	<div ng-if="ctrl.resultFound" class="col-md-12 text-center my-4">
 		<h1><strong>No result found</strong></h1>
 	</div>
 	<div ng-show="ctrl.searchDataLoaded">

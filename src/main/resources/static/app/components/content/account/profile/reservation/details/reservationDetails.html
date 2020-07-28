@@ -1,5 +1,5 @@
 <div class="container min-cont-700">
-	<div ng-show="authenticated">
+	<div ng-if="authenticated">
 		<div class="card mb-5" style="background-color: #d6d6d6;">
 			<div class="container-fliud">
 				<div class="row">
@@ -201,7 +201,7 @@
 				Return to reservations list
 			</a>
 		</div>
-		<div ng-show="!authenticated"> 
+		<div ng-if="!authenticated"> 
 			<div ng-if="!authenticated">
 				{{ redirectToLoginPage() }}
 			</div>

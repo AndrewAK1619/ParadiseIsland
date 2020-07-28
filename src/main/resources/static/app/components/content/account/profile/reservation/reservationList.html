@@ -1,5 +1,5 @@
 <div class="container min-cont-700">
-	<div ng-show="authenticated">
+	<div ng-if="authenticated">
 		<div class="jumbotron jumbo-reservations">
 			<h1 class="text-shadow text-center text-white my-5">
 				<strong>Reservations</strong>
@@ -42,7 +42,7 @@
 			</a>
 		</div>
 	</div>
-	<div ng-show="!authenticated"> 
+	<div ng-if="!authenticated"> 
 		<div ng-if="!authenticated">
 			{{ redirectToLoginPage() }}
 		</div>

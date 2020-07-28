@@ -1,5 +1,5 @@
 <div class="container min-cont-700">
-	<div ng-show="authenticatedAdmin">
+	<div ng-if="authenticatedAdmin">
 		<div class="row">
 			<div class="col-md-8 offset-md-2">
 				<div class="form">
@@ -17,7 +17,7 @@
 							placeholder="Country Name" ng-focus="focusedCountry = true" autocomplete="off"
 							ng-blur="focusedCountry = false" ng-change="ctrl.countryIsChosen = false">
 						<ul class="list-group col-6 offset-md-5 hotel-country-search" ng-model="ctrl.hideCountryList" 
-							ng-hide="ctrl.hideCountryList" ng-show="focusedCountry">
+							ng-if="ctrl.hideCountryList" ng-if="focusedCountry">
 							<li class="list-group-item list-group-item-action border border-dark" 
 							ng-repeat="countryData in ctrl.filterCountry"
 							ng-mousedown="ctrl.fillCountryTextbox(countryData)">{{countryData}}</li>
@@ -66,7 +66,7 @@
 								</div>
 							</div>
 						</li>
-						<li class="list-group-item-dark p-2" ng-show="authenticatedAdmin"
+						<li class="list-group-item-dark p-2" ng-if="authenticatedAdmin"
 							style="display: flex; align-items: center;">
 							<div class="btn-group-vertical">
 								<button class="btn btn-sm btn-primary mb-3" title="Edit">
@@ -155,13 +155,13 @@
 				</ul>
 			</nav>
 		</div>
-		<div class="row" ng-show="authenticatedAdmin">
+		<div class="row" ng-if="authenticatedAdmin">
 			<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels-add">
 				Add new hotel
 			</a>
 		</div>
 	</div>
-	<div ng-show="!authenticatedAdmin"> 
+	<div ng-if="!authenticatedAdmin"> 
 		<div ng-if="authenticatedUser">
 			{{ redirectToHomePage() }}
 		</div>

@@ -1,5 +1,5 @@
 <div class="container min-cont-700">
-	<div ng-show="authenticated">
+	<div ng-if="authenticated">
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-4">
@@ -225,7 +225,7 @@
 			<div class="col-md-1"></div>
 		</div>
 	</div>
-	<div ng-show="!authenticated"> 
+	<div ng-if="!authenticated"> 
 		<div ng-if="!authenticated">
 			{{ redirectToLoginPage() }}
 		</div>

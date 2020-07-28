@@ -1,5 +1,5 @@
 <div class="container min-cont-700">
-	<div ng-show="authenticatedAdmin">
+	<div ng-if="authenticatedAdmin">
 		<div class="row tableTextWhite">
 			<div class="mx-auto">
 				<h2 ng-if="ctrl.user.id">Edit user</h2>
@@ -200,7 +200,7 @@
 			</form>
 		</div>
 	</div>
-	<div ng-show="!authenticatedAdmin"> 
+	<div ng-if="!authenticatedAdmin"> 
 		<div ng-if="authenticatedUser">
 			{{ redirectToHomePage() }}
 		</div>

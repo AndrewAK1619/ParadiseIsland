@@ -182,7 +182,7 @@
 			</form>
 		</div>
 	</div>
-	<div ng-show="!authenticatedAdmin"> 
+	<div ng-if="!authenticatedAdmin"> 
 		<div ng-if="authenticatedUser">
 			{{ redirectToHomePage() }}
 		</div>

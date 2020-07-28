@@ -1,5 +1,5 @@
 <div class="container min-cont-700">
-	<div ng-show="authenticatedAdmin">
+	<div ng-if="authenticatedAdmin">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<div class="form">
@@ -57,7 +57,7 @@
 			<a class="btn btn-primary mb-3" ng-href="#!/admin/airline-add">Add airline</a>
 		</div>
 	</div>
-	<div ng-show="!authenticatedAdmin"> 
+	<div ng-if="!authenticatedAdmin"> 
 		<div ng-if="authenticatedUser">
 			{{ redirectToHomePage() }}
 		</div>

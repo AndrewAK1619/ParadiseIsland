@@ -75,17 +75,10 @@ public class UserService {
 		String unmodifiableMsg = "You cannot change this user's email.";
 		isUnmodifiableUser(actualEmail, unmodifiableMsg);
 		
-
-//		if (actualEmail.equals("admin@example.com") || actualEmail.equals("user@example.com")) {
-//			throw new ResponseStatusException(HttpStatus.LOCKED, 
-//					"You cannot change this user's email. "
-//					+ "('admin@example.com' and 'user@example.com' modifications are not possible)");
-//		}
 		if (actualEmail.equals(newEmail)) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
 					"The user with the given e-mail already exists. Enter a different e-mail");
 		}
-		
 		Optional<User> userByEmail = userRepository.findByEmail(newEmail);
 		userByEmail.ifPresent(u -> {
 			throw new DuplicateEmailException();
@@ -104,12 +97,7 @@ public class UserService {
 	UserDto changeUserPassword(String oldPassword, String newPassword) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String actualEmail = authentication.getName();
-//
-//		if (actualEmail.equals("admin@example.com") || actualEmail.equals("user@example.com")) {
-//			throw new ResponseStatusException(HttpStatus.LOCKED, 
-//					"You cannot change this user's password. "
-//					+ "('admin@example.com' and 'user@example.com' modifications are not possible)");
-//		}
+
 		String unmodifiableMsg = "You cannot change this user's password.";
 		isUnmodifiableUser(actualEmail, unmodifiableMsg);
 
@@ -156,6 +144,20 @@ public class UserService {
 		isUnmodifiableUser(user.getEmail(), unmodifiableMsg);
 		return mapAndSaveUser(user, false);
 	}
+	
+	void delete(Long id) {
+		Optional<User> user = userRepository.findById(id);
+		String email;
+		if(user.isPresent()) {
+			email = user.get().getEmail();
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+					"The user is not found");
+		}
+		String unmodifiableMsg = "You cannot delete this user's.";
+		isUnmodifiableUser(email, unmodifiableMsg);
+		userRepository.deleteById(id);
+	}
 
 	private UserDto mapAndSaveUser(UserDto user, boolean isUserNotExist) {
 		User userEntity = UserMapper.toEntity(user);
@@ -176,20 +178,6 @@ public class UserService {
 		user.getRoles().add(defaultRole);
 		String passwordHash = passwordEncoder.encode(user.getPassword());
 		user.setPassword(passwordHash);
-	}
-
-	void delete(Long id) {
-		Optional<User> user = userRepository.findById(id);
-		String email;
-		if(user.isPresent()) {
-			email = user.get().getEmail();
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
-					"The user is not found");
-		}
-		String unmodifiableMsg = "You cannot delete this user's.";
-		isUnmodifiableUser(email, unmodifiableMsg);
-		userRepository.deleteById(id);
 	}
 
 	private void isUnmodifiableUser(String email, String unmodifiableMsg) {

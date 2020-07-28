@@ -43,13 +43,13 @@
 				<li class="nav-item">
 					<a class="nav-link" href="">Career</a>
 				</li>
-				<li class="nav-item" ng-show="!authenticated">
+				<li class="nav-item" ng-if="!authenticated">
 					<a class="nav-link" href="#!account/login">Log In</a>
 				</li>
-				<li class="nav-item" ng-show="!authenticated">
+				<li class="nav-item" ng-if="!authenticated">
 					<a class="nav-link" href="#!account/register">Register</a>
 				</li>
-				<li class="nav-item dropdown pl-3" ng-show="authenticated" 
+				<li class="nav-item dropdown pl-3" ng-if="authenticated" 
 					style="font-size: 1.80em;">
 					<a class="nav-link m-0 p-0" href="" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
