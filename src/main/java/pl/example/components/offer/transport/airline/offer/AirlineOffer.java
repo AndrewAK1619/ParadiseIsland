@@ -2,7 +2,10 @@ package pl.example.components.offer.transport.airline.offer;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import pl.example.components.offer.booking.OfferBooking;
 import pl.example.components.offer.transport.airline.Airline;
 
 @Entity
@@ -31,6 +36,9 @@ public class AirlineOffer implements Serializable {
 	private LocalDateTime returnTrip;
 	@Column(name = "flight_price")
 	private float flightPrice;
+	@OneToMany(mappedBy = "airlineOffer", 
+			cascade = { CascadeType.REMOVE })
+	private List<OfferBooking> bookingOffers = new ArrayList<>();
 	
 	public Long getId() {
 		return id;

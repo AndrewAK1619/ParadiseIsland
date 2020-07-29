@@ -11,5 +11,6 @@ angular.module('app')
 	this.getAll = params => Airline.query(params);
 	this.get = index => Airline.get({id: index});
 	this.save = airline => airline.$save();
-	this.update = airline => airline.$update({id: airline.id})
+	this.update = airline => airline.$update({id: airline.id});
+	this.deleteAirline = airline => airline.$delete({id: airline.id});
 });

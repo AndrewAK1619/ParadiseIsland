@@ -10,9 +10,6 @@ angular.module('app')
 		update: {
 			method: 'PUT'
 		},
-		deleteUser: {
-			method: 'DELETE'
-		},
 		getUserEmail: {
 			method: 'GET',
 			url: PROFILE_ENDPOINT,

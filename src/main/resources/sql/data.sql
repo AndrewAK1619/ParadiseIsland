@@ -14,7 +14,8 @@ INSERT INTO users_roles(user_user_id, roles_id) VALUES
 
 INSERT INTO airlines(airline_id, airline_name, details) VALUES
   (1, 'Speed Flight Airline', ''),
-  (2, 'West Europe Airways', '');
+  (2, 'West Europe Airways', ''),
+  (3, 'Modification Possible Airways', '');
 
 INSERT INTO room_categories(room_category_id, name) VALUES
   (1, 'Standard'),

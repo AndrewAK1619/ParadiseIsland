@@ -6,9 +6,36 @@
 				<h2 ng-if="!ctrl.airline.id">New airline</h2>
 			</div>
 		</div>
-		<div class="row" ng-if="ctrl.msg">
-			<div class="mx-auto">
-				<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
+		<div ng-if="ctrl.msgSuccess">
+			<div class="row justify-content-center">
+				<div class="col info-box rounded col-6 bg-light p-2 m-2">
+					<div class="row ">
+						<div class="col-12 col-sm-2 d-flex justify-content-center 
+							align-items-center display-4 text-success">
+							<i class="fa fa-info-circle"></i>
+						</div>
+						<div class="col-12 col-sm-10">
+							<p class="success-msg">{{ctrl.msgSuccess}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-if="ctrl.msg">
+			<div class="row justify-content-center">
+				<div class="col info-box rounded col-6 bg-light p-2 m-2">
+					<div class="row ">
+						<div class="col-12 col-sm-2 d-flex justify-content-center 
+							align-items-center display-4 text-danger">
+							<i class="fa fa-info-circle"></i>
+						</div>
+						<div class="col-12 col-sm-10">
+							<p class="err-msg">{{ctrl.msg}}
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row tableTextWhite">
@@ -58,11 +85,6 @@
 					<small ng-if="ctrl.errDetails" class="form-text valid-err-text-two">
 						- {{ ctrl.errDetailsMsg }} -
 					</small>
-				</div>
-				<div class="row" ng-if="ctrl.msg">
-					<div class="mx-auto">
-						<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
-					</div>
 				</div>
 				<div class="form-group mb-5">
 					<button ng-if="!ctrl.airline.id" type="submit" class="btn btn-success"

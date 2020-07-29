@@ -44,7 +44,7 @@ public class User implements Serializable  {
 	private Set<UserRole> roles = new HashSet<>();
 	@OneToMany(mappedBy = "user", 
 			cascade = { CascadeType.REMOVE })
-	private List<OfferBooking> OffersBooking = new ArrayList<>();
+	private List<OfferBooking> bookingOffers = new ArrayList<>();
 
 	public Long getId() {
 		return id;

@@ -1,13 +1,19 @@
 package pl.example.components.offer.transport.airline;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import pl.example.components.offer.transport.airline.offer.AirlineOffer;
 
 @Entity
 @Table(name = "airlines")
@@ -22,6 +28,9 @@ public class Airline implements Serializable {
 	private String airlineName;
 	@Column(name = "details")
 	private String details;
+	@OneToMany(mappedBy = "ariline", 
+			cascade = { CascadeType.REMOVE })
+	private List<AirlineOffer> airlineOffers = new ArrayList<>();
 
 	public Long getId() {
 		return id;
