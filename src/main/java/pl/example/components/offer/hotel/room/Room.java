@@ -1,8 +1,10 @@
 package pl.example.components.offer.hotel.room;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,9 +37,9 @@ public class Room implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "room_category_id")
 	private RoomCategory roomCategory;
-	@OneToMany
-	@JoinColumn(name = "room_id", referencedColumnName = "room_id")
-	private List<RoomImage> roomImages;
+	@OneToMany(mappedBy = "room", 
+			cascade = { CascadeType.REMOVE })
+	private List<RoomImage> roomImages = new ArrayList<>();
 	@ManyToOne
 	@JoinColumn(name = "hotel_id")
 	private Hotel hotel;

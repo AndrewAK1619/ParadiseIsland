@@ -14,4 +14,5 @@ angular.module('app')
 	this.save = RoomCategory => RoomCategory.$save();
 	this.update = RoomCategory => RoomCategory.$update({id: RoomCategory.id})
 	this.getAllNames = () => $resource(ROOM_CATEGORY_NAMES_ENDPOINT).query();
+	this.deleteRoomCategory = roomCategory => roomCategory.$delete({id: roomCategory.id});
 });

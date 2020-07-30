@@ -21,4 +21,5 @@ INSERT INTO room_categories(room_category_id, name) VALUES
   (1, 'Standard'),
   (2, 'High Standard'),  
   (3, 'Exclusive'),
-  (4, 'Apartment');
+  (4, 'Apartment'),
+  (5, 'Category Modification Possible');

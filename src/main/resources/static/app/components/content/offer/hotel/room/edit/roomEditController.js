@@ -4,7 +4,7 @@ angular.module('app')
 	
 	const roomId = $stateParams.roomId;
 	const hotelId = $stateParams.hotelId;
-	
+
 	const setRoomAndTopImg = result => {
 		vm.roomArray = result.room;
 		vm.fileArray = result.file;
