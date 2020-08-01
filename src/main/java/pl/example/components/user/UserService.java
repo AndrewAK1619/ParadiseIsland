@@ -43,6 +43,10 @@ public class UserService {
 				.findById(id)
 				.map(UserMapper::toDto);
 	}
+	
+	public Optional<User> findUserEntityById(Long id) {
+		return userRepository.findById(id);
+	}
 
 	Optional<UserDto> findByEmail(String email) {
 		return userRepository

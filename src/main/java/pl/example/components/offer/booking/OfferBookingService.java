@@ -85,7 +85,22 @@ public class OfferBookingService {
 				.map(obl -> OfferBookingBasicInfMapper.toDto(obl))
 				.collect(Collectors.toList());
 	}
-	
+
+	public List<OfferBookingBasicInfDto> findAllOfferBookingByUser(Long userId) {
+		Optional<User> userOpt = userService.findUserEntityById(userId);
+		List<OfferBooking> offerBookingList;
+		if(userOpt.isPresent())
+			offerBookingList = offerBookingRepository.findAllByUser(userOpt.get());
+		else
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+					"The user is not found");
+
+		return offerBookingList
+				.stream()
+				.map(obl -> OfferBookingBasicInfMapper.toDto(obl))
+				.collect(Collectors.toList());
+	}
+
 	MultiValueMap<String, Object> findOfferBookingData(Long offerBookingId) throws IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Optional<User> userOpt = userService.findUserByEmail(authentication.getName());

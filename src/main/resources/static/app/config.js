@@ -93,6 +93,18 @@ angular.module('app')
 			controller: 'UserEditController',
 			controllerAs: 'ctrl'
 		})
+		.state('myapp.user/reservations', {
+			url: '/admin/user/reservations',
+			templateUrl: 'app/components/content/account/profile/reservation/reservationList.html',
+			controller: 'ReservationListController',
+			controllerAs: 'ctrl'
+		})
+		.state('myapp.user/reservations/Id', {
+			url: '/admin/user/reservations/:userId',
+			templateUrl: 'app/components/content/account/profile/reservation/reservationList.html',
+			controller: 'ReservationListController',
+			controllerAs: 'ctrl'
+		})
 		.state('myapp.hotels', {
 			url: '/admin/hotels',
 			templateUrl: 'app/components/content/offer/hotel/list/hotelList.html',

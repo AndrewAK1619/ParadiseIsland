@@ -9,11 +9,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account/profile")
+@RequestMapping("/account/profile/reservations")
 public class OfferBookingController {
 
 	private OfferBookingService offerBookingService;
@@ -23,14 +22,12 @@ public class OfferBookingController {
 		this.offerBookingService = offerBookingService;
 	}
 
-	@GetMapping("/reservations")
-	public List<OfferBookingBasicInfDto> findAllOfferBookingBasicInf(
-			@RequestParam(required = false) String country) {
-
+	@GetMapping("")
+	public List<OfferBookingBasicInfDto> findAllOfferBookingBasicInf() {
 		return offerBookingService.findAllOfferBookingBasicInf();
 	}
 
-	@GetMapping("/reservations/{offerBookingId}")
+	@GetMapping("/{offerBookingId}")
 	public ResponseEntity<MultiValueMap<String, Object>> getDetailsData(
 			@PathVariable Long offerBookingId) throws IOException {
 

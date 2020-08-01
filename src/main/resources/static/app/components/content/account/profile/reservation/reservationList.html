@@ -26,10 +26,18 @@
 							<td>{{reservation.returnDate | date:'dd-MM-yyyy'}}</td>
 							<td>{{reservation.totalPrice}} eur</td>
 							<td class="text-center">
-								<a class="btn btn-success mx-auto" 
-									ng-href="#!/account/profile/reservations/details/{{reservation.id}}">
-									Details
-								</a>
+								<div ng-if="!ctrl.isAdminData">
+									<a class="btn btn-success mx-auto" 
+										ng-href="#!/account/profile/reservations/details/{{reservation.id}}">
+										Details
+									</a>
+								</div>
+								<div ng-if="ctrl.isAdminData">
+									<a class="btn btn-success mx-auto" 
+										ng-href="">
+										Details
+									</a>
+								</div>
 							</td>
 						</tr>
 					</tbody>
@@ -37,9 +45,16 @@
 			</div>
 		</div>
 		<div class="row">
-			<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/account/profile">
-				Return to profile settings
-			</a>
+			<div ng-if="!ctrl.isAdminData">
+				<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/account/profile">
+					Profile settings
+				</a>
+			</div>
+			<div ng-if="ctrl.isAdminData">
+				<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/users">
+					Return to users
+				</a>
+			</div>
 		</div>
 	</div>
 	<div ng-if="!authenticated"> 

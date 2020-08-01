@@ -1,6 +1,16 @@
 angular.module('app')
-.controller('ReservationListController', function(ReservationService) {
+.controller('ReservationListController', function($stateParams, ReservationService) {
 	const vm = this;
 	
-	vm.reservations = ReservationService.getAllBasicInf();
+	const userId = $stateParams.userId;
+	
+	const setReservationsData = result => {
+		vm.isAdminData = true;
+		vm.reservations = result;
+	}
+	
+	if(userId)
+		ReservationService.getAllByUserId(userId).$promise.then(setReservationsData);
+	else
+		vm.reservations = ReservationService.getAllBasicInf();
 });
