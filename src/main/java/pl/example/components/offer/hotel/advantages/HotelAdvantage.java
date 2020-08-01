@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import pl.example.components.offer.hotel.Hotel;
 
 @Entity
 @Table(name = "hotel_advantages")
@@ -22,6 +26,9 @@ public class HotelAdvantage implements Serializable {
 	@NotNull
 	@Column(name = "description_advantage", nullable = false)
 	private String descriptionAdvantage;
+	@ManyToOne
+	@JoinColumn(name = "hotel_id")
+	private Hotel hotel;
 
 	public Long getId() {
 		return id;

@@ -1,8 +1,10 @@
 package pl.example.components.offer.hotel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import pl.example.components.offer.hotel.advantages.HotelAdvantage;
+import pl.example.components.offer.hotel.booking.HotelBooking;
 import pl.example.components.offer.hotel.image.HotelImage;
 import pl.example.components.offer.hotel.room.Room;
 import pl.example.components.offer.location.city.City;
@@ -32,14 +35,15 @@ public class Hotel implements Serializable {
 	@Column(name = "hotel_name")
 	private String hotelName;
 	private String description;
-	@OneToMany(mappedBy = "hotel")
-	private List<Room> room;
-	@OneToMany
-	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
-	private List<HotelImage> hotelImages;
-	@OneToMany
-	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
-	private List<HotelAdvantage> hotelAdvantages;
+	@OneToMany(mappedBy = "hotel", 
+			cascade = { CascadeType.REMOVE })
+	private List<Room> room = new ArrayList<>();
+	@OneToMany(mappedBy = "hotel", 
+			cascade = { CascadeType.REMOVE })
+	private List<HotelImage> hotelImages = new ArrayList<>();
+	@OneToMany(mappedBy = "hotel", 
+			cascade = { CascadeType.REMOVE })
+	private List<HotelAdvantage> hotelAdvantages = new ArrayList<>();
 	@ManyToOne
 	@JoinColumn(name = "country_id")
 	private Country country;
@@ -49,6 +53,9 @@ public class Hotel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "city_id")
 	private City city;
+	@OneToMany(mappedBy = "hotel", 
+			cascade = { CascadeType.REMOVE })
+	private List<HotelBooking> bookingHotels = new ArrayList<>();
 
 	public Long getId() {
 		return id;

@@ -14,6 +14,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -141,7 +142,12 @@ public class HotelController {
 		HotelDto updatedHotel = hotelService.update(hotelDto);
 		return ResponseEntity.ok(updatedHotel);
 	}
-	
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+		hotelService.delete(id);
+	}
+
 	@GetMapping("/page/{pageNumber}")
 	public ResponseEntity<MultiValueMap<String, Object>> getAllHotelsByNameAndCountry(
 			@PathVariable(required = false) Optional<Integer> pageNumber,
@@ -170,7 +176,7 @@ public class HotelController {
 
 		return ResponseEntity.ok(formData);
 	}
-	
+
 	@GetMapping("/defaultImg")
 	public ResponseEntity<?> getDefaultImage() throws IOException {
 		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();

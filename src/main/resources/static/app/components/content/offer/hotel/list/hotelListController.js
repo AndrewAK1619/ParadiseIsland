@@ -1,6 +1,6 @@
 angular.module('app')
 .controller('HotelListController', function ($rootScope, $stateParams, $location, 
-		$rootScope, HotelService, CountryService) {
+		$rootScope, $state, HotelService, CountryService) {
 	
 	const vm = this;
 	
@@ -131,6 +131,25 @@ angular.module('app')
 			$location.path(`/admin/hotels/page/1`);
 		}
 	}
+
+	vm.confirmMsg = 'Are you sure to delete this hotel ? \n \n' +
+		'This can lead to serious consequences, \n' +
+		'for instance, delete existing bookings.';
+
+	const errorCallback = err => {
+		vm.msg=`${err.data.message}`;
+	};
+
+	const deleteCallback = () => {
+		$state.reload();
+	}
+
+	vm.deleteHotel = (hotel) => {
+		HotelService.deleteHotel(hotel)
+			.$promise
+			.then(deleteCallback)
+			.catch(errorCallback);
+	};
 
 	if(vm.pageNumber) {
 		if(vm.pageNumber < 1 || vm.pageNumber > vm.totalPages) {

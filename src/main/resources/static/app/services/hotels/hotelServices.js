@@ -29,6 +29,9 @@ angular.module('app')
 		getDefaultImage: {
 			method: 'GET',
 			url: DEFAULT_HOTEL_IMAGE
+		},
+		deleteHotel: {
+			method: 'delete'
 		}
 	});
 })
@@ -40,4 +43,5 @@ angular.module('app')
 	this.uploadFileAndHotel = formData => Hotel.uploadFileAndHotel(formData);
 	this.updateFileAndHotel = formData => Hotel.updateFileAndHotel({id: formData.getAll('idHotel')[0]}, formData);
 	this.getDefaultImage = () => Hotel.getDefaultImage();
+	this.deleteHotel = hotel => Hotel.deleteHotel({id: hotel.id});
 });

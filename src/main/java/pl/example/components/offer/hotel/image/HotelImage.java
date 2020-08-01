@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import pl.example.components.offer.hotel.Hotel;
 
 @Entity
 @Table(name = "hotel_images")
@@ -22,6 +26,9 @@ public class HotelImage implements Serializable {
 	private String imagePath;
 	@Column(name = "top_image", nullable = false)
 	private boolean mainImage;
+	@ManyToOne
+	@JoinColumn(name = "hotel_id")
+	private Hotel hotel;
 
 	public Long getId() {
 		return id;

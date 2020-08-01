@@ -148,6 +148,10 @@ public class HotelService {
 		return mapAndSaveHotel(hotelDto);
 	}
 
+	public void delete(Long id) {
+		hotelRepository.deleteById(id);
+	}
+
 	private HotelDto mapAndSaveHotel(HotelDto hotelDto) {
 		Hotel hotelEntity = hotelMapper.toEntity(hotelDto);
 		if(hotelEntity.getId() != null) {
