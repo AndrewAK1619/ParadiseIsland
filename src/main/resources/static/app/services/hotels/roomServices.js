@@ -30,14 +30,21 @@ angular.module('app')
 			transformRequest: angular.identity,
 			headers: {'Content-type': undefined},
 			url: ALL_AVAILABLE_ROOM
+		},
+		deleteRoom: {
+			method: 'delete'
 		}
 	});
 })
 .service('RoomService', function (Room) {
 	this.get = index => Room.get({id: index});
-	this.getAllRoomsAndMainImg = (hotelId, roomCategoryName) => Room.getAllRoomsAndMainImg({hotelId: hotelId, roomCategoryName});
+	this.getAllRoomsAndMainImg = (hotelId, roomCategoryName) => 
+		Room.getAllRoomsAndMainImg({hotelId: hotelId, roomCategoryName});
 	this.uploadFileAndRoom = formData => Room.uploadFileAndRoom(formData);
-	this.updateFileAndRoom = formData => Room.updateFileAndRoom({id: formData.getAll('idRoom')[0]}, formData);
+	this.updateFileAndRoom = formData => Room.updateFileAndRoom(
+			{id: formData.getAll('idRoom')[0]}, formData);
 	this.getDefaultImage = () => Room.getDefaultImage();
-	this.getAvailableRooms = (hotelId, roomCategoryName) => Room.getAvailableRooms({hotelId: hotelId, roomCategoryName});
+	this.getAvailableRooms = (hotelId, roomCategoryName) => 
+		Room.getAvailableRooms({hotelId: hotelId, roomCategoryName});
+	this.deleteRoom = room => Room.deleteRoom({id: room.id});
 });

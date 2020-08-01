@@ -1,5 +1,6 @@
 angular.module('app')
-.controller('RoomListController', function($stateParams, $location, RoomService, SearchDetailsService) {
+.controller('RoomListController', function($stateParams, $location, $state, 
+		RoomService, SearchDetailsService) {
 	const vm = this;
 	
 	vm.hotelId = $stateParams.hotelId;
@@ -37,5 +38,24 @@ angular.module('app')
 	vm.setRoom = room => {
 		SearchDetailsService.setRoomAndHotelId(room, vm.hotelId);
 		$location.path(`/search-result/details/${vm.hotelId}`);
+	};
+	
+	vm.confirmMsg = 'Are you sure to delete this room ? \n \n' +
+		'This can lead to serious consequences, \n' +
+		'for instance, delete existing bookings.';
+
+	const errorCallback = err => {
+		vm.msg=`${err.data.message}`;
+	};
+
+	const deleteCallback = () => {
+		$state.reload();
+	}
+
+	vm.deleteRoom = (room) => {
+		RoomService.deleteRoom(room)
+			.$promise
+			.then(deleteCallback)
+			.catch(errorCallback);
 	};
 });

@@ -211,6 +211,10 @@ public class RoomService {
 	RoomDto update(RoomDto roomDto) {
 		return mapAndSaveRoom(roomDto);
 	}
+	
+	public void delete(Long id) {
+		roomRepository.deleteById(id);
+	}
 
 	private RoomDto mapAndSaveRoom(RoomDto roomDto) {
 		Room roomEntity = roomMapper.toEntity(roomDto);

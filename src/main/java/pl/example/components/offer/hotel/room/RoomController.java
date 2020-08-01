@@ -13,6 +13,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -147,6 +148,11 @@ public class RoomController {
 
 		RoomDto updatedRoom = roomService.update(roomDto);
 		return ResponseEntity.ok(updatedRoom);
+	}
+
+	@DeleteMapping("/rooms/{id}")
+	public void delete(@PathVariable Long id) {
+		roomService.delete(id);
 	}
 
 	@GetMapping("/rooms/defaultImg")
