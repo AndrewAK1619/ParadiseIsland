@@ -121,7 +121,7 @@ angular.module('app')
 		}
 	};
 	const errorCallback = err => {
-		vm.msg=`Data write error: ${err.data.message}`;
+		vm.msg=`${err.data.message}`;
 	};
 	
 	vm.file;
@@ -170,7 +170,7 @@ angular.module('app')
 		}
 		if(!vm.hasError) {
 			vm.hasError = null;
-			vm.msg='Changes saved';
+			vm.msgSuccess='Changes saved';
 		}
 	}
 	

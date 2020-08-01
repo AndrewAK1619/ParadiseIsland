@@ -18,7 +18,8 @@
 						</h5>
 						<div class="card-text">
 							<ul class="dashed">
-								<li ng-repeat="countryInformationDto in destination.countryInformationDto | limitTo:4"">
+								<li ng-repeat="countryInformationDto in 
+									destination.countryInformationDto | limitTo:4"">
 									{{countryInformationDto.information}}
 								</li>
 							</ul>
@@ -27,21 +28,6 @@
 					</div>
 					<div class="card-footer card-footer-part">
 						<a href="" class="btn btn-dark btn-sm">Details</a>
-						<div class="float-right" ng-if="authenticatedAdmin">
-							<button class="btn btn-sm btn-primary" title="Edit">
-								<a ng-href="#!" class="text-white"> 
-									<i class="fas fa-edit"></i>
-								</a>
-							</button>
-							<button class="btn btn-sm btn-warning" title="...">
-								<a ng-href="#!" class="text-white"> 
-									<i class="fas fa-history"></i>
-								</a>
-							</button>
-							<button class="btn btn-sm btn-danger" title="Delete">
-								<i class="fas fa-trash-alt"></i>
-							</button>
-						</div>
 					</div>
 				</div>
 			</div>
