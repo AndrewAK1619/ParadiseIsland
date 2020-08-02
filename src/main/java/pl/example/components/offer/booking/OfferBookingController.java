@@ -27,10 +27,10 @@ public class OfferBookingController {
 		return offerBookingService.findAllOfferBookingBasicInf();
 	}
 
-	@GetMapping("/{offerBookingId}")
+	@GetMapping("/details/{offerBookingId}")
 	public ResponseEntity<MultiValueMap<String, Object>> getDetailsData(
 			@PathVariable Long offerBookingId) throws IOException {
 
-		return ResponseEntity.ok(offerBookingService.findOfferBookingData(offerBookingId));
+		return ResponseEntity.ok(offerBookingService.findOfferBookingDataByUser(offerBookingId));
 	}
 }

@@ -197,9 +197,18 @@
 			</div>
 		</div>
 		<div class="row">
-			<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/account/profile/reservations">
-				Return to reservations list
-			</a>
+			<div ng-if="!ctrl.isAdminData">
+				<a class="btn btn-primary mb-3 mx-auto" 
+					ng-href="#!/account/profile/reservations">
+					Reservations list
+				</a>
+			</div>
+			<div ng-if="ctrl.isAdminData">
+				<a class="btn btn-primary mb-3 mx-auto" 
+					ng-href="#!/admin/user/reservations/{{ctrl.userId}}">
+					User reservations list
+				</a>
+			</div>
 		</div>
 		<div ng-if="!authenticated"> 
 			<div ng-if="!authenticated">

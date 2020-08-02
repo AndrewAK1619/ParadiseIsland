@@ -102,6 +102,12 @@ public class OfferBookingService {
 	}
 
 	MultiValueMap<String, Object> findOfferBookingData(Long offerBookingId) throws IOException {
+		Optional<OfferBooking> offerBookingOpt = offerBookingRepository.findById(offerBookingId);
+		OfferBooking offerBooking = checkIfExistsOfferBooking(offerBookingOpt);
+		return getOfferBookingDataByMultiValueMap(offerBooking);
+	}
+
+	MultiValueMap<String, Object> findOfferBookingDataByUser(Long offerBookingId) throws IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Optional<User> userOpt = userService.findUserByEmail(authentication.getName());
 		
@@ -112,14 +118,19 @@ public class OfferBookingService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
 					"The user is not found");
 		
+		OfferBooking offerBooking = checkIfExistsOfferBooking(offerBookingOpt);
+
+		return getOfferBookingDataByMultiValueMap(offerBooking);
+	}
+
+	private OfferBooking checkIfExistsOfferBooking(Optional<OfferBooking> offerBookingOpt) {
 		OfferBooking offerBooking;
 		if(offerBookingOpt.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
 					"Reservation is not found");
 		else
 			offerBooking = offerBookingOpt.get();
-
-		return getOfferBookingDataByMultiValueMap(offerBooking);
+		return offerBooking;
 	}
 
 	private MultiValueMap<String, Object> getOfferBookingDataByMultiValueMap(OfferBooking offerBooking) 

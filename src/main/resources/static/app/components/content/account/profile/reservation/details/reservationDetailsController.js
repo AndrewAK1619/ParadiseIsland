@@ -2,9 +2,9 @@ angular.module('app')
 .controller('ReservationDetailsController', function ($cookies, $stateParams, 
 		$location, ReservationService) {
 	const vm = this;
-	
+
 	vm.offerBookingId = $stateParams.offerBookingId;
-	
+
     const differenceInDays = (dt1, dt2) => {
         var one = new Date(dt1),
             two = new Date(dt2);
@@ -14,25 +14,31 @@ angular.module('app')
     
         return Math.floor(days);
     };
-	
+
 	const setDetailsData = result => {
 		vm.hotel = result.hotel[0];
 		vm.imgSrc = result.mainImg[0];
 		vm.room = result.room[0];
 		vm.airlineOffer = result.airlineOffer[0];
-		
+
 		const offerBooking = result.offerBooking[0];
 		vm.numberOfPersons = offerBooking.numberOfPersons;
 		vm.totalPrice = offerBooking.totalPrice;
 		vm.days = differenceInDays(vm.airlineOffer.departure, vm.airlineOffer.returnTrip);
-		
+
 		const lengh = vm.hotel.hotelAdvantageDto.length;
 		vm.firstHotelAdv = vm.hotel.hotelAdvantageDto.slice(0, lengh/2);
 		vm.secondHotelAdv = vm.hotel.hotelAdvantageDto.slice(lengh/2, lengh);
 	}
 
 	if(vm.offerBookingId) {
-		vm.searchDetails = ReservationService.getReservationDetails(vm.offerBookingId);
+		if($location.path() === '/account/profile/reservations/details/' + vm.offerBookingId)
+			vm.searchDetails = ReservationService.getReservationDetails(vm.offerBookingId);
+		else if($location.path() === '/admin/user/reservations/details/' + vm.offerBookingId) {
+			vm.searchDetails = ReservationService.getUserReservationDetailsForAdmin(vm.offerBookingId);
+			vm.isAdminData = true;
+			vm.userId = ReservationService.getUserId();
+		}
 		vm.searchDetails.$promise.then(setDetailsData);
 	}
 });

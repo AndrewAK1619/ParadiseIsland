@@ -215,11 +215,13 @@
 									Check flights
 								</a>
 							</div>
-							<div class="row">
-								<a class="btn btn-success mb-3 mx-auto text-white w-100 mt-3" 
-									ng-href="" ng-click="ctrl.bookTrip()">
-									Book now
-								</a>
+							<div ng-if="authenticated">
+								<div class="row">
+									<a class="btn btn-success mb-3 mx-auto text-white w-100 mt-3" 
+										ng-href="" ng-click="ctrl.bookTrip()">
+										Book now
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>

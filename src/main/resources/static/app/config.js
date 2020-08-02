@@ -93,16 +93,16 @@ angular.module('app')
 			controller: 'UserEditController',
 			controllerAs: 'ctrl'
 		})
-		.state('myapp.user/reservations', {
-			url: '/admin/user/reservations',
-			templateUrl: 'app/components/content/account/profile/reservation/reservationList.html',
-			controller: 'ReservationListController',
-			controllerAs: 'ctrl'
-		})
 		.state('myapp.user/reservations/Id', {
 			url: '/admin/user/reservations/:userId',
 			templateUrl: 'app/components/content/account/profile/reservation/reservationList.html',
 			controller: 'ReservationListController',
+			controllerAs: 'ctrl'
+		})
+		.state('myapp.user/reservations/details/Id', {
+			url: '/admin/user/reservations/details/:offerBookingId',
+			templateUrl: 'app/components/content/account/profile/reservation/details/reservationDetails.html',
+			controller: 'ReservationDetailsController',
 			controllerAs: 'ctrl'
 		})
 		.state('myapp.hotels', {
