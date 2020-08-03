@@ -237,6 +237,10 @@ angular.module('app')
 			controller: 'SearchDetailsController',
 			controllerAs: 'ctrl'
 		})
+		.state('myapp.aboutUs', {
+			url: '/about_us',
+			templateUrl: 'app/components/content/company/aboutUs/aboutUs.html'
+		})
 		.state('myapp.homePage', {
 			url: '/',
 			templateUrl: 'app/components/content/home/homePage/home.html',
