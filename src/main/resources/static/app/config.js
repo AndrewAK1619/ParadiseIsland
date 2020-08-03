@@ -241,6 +241,10 @@ angular.module('app')
 			url: '/about_us',
 			templateUrl: 'app/components/content/company/aboutUs/aboutUs.html'
 		})
+		.state('myapp.contactInformations', {
+			url: '/conctact_informations',
+			templateUrl: 'app/components/content/company/contact/contactInformation.html'
+		})
 		.state('myapp.homePage', {
 			url: '/',
 			templateUrl: 'app/components/content/home/homePage/home.html',
