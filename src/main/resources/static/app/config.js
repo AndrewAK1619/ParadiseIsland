@@ -260,6 +260,10 @@ angular.module('app')
 		$urlRouterProvider.otherwise("/");
 })
 .run(function($transitions, $window, $http, $rootScope, $location, UserService) {
+    $transitions.onSuccess({}, function () {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    })
+	
 	$rootScope.redirectToHomePage = () => {
 		$location.path('/')
 	}
