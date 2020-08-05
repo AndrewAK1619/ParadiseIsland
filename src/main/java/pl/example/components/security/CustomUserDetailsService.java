@@ -37,7 +37,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 			user = userOpt.get();
 		
 		if(user == null)
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+					"Incorrect email or password");
 		org.springframework.security.core.userdetails.User userDetails = 
 				new org.springframework.security.core.userdetails.User(
 						user.getEmail(), 

@@ -9,7 +9,12 @@
 					<span class="singtext">Sign in </span>
 				</div>
 			</div>
-			<div class="row loginbox_content ">
+			<div class="p-0 m-0" ng-if="authController.msg">
+				<p class="text-center valid-err-text font-weight-bold">
+					{{authController.msg}}
+				</p>
+			</div>
+			<div class="row loginbox_content">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">
