@@ -259,7 +259,7 @@ angular.module('app')
 		})
 		$urlRouterProvider.otherwise("/");
 })
-.run(function($window, $http, $rootScope, $location, UserService) {
+.run(function($transitions, $window, $http, $rootScope, $location, UserService) {
 	$rootScope.redirectToHomePage = () => {
 		$location.path('/')
 	}

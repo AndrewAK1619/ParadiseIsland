@@ -15,6 +15,7 @@ jQuery(function($) {
 			$('#sidebar').css({'top': '58px'});
 			$('#sidebar').css({'transition': 'all 0.3s ease'});
 		} else {
+			$('#sidebar').css({'top': '58px'});
 			$('#sidebar').css({'transition': 'all 0.3s ease'});
 		}
 	};
