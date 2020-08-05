@@ -24,8 +24,24 @@ angular.module('app')
 		}
 	});
 })
-.service('DestinationService', function (Destination) {
+.factory('DestinationListUrl', function() {
+	var destinationListUrl;
+	
+	var setDestinationListUrl = dest => {
+		destinationListUrl = dest;
+	};
+	var getDestinationListUrl = function() {
+		return destinationListUrl;
+	};
+	return {
+		setDestinationListUrl: setDestinationListUrl,
+		getDestinationListUrl: getDestinationListUrl
+	};
+})
+.service('DestinationService', function (Destination, DestinationListUrl) {
 	this.getPopular = () => Destination.getPopular();
 	this.getRandom = () => Destination.getRandom();
 	this.getDetails = id => Destination.getDetails({id: id});
+	this.setDestinationListUrl = dest => DestinationListUrl.setDestinationListUrl(dest);
+	this.getDestinationListUrl = () => DestinationListUrl.getDestinationListUrl();
 });

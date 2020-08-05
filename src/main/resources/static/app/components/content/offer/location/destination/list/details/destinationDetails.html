@@ -1,0 +1,152 @@
+<div class="container min-cont-700">
+	<div class="card mb-5" style="background-color: #d6d6d6;">
+		<div class="container-fliud">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="text-center bg-secondary m-3">
+						<img ng-src="data:image/jpeg;base64,{{ctrl.img}}"
+							class="card-img img-fluid imageListResult" alt="...">
+					</div>
+					<div class="row" ng-if="ctrl.msg">
+						<div class="mx-auto" style="font-size: 22px;">
+							<p class="text-danger font-weight-bold">{{ctrl.msg}}</p>
+						</div>
+					</div>
+					<div class="m-3">
+						<div class="w-100 mb-1"></div>
+						<a class="font-weight-bold"
+							style="font-size: 26px;">
+							{{ ctrl.country.name }}			
+						</a>
+						<hr>
+						<div>
+							<div class="font-weight-bold mb-2"
+								style="font-size: 18px;">
+								Country Informations
+							</div>
+							<div class="row m-0">
+								<div class="col-md-6">
+									<ul class="dashed ml-2">
+										<li ng-repeat="info 
+											in ctrl.firstCountryInfo">
+											{{info.information}}
+										</li>
+									</ul>
+								</div>
+								<div class="col-md-6">
+									<ul class="dashed ml-2">
+										<li ng-repeat="info 
+											in ctrl.secondCountryInfo">
+											{{info.information}}
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="row m-0">
+							<div class="col-md-1" style="color: #304cf0;">
+								<i class="fas fa-info"></i>
+							</div>
+							<div class="col-md-11 p-0">		
+								<div class="font-weight-bold mb-2"
+									style="font-size: 18px; color: #304cf0;">
+									<a>
+										Lorem Ipsum
+									</a>
+								</div>
+								<div>
+									Lorem Ipsum is simply dummy text of the printing and typesetting 
+									industry. Lorem Ipsum has been the industry's standard dummy text 
+									ever since the 1500s, when an unknown printer took a galley of type 
+									and scrambled it to make a type specimen book. It has survived not 
+									only five centuries, but also the leap into electronic typesetting, 
+									remaining essentially unchanged. It was popularised in the 1960s 
+									with the release of Letraset sheets containing Lorem Ipsum passages, 
+									and more recently with desktop publishing software like Aldus 
+									PageMaker including versions of Lorem Ipsum.
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="row m-0">
+							<div class="col-md-1" style="color: #304cf0;">
+								<i class="fas fa-info"></i>
+							</div>
+							<div class="col-md-11 p-0">		
+								<div class="font-weight-bold mb-2"
+									style="font-size: 18px; color: #304cf0;">
+									<a>
+										Lorem Ipsum
+									</a>
+								</div>
+								<div>
+									Lorem Ipsum is simply dummy text of the printing and typesetting 
+									industry. Lorem Ipsum has been the industry's standard dummy text 
+									ever since the 1500s, when an unknown printer took a galley of type 
+									and scrambled it to make a type specimen book. It has survived not 
+									only five centuries, but also the leap into electronic typesetting, 
+									remaining essentially unchanged. It was popularised in the 1960s 
+									with the release of Letraset sheets containing Lorem Ipsum passages, 
+									and more recently with desktop publishing software like Aldus 
+									PageMaker including versions of Lorem Ipsum.
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="row m-0">
+							<div class="col-md-1" style="color: #304cf0;">
+								<i class="fas fa-info"></i>
+							</div>
+							<div class="col-md-11 p-0">		
+								<div class="font-weight-bold mb-2"
+									style="font-size: 18px; color: #304cf0;">
+									<a>
+										Lorem Ipsum
+									</a>
+								</div>
+								<div>
+									Lorem Ipsum is simply dummy text of the printing and typesetting 
+									industry. Lorem Ipsum has been the industry's standard dummy text 
+									ever since the 1500s, when an unknown printer took a galley of type 
+									and scrambled it to make a type specimen book. It has survived not 
+									only five centuries, but also the leap into electronic typesetting, 
+									remaining essentially unchanged. It was popularised in the 1960s 
+									with the release of Letraset sheets containing Lorem Ipsum passages, 
+									and more recently with desktop publishing software like Aldus 
+									PageMaker including versions of Lorem Ipsum.
+								</div>
+							</div>
+						</div>
+					</div>
+		        </div>
+				<div class="col-md-4">
+					<div class="card shadow m-3">
+						<div class="card-body p-4">
+							<h3 class="text-center">
+								Lorem Ipsum
+							</h3>
+							<div>
+								Lorem Ipsum is simply dummy text of the printing and typesetting 
+								industry. Lorem Ipsum has been the industry's standard dummy text 
+								ever since the 1500s, when an unknown printer took a galley of type 
+								and scrambled it to make a type specimen book. It has survived not 
+								only five centuries, but also the leap into electronic typesetting, 
+								remaining essentially unchanged. It was popularised in the 1960s 
+								with the release of Letraset sheets containing Lorem Ipsum passages, 
+								and more recently with desktop publishing software like Aldus 
+								PageMaker including versions of Lorem Ipsum.
+							</div>
+						</div>
+					</div>
+		        </div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<a class="btn btn-primary mb-3 mx-auto text-white" 
+			ng-href="" ng-click="ctrl.returnPage();">
+			Return to destination list
+		</a>
+	</div>
+</div>

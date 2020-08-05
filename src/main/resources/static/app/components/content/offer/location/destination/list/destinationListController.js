@@ -15,10 +15,13 @@ angular.module('app')
 	}
 	
 	var searchObject = $location.url();
-	if(searchObject === '/destinations/popular')
+	if(searchObject === '/destinations/popular') {
+		DestinationService.setDestinationListUrl(searchObject);
 		vm.destinationAndTopImgArray = DestinationService.getPopular();
-	else if(searchObject === '/destinations/random')
+	} else if(searchObject === '/destinations/random') {
+		DestinationService.setDestinationListUrl(searchObject);
 		vm.destinationAndTopImgArray = DestinationService.getRandom();
+	}
 	
 	vm.destinationAndTopImgArray.$promise.then(setCountryAndTopImg);
 });
