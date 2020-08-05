@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ResponseStatusException;
 
 import pl.example.components.offer.location.country.image.CountryImage;
@@ -54,6 +56,22 @@ public class CountryService {
 				.collect(Collectors.toList());
 	}
 	
+	public MultiValueMap<String, Object> getDestinationDetailsData(Long id) throws IOException {
+		MultiValueMap<String, Object> formData = new LinkedMultiValueMap<String, Object>();
+		CountryDto countryDto;
+		Optional<Country> countryDtoOpt = countryRepository.findById(id);
+		if(countryDtoOpt.isPresent())
+			countryDto = CountryMapper.toDto(countryDtoOpt.get());
+		else 
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+					"Destination details are not found");
+
+		byte[] mainImg = getMainImageInByteFromCountry(countryDto.getId());
+		formData.add("country", countryDto);
+		formData.add("file", mainImg);
+		return formData;
+	}
+	
     byte[] getMainImageInByteFromCountry(Long countryId) throws IOException {
 		File file = new File(findMainImagePathFromCountry(countryId));
 		byte[] bytes = Files.readAllBytes(file.toPath());
@@ -70,19 +88,22 @@ public class CountryService {
         			.filter(countryImg -> countryImg.isMainImage() == true)
         			.collect(Collectors.toList());
         } else
-        	throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Downloading object failed");
+        	throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+        			"Downloading object failed");
         
     	String imagePath = "";
     	
     	if (countryImages.size() > 1) {
-    		throw new ResponseStatusException(HttpStatus.PAYLOAD_TOO_LARGE, "Too many main image downloaded");
+    		throw new ResponseStatusException(HttpStatus.PAYLOAD_TOO_LARGE, 
+    				"Too many main image downloaded");
     	} else if (countryImages.size() == 1) {
 		List<CountryImage> mainImage = countryImages.stream()
 			.filter(findMainImage -> findMainImage.isMainImage() == true)
 			.collect(Collectors.toList());
 			imagePath = mainImage.get(0).getImagePath();
 		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Downloading object failed");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+					"Downloading object failed");
 		}
     	return imagePath;
     }

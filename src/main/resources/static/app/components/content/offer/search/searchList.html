@@ -1,6 +1,6 @@
 <div class="container min-cont-700">
 	<div class="row">
-		<div class="col-md-8 offset-md-2">
+		<div class="col-md-10 offset-md-1">
 			<div class="form">
 				<div class="input-group mb-2 mr-sm-2">
 					<div class="input-group-prepend">
@@ -8,8 +8,103 @@
 							<i class="fas fa-search"></i>
 						</div>
 					</div>
+					<input type="text" name="destination" id="destination" ng-model="ctrl.destination" 
+						ng-keyup="ctrl.completeSearch(ctrl.destination)" class="form-control col-5" 
+						ng-mousedown="ctrl.completeSearch(ctrl.destination)"
+						placeholder="Destination or hotel name" ng-focus="focusedSearch = true" 
+						autocomplete="off" ng-blur="focusedSearch = false" 
+						ng-change="ctrl.searchIsChosen = false">
+					<div class="row card scroll-text col-sm-8" ng-show="focusedSearch"
+						style="top: 38px;">	
+						<div class="card-body">
+							<div class="row">
+								<div class="center-block search-list"
+									ng-hide="ctrl.isCountriesListExist">
+									<div style="padding-bottom: 4px;">
+										<strong>Country</strong>
+									</div>
+									<div class="focused-search pb-2" 
+										ng-model="ctrl.hideSearchList" 
+										style="font-size: 13px;"
+										ng-hide="ctrl.hideSearchList"
+										ng-repeat="country in ctrl.filterSearchCountry" 
+										ng-mousedown="ctrl.fillSearchTextbox(country, 'country')">
+										{{country}} <br/>
+									</div>
+								</div>
+								<div class="center-block search-list" 
+									ng-hide="ctrl.isRegionsListExist">
+									<div style="padding-bottom: 4px;">
+										<strong>Regions</strong>
+									</div>
+									<div class="focused-search pb-2" 
+										ng-model="ctrl.hideSearchList" 
+										style="font-size: 13px;"
+										ng-hide="ctrl.hideSearchList"
+										ng-repeat="region in ctrl.filterSearchRegion" 
+										ng-mousedown="ctrl.fillSearchTextbox(region, 'region')">
+										{{region}} <br/>
+									</div>
+								</div>
+								<div class="center-block search-list" 
+									ng-hide="ctrl.isCitiesListExist">
+									<div style="padding-bottom: 4px;">
+										<strong>Cities</strong>
+									</div>
+									<div class="focused-search pb-2" 
+										ng-model="ctrl.hideSearchList" 
+										style="font-size: 13px;"
+										ng-hide="ctrl.hideSearchList"
+										ng-repeat="city in ctrl.filterSearchCity" 
+										ng-mousedown="ctrl.fillSearchTextbox(city, 'city')">
+										{{city}} <br/>
+									</div>
+								</div>
+								<div class="center-block search-list"
+									ng-hide="ctrl.isHotelsListExist">
+									<div style="padding-bottom: 4px;">
+										<strong>Hotels</strong>
+									</div>
+									<div class="focused-search pb-2" 
+										ng-model="ctrl.hideSearchList" 
+										ng-hide="ctrl.hideSearchList"
+										ng-repeat="hotels in ctrl.filterSearchHotel" 
+										ng-mousedown="ctrl.fillSearchTextbox(hotels, 'hotel')">
+										<a class="topic">{{hotels.hotelName}}</a> <br/>
+										<a class="content">{{hotels.country}} / 
+										{{hotels.region}} / {{hotels.city}}</a> <br/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<input type="date" name="bday" 
+						max="2050-12-31" class="form-control col-2"
+	        			style="cursor: pointer;" id="dateDeparture"
+	        			ng-model="ctrl.departure"
+	        			ng-change="ctrl.setMinReturnDate(ctrl.departure)">			
+	        		<input type="date" name="bday"
+						max="2050-12-31" class="form-control col-2"
+						style="cursor: pointer;" id="dateReturn"
+						ng-model="ctrl.returnDate">
+						
+					<select class="form-control custom-select col-1" 
+						style="cursor: pointer;"
+						ng-model="ctrl.persons"
+						ng-init="ctrl.persons = '2'">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+					</select>
 					<button class="btn btn-primary mx-1"
-						ng-click="ctrl.search()">Search</button>
+						ng-click="ctrl.createCookieOfSearchDataAndRedirect()">
+						Search
+					</button>
 				</div>
 			</div>
 		</div>

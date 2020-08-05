@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('HomeController', function($filter, $location, $cookies, HomeService, 
+.controller('HomeController', function($filter, $location, $cookies, 
 		SearchService, CountryService, RegionService, CityService) {
 	
 	const vm = this;

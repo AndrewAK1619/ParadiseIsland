@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -68,6 +69,14 @@ public class DestinationsController {
 		formData.add("countryList", countryDtoList);
 		formData.add("fileList", mainImgList);
 		
+		return ResponseEntity.ok(formData);
+	}
+
+	@GetMapping("/details/{id}")
+	public ResponseEntity<MultiValueMap<String, Object>> findDestinationDetails(
+			@PathVariable Long id) throws IOException {
+			
+		MultiValueMap<String, Object> formData = countryService.getDestinationDetailsData(id);
 		return ResponseEntity.ok(formData);
 	}
 }

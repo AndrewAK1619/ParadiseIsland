@@ -177,6 +177,12 @@ angular.module('app')
 			controller: 'DestinationListController',
 			controllerAs: 'ctrl'
 		})
+		.state('myapp.destination/details', {
+			url: '/destinations/details/:id',
+			templateUrl: 'app/components/content/offer/location/destination/list/details/destinationDetails.html',
+			controller: 'DestinationDetailsController',
+			controllerAs: 'ctrl'
+		})
 		.state('myapp.airlines', {
 			url: '/admin/airlines',
 			templateUrl: 'app/components/content/offer/transport/airline/list/airlineList.html',
