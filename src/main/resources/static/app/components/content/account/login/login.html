@@ -22,6 +22,7 @@
 						</span>
 					</div>
 					<input class="form-control" type="text" 
+						ng-keyup="$event.keyCode == 13 && authController.login()"
 						ng-model="authController.credentials.emailUser" placeholder="Email">
 				</div>
 				<br>
@@ -32,6 +33,7 @@
 						</span>
 					</div>
 					<input class="form-control" type="password" 
+						ng-keyup="$event.keyCode == 13 && authController.login()"
 						ng-model="authController.credentials.password" placeholder="Password">
 				</div>
 			</div>
@@ -40,7 +42,8 @@
 					<a href="#!account/register"> Register </a>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-5 col-xs-5 ">
-					<a ng-click="authController.login()" class="btn btn-light" role="button">
+					<a ng-click="authController.login()"
+						class="btn btn-light" role="button">
 						<span>
 							LOG IN
 							<i class="fas fa-sign-in-alt"></i>

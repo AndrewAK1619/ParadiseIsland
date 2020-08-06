@@ -1,5 +1,7 @@
 jQuery(function($) {
 
+	$('#sidebar').css({'transition': 'none'});
+	
 	var sidebarBehavior = () => {
 		var window_top = $(window).scrollTop() + 58;
 		var footer_top = $(".footer").offset().top;
@@ -13,10 +15,8 @@ jQuery(function($) {
 			$('#sidebar').css({'transition': 'none'});
 		} else if (window_top > div_top) {
 			$('#sidebar').css({'top': '58px'});
-			$('#sidebar').css({'transition': 'all 0.3s ease'});
 		} else {
 			$('#sidebar').css({'top': '58px'});
-			$('#sidebar').css({'transition': 'all 0.3s ease'});
 		}
 	};
 	$(window).scroll(function() {
@@ -57,8 +57,9 @@ jQuery(function($) {
 				.addClass("active");
 		}
 	});
-
+	
 	$("#close-sidebar").click(function() {
+		$('#sidebar').css({'transition': 'all 0.3s ease'});
 		$(".page-wrapper").removeClass("toggled");
 	});
 	$("#show-sidebar").click(function() {
