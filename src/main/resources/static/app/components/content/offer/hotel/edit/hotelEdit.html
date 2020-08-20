@@ -185,11 +185,6 @@
 							- {{ ctrl.errDescriptionMsg }} -
 						</small>
 					</div>
-					<div class="row" ng-if="ctrl.msg">
-						<div class="mx-auto">
-							<p class="text-danger warn text-shadow">{{ctrl.msg}}</p>
-						</div>
-					</div>
 					<div class="form-group mb-5">
 						<button ng-if="!ctrl.hotel.id" type="submit" class="btn btn-success"
 							ng-click="ctrl.saveHotel()" ng-disabled="hotelForm.$invalid">

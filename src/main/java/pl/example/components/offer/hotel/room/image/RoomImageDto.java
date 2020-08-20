@@ -5,6 +5,7 @@ public class RoomImageDto {
 	private Long id;
 	private String imagePath;
 	private boolean mainImage;
+	private Long roomId;
 
 	public Long getId() {
 		return id;
@@ -23,5 +24,11 @@ public class RoomImageDto {
 	}
 	public void setMainImage(boolean mainImage) {
 		this.mainImage = mainImage;
+	}
+	public Long getRoomId() {
+		return roomId;
+	}
+	public void setRoomId(Long roomId) {
+		this.roomId = roomId;
 	}
 }

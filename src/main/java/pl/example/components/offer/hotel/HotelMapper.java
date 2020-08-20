@@ -1,15 +1,11 @@
 package pl.example.components.offer.hotel;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import pl.example.components.offer.hotel.advantages.HotelAdvantageMapper;
-import pl.example.components.offer.hotel.image.HotelImage;
-import pl.example.components.offer.hotel.image.HotelImageRepository;
 import pl.example.components.offer.location.city.City;
 import pl.example.components.offer.location.city.CityRepository;
 import pl.example.components.offer.location.country.Country;
@@ -20,25 +16,20 @@ import pl.example.components.offer.location.region.RegionRepository;
 @Service
 public class HotelMapper {
 
-	private HotelRepository hotelRepository;
-	private HotelImageRepository hotelImageRepository;
 	private CountryRepository countryRepository;
 	private RegionRepository regionRepository;
 	private CityRepository cityRepository;
 
-	public HotelMapper(HotelRepository hotelRepository, 
-			HotelImageRepository hotelImageRepository,
+	public HotelMapper(
 			CountryRepository countryRepository, 
 			RegionRepository regionRepository, 
 			CityRepository cityRepository) {
-		this.hotelRepository = hotelRepository;
-		this.hotelImageRepository = hotelImageRepository;
 		this.countryRepository = countryRepository;
 		this.regionRepository = regionRepository;
 		this.cityRepository = cityRepository;
 	}
 
-	public HotelDto toDto(Hotel hotel) {
+	HotelDto toDto(Hotel hotel) {
 		HotelDto dto = new HotelDto();
 		dto.setId(hotel.getId());
 		dto.setHotelName(hotel.getHotelName());
@@ -67,9 +58,6 @@ public class HotelMapper {
 		entity.setHotelName(hotelDto.getHotelName());
 		entity.setDescription(hotelDto.getDescription());
 
-		List<HotelImage> hotelImages = addCorrectHotelImageList(hotelDto);
-
-		entity.setHotelImages(hotelImages);
 		Optional<Country> country = countryRepository
 				.findByName(hotelDto.getCountry());
 		Optional<Region> region = null;
@@ -86,30 +74,5 @@ public class HotelMapper {
 		}
 		city.ifPresent(entity::setCity);
 		return entity;
-	}
-
-	private List<HotelImage> addCorrectHotelImageList(HotelDto hotelDto) {
-		List<HotelImage> hotelImages = new ArrayList<>();
-		if (hotelDto.getId() != null && hotelDto.getMainImageId() != null) {
-			hotelImages = getHotelImageFromHotel(hotelDto, hotelImages);
-			hotelImages.stream().forEach(hotelImg -> hotelImg.setMainImage(false));
-		} else if (hotelDto.getId() != null && hotelDto.getMainImageId() == null) {
-			hotelImages = getHotelImageFromHotel(hotelDto, hotelImages);
-		}
-		if (hotelDto.getMainImageId() != null) {
-			Optional<HotelImage> mainHotelImage = hotelImageRepository
-					.findById(hotelDto.getMainImageId());
-			if (mainHotelImage.isPresent())
-				hotelImages.add(mainHotelImage.get());
-		}
-		return hotelImages;
-	}
-
-	private List<HotelImage> getHotelImageFromHotel(HotelDto hotelDto, List<HotelImage> hotelImages) {
-		Optional<Hotel> hotelBeforeUpdated = hotelRepository.findById(hotelDto.getId());
-		if (hotelBeforeUpdated.isPresent()) {
-			hotelImages = hotelBeforeUpdated.get().getHotelImages();
-		}
-		return hotelImages;
 	}
 }

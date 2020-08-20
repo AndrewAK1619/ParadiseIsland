@@ -48,7 +48,13 @@ public class HotelImage implements Serializable {
 	public void setMainImage(boolean mainImage) {
 		this.mainImage = mainImage;
 	}
-
+	public Hotel getHotel() {
+		return hotel;
+	}
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

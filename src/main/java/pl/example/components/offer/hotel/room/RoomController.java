@@ -30,7 +30,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import pl.example.components.offer.hotel.room.image.RoomImageDto;
 import pl.example.components.offer.hotel.room.image.RoomImageService;
 import pl.example.components.validation.ValidationService;
 
@@ -79,7 +78,6 @@ public class RoomController {
 			throws JsonMappingException, JsonProcessingException {
 
 		RoomDto roomDto = new ObjectMapper().readValue(roomDtoJson, RoomDto.class);
-
 		BindingResult result = new BeanPropertyBindingResult(roomDto, "roomDto");
 		validator.validate(roomDto, result);
 		if (result.hasErrors()) {
@@ -89,11 +87,9 @@ public class RoomController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
 					"Saving object can't have setted id");
 
-		RoomImageDto roomImageDtoSave = roomImageService.saveRoomImage(file);
-		if (roomImageDtoSave != null)
-			roomDto.setMainImageId(roomImageDtoSave.getId());
-
 		RoomDto savedRoom = roomService.save(roomDto);
+		roomImageService.saveRoomImage(file, savedRoom.getId());
+
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
@@ -131,7 +127,6 @@ public class RoomController {
 			throws IOException {
 
 		RoomDto roomDto = new ObjectMapper().readValue(roomDtoJson, RoomDto.class);
-
 		BindingResult result = new BeanPropertyBindingResult(roomDto, "roomDto");
 		validator.validate(roomDto, result);
 		if (result.hasErrors()) {
@@ -142,11 +137,8 @@ public class RoomController {
 					"The updated object must have an id in accordance with the id "
 					+ "in the resource path");
 
-		RoomImageDto roomImageDtoSave = roomImageService.saveRoomImage(file);
-		if (roomImageDtoSave != null)
-			roomDto.setMainImageId(roomImageDtoSave.getId());
-
 		RoomDto updatedRoom = roomService.update(roomDto);
+		roomImageService.saveRoomImage(file, updatedRoom.getId());
 		return ResponseEntity.ok(updatedRoom);
 	}
 

@@ -12,11 +12,11 @@ import pl.example.components.offer.location.country.Country;
 import pl.example.components.offer.location.region.Region;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
-	
+
 	Optional<Hotel> findById(Long hotelId);
-	
+
 	Page<Hotel> findById(Long hotelId, Pageable pageable);
-	
+
 	@Query(value = "SELECT * FROM hotels", nativeQuery = true)
 	Page<Hotel> findAllHotel(Pageable pageable);
 

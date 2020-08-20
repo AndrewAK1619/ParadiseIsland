@@ -1,20 +1,39 @@
 package pl.example.components.offer.hotel.image;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pl.example.components.offer.hotel.Hotel;
+import pl.example.components.offer.hotel.HotelRepository;
+
+@Service
 public class HotelImageMapper {
 
-	static HotelImageDto toDto(HotelImage hotelImage) {
-		HotelImageDto hotelImageDto = new HotelImageDto();
-		hotelImageDto.setId(hotelImage.getId());
-		hotelImageDto.setImagePath(hotelImage.getImagePath());
-		hotelImageDto.setMainImage(hotelImage.isMainImage());
-		return hotelImageDto;
+	private HotelRepository hotelRepository;
+
+	@Autowired
+	public HotelImageMapper(HotelRepository hotelRepository) {
+		this.hotelRepository = hotelRepository;
 	}
 
-	static HotelImage toEntity(HotelImageDto hotelImageDto) {
-		HotelImage hotelImage = new HotelImage();
-		hotelImage.setId(hotelImageDto.getId());
-		hotelImage.setImagePath(hotelImageDto.getImagePath());
-		hotelImage.setMainImage(hotelImageDto.isMainImage());
-		return hotelImage;
+	static HotelImageDto toDto(HotelImage hotelImage) {
+		HotelImageDto dto = new HotelImageDto();
+		dto.setId(hotelImage.getId());
+		dto.setImagePath(hotelImage.getImagePath());
+		dto.setMainImage(hotelImage.isMainImage());
+		return dto;
+	}
+
+	HotelImage toEntity(HotelImageDto hotelImageDto) {
+		HotelImage entity = new HotelImage();
+		entity.setId(hotelImageDto.getId());
+		entity.setImagePath(hotelImageDto.getImagePath());
+		entity.setMainImage(hotelImageDto.isMainImage());
+		Optional<Hotel> hotel = hotelRepository
+				.findById(hotelImageDto.getHotelId());
+		hotel.ifPresent(entity::setHotel);
+		return entity;
 	}
 }

@@ -48,8 +48,11 @@ public class RoomImage implements Serializable {
 	public void setMainImage(boolean mainImage) {
 		this.mainImage = mainImage;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Room getRoom() {
+		return room;
+	}
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
 	@Override

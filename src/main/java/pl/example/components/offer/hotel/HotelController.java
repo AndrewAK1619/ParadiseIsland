@@ -31,7 +31,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import pl.example.components.offer.hotel.image.HotelImageDto;
 import pl.example.components.offer.hotel.image.HotelImageService;
 import pl.example.components.validation.ValidationService;
 
@@ -71,7 +70,6 @@ public class HotelController {
 			throws JsonMappingException, JsonProcessingException {
 
 		HotelDto hotelDto = new ObjectMapper().readValue(hotelDtoJson, HotelDto.class);
-
 		BindingResult result = new BeanPropertyBindingResult(hotelDto, "hotelDto");
 		validator.validate(hotelDto, result);
 		if (result.hasErrors()) {
@@ -81,11 +79,9 @@ public class HotelController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
 					"Saving object can't have setted id");
 
-		HotelImageDto hotelImageDtoSave = hotelImageService.saveHotelImage(file);
-		if (hotelImageDtoSave != null)
-			hotelDto.setMainImageId(hotelImageDtoSave.getId());
-
 		HotelDto savedHotel = hotelService.save(hotelDto);
+		hotelImageService.saveHotelImage(file, savedHotel.getId());
+
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
@@ -124,7 +120,6 @@ public class HotelController {
 			throws IOException {
 
 		HotelDto hotelDto = new ObjectMapper().readValue(hotelDtoJson, HotelDto.class);
-
 		BindingResult result = new BeanPropertyBindingResult(hotelDto, "hotelDto");
 		validator.validate(hotelDto, result);
 		if (result.hasErrors()) {
@@ -135,11 +130,8 @@ public class HotelController {
 					"The updated object must have an id in accordance with the "
 					+ "id in the resource path");
 
-		HotelImageDto hotelImageDtoSave = hotelImageService.saveHotelImage(file);
-		if (hotelImageDtoSave != null)
-			hotelDto.setMainImageId(hotelImageDtoSave.getId());
-
 		HotelDto updatedHotel = hotelService.update(hotelDto);
+		hotelImageService.saveHotelImage(file, updatedHotel.getId());
 		return ResponseEntity.ok(updatedHotel);
 	}
 

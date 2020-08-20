@@ -4,36 +4,47 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Optional;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.system.ApplicationHome;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import pl.example.ParadiseIslandApplication;
+
 @Service
 public class RoomImageService {
 
 	public static final String DEFAULT_IMAGE_PATH = 
-			"src/main/resources/static/img/default/room.jpg";
+			"/static/img/default/room.jpg";
 
 	RoomImageRepository imageRepository;
+	RoomImageMapper roomImageMapper;
 
 	@Autowired
-	public RoomImageService(RoomImageRepository imageRepository) {
+	public RoomImageService(
+			RoomImageRepository imageRepository,
+			RoomImageMapper roomImageMapper) {
 		this.imageRepository = imageRepository;
+		this.roomImageMapper = roomImageMapper;
 	}
 
-	public RoomImageDto saveRoomImage(MultipartFile file) {
+	public RoomImageDto saveRoomImage(MultipartFile file, Long roomId) {
 		String newFileName = createIndividualFileImageName(file);
 		if(newFileName == null)
 			return null;
 		String pathImage = getNewPathRoomImage(newFileName);
 		saveImageFileToServer(file, pathImage);
-		RoomImageDto roomImageDto = createImageDtoWithMainImg(pathImage);
+		RoomImageDto roomImageDto = createImageDtoWithMainImg(pathImage, roomId);
 		RoomImageDto roomImageDtoSave = save(roomImageDto);
 		return roomImageDtoSave;
 	}
@@ -66,14 +77,18 @@ public class RoomImageService {
 	}
 	
 	private String getNewPathRoomImage(String newFileName) {
-		return "src/main/resources/static/img/rooms/" + newFileName;
+		return "/storage/images/rooms/" + newFileName;
 	}
-	
+
 	private void saveImageFileToServer(MultipartFile file, String pathImage) {
+		ApplicationHome home = new ApplicationHome(ParadiseIslandApplication.class);
+		String homeDir = home.getDir().getPath();
+		String fullPathToSlashReplace = homeDir + pathImage;
+		String fullPath = fullPathToSlashReplace.replace("\\", "/");
 		try {
 			byte[] bytes = file.getBytes();
 			BufferedOutputStream bufferOutputStream = new BufferedOutputStream(
-					new FileOutputStream(new File(pathImage)));
+					new FileOutputStream(new File(fullPath)));
 			bufferOutputStream.write(bytes);
 			bufferOutputStream.close();
 		} catch (IOException ex) {
@@ -81,12 +96,23 @@ public class RoomImageService {
 					"Unable to load file: " + file.getOriginalFilename());
 		}
 	}
-	
-	private RoomImageDto createImageDtoWithMainImg(String pathImage) {
+
+	private RoomImageDto createImageDtoWithMainImg(String pathImage, Long roomId) {
 		RoomImageDto roomImageDto = new RoomImageDto();
+		changeValueOfTheCurrentMainImage(roomId);
 		roomImageDto.setImagePath(pathImage);
 		roomImageDto.setMainImage(true);
+		roomImageDto.setRoomId(roomId);
 		return roomImageDto;
+	}
+	
+	private void changeValueOfTheCurrentMainImage(Long roomId) {
+		Optional<RoomImage> currentMainRoomImage = imageRepository.findMainImageByRoomId(roomId);
+		if(currentMainRoomImage.isPresent()) {
+			RoomImage roomImage = currentMainRoomImage.get();
+			roomImage.setMainImage(false);
+			imageRepository.save(roomImage);
+		}
 	}
 
 	private RoomImageDto save(RoomImageDto roomImageDto) {
@@ -98,13 +124,16 @@ public class RoomImageService {
 	}
 
 	private RoomImageDto mapAndSaveRoom(RoomImageDto roomImageDto) {
-		RoomImage roomImageEntity = RoomImageMapper.toEntity(roomImageDto);
+		RoomImage roomImageEntity = roomImageMapper.toEntity(roomImageDto);
 		RoomImage saveRoomImageEntity = imageRepository.save(roomImageEntity);
 		return RoomImageMapper.toDto(saveRoomImageEntity);
 	}
 
 	public byte[] getDefaultMainImageInByte() throws IOException {
-		File file = new File(DEFAULT_IMAGE_PATH);
+		ClassPathResource classPathResource = new ClassPathResource(DEFAULT_IMAGE_PATH);
+		InputStream inputStream = classPathResource.getInputStream();
+		File file = File.createTempFile("test", ".jpg");
+		FileUtils.copyInputStreamToFile(inputStream, file);
 		byte[] bytes = Files.readAllBytes(file.toPath());
 		return bytes;
 	}

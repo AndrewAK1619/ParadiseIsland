@@ -2,18 +2,24 @@ package pl.example.components.offer.hotel.room;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.system.ApplicationHome;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import pl.example.ParadiseIslandApplication;
 import pl.example.components.offer.booking.OfferBooking;
 import pl.example.components.offer.hotel.HotelDto;
 import pl.example.components.offer.hotel.room.category.RoomCategory;
@@ -163,7 +169,21 @@ public class RoomService {
 	}
 
 	byte[] getMainImageInByteFromRoom(Long roomId) throws IOException {
-		File file = new File(findMainImagePathFromRoom(roomId));
+		String mainImagePathByRoomId = findMainImagePathFromRoom(roomId);
+		String partOfPathToCheckLocation = mainImagePathByRoomId.substring(1, 7);
+		File file;	
+		if("static".equals(partOfPathToCheckLocation)) {
+			ClassPathResource classPathResource = new ClassPathResource(mainImagePathByRoomId);
+			InputStream inputStream = classPathResource.getInputStream();
+			file = File.createTempFile("test", ".jpg");
+			FileUtils.copyInputStreamToFile(inputStream, file);
+		} else {
+			ApplicationHome home = new ApplicationHome(ParadiseIslandApplication.class);
+			String homeDir = home.getDir().getPath();
+			String fullPathToSlashReplace = homeDir + mainImagePathByRoomId;
+			String fullPath = fullPathToSlashReplace.replace("\\", "/");
+			file = new File(fullPath);
+		}
 		byte[] bytes = Files.readAllBytes(file.toPath());
 		return bytes;
 	}
@@ -172,7 +192,6 @@ public class RoomService {
 		Optional<Room> room = roomRepository.findById(roomId);
 		List<RoomImage> roomImages = getRoomImagesByOptionalRoom(room);
 		String imagePath = "";
-
 		if (roomImages.size() > 1) {
 			throw new ResponseStatusException(HttpStatus.PAYLOAD_TOO_LARGE, 
 					"Too many main image downloaded");

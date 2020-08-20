@@ -1,20 +1,39 @@
 package pl.example.components.offer.hotel.room.image;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pl.example.components.offer.hotel.room.Room;
+import pl.example.components.offer.hotel.room.RoomRepository;
+
+@Service
 public class RoomImageMapper {
 
-	static RoomImageDto toDto(RoomImage roomImage) {
-		RoomImageDto roomImageDto = new RoomImageDto();
-		roomImageDto.setId(roomImage.getId());
-		roomImageDto.setImagePath(roomImage.getImagePath());
-		roomImageDto.setMainImage(roomImage.isMainImage());
-		return roomImageDto;
+	RoomRepository roomRepository;
+	
+	@Autowired
+	public RoomImageMapper(RoomRepository roomRepository) {
+		this.roomRepository = roomRepository;
 	}
 
-	static RoomImage toEntity(RoomImageDto roomImageDto) {
-		RoomImage roomImage = new RoomImage();
-		roomImage.setId(roomImageDto.getId());
-		roomImage.setImagePath(roomImageDto.getImagePath());
-		roomImage.setMainImage(roomImageDto.isMainImage());
-		return roomImage;
+	static RoomImageDto toDto(RoomImage roomImage) {
+		RoomImageDto dto = new RoomImageDto();
+		dto.setId(roomImage.getId());
+		dto.setImagePath(roomImage.getImagePath());
+		dto.setMainImage(roomImage.isMainImage());
+		return dto;
+	}
+
+	RoomImage toEntity(RoomImageDto roomImageDto) {
+		RoomImage entity = new RoomImage();
+		entity.setId(roomImageDto.getId());
+		entity.setImagePath(roomImageDto.getImagePath());
+		entity.setMainImage(roomImageDto.isMainImage());
+		Optional<Room> room = roomRepository
+				.findById(roomImageDto.getRoomId());
+		room.ifPresent(entity::setRoom);
+		return entity;
 	}
 }
