@@ -1,0 +1,75 @@
+<div class="container min-cont-700">
+	<div ng-if="authenticatedAdmin">
+		<div ng-if="ctrl.msg">
+			<div class="row justify-content-center">
+				<div class="col info-box rounded col-6 bg-light p-2 m-2">
+					<div class="row ">
+						<div class="col-12 col-sm-2 d-flex justify-content-center 
+							align-items-center display-4 text-danger">
+							<i class="fa fa-info-circle"></i>
+						</div>
+						<div class="col-12 col-sm-10">
+							<p class="err-msg">{{ctrl.msg}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="row text-white py-3">
+				<h1>Hotel Advantages List</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-hover tableTextWhite">
+					<thead class="test">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Description</th>
+							<th scope="col" class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="advantage in ctrl.advantages">
+							<th scope="row">{{advantage.id}}</th>
+							<td>{{advantage.descriptionAdvantage}}</td>
+							<td class="text-center">
+								<button class="btn btn-sm btn-primary" title="Edit">
+									<a ng-href="#!/admin/hotels/{{ctrl.hotelId}}/advantages-edit/{{advantage.id}}" 
+										class="text-white">
+										<i class="fas fa-edit"></i>
+									</a>
+								</button>
+								<button class="btn btn-sm btn-danger" title="Delete"
+									ng-confirm-click="Are you sure to delete this advantage ?" 
+									confirmed-click="ctrl.deleteAdvantage(advantage)">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<a class="btn btn-primary mb-3 mx-auto"
+				ng-href="#!/admin/hotels/{{ ctrl.hotelId }}/advantages-add">
+				Add new advantage
+			</a>
+			<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels" 
+				ng-if="authenticatedAdmin">
+				Hotels
+			</a>
+		</div>
+	</div>
+	<div ng-if="!authenticatedAdmin"> 
+		<div ng-if="authenticatedUser">
+			{{ redirectToHomePage() }}
+		</div>
+		<div ng-if="!authenticated">
+			{{ redirectToLoginPage() }}
+		</div>
+	</div>
+</div>

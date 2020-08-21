@@ -129,6 +129,24 @@ angular.module('app')
 			controller: 'HotelEditController',
 			controllerAs: 'ctrl'
 		})
+		.state('myapp.advantages', {
+			url: '/admin/hotels/:hotelId/advantages',
+			templateUrl: 'app/components/content/offer/hotel/advantage/list/advantageList.html',
+			controller: 'HotelAdvantageListController',
+			controllerAs: 'ctrl'
+		})
+		.state('myapp.advantages-add', {
+			url: '/admin/hotels/:hotelId/advantages-add',
+			templateUrl: 'app/components/content/offer/hotel/advantage/edit/advantageEdit.html',
+			controller: 'HotelAdvantageEditController',
+			controllerAs: 'ctrl'
+		})
+		.state('myapp.advantages-edit', {
+			url: '/admin/hotels/:hotelId/advantages-edit/:id',
+			templateUrl: 'app/components/content/offer/hotel/advantage/edit/advantageEdit.html',
+			controller: 'HotelAdvantageEditController',
+			controllerAs: 'ctrl'
+		})
 		.state('myapp.hotels/rooms', {
 			url: '/admin/hotels/:hotelId/rooms',
 			templateUrl: 'app/components/content/offer/hotel/room/list/roomList.html',

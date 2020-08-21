@@ -4,6 +4,7 @@ public class HotelAdvantageDto {
 
 	private Long id;
 	private String descriptionAdvantage;
+	private Long hotelId;
 
 	public Long getId() {
 		return id;
@@ -16,5 +17,11 @@ public class HotelAdvantageDto {
 	}
 	public void setDescriptionAdvantage(String descriptionAdvantage) {
 		this.descriptionAdvantage = descriptionAdvantage;
+	}
+	public Long getHotelId() {
+		return hotelId;
+	}
+	public void setHotelId(Long hotelId) {
+		this.hotelId = hotelId;
 	}
 }

@@ -1,7 +1,5 @@
 package pl.example.components.offer.hotel.room;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import pl.example.components.offer.hotel.Hotel;
 import pl.example.components.offer.hotel.HotelRepository;
 import pl.example.components.offer.hotel.room.category.RoomCategory;
 import pl.example.components.offer.hotel.room.category.RoomCategoryRepository;
-import pl.example.components.offer.hotel.room.image.RoomImage;
 import pl.example.components.offer.hotel.room.image.RoomImageRepository;
 
 @Service
@@ -59,33 +56,6 @@ public class RoomMapper {
 		roomCategory.ifPresent(entity::setRoomCategory);
 		Optional<Hotel> hotel = hotelRepository.findById(roomDto.getHotelId());
 		hotel.ifPresent(entity::setHotel);
-		List<RoomImage> roomImeges = addCorrectRoomImageList(roomDto);
-		entity.setRoomImages(roomImeges);
 		return entity;
-	}
-
-	private List<RoomImage> addCorrectRoomImageList(RoomDto roomDto) {
-		List<RoomImage> roomImeges = new ArrayList<>();
-		if (roomDto.getId() != null && roomDto.getMainImageId() != null) {
-			roomImeges = getRoomImageFromRoom(roomDto, roomImeges);
-			roomImeges.stream().forEach(roomImg -> roomImg.setMainImage(false));
-		} else if (roomDto.getId() != null && roomDto.getMainImageId() == null) {
-			roomImeges = getRoomImageFromRoom(roomDto, roomImeges);
-		}
-		if (roomDto.getMainImageId() != null) {
-			Optional<RoomImage> mainRoomImage = roomImageRepository
-					.findById(roomDto.getMainImageId());
-			if (mainRoomImage.isPresent())
-				roomImeges.add(mainRoomImage.get());
-		}
-		return roomImeges;
-	}
-
-	private List<RoomImage> getRoomImageFromRoom(RoomDto roomDto, List<RoomImage> roomImeges) {
-		Optional<Room> roomBeforeUpdated = roomRepository.findById(roomDto.getId());
-		if (roomBeforeUpdated.isPresent()) {
-			roomImeges = roomBeforeUpdated.get().getRoomImages();
-		}
-		return roomImeges;
 	}
 }

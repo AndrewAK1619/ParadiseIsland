@@ -1,0 +1,101 @@
+<div class="container min-cont-700">
+	<div ng-if="authenticatedAdmin">
+		<div class="row tableTextWhite">
+			<div class="mx-auto">
+				<h2 ng-if="ctrl.advantage.id">Edit advantage</h2>
+				<h2 ng-if="!ctrl.advantage.id">New advantage</h2>
+			</div>
+		</div>
+		<div ng-if="ctrl.msgSuccess">
+			<div class="row justify-content-center">
+				<div class="col info-box rounded col-6 bg-light p-2 m-2">
+					<div class="row ">
+						<div class="col-12 col-sm-2 d-flex justify-content-center 
+							align-items-center display-4 text-success">
+							<i class="fa fa-info-circle"></i>
+						</div>
+						<div class="col-12 col-sm-10">
+							<p class="success-msg">{{ctrl.msgSuccess}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-if="ctrl.msg">
+			<div class="row justify-content-center">
+				<div class="col info-box rounded col-6 bg-light p-2 m-2">
+					<div class="row ">
+						<div class="col-12 col-sm-2 d-flex justify-content-center 
+ 							align-items-center display-4 text-danger">
+							<i class="fa fa-info-circle"></i>
+						</div>
+						<div class="col-12 col-sm-10">
+							<p class="err-msg">{{ctrl.msg}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row tableTextWhite">
+			<form name="advantageForm" class="mx-auto col-6">
+ 				<p>Id: {{ctrl.advantage.id}}</p>
+				<div class="form-group">
+					<label for="descriptionInput">Description:</label>
+					<textarea type="text" class="form-control" id="descriptionInput"
+						placeholder="Description" ng-model="ctrl.advantage.descriptionAdvantage"
+						ng-class="{validErrBorder: advantageForm.description.$dirty 
+						&& advantageForm.description.$invalid}" name="description"
+						required ng-maxlength="200">
+					</textarea>
+					<small>
+						<span class="form-text valid-err-text-two" 
+							ng-show="advantageForm.description.$dirty 
+							&& advantageForm.description.$invalid">
+							<span ng-show="advantageForm.description.$error.required">
+								- Description is required. -
+							</span>
+							<span ng-show="advantageForm.description.$error.maxlength">
+								- Description must have maximum 200 characters. -
+							</span>
+						</span>
+					</small>
+					<small ng-if="ctrl.errName" class="form-text valid-err-text-two">
+						- {{ ctrl.errNameMsg }} -
+					</small>
+				</div>
+				<div class="form-group mb-5 mt-3">
+					<button ng-if="!ctrl.advantage.id" type="submit"
+						class="btn btn-success" ng-click="ctrl.saveAdvantage()"
+						ng-disabled="advantageForm.$invalid">
+						Save
+					</button>
+					<button ng-if="ctrl.advantage.id" type="submit"
+						class="btn btn-success" ng-click="ctrl.updateAdvantage()"
+						ng-disabled="advantageForm.$invalid">
+						Update
+					</button>
+				</div>
+				<div class="row">
+					<a class="btn btn-primary mb-3 mx-auto"
+						ng-href="#!/admin/hotels/{{ ctrl.hotelId }}/advantages">
+						Advantages
+					</a>
+					<a ng-if="ctrl.advantage.id" class="btn btn-primary mb-3 mx-auto"
+						ng-href="#!/admin/hotels/{{ ctrl.hotelId }}/advantages-add">
+						Add another advantage
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div ng-if="!authenticatedAdmin"> 
+		<div ng-if="authenticatedUser">
+			{{ redirectToHomePage() }}
+		</div>
+		<div ng-if="!authenticated">
+			{{ redirectToLoginPage() }}
+		</div>
+	</div>
+</div>

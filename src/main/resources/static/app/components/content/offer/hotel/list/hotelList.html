@@ -95,6 +95,11 @@
 										<i class="fas fa-door-open"></i>
 									</a>
 								</button>
+								<button class="btn btn-sm btn-info mb-3" title="Advantages">
+									<a ng-href="#!/admin/hotels/{{hotel.id}}/advantages" class="text-white">
+										<i class="fas fa-info"></i>
+									</a>
+								</button>
 								<button class="btn btn-sm btn-danger" title="Delete"
 									ng-confirm-click="{{ ctrl.confirmMsg }}"
 									confirmed-click="ctrl.deleteHotel(hotel)">

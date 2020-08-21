@@ -39,7 +39,7 @@ public class Hotel implements Serializable {
 			cascade = { CascadeType.REMOVE })
 	private List<Room> room = new ArrayList<>();
 	@OneToMany(mappedBy = "hotel", 
-			cascade = { CascadeType.MERGE, CascadeType.REMOVE })
+			cascade = { CascadeType.REMOVE })
 	private List<HotelImage> hotelImages = new ArrayList<>();
 	@OneToMany(mappedBy = "hotel", 
 			cascade = { CascadeType.REMOVE })

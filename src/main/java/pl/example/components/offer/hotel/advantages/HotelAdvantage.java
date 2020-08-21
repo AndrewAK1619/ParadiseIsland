@@ -45,6 +45,12 @@ public class HotelAdvantage implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public Hotel getHotel() {
+		return hotel;
+	}
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 
 	@Override
 	public int hashCode() {
