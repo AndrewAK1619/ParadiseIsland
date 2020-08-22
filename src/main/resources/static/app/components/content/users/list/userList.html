@@ -52,13 +52,15 @@
 							<td>{{user.lastName}}</td>
 							<td>{{user.email}}</td>
 							<td class="text-center">
-								<button class="btn btn-sm btn-primary" title="Edit">
-									<a ng-href="#!/admin/user-edit/{{user.id}}" class="text-white">
+								<button class="btn btn-sm btn-primary" title="Edit"
+									ng-click="ctrl.redirectToUserEdit(user.id)">
+									<a ng-href="" class="text-white">
 										<i class="fas fa-user-edit"></i>
 									</a>
 								</button>
-								<button class="btn btn-sm btn-warning" title="User reservations">
-									<a ng-href="#!/admin/user/reservations/{{user.id}}" class="text-white">
+								<button class="btn btn-sm btn-warning" title="User reservations"
+									ng-click="ctrl.redirectToUserReservations(user.id)">
+									<a ng-href="" class="text-white">
 										<i class="fas fa-atlas"></i>
 									</a>
 								</button>

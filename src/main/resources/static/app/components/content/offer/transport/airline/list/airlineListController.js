@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('AirlineListController', function($state, AirlineService) {
+.controller('AirlineListController', function($location, $state, AirlineService) {
 	const vm = this;
 	vm.airlines = AirlineService.getAll();
 
@@ -23,5 +23,8 @@ angular.module('app')
 		AirlineService.deleteAirline(airline)
 			.then(deleteCallback)
 			.catch(errorCallback);
+	};
+	vm.redirectToAirlineEdit = airlineId => {
+		$location.path(`/admin/airline-edit/${airlineId}`);
 	};
 });

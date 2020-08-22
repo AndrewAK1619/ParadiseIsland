@@ -202,4 +202,13 @@ angular.module('app')
 	vm.lastPage = () => {
 		vm.loadPage(vm.totalPages);
 	};
+	vm.redirectToHotelEdit = hotelId => {
+		$location.path(`/admin/hotels-edit/${hotelId}`);
+	};
+	vm.redirectToRooms = hotelId => {
+		$location.path(`/admin/hotels/${hotelId}/rooms`);
+	};
+	vm.redirectToAdvantages = hotelId => {
+		$location.path(`/admin/hotels/${hotelId}/advantages`);
+	};
 });

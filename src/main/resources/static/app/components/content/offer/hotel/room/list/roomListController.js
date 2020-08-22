@@ -58,4 +58,7 @@ angular.module('app')
 			.then(deleteCallback)
 			.catch(errorCallback);
 	};
+	vm.redirectToRoomEdit = roomId => {
+		$location.path(`/admin/hotels/rooms-edit/${roomId}`);
+	};
 });

@@ -78,8 +78,9 @@
 					<li class="list-group-item-dark p-2"
 						style="display: flex; align-items: center;">
 						<div class="btn-group-vertical">
-							<button class="btn btn-sm btn-primary mb-3" title="Edit" ng-if="authenticatedAdmin">
-								<a ng-href="#!/admin/hotels/rooms-edit/{{room.id}}" class="text-white">
+							<button class="btn btn-sm btn-primary mb-3" title="Edit" 
+							ng-if="authenticatedAdmin" ng-click="ctrl.redirectToRoomEdit(room.id)">
+								<a ng-href="" class="text-white">
 									<i class="fas fa-edit"></i>
 								</a>
 							</button>

@@ -1,5 +1,6 @@
 angular.module('app')
-.controller('HotelAdvantageListController', function($stateParams, $state, HotelAdvantageService) {
+.controller('HotelAdvantageListController', function($location, $stateParams, 
+		$state, HotelAdvantageService) {
 	const vm = this;
 	vm.hotelId = $stateParams.hotelId;
 	
@@ -18,4 +19,7 @@ angular.module('app')
 			.then(deleteCallback)
 			.catch(errorCallback);
 	};
+	vm.redirectToAdvantagesEdit = advantageId => {
+		$location.path(`/admin/hotels/${vm.hotelId}/advantages-edit/${advantageId}`);
+	}
 });

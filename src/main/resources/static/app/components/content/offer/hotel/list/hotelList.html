@@ -85,18 +85,21 @@
 						<li class="list-group-item-dark p-2" ng-if="authenticatedAdmin"
 							style="display: flex; align-items: center;">
 							<div class="btn-group-vertical">
-								<button class="btn btn-sm btn-primary mb-3" title="Edit">
-									<a ng-href="#!/admin/hotels-edit/{{hotel.id}}" class="text-white">
+								<button class="btn btn-sm btn-primary mb-3" title="Edit"
+									ng-click="ctrl.redirectToHotelEdit(hotel.id)">
+									<a ng-href="" class="text-white">
 										<i class="fas fa-edit"></i>
 									</a>
 								</button>
-								<button class="btn btn-sm btn-warning mb-3" title="Rooms">
-									<a ng-href="#!/admin/hotels/{{hotel.id}}/rooms" class="text-white">
+								<button class="btn btn-sm btn-warning mb-3" title="Rooms"
+									ng-click="ctrl.redirectToRooms(hotel.id)">
+									<a ng-href="" class="text-white">
 										<i class="fas fa-door-open"></i>
 									</a>
 								</button>
-								<button class="btn btn-sm btn-info mb-3" title="Advantages">
-									<a ng-href="#!/admin/hotels/{{hotel.id}}/advantages" class="text-white">
+								<button class="btn btn-sm btn-info mb-3" title="Advantages"
+									ng-click="ctrl.redirectToAdvantages(hotel.id)">
+									<a ng-href="" class="text-white">
 										<i class="fas fa-info"></i>
 									</a>
 								</button>

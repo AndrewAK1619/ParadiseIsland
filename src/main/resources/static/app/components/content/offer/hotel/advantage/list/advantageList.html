@@ -36,9 +36,9 @@
 							<th scope="row">{{advantage.id}}</th>
 							<td>{{advantage.descriptionAdvantage}}</td>
 							<td class="text-center">
-								<button class="btn btn-sm btn-primary" title="Edit">
-									<a ng-href="#!/admin/hotels/{{ctrl.hotelId}}/advantages-edit/{{advantage.id}}" 
-										class="text-white">
+								<button class="btn btn-sm btn-primary" title="Edit"
+									ng-click="ctrl.redirectToAdvantagesEdit(advantage.id)">
+									<a ng-href="" class="text-white">
 										<i class="fas fa-edit"></i>
 									</a>
 								</button>

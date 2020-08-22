@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('RoomCategoryListController', function($state, RoomCategoryService) {
+.controller('RoomCategoryListController', function($location, $state, RoomCategoryService) {
 	const vm = this;
 	vm.roomCategories = RoomCategoryService.getAll();
 
@@ -23,5 +23,8 @@ angular.module('app')
 		RoomCategoryService.deleteRoomCategory(roomCategory)
 			.then(deleteCallback)
 			.catch(errorCallback);
+	};
+	vm.redirectToCategoryEdit = roomCategoryId => {
+		$location.path(`/admin/hotels/rooms/categories-edit/${roomCategoryId}`);
 	};
 });

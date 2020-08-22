@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('UserListController', function($state, UserService) {
+.controller('UserListController', function($location, $state, UserService) {
 	const vm = this;
 	vm.users = UserService.getAll();
 
@@ -13,11 +13,17 @@ angular.module('app')
 
 	const deleteCallback = () => {
 		$state.reload();
-	}
+	};
 
 	vm.deleteUser = (user) => {
 		UserService.deleteUser(user)
 			.then(deleteCallback)
 			.catch(errorCallback);
+	};
+	vm.redirectToUserEdit = userId => {
+		$location.path(`/admin/user-edit/${userId}`);
+	};
+	vm.redirectToUserReservations = userId => {
+		$location.path(`/admin/user/reservations/${userId}`);
 	};
 });

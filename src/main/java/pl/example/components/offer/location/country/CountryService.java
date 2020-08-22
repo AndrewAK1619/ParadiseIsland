@@ -2,19 +2,24 @@ package pl.example.components.offer.location.country;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.system.ApplicationHome;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ResponseStatusException;
 
+import pl.example.ParadiseIslandApplication;
 import pl.example.components.offer.location.country.image.CountryImage;
 import pl.example.components.offer.location.country.image.CountryImageService;
 
@@ -73,7 +78,21 @@ public class CountryService {
 	}
 	
     byte[] getMainImageInByteFromCountry(Long countryId) throws IOException {
-		File file = new File(findMainImagePathFromCountry(countryId));
+		String mainImagePathByCountryId = findMainImagePathFromCountry(countryId);
+		String partOfPathToCheckLocation = mainImagePathByCountryId.substring(1, 7);
+		File file;		
+		if("static".equals(partOfPathToCheckLocation)) {
+			ClassPathResource classPathResource = new ClassPathResource(mainImagePathByCountryId);
+			InputStream inputStream = classPathResource.getInputStream();
+			file = File.createTempFile("test", ".jpg");
+			FileUtils.copyInputStreamToFile(inputStream, file);
+		} else {
+			ApplicationHome home = new ApplicationHome(ParadiseIslandApplication.class);
+			String homeDir = home.getDir().getPath();
+			String fullPathToSlashReplace = homeDir + mainImagePathByCountryId;
+			String fullPath = fullPathToSlashReplace.replace("\\", "/");
+			file = new File(fullPath);
+		}
 		byte[] bytes = Files.readAllBytes(file.toPath());
     	return bytes;
     }
