@@ -2,14 +2,17 @@
 	<div ng-if="authenticatedAdmin">
 		<div ng-if="ctrl.msg">
 			<div class="row justify-content-center">
-				<div class="col info-box rounded col-6 bg-light p-2 m-2">
-					<div class="row ">
-						<div class="col-12 col-sm-2 d-flex justify-content-center 
-							align-items-center display-4 text-danger">
+				<div class="col-8 info-box rounded bg-light p-2 m-2">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-center 
+ 							align-items-center display-4 text-danger text-center">
 							<i class="fa fa-info-circle"></i>
 						</div>
-						<div class="col-12 col-sm-10">
-							<p class="err-msg">{{ctrl.msg}}
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<p class="err-msg m-2 text-center">
+								{{ctrl.msg}}
 							</p>
 						</div>
 					</div>
@@ -33,10 +36,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-12">
+		<div class="row mx-1">
+			<div class="table-responsive">
 				<table class="table table-hover tableTextWhite">
-					<thead class="test">
+					<thead>
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">First Name</th>
@@ -51,20 +54,20 @@
 							<td>{{user.firstName}}</td>
 							<td>{{user.lastName}}</td>
 							<td>{{user.email}}</td>
-							<td class="text-center">
-								<button class="btn btn-sm btn-primary" title="Edit"
+							<td class="text-center" style="min-width: 200px;">
+								<button class="btn btn-sm btn-primary m-1" title="Edit"
 									ng-click="ctrl.redirectToUserEdit(user.id)">
 									<a ng-href="" class="text-white">
 										<i class="fas fa-user-edit"></i>
 									</a>
 								</button>
-								<button class="btn btn-sm btn-warning" title="User reservations"
+								<button class="btn btn-sm btn-warning m-1" title="User reservations"
 									ng-click="ctrl.redirectToUserReservations(user.id)">
 									<a ng-href="" class="text-white">
 										<i class="fas fa-atlas"></i>
 									</a>
 								</button>
-								<button class="btn btn-sm btn-danger" title="Delete"
+								<button class="btn btn-sm btn-danger m-1" title="Delete"
 									ng-confirm-click="Are you sure to delete this user ?" 
 									confirmed-click="ctrl.deleteUser(user)">
 									<i class="fas fa-user-minus"></i>
@@ -75,8 +78,11 @@
 				</table>
 			</div>
 		</div>
-		<div class="row">
-			<a class="btn btn-primary mb-3" ng-href="#!/admin/user-add">Add user</a>
+		<div class="row m-2">
+			<a class="btn btn-primary mt-2" 
+				ng-href="#!/admin/user-add">
+				Add user
+			</a>
 		</div>
 	</div>
 	<div ng-if="!authenticatedAdmin"> 

@@ -1,109 +1,119 @@
 <div class="container min-cont-700">
-	<div class="row">
-		<div class="col-md-10 offset-md-1">
-			<div class="form">
-				<div class="input-group mb-2 mr-sm-2">
-					<div class="input-group-prepend">
-						<div class="input-group-text">
-							<i class="fas fa-search"></i>
-						</div>
-					</div>
-					<input type="text" name="destination" id="destination" ng-model="ctrl.destination" 
-						ng-keyup="ctrl.completeSearch(ctrl.destination)" class="form-control col-5" 
-						ng-mousedown="ctrl.completeSearch(ctrl.destination)"
-						placeholder="Destination or hotel name" ng-focus="focusedSearch = true" 
-						autocomplete="off" ng-blur="focusedSearch = false" 
-						ng-change="ctrl.searchIsChosen = false">
-					<div class="row card scroll-text col-sm-8" ng-show="focusedSearch"
-						style="top: 38px;">	
-						<div class="card-body">
-							<div class="row">
-								<div class="center-block search-list"
-									ng-hide="ctrl.isCountriesListExist">
-									<div style="padding-bottom: 4px;">
-										<strong>Country</strong>
-									</div>
-									<div class="focused-search pb-2" 
-										ng-model="ctrl.hideSearchList" 
-										style="font-size: 13px;"
-										ng-hide="ctrl.hideSearchList"
-										ng-repeat="country in ctrl.filterSearchCountry" 
-										ng-mousedown="ctrl.fillSearchTextbox(country, 'country')">
-										{{country}} <br/>
-									</div>
+	<div class="row mx-2 mb-4">
+		<div class="card col-sm-10 search-card p-0 mx-auto">
+			<div class="card-body">
+				<label class="text-white">Going to</label>
+				<input type="text" name="destination" id="destination" ng-model="ctrl.destination" 
+					ng-keyup="ctrl.completeSearch(ctrl.destination)" class="form-control" 
+					ng-mousedown="ctrl.completeSearch(ctrl.destination)"
+					placeholder="Destination or hotel name" ng-focus="focusedSearch = true" 
+					autocomplete="off" ng-blur="focusedSearch = false" 
+					ng-change="ctrl.searchIsChosen = false">
+				<div class="row card scroll-text col-sm-12" ng-show="focusedSearch">	
+					<div class="card-body">
+						<div class="row">
+							<div class="center-block search-list"
+								ng-hide="ctrl.isCountriesListExist">
+								<div style="padding-bottom: 4px;">
+									<strong>Country</strong>
 								</div>
-								<div class="center-block search-list" 
-									ng-hide="ctrl.isRegionsListExist">
-									<div style="padding-bottom: 4px;">
-										<strong>Regions</strong>
-									</div>
-									<div class="focused-search pb-2" 
-										ng-model="ctrl.hideSearchList" 
-										style="font-size: 13px;"
-										ng-hide="ctrl.hideSearchList"
-										ng-repeat="region in ctrl.filterSearchRegion" 
-										ng-mousedown="ctrl.fillSearchTextbox(region, 'region')">
-										{{region}} <br/>
-									</div>
+								<div class="focused-search pb-2" 
+									ng-model="ctrl.hideSearchList" 
+									style="font-size: 13px;"
+									ng-hide="ctrl.hideSearchList"
+									ng-repeat="country in ctrl.filterSearchCountry" 
+									ng-mousedown="ctrl.fillSearchTextbox(country, 'country')">
+									{{country}} <br/>
 								</div>
-								<div class="center-block search-list" 
-									ng-hide="ctrl.isCitiesListExist">
-									<div style="padding-bottom: 4px;">
-										<strong>Cities</strong>
-									</div>
-									<div class="focused-search pb-2" 
-										ng-model="ctrl.hideSearchList" 
-										style="font-size: 13px;"
-										ng-hide="ctrl.hideSearchList"
-										ng-repeat="city in ctrl.filterSearchCity" 
-										ng-mousedown="ctrl.fillSearchTextbox(city, 'city')">
-										{{city}} <br/>
-									</div>
+							</div>
+							<div class="center-block search-list" 
+								ng-hide="ctrl.isRegionsListExist">
+								<div style="padding-bottom: 4px;">
+									<strong>Regions</strong>
 								</div>
-								<div class="center-block search-list"
-									ng-hide="ctrl.isHotelsListExist">
-									<div style="padding-bottom: 4px;">
-										<strong>Hotels</strong>
-									</div>
-									<div class="focused-search pb-2" 
-										ng-model="ctrl.hideSearchList" 
-										ng-hide="ctrl.hideSearchList"
-										ng-repeat="hotels in ctrl.filterSearchHotel" 
-										ng-mousedown="ctrl.fillSearchTextbox(hotels, 'hotel')">
-										<a class="topic">{{hotels.hotelName}}</a> <br/>
-										<a class="content">{{hotels.country}} / 
-										{{hotels.region}} / {{hotels.city}}</a> <br/>
-									</div>
+								<div class="focused-search pb-2" 
+									ng-model="ctrl.hideSearchList" 
+									style="font-size: 13px;"
+									ng-hide="ctrl.hideSearchList"
+									ng-repeat="region in ctrl.filterSearchRegion" 
+									ng-mousedown="ctrl.fillSearchTextbox(region, 'region')">
+									{{region}} <br/>
+								</div>
+							</div>
+							<div class="center-block search-list" 
+								ng-hide="ctrl.isCitiesListExist">
+								<div style="padding-bottom: 4px;">
+									<strong>Cities</strong>
+								</div>
+								<div class="focused-search pb-2" 
+									ng-model="ctrl.hideSearchList" 
+									style="font-size: 13px;"
+									ng-hide="ctrl.hideSearchList"
+									ng-repeat="city in ctrl.filterSearchCity" 
+									ng-mousedown="ctrl.fillSearchTextbox(city, 'city')">
+									{{city}} <br/>
+								</div>
+							</div>
+							<div class="center-block search-list"
+								ng-hide="ctrl.isHotelsListExist">
+								<div style="padding-bottom: 4px;">
+									<strong>Hotels</strong>
+								</div>
+								<div class="focused-search pb-2" 
+									ng-model="ctrl.hideSearchList" 
+									ng-hide="ctrl.hideSearchList"
+									ng-repeat="hotels in ctrl.filterSearchHotel" 
+									ng-mousedown="ctrl.fillSearchTextbox(hotels, 'hotel')">
+									<a class="topic">{{hotels.hotelName}}</a> <br/>
+									<a class="content">{{hotels.country}} / 
+									{{hotels.region}} / {{hotels.city}}</a> <br/>
 								</div>
 							</div>
 						</div>
 					</div>
-					<input type="date" name="bday" 
-						max="2050-12-31" class="form-control col-2"
-	        			style="cursor: pointer;" id="dateDeparture"
-	        			ng-model="ctrl.departure"
-	        			ng-change="ctrl.setMinReturnDate(ctrl.departure)">			
-	        		<input type="date" name="bday"
-						max="2050-12-31" class="form-control col-2"
-						style="cursor: pointer;" id="dateReturn"
-						ng-model="ctrl.returnDate">
-						
-					<select class="form-control custom-select col-1" 
-						style="cursor: pointer;"
-						ng-model="ctrl.persons"
-						ng-init="ctrl.persons = '2'">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-					</select>
-					<button class="btn btn-primary mx-1"
+				</div>
+				<div class="row pt-3">
+					<div class="col-12">
+						<div class="row">
+							<div class="form-group col-sm-5">
+								<label class="text-white">Departure</label>
+								<input type="date" name="bday" 
+									max="2050-12-31" class="form-control"
+				        			style="cursor: pointer;" id="dateDeparture"
+				        			ng-model="ctrl.departure"
+				        			ng-change="ctrl.setMinReturnDate(ctrl.departure)">
+							</div>
+							<div class="form-group col-sm-5">
+								<label class="text-white" >Return</label>
+								<input type="date" name="bday"
+									max="2050-12-31" class="form-control"
+									style="cursor: pointer;" id="dateReturn"
+									ng-model="ctrl.returnDate">
+							</div>
+							<div class="form-group col-sm-2">
+								<label class="text-white">Persons</label>
+								<select class="form-control custom-select" 
+									style="cursor: pointer;"
+									ng-model="ctrl.persons"
+									ng-init="ctrl.persons = '2'">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<button type="button" class="btn btn-success" 
+						style="color: #333333; cursor: pointer;"
 						ng-click="ctrl.createCookieOfSearchDataAndRedirect()">
-						Search
+						<Strong>Search</Strong>
 					</button>
 				</div>
 			</div>
@@ -118,7 +128,7 @@
 			<div class="col-md-8">
 				<ul class="list-group list-group-horizontal" style="height: 100%;">
 					<li class="list-group-item w-100">
-						<div class="">
+						<div>
 							<div class="items col-12 clearfix">
 								<div class="info-block block-info clearfix">
 									<div class="square-box">
@@ -146,7 +156,7 @@
 							</div>
 						</div>
 					</li>
-					<li class="list-group-item-dark p-2" style="width: 40%">
+					<li class="list-group-item-dark p-2" style="width: 50%; min-width: 140px;">
 						<div ng-if="!hotel.isRoomNull" class="h-100 m-2" style="position: relative;">
 							<div class="h-50">
 								<div class="row m-0 w-100 flex-row-reverse">
@@ -182,10 +192,10 @@
 									</div>
 								</div>
 								<div class="row m-0 align-text-bottom">
-									<a class="btn btn-primary m-3 w-75" 
+									<a class="btn btn-primary mb-3 w-100" 
 										ng-href="#!/search-result/details/{{hotel.id}}" 
 										title="Details"
-										style="position: absolute; bottom: 0; left: 5%;">
+										style="position: absolute; bottom: 0;">
 										Details
 									</a>
 								</div>
@@ -212,20 +222,6 @@
 	<div ng-show="ctrl.searchDataLoaded">
 		<nav aria-label="Page navigation">
 			<ul class="pagination pagination-v1 justify-content-center">
-				<li class="page-item">
-					<a ng-click="ctrl.firstPage()" 
-						ng-class="{ 'disabled': ctrl.disableFirstPage }" 
-						class="page-link" href="" tabindex="-1">
-						<i class="fa fa-angle-double-left"></i>
-					</a>
-				</li>
-				<li class="page-item">
-					<a ng-click="ctrl.previousPage()" 
-						ng-class="{ 'disabled': ctrl.disablePreviousPage }" 
-						class="page-link" href="" tabindex="-1">
-						<i class="fa fa-angle-left"></i>
-					</a>
-				</li>
 				<li class="page-item">
 					<a ng-click="ctrl.loadPage(ctrl.numButton - 2)" 
 						class="page-link" id="firstButton" href="">
@@ -254,6 +250,22 @@
 					<a ng-click="ctrl.loadPage(ctrl.numButton + 2)" 
 						class="page-link" id="fifthButton" href="">
 						{{ctrl.numButton + 2}}
+					</a>
+				</li>
+			</ul>
+			<ul class="pagination pagination-v1 justify-content-center">
+				<li class="page-item">
+					<a ng-click="ctrl.firstPage()" 
+						ng-class="{ 'disabled': ctrl.disableFirstPage }" 
+						class="page-link" href="" tabindex="-1">
+						<i class="fa fa-angle-double-left"></i>
+					</a>
+				</li>
+				<li class="page-item">
+					<a ng-click="ctrl.previousPage()" 
+						ng-class="{ 'disabled': ctrl.disablePreviousPage }" 
+						class="page-link" href="" tabindex="-1">
+						<i class="fa fa-angle-left"></i>
 					</a>
 				</li>
 				<li class="page-item">

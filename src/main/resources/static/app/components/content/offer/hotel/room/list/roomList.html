@@ -1,14 +1,17 @@
 <div class="container min-cont-700">
 	<div ng-if="ctrl.msg">
 		<div class="row justify-content-center">
-			<div class="col info-box rounded col-6 bg-light p-2 m-2">
-				<div class="row ">
-					<div class="col-12 col-sm-2 d-flex justify-content-center 
-						align-items-center display-4 text-danger">
+			<div class="col-8 info-box rounded bg-light p-2 m-2">
+				<div class="row">
+					<div class="col-12 d-flex justify-content-center 
+							align-items-center display-4 text-danger text-center">
 						<i class="fa fa-info-circle"></i>
 					</div>
-					<div class="col-12 col-sm-10">
-						<p class="err-msg">{{ctrl.msg}}
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<p class="err-msg m-2 text-center">
+							{{ctrl.msg}}
 						</p>
 					</div>
 				</div>
@@ -27,7 +30,9 @@
 					<input type="text" class="form-control" id="searchInput"
 						placeholder="Category" ng-model="roomCategoryName">
 					<button class="btn btn-primary mx-1"
-						ng-click="ctrl.search(roomCategoryName)">Search</button>
+						ng-click="ctrl.search(roomCategoryName)">
+						Search
+					</button>
 				</div>
 			</div>
 		</div>
@@ -36,14 +41,14 @@
 		<div class="row no-gutters">
 			<div class="col-md-4 text-center bg-secondary">
 				<img ng-src="data:image/jpeg;base64,{{room.imgSrc}}"
-					class="card-img img-fluid imageListResult" alt="...">
+					class="card-img img-fluid imageListResult" alt="image">
 			</div>
 			<div class="col-md-8">
 				<ul class="list-group list-group-horizontal" style="height: 100%;">
 					<li class="list-group-item w-100">
-						<div class="card-body">
-							<div class="items col-12 clearfix">
-								<div class="info-block block-info clearfix">
+						<div class="card-body m-0 p-0">
+							<div class="items col-12 m-0 p-0 clearfix">
+								<div class="info-block block-info clearfix my-2">
 									<div class="square-box">
 										<span class="glyphicon glyphicon-user glyphicon-lg"></span>
 									</div>
@@ -52,23 +57,33 @@
 											ng-if="authenticatedAdmin">
 											#{{room.id}}
 										</div>
-										<div class="w-100 mb-3"></div>
+										<div class="w-100 mb-2"></div>
 										<div class="col text-size-16">
 											Number Of Single Beds:
-											<strong>{{room.numberOfSingleBeds}}</strong>
 										</div>
 										<div class="col text-size-16">
 											Number Of Double Beds:
-											<strong>{{room.numberOfDoubleBeds}}</strong>
 										</div>
-										<div class="w-100 mb-3"></div>
+										<div class="w-100"></div>
+										<div class="col text-size-16 ml-3">
+											<strong> - {{room.numberOfSingleBeds}}</strong>
+										</div>
+										<div class="col text-size-16 ml-3">
+											<strong> - {{room.numberOfDoubleBeds}}</strong>
+										</div>
+										<div class="w-100 mb-2"></div>
 										<div class="col text-size-16">
 											Price:
-											<strong>{{room.roomPrice}}</strong>
 										</div>
 										<div class="col text-size-16">
 											Category:
-											<strong>{{room.roomCategory}}</strong>
+										</div>
+										<div class="w-100"></div>
+										<div class="col text-size-16 ml-3">
+											<strong> - {{room.roomPrice}}</strong>
+										</div>
+										<div class="col text-size-16 ml-3">
+											<strong> - {{room.roomCategory}}</strong>
 										</div>
 									</div>
 								</div>
@@ -103,16 +118,16 @@
 		</div>
 	</div>
 	<div class="row">
-		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels/{{ctrl.hotelId}}/rooms-add" 
+		<a class="btn btn-primary m-2 mx-auto" ng-href="#!/admin/hotels/{{ctrl.hotelId}}/rooms-add" 
 			ng-if="authenticatedAdmin">
 			Add new room
 		</a>
-		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/search-result/details/{{ctrl.hotelId}}"
+		<a class="btn btn-primary m-2 mx-auto" ng-href="#!/search-result/details/{{ctrl.hotelId}}"
 			ng-if="ctrl.isSearchUrl">
 			<i class="fas fa-undo-alt"></i>
 			Return
 		</a>
-		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels" 
+		<a class="btn btn-primary m-2 mx-auto" ng-href="#!/admin/hotels" 
 			ng-if="authenticatedAdmin">
 			Hotels
 		</a>

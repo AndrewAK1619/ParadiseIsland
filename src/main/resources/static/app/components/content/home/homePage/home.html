@@ -1,10 +1,10 @@
 <div class="container min-cont-700" style="margin: 5px auto 5px auto;">
-	<div class="jumbotron jumbo-custom">
+	<div class="jumbotron jumbo-custom px-4">
 		<h1 class="text-shadow text-center text-white my-2 pb-5">
 			<strong>Paradise Island</strong>
 		</h1>
 		<div class="row">
-			<div class="card col-sm-8 search-card">
+			<div class="card col-lg-8 col-sm-12 search-card p-0">
 				<div class="card-body">
 					<label class="text-white">Going to</label>
 					<input type="text" name="destination" id="destination" ng-model="ctrl.destination" 
@@ -79,7 +79,7 @@
 					<div class="row pt-3">
 						<div class="col-12">
 							<div class="row">
-								<div class="form-group col-4">
+								<div class="form-group col">
 									<label class="text-white">Departure</label>
 									<input type="date" name="bday" 
 										max="2050-12-31" class="form-control"
@@ -87,14 +87,14 @@
 					        			ng-model="ctrl.departure"
 					        			ng-change="ctrl.setMinReturnDate(ctrl.departure)">
 								</div>
-								<div class="form-group col-4">
+								<div class="form-group col">
 									<label class="text-white" >Return</label>
 									<input type="date" name="bday"
 										max="2050-12-31" class="form-control"
 										style="cursor: pointer;" id="dateReturn"
 										ng-model="ctrl.returnDate">
 								</div>
-								<div class="form-group col-2">
+								<div class="form-group col-md-3">
 									<label class="text-white">Persons</label>
 									<select class="form-control custom-select" 
 										style="cursor: pointer;"

@@ -8,14 +8,17 @@
 		</div>
 		<div ng-if="ctrl.msgSuccess">
 			<div class="row justify-content-center">
-				<div class="col info-box rounded col-6 bg-light p-2 m-2">
-					<div class="row ">
-						<div class="col-12 col-sm-2 d-flex justify-content-center 
-							align-items-center display-4 text-success">
+				<div class="col-8 info-box rounded bg-light p-2 m-2">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-center 
+							align-items-center display-4 text-success text-center">
 							<i class="fa fa-info-circle"></i>
 						</div>
-						<div class="col-12 col-sm-10">
-							<p class="success-msg">{{ctrl.msgSuccess}}
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<p class="success-msg m-2 text-center">
+								{{ctrl.msgSuccess}}
 							</p>
 						</div>
 					</div>
@@ -24,14 +27,17 @@
 		</div>
 		<div ng-if="ctrl.msg">
 			<div class="row justify-content-center">
-				<div class="col info-box rounded col-6 bg-light p-2 m-2">
-					<div class="row ">
-						<div class="col-12 col-sm-2 d-flex justify-content-center 
-							align-items-center display-4 text-danger">
+				<div class="col-8 info-box rounded bg-light p-2 m-2">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-center 
+ 							align-items-center display-4 text-danger text-center">
 							<i class="fa fa-info-circle"></i>
 						</div>
-						<div class="col-12 col-sm-10">
-							<p class="err-msg">{{ctrl.msg}}
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<p class="err-msg m-2 text-center">
+								{{ctrl.msg}}
 							</p>
 						</div>
 					</div>
@@ -42,13 +48,14 @@
 			<form name="roomForm" class="mx-auto col-10 col-md-8" enctype="multipart/form-data">
 				<p class="mx-auto col-10 col-md-9">Id: {{ctrl.room.id}}</p>
 				<div class="form-group row">
-					<div class="image-area row x-auto col-4 float-left">
-						<img id="imageResult"
-							ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}" alt=""
-							class="img-fluid my-auto rounded shadow-sm mx-auto d-block">
+					<div class="mx-auto mb-5">
+						<div class="image-area row my-auto mx-auto col-md float-left">
+							<img id="imageResult"
+								ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}" alt=""
+								class="img-fluid my-auto rounded shadow-sm mx-auto d-block">
+						</div>
 					</div>
-					<div
-						class="input-group my-auto mx-auto col-7 mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+					<div class="input-group my-auto mx-3 col-md mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
 						<label id="image-label">Main room image:</label>
 						<input type="file" class="form-control border-0" id="upload"
 							ng-change="ctrl.readURL()" ng-model="ctrl.upload"
@@ -193,9 +200,17 @@
 						</button>
 					</div>
 					<div class="row">
-						<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels/{{ctrl.room.hotelId}}/rooms">Rooms</a>
-						<a ng-if="ctrl.room.id" class="btn btn-primary mb-3 mx-auto"
-							ng-href="#!/admin/hotels/{{ctrl.room.hotelId}}/rooms-add">Add another room</a>
+						<div class="mx-auto">
+							<a class="btn btn-primary m-2" ng-href="#!/admin/hotels/{{ctrl.room.hotelId}}/rooms">
+								Rooms
+							</a>
+						</div>
+						<div class="mx-auto">
+							<a ng-if="ctrl.room.id" class="btn btn-primary m-2"
+								ng-href="#!/admin/hotels/{{ctrl.room.hotelId}}/rooms-add">
+								Add another room
+							</a>
+						</div>
 					</div>
 				</div>
 			</form>

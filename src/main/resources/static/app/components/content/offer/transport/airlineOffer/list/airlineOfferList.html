@@ -16,16 +16,16 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-12">
+	<div class="row mx-1">
+		<div class="table-responsive col-12">
 			<table class="table table-hover tableTextWhite">
-				<thead class="test">
+				<thead>
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">Airline Name</th>
 						<th scope="col">Departure</th>
 						<th scope="col">Return</th>
-						<th scope="col">flightPrice</th>
+						<th scope="col">Flight Price</th>
 						<th scope="col" class="text-center">Action</th>
 					</tr>
 				</thead>
@@ -36,7 +36,7 @@
 						<td>{{airlineOffer.departure | date:'dd-MM-yyyy / HH:mm'}}</td>
 						<td>{{airlineOffer.returnTrip | date:'dd-MM-yyyy / HH:mm'}}</td>
 						<td>{{airlineOffer.flightPrice}}</td>
-						<td class="text-center">
+						<td class="text-center" style="min-width: 130px;">
 							<button class="btn btn-sm btn-success mb-3" title="Choose this airline offer"
 								ng-click="ctrl.setAirlineOffer(airlineOffer)">
 								<a ng-href="" class="text-white">
@@ -49,8 +49,8 @@
 			</table>
 		</div>
 	</div>
-		<div class="row">
-		<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/search-result/details/{{ctrl.hotelId}}">
+		<div class="row m-2">
+		<a class="btn btn-primary" ng-href="#!/search-result/details/{{ctrl.hotelId}}">
 			<i class="fas fa-undo-alt"></i>
 			Return
 		</a>

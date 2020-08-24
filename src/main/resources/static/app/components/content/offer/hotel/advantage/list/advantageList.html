@@ -2,14 +2,17 @@
 	<div ng-if="authenticatedAdmin">
 		<div ng-if="ctrl.msg">
 			<div class="row justify-content-center">
-				<div class="col info-box rounded col-6 bg-light p-2 m-2">
-					<div class="row ">
-						<div class="col-12 col-sm-2 d-flex justify-content-center 
-							align-items-center display-4 text-danger">
+				<div class="col-8 info-box rounded bg-light p-2 m-2">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-center 
+ 							align-items-center display-4 text-danger text-center">
 							<i class="fa fa-info-circle"></i>
 						</div>
-						<div class="col-12 col-sm-10">
-							<p class="err-msg">{{ctrl.msg}}
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<p class="err-msg m-2 text-center">
+								{{ctrl.msg}}
 							</p>
 						</div>
 					</div>
@@ -17,14 +20,14 @@
 			</div>
 		</div>
 		<div class="row justify-content-center">
-			<div class="row text-white py-3">
-				<h1>Hotel Advantages List</h1>
+			<div class="row text-center text-white py-3">
+				<h2>Hotel Advantages List</h2>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-12">
+		<div class="row mx-1">
+			<div class="table-responsive col-12">
 				<table class="table table-hover tableTextWhite">
-					<thead class="test">
+					<thead>
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">Description</th>
@@ -35,7 +38,7 @@
 						<tr ng-repeat="advantage in ctrl.advantages">
 							<th scope="row">{{advantage.id}}</th>
 							<td>{{advantage.descriptionAdvantage}}</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 130px;">
 								<button class="btn btn-sm btn-primary" title="Edit"
 									ng-click="ctrl.redirectToAdvantagesEdit(advantage.id)">
 									<a ng-href="" class="text-white">
@@ -54,14 +57,18 @@
 			</div>
 		</div>
 		<div class="row">
-			<a class="btn btn-primary mb-3 mx-auto"
-				ng-href="#!/admin/hotels/{{ ctrl.hotelId }}/advantages-add">
-				Add new advantage
-			</a>
-			<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels" 
-				ng-if="authenticatedAdmin">
-				Hotels
-			</a>
+			<div class="mx-auto">
+				<a class="btn btn-primary m-2"
+					ng-href="#!/admin/hotels/{{ ctrl.hotelId }}/advantages-add">
+					Add new advantage
+				</a>
+			</div>
+			<div class="mx-auto">
+				<a class="btn btn-primary m-2" ng-href="#!/admin/hotels" 
+					ng-if="authenticatedAdmin">
+					Hotels
+				</a>
+			</div>
 		</div>
 	</div>
 	<div ng-if="!authenticatedAdmin"> 

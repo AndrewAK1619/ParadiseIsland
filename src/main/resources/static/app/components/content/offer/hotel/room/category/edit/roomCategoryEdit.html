@@ -8,14 +8,17 @@
 		</div>
 		<div ng-if="ctrl.msgSuccess">
 			<div class="row justify-content-center">
-				<div class="col info-box rounded col-6 bg-light p-2 m-2">
-					<div class="row ">
-						<div class="col-12 col-sm-2 d-flex justify-content-center 
-							align-items-center display-4 text-success">
+				<div class="col-8 info-box rounded bg-light p-2 m-2">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-center 
+							align-items-center display-4 text-success text-center">
 							<i class="fa fa-info-circle"></i>
 						</div>
-						<div class="col-12 col-sm-10">
-							<p class="success-msg">{{ctrl.msgSuccess}}
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<p class="success-msg m-2 text-center">
+								{{ctrl.msgSuccess}}
 							</p>
 						</div>
 					</div>
@@ -24,14 +27,17 @@
 		</div>
 		<div ng-if="ctrl.msg">
 			<div class="row justify-content-center">
-				<div class="col info-box rounded col-6 bg-light p-2 m-2">
-					<div class="row ">
-						<div class="col-12 col-sm-2 d-flex justify-content-center 
-							align-items-center display-4 text-danger">
+				<div class="col-8 info-box rounded bg-light p-2 m-2">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-center 
+ 							align-items-center display-4 text-danger text-center">
 							<i class="fa fa-info-circle"></i>
 						</div>
-						<div class="col-12 col-sm-10">
-							<p class="err-msg">{{ctrl.msg}}
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<p class="err-msg m-2 text-center">
+								{{ctrl.msg}}
 							</p>
 						</div>
 					</div>
@@ -39,7 +45,7 @@
 			</div>
 		</div>
 		<div class="row tableTextWhite">
-			<form name="roomCategoryForm" class="mx-auto col-6">
+			<form name="roomCategoryForm" class="mx-auto col-8">
 				<p>Id: {{ctrl.roomCategory.id}}</p>
 				<div class="form-group">
 					<label for="firstNameInput">Name:</label>
@@ -76,13 +82,21 @@
 						Update
 					</button>
 				</div>
-				<div class="row">
-					<a class="btn btn-primary mb-3 mx-auto"
-						ng-href="#!/admin/hotels/rooms/categories">Categories</a>
-					<a ng-if="ctrl.roomCategory.id" class="btn btn-primary mb-3 mx-auto"
-						ng-href="#!/admin/hotels/rooms/categories-add">Add another category</a>
-				</div>
 			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="mx-auto">
+			<a class="btn btn-primary m-2"
+				ng-href="#!/admin/hotels/rooms/categories">
+				Categories
+			</a>
+		</div>
+		<div class="mx-auto">
+			<a ng-if="ctrl.roomCategory.id" class="btn btn-primary m-2"
+				ng-href="#!/admin/hotels/rooms/categories-add">
+				Add another category
+			</a>
 		</div>
 	</div>
 	<div ng-if="!authenticatedAdmin"> 

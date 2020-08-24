@@ -42,13 +42,14 @@
 			<form name="hotelForm" class="mx-auto col-10 col-md-8" enctype="multipart/form-data">
 				<p class="mx-auto col-10 col-md-9">Id: {{ctrl.hotel.id}}</p>
 				<div class="form-group row">
-					<div class="image-area row x-auto col-4 float-left">
-						<img id="imageResult"
-							ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}" alt=""
-							class="img-fluid my-auto rounded shadow-sm mx-auto d-block">
+					<div class="mx-auto mb-5">
+						<div class="image-area row my-auto mx-auto col-md float-left">
+							<img id="imageResult"
+								ng-src="data:image/jpeg;base64,{{ctrl.imgSrc}}" alt=""
+								class="img-fluid my-auto rounded shadow-sm mx-auto d-block">
+						</div>
 					</div>
-					<div
-						class="input-group my-auto mx-auto col-7 mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+					<div class="input-group my-auto mx-3 col-md mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
 						<label id="image-label">Main hotel image:</label>
 						<input type="file" class="form-control border-0" id="upload"
 							ng-change="ctrl.readURL()" ng-model="ctrl.upload"
@@ -196,9 +197,17 @@
 						</button>
 					</div>
 					<div class="row">
-						<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/admin/hotels">Hotels</a>
-						<a ng-if="ctrl.hotel.id" class="btn btn-primary mb-3 mx-auto"
-							ng-href="#!/admin/hotels-add">Add another hotel</a>
+						<div class="mx-auto">
+							<a class="btn btn-primary m-2" ng-href="#!/admin/hotels">
+								Hotels
+							</a>
+						</div>
+						<div class="mx-auto">
+							<a ng-if="ctrl.hotel.id" class="btn btn-primary m-2"
+								ng-href="#!/admin/hotels-add">
+								Add another hotel
+							</a>
+						</div>
 					</div>
 				</div>
 			</form>

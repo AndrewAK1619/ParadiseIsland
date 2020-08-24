@@ -80,31 +80,32 @@
 									</a>
 								</div>
 								<div class="row m-0">
-									<div class="col-md-2 p-0">
-										Double Beds
+									<div class="col">
+										Double Beds:
 									</div>
-									<div class="col-md-4 p-0 ml-1">
-										{{ctrl.room.numberOfDoubleBeds}}
-									</div>
-									<div class="col-md-2 p-0">	
+									<div class="col">
 										Single Beds:
 									</div>
-									<div class="col-md-3 p-0 ml-1">		
-										{{ctrl.room.numberOfSingleBeds}}
+									<div class="w-100"></div>
+									<div class="col ml-3">
+										<strong> - {{ctrl.room.numberOfDoubleBeds}}</strong>
 									</div>
-								</div>
-								<div class="row m-0 pt-2">
-									<div class="col-md-2 p-0">
+									<div class="col ml-3">
+										<strong> - {{ctrl.room.numberOfSingleBeds}}</strong>
+									</div>
+									<div class="w-100 mb-2"></div>
+									<div class="col">
 										Category:
 									</div>
-									<div class="col-md-4 p-0 ml-1">
-										{{ctrl.room.roomCategory}}
-									</div>
-									<div class="col-md-2 p-0">	
+									<div class="col">
 										Price:
 									</div>
-									<div class="col-md-3 p-0 ml-1">		
-										{{ctrl.room.roomPrice}} eur / pp
+									<div class="w-100"></div>
+									<div class="col ml-3">
+										<strong> - {{ctrl.room.roomCategory}}</strong>
+									</div>
+									<div class="col ml-3">
+										<strong> - {{ctrl.room.roomPrice}} eur / pp</strong>
 									</div>
 								</div>
 							</div>
@@ -122,28 +123,33 @@
 									</a>
 								</div>
 								<div class="mb-2 font-weight-bold">
-									{{ctrl.airlineOffer.ariline.airlineName}}
+									{{ctrl.airlineOffer.airlineName}}
 								</div>
-								<div class="row m-0 pb-2">
-									<div class="col-md-2 p-0">	
+								<div class="row m-0">
+									<div class="col">
 										Departure:
 									</div>
-									<div class="col-md-4 p-0 ml-1">
-										{{ctrl.airlineOffer.departure | date:'dd-MM-yyyy / HH:mm'}}
-									</div>
-									<div class="col-md-2 p-0">	
+									<div class="col">
 										Return:
 									</div>
-									<div class="col-md-3 p-0 ml-1">
-										{{ctrl.airlineOffer.returnTrip | date:'dd-MM-yyyy / HH:mm'}}
+									<div class="w-100"></div>
+									<div class="col ml-3">
+										<strong>{{ctrl.airlineOffer.departure | date:'dd-MM-yyyy'}}</strong>
+										<br/>
+										<strong>{{ctrl.airlineOffer.departure | date:'HH:mm'}}</strong>
 									</div>
-								</div>
-								<div class="row m-0 pb-2">
-									<div class="col-md-2 p-0">	
+									<div class="col ml-3">
+										<strong>{{ctrl.airlineOffer.returnTrip | date:'dd-MM-yyyy'}}</strong>
+										<br/>
+										<strong>{{ctrl.airlineOffer.returnTrip | date:'HH:mm'}}</strong>
+									</div>
+									<div class="w-100 mb-2"></div>
+									<div class="col">
 										Price:
 									</div>
-									<div class="col-md-4 p-0 ml-1">
-										{{ctrl.airlineOffer.flightPrice}} eur
+									<div class="w-100"></div>
+									<div class="col ml-3">
+										<strong> - {{ctrl.airlineOffer.flightPrice}} eur</strong>
 									</div>
 								</div>
 							</div>

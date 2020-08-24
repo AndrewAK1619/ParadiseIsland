@@ -5,8 +5,8 @@
 				<strong>Reservations</strong>
 			</h1>
 		</div>
-		<div class="row">
-			<div class="col-12">
+		<div class="row mx-1">
+			<div class="table-responsive col-12">
 				<table class="table table-hover tableTextWhite">
 					<thead class="test">
 						<tr>
@@ -25,7 +25,7 @@
 							<td>{{reservation.departureDate | date:'dd-MM-yyyy'}}</td>
 							<td>{{reservation.returnDate | date:'dd-MM-yyyy'}}</td>
 							<td>{{reservation.totalPrice}} eur</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 130px;">
 								<div ng-if="!ctrl.isAdminData">
 									<a class="btn btn-success mx-auto" 
 										ng-href="#!/account/profile/reservations/details/{{reservation.id}}">
@@ -44,7 +44,7 @@
 				</table>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row m-3">
 			<div ng-if="!ctrl.isAdminData">
 				<a class="btn btn-primary mb-3 mx-auto" ng-href="#!/account/profile">
 					Profile settings
