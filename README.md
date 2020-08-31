@@ -4,7 +4,7 @@
 
 ### Run
 
-Application deployed on VPN by this [link](www.paradiseisland.com.pl)  
+Application deployed on VPN by this [link](https://www.paradiseisland.com.pl)  
 Check admin panel - login: admin@example.com, password: admin  
 Check user panel - login: user@example.com, password: user  
 
@@ -32,6 +32,7 @@ Check user panel - login: user@example.com, password: user
 ### Todos
 
  - Write Tests
+ - Code refactoring
 
    [Java]: <https://www.java.com>
    [Spring Boot]: <https://spring.io/projects/spring-boot>
