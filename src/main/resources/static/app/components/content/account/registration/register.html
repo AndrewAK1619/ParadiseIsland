@@ -108,7 +108,8 @@
 									ng-model="ctrl.userRegister.email" name="email"
 									ng-class="{validErrBorder: registForm.email.$dirty 
 									&& registForm.email.$invalid}"
-									required>
+									ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" 
+									noncapitalize required>
 								<small>
 									<span class="form-text valid-err-text" 
 										ng-show="registForm.email.$dirty 
@@ -116,7 +117,7 @@
 										<span ng-show="registForm.email.$error.required">
 											Email is required.
 										</span>
-										<span ng-show="registForm.email.$error.email">
+										<span ng-show="registForm.email">
 											Invalid email address.
 										</span>
 									</span>
