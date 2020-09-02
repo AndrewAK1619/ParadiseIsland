@@ -70,6 +70,7 @@ angular.module('app')
 	
 	const setEmailToInput = result => {
 		vm.userEmail = result[0];
+		vm.userEmailBeforeChanged = result[0];
 	}
 	const userEmail = UserService.getUserEmail();
 	userEmail.$promise.then(setEmailToInput);
@@ -81,8 +82,17 @@ angular.module('app')
 		vm.msgEmail = `${err.data.message}`;
 	};
 	
+	const checkNonRemovableAccountsEmail = () => {
+		if(vm.userEmailBeforeChanged === "admin@example.com" || vm.userEmailBeforeChanged === "user@example.com") {
+			vm.msgEmail = 'You cannot change this user\'s (\'admin@example.com\' and \'user@example.com\''
+					+ ' modifications or delete are not possible)';
+			throw new Exception();
+		}
+	};
+	
 	vm.changeEmail = () => {
 		vm.msgEmail = null;
+		checkNonRemovableAccountsEmail();
 		UserService.saveUserEmail(vm.userEmail)
 			.$promise
 			.then(saveCallbackEmail)
@@ -96,8 +106,17 @@ angular.module('app')
 		vm.msgPassword = `${err.data.message}`;
 	};
 	
+	const checkNonRemovableAccountsPassword = () => {
+		if(vm.userEmailBeforeChanged === "admin@example.com" || vm.userEmailBeforeChanged === "user@example.com") {
+			vm.msgPassword = 'You cannot change this user\'s (\'admin@example.com\' and \'user@example.com\''
+					+ ' modifications or delete are not possible)';
+			throw new Exception();
+		}
+	};
+	
 	vm.changePassword = () => {
 		vm.msgPassword = null;
+		checkNonRemovableAccountsPassword();
 		
 		const formData = new FormData();
 		formData.append('oldPassword', vm.oldPassword);

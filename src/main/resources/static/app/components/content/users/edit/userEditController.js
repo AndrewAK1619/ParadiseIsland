@@ -86,8 +86,17 @@ angular.module('app')
 		}
 	}
 	
+	const checkNonRemovableAccounts = () => {
+		if(vm.user.email === "admin@example.com" || vm.user.email === "user@example.com") {
+			vm.msg = 'You cannot change this user\'s (\'admin@example.com\' and \'user@example.com\''
+					+ ' modifications or delete are not possible)';
+			throw new Exception();
+		}
+	};
+	
 	vm.updateUser = () => {
 		setNull();
+		checkNonRemovableAccounts();
 		UserService.update(vm.user)
 			.then(updateCallback)
 			.catch(errorCallback);

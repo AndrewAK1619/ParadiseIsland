@@ -48,8 +48,17 @@ angular.module('app')
 	const errorCallback = err => {
 		vm.msg=`${err.data.message}`;
 	};
-
+	
+	const checkNonRemovableAccounts = () => {
+		if(vm.user.email === "admin@example.com" || vm.user.email === "user@example.com") {
+			vm.msg = 'You cannot change this user\'s (\'admin@example.com\' and \'user@example.com\''
+					+ ' modifications or delete are not possible)';
+			throw new Exception();
+		}
+	};
+	
 	vm.saveUser = () => {
+		checkNonRemovableAccounts();
 		UserService.updateUserDetails(vm.user)
 			.$promise
 			.then(saveCallback)
