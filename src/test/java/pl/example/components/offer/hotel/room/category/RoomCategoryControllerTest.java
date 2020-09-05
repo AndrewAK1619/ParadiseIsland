@@ -1,4 +1,4 @@
-package pl.example.components.offer.transport.airline;
+package pl.example.components.offer.hotel.room.category;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,97 +28,89 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.example.components.security.CustomUserDetailsService;
 import pl.example.components.security.jwt.util.JwtUtil;
 
-@WebMvcTest(AirlineController.class)
+@WebMvcTest(RoomCategoryController.class)
 @WithMockUser(username = "admin", roles = { "ADMIN" })
-class AirlineControllerTest {
+class RoomCategoryControllerTest {
 
 	@Autowired
-	private AirlineController airlineController;
+	private RoomCategoryController roomCategoryController;
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
-	private AirlineService airlineService;
+	private RoomCategoryService roomCategoryService;
 
 	@MockBean
 	private CustomUserDetailsService customUserDetailsService;
 
 	@MockBean
 	private JwtUtil jwtUtil;
-	
-	private AirlineDto airlineDto;
+
+	private RoomCategoryDto roomCategoryDto;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		airlineDto = new AirlineDto();
-		airlineDto.setAirlineName("Airline Flight");
-		airlineDto.setDetails("Best Airline");
+		roomCategoryDto = new RoomCategoryDto();
+		roomCategoryDto.setName("Exclusive");
 	}
 
 	@Test
 	void findAllTest() throws Exception {
-		AirlineDto airlineDtoNumberTwo = new AirlineDto();
-		airlineDtoNumberTwo.setAirlineName("Flight Developer Airline");
-		airlineDtoNumberTwo.setDetails("Best IT Airline");
+		RoomCategoryDto roomCategoryDtoTwo = new RoomCategoryDto();
+		roomCategoryDtoTwo.setName("Standard");
 
-		List<AirlineDto> airlineDtoList = new ArrayList<>();
-		airlineDtoList.add(airlineDto);
-		airlineDtoList.add(airlineDtoNumberTwo);
+		List<RoomCategoryDto> roomCategoryDtoList = new ArrayList<>();
+		roomCategoryDtoList.add(roomCategoryDto);
+		roomCategoryDtoList.add(roomCategoryDtoTwo);
 
-		when(airlineService.findAll()).thenReturn(airlineDtoList);
+		when(roomCategoryService.findAll()).thenReturn(roomCategoryDtoList);
 
-		mockMvc.perform(get("/admin/airlines"))
-				.andDo(print())
-				.andExpect(jsonPath("$[0].airlineName").value("Airline Flight"))
-				.andExpect(jsonPath("$[0].details").value("Best Airline"))
-				.andExpect(jsonPath("$[1].airlineName").value("Flight Developer Airline"))
-				.andExpect(jsonPath("$[1].details").value("Best IT Airline"))
+		mockMvc.perform(get("/admin/hotels/rooms/categories"))
+				.andExpect(jsonPath("$[0].name").value("Exclusive"))
+				.andExpect(jsonPath("$[1].name").value("Standard"))
 				.andExpect(status().isOk());
 	}
 
 	@Test
 	void saveTest() throws Exception {
-		when(airlineService.save(any(AirlineDto.class))).thenReturn(airlineDto);
+		when(roomCategoryService.save(any(RoomCategoryDto.class))).thenReturn(roomCategoryDto);
 
-		mockMvc.perform(post("/admin/airlines")
-				.content(new ObjectMapper().writeValueAsString(airlineDto))
+		mockMvc.perform(post("/admin/hotels/rooms/categories")
+				.content(new ObjectMapper().writeValueAsString(roomCategoryDto))
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.airlineName").value("Airline Flight"))
-				.andExpect(jsonPath("$.details").value("Best Airline"))
+				.andExpect(jsonPath("$.name").value("Exclusive"))
 				.andExpect(status().isCreated());
 	}
 
 	@Test
 	void findByIdTest() throws Exception {
-		airlineDto.setId(12L);
-		Optional<AirlineDto> airlineDtoOpt = Optional.of(airlineDto);
-		when(airlineService.findById(anyLong())).thenReturn(airlineDtoOpt);
+		roomCategoryDto.setId(12L);
+		Optional<RoomCategoryDto> roomCategoryDtoOpt = Optional.of(roomCategoryDto);
+		when(roomCategoryService.findById(anyLong())).thenReturn(roomCategoryDtoOpt);
 
-		mockMvc.perform(get("/admin/airlines/12"))
+		mockMvc.perform(get("/admin/hotels/rooms/categories/12"))
 				.andExpect(jsonPath("$.id").value("12"))
-				.andExpect(jsonPath("$.airlineName").value("Airline Flight"))
-				.andExpect(jsonPath("$.details").value("Best Airline"))
+				.andExpect(jsonPath("$.name").value("Exclusive"))
 				.andExpect(status().isOk());
 	}
 
 	@Test
 	void updateTest() throws Exception {
-		airlineDto.setId(12L);
-		when(airlineService.update(any(AirlineDto.class))).thenReturn(airlineDto);
+		roomCategoryDto.setId(12L);
+		when(roomCategoryService.update(any(RoomCategoryDto.class))).thenReturn(roomCategoryDto);
 
-		mockMvc.perform(put("/admin/airlines/12")
-				.content(new ObjectMapper().writeValueAsString(airlineDto))
+		mockMvc.perform(put("/admin/hotels/rooms/categories/12")
+				.content(new ObjectMapper().writeValueAsString(roomCategoryDto))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id").value("12"))
-				.andExpect(jsonPath("$.airlineName").value("Airline Flight"))
-				.andExpect(jsonPath("$.details").value("Best Airline"))
+				.andExpect(jsonPath("$.name").value("Exclusive"))
 				.andExpect(status().isOk());
 	}
 
 	@Test
 	void deleteTest() throws Exception {
-		mockMvc.perform(delete("/admin/airlines/12"))
+		mockMvc.perform(delete("/admin/hotels/rooms/categories/12"))
 				.andExpect(status().isOk());
 	}
 }

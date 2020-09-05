@@ -85,9 +85,15 @@ angular.module('app')
 			vm.msgSuccess = 'Changes saved';
 		}
 	}
-	
+
+	const setUserEmail = result => {
+		vm.userEmail = result[0];
+	}
+	const userEmailPromise = UserService.getUserEmail();
+	userEmailPromise.$promise.then(setUserEmail);
+
 	const checkNonRemovableAccounts = () => {
-		if(vm.user.email === "admin@example.com" || vm.user.email === "user@example.com") {
+		if(vm.userEmail === "admin@example.com" || vm.userEmail === "user@example.com") {
 			vm.msg = 'You cannot change this user\'s (\'admin@example.com\' and \'user@example.com\''
 					+ ' modifications or delete are not possible)';
 			throw new Exception();

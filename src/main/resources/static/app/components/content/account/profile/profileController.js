@@ -70,7 +70,6 @@ angular.module('app')
 	
 	const setEmailToInput = result => {
 		vm.userEmail = result[0];
-		vm.userEmailBeforeChanged = result[0];
 	}
 	const userEmail = UserService.getUserEmail();
 	userEmail.$promise.then(setEmailToInput);
@@ -83,7 +82,7 @@ angular.module('app')
 	};
 	
 	const checkNonRemovableAccountsEmail = () => {
-		if(vm.userEmailBeforeChanged === "admin@example.com" || vm.userEmailBeforeChanged === "user@example.com") {
+		if(userEmail === "admin@example.com" || userEmail === "user@example.com") {
 			vm.msgEmail = 'You cannot change this user\'s (\'admin@example.com\' and \'user@example.com\''
 					+ ' modifications or delete are not possible)';
 			throw new Exception();
